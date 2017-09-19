@@ -4,7 +4,8 @@ import com.kukuruznyak.bettingcompany.entity.enums.UserRole;
 
 import java.util.Calendar;
 
-public class User {
+public abstract class User {
+    protected int id;
     protected UserRole userRole;
     protected String firstName;
     protected String lastName;
@@ -14,6 +15,13 @@ public class User {
     protected String securityNumber;
     protected Calendar dateOfRegistration;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public UserRole getUserRole() {
         return userRole;

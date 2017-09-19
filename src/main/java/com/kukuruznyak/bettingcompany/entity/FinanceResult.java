@@ -6,6 +6,7 @@ public class FinanceResult {
     private BigDecimal turnover;
     private BigDecimal profit;
     private double percentageOfProfit;
+    private long numberOfBets;
 
     public BigDecimal getTurnover() {
         return turnover;
@@ -27,6 +28,14 @@ public class FinanceResult {
 
     public double getPercentageOfProfit() {
         return percentageOfProfit;
+    }
+
+    public long getNumberOfBets() {
+        return numberOfBets;
+    }
+
+    public void setNumberOfBets(long numberOfBets) {
+        this.numberOfBets = numberOfBets;
     }
 
     private void recalculatePercentage() {

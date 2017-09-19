@@ -35,7 +35,7 @@
 <div class="container">
 
     <div>
-        <c:import url="pages/administrator/home.jsp"/>
+        <c:import url="pages/risk-controller/clienEdit.jsp"/>
     </div>
 </div>
 <footer>

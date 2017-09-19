@@ -1,5 +1,6 @@
 package com.kukuruznyak.bettingcompany.entity.event;
 
+import com.kukuruznyak.bettingcompany.entity.Bet;
 import com.kukuruznyak.bettingcompany.entity.FinanceResult;
 import com.kukuruznyak.bettingcompany.entity.enums.EventStatus;
 import com.kukuruznyak.bettingcompany.entity.event.market.Market;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 public class Event {
     private long id;
+    private Calendar openDateAndTime;
     private Calendar startDateAndTime;
     private String country;
     private String tournament;
@@ -18,11 +20,12 @@ public class Event {
     private Set<Market> markets;
     private EventStatus status;
     private User bookmaker;
-    private String result;
+    private String score;
     private double margin;
     private double maxWin;
     private boolean isSuspended;
     private FinanceResult financeResult;
+    private Set<Bet> bets;
 
     public Event() {
         this.participants = new HashSet<Participant>();
@@ -37,6 +40,14 @@ public class Event {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Calendar getOpenDateAndTime() {
+        return openDateAndTime;
+    }
+
+    public void setOpenDateAndTime(Calendar openDateAndTime) {
+        this.openDateAndTime = openDateAndTime;
     }
 
     public Calendar getStartDateAndTime() {
@@ -68,6 +79,9 @@ public class Event {
     }
 
     public void addParticipant(Participant participant) {
+        if (this.participants == null) {
+            this.participants = new HashSet<Participant>();
+        }
         this.participants.add(participant);
     }
 
@@ -95,12 +109,12 @@ public class Event {
         this.bookmaker = bookmaker;
     }
 
-    public String getResult() {
-        return result;
+    public String getScore() {
+        return score;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setScore(String score) {
+        this.score = score;
     }
 
     public double getMargin() {
@@ -125,5 +139,23 @@ public class Event {
 
     public void setSuspended(boolean suspended) {
         isSuspended = suspended;
+    }
+
+    public FinanceResult getFinanceResult() {
+        if (this.financeResult == null) {
+            this.financeResult = new FinanceResult();
+        }
+        return financeResult;
+    }
+
+    public void addBet(Bet bet) {
+        if (this.bets == null) {
+            this.bets = new HashSet<Bet>();
+        }
+        this.bets.add(bet);
+    }
+
+    public Set<Bet> getBets() {
+        return bets;
     }
 }

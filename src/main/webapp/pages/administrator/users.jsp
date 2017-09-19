@@ -20,10 +20,13 @@
                 <th>Email</th>
                 <th>Login</th>
                 <th>Date of the registration</th>
+                <th>Info</th>
+                <th>Edit</th>
+                <th>Remove</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${staff}" var="user" varStatus="status">
+            <c:forEach items="${staff}" var="user">
                 <tr>
                     <td>${user.userRole}</td>
                     <td>${user.firstName}</td>
@@ -33,13 +36,13 @@
                     <td>${user.dateOfRegistration}</td>
                     <td>
                         <a class="btn btn-info"
-                           href="${pageContext.request.contextPath}/user/info/${user.login}">
+                           href="${pageContext.request.contextPath}/user/info/${user.id}">
                             <div class="glyphicon glyphicon-info-sign"></div>
                         </a>
                     </td>
                     <td>
                         <a class="btn btn-success"
-                           href="${pageContext.request.contextPath}/user/edit/${user.login}">
+                           href="${pageContext.request.contextPath}/user/edit/${user.id}">
                             <div class="glyphicon glyphicon-pencil"></div>
                         </a>
                     </td>
