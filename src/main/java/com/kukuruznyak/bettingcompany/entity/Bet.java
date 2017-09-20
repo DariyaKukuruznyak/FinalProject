@@ -8,8 +8,7 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class Bet {
-    private long id;
+public class Bet extends Model{
     private User client;
     private BigDecimal sumIn;
     private BigDecimal sumOut;
@@ -17,14 +16,6 @@ public class Bet {
     private ResultOfBet result;
     private List<Outcome> outcomes;
     private String description;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public User getClient() {
         return client;

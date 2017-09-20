@@ -1,13 +1,14 @@
 package com.kukuruznyak.bettingcompany.entity.company;
 
 import com.kukuruznyak.bettingcompany.entity.FinanceResult;
+import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Company {
+public class Company extends Model {
     private String name;
     private Set<User> staff;
     private Set<User> clients;

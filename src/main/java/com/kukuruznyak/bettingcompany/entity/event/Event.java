@@ -2,6 +2,7 @@ package com.kukuruznyak.bettingcompany.entity.event;
 
 import com.kukuruznyak.bettingcompany.entity.Bet;
 import com.kukuruznyak.bettingcompany.entity.FinanceResult;
+import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.enums.EventStatus;
 import com.kukuruznyak.bettingcompany.entity.event.market.Market;
 import com.kukuruznyak.bettingcompany.entity.user.User;
@@ -10,8 +11,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Event {
-    private long id;
+public class Event extends Model {
     private Calendar openDateAndTime;
     private Calendar startDateAndTime;
     private String country;
@@ -32,14 +32,6 @@ public class Event {
         this.markets = new HashSet<Market>();
         this.status = EventStatus.NOT_STARTED;
         this.isSuspended = false;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Calendar getOpenDateAndTime() {

@@ -1,11 +1,11 @@
 package com.kukuruznyak.bettingcompany.entity.event.market;
 
+import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.enums.MarketNames;
 
-import java.util.HashSet;
 import java.util.Set;
 
-public class Market {
+public class Market extends Model {
     private MarketNames name;
     private Set<MarketItem> marketItems;
     private boolean isChangeable = true;

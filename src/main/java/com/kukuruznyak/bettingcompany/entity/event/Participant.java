@@ -1,6 +1,8 @@
 package com.kukuruznyak.bettingcompany.entity.event;
 
-public class Participant {
+import com.kukuruznyak.bettingcompany.entity.Model;
+
+public class Participant extends Model {
     /**
      * unique
      */

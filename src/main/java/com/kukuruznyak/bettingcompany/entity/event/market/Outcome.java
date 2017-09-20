@@ -1,8 +1,9 @@
 package com.kukuruznyak.bettingcompany.entity.event.market;
 
+import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.enums.OutcomeNames;
 
-public abstract class Outcome {
+public abstract class Outcome extends Model {
     private OutcomeNames name;
     private double coefficient;
 

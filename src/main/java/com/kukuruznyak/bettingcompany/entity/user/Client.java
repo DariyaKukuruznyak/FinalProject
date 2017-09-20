@@ -1,7 +1,7 @@
 package com.kukuruznyak.bettingcompany.entity.user;
 
 import com.kukuruznyak.bettingcompany.entity.Bet;
-import com.kukuruznyak.bettingcompany.entity.enums.UserRole;
+import com.kukuruznyak.bettingcompany.entity.enums.EmployeeRole;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -14,7 +14,6 @@ public class Client extends User {
     private String description;
 
     public Client() {
-        this.userRole = UserRole.PLAYER;
     }
 
     public double getMaxBet() {
