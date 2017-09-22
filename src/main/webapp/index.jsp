@@ -35,7 +35,7 @@
 <div class="container">
 
     <div>
-        <c:import url="pages/risk-controller/clienEdit.jsp"/>
+        <c:import url="pages/risk-controller/events.jsp"/>
     </div>
 </div>
 <footer>

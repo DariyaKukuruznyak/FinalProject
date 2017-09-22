@@ -49,7 +49,7 @@ public class EventBuilder {
 
     Event build() {
         Event event = new Event();
-        event.setStartDateAndTime(this.startDateAndTime);
+        event.setBeginningDateAndTime(this.startDateAndTime);
         event.setCountry(this.country);
         event.setTournament(this.tournament);
         event.setBookmaker(this.bookmaker);

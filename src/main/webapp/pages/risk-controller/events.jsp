@@ -36,11 +36,15 @@
             <tbody>
             <c:forEach items="${events}" var="event">
                 <tr>
-                    <td>${event.startDateAndTime}</td>
+                    <td>${event.beginningDateAndTime}</td>
                     <td>${event.country}</td>
                     <td>${event.tournament}</td>
                     <td>${event.status}</td>
-                    <td>${event.bookmaker}</td>
+                    <td>${event.bookmaker} <a class="btn btn-success"
+                                              href="${pageContext.request.contextPath}/event/edit/${event.id}">
+                        <div class="glyphicon glyphicon-pencil"></div>
+                    </a>
+                    </td>
                     <td>${event.score}</td>
                     <td>${event.isSuspended}</td>
                     <td>${event.turnover}</td>

@@ -1,6 +1,5 @@
 package com.kukuruznyak.bettingcompany.entity.event;
 
-import com.kukuruznyak.bettingcompany.entity.Bet;
 import com.kukuruznyak.bettingcompany.entity.FinanceResult;
 import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.enums.EventStatus;
@@ -12,8 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Event extends Model {
-    private Calendar openDateAndTime;
-    private Calendar startDateAndTime;
+    private Calendar creationDateAndTime;
+    private Calendar beginningDateAndTime;
     private String country;
     private String tournament;
     private Set<Participant> participants;
@@ -25,7 +24,6 @@ public class Event extends Model {
     private double maxWin;
     private boolean isSuspended;
     private FinanceResult financeResult;
-    private Set<Bet> bets;
 
     public Event() {
         this.participants = new HashSet<Participant>();
@@ -34,20 +32,20 @@ public class Event extends Model {
         this.isSuspended = false;
     }
 
-    public Calendar getOpenDateAndTime() {
-        return openDateAndTime;
+    public Calendar getCreationDateAndTime() {
+        return creationDateAndTime;
     }
 
-    public void setOpenDateAndTime(Calendar openDateAndTime) {
-        this.openDateAndTime = openDateAndTime;
+    public void setCreationDateAndTime(Calendar creationDateAndTime) {
+        this.creationDateAndTime = creationDateAndTime;
     }
 
-    public Calendar getStartDateAndTime() {
-        return startDateAndTime;
+    public Calendar getBeginningDateAndTime() {
+        return beginningDateAndTime;
     }
 
-    public void setStartDateAndTime(Calendar startDateAndTime) {
-        this.startDateAndTime = startDateAndTime;
+    public void setBeginningDateAndTime(Calendar beginningDateAndTime) {
+        this.beginningDateAndTime = beginningDateAndTime;
     }
 
     public String getCountry() {
@@ -138,16 +136,5 @@ public class Event extends Model {
             this.financeResult = new FinanceResult();
         }
         return financeResult;
-    }
-
-    public void addBet(Bet bet) {
-        if (this.bets == null) {
-            this.bets = new HashSet<Bet>();
-        }
-        this.bets.add(bet);
-    }
-
-    public Set<Bet> getBets() {
-        return bets;
     }
 }

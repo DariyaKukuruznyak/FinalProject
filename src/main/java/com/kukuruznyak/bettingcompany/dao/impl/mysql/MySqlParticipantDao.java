@@ -1,16 +1,24 @@
 package com.kukuruznyak.bettingcompany.dao.impl.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
+import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
 import com.kukuruznyak.bettingcompany.entity.event.Participant;
 
-import java.sql.Connection;
+import javax.sql.DataSource;
 import java.util.List;
 
-public class ParticipantDaoMySql implements ParticipantDao {
-    private final Connection connection;
+public class MySqlParticipantDao implements ParticipantDao {
+    private static MySqlParticipantDao instance;
+    private DataSource dataSource = ConnectionPool.getInstance().getConnectionPool();
 
-    public ParticipantDaoMySql(Connection connection) {
-        this.connection = connection;
+    public static MySqlParticipantDao getInstance() {
+        if (instance == null) {
+            instance = new MySqlParticipantDao();
+        }
+        return instance;
+    }
+
+    private MySqlParticipantDao() {
     }
 
     @Override

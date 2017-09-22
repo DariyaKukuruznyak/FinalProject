@@ -9,7 +9,6 @@ public class Market extends Model {
     private MarketNames name;
     private Set<MarketItem> marketItems;
     private boolean isChangeable = true;
-    private int numberOfItems;
 
     public MarketNames getName() {
         return name;
@@ -24,11 +23,10 @@ public class Market extends Model {
     }
 
     public void addItem(MarketItem marketItem) {
-        if(this.marketItems.contains(marketItem)){
+        if (this.marketItems.contains(marketItem)) {
             return;
         }
         this.marketItems.add(marketItem);
-        this.numberOfItems++;
     }
 
     public boolean isChangeable() {
@@ -36,14 +34,6 @@ public class Market extends Model {
     }
 
     public void setChangeable(boolean isChangeable) {
-        isChangeable = isChangeable;
-    }
-
-    public int getNumberOfItems() {
-        return numberOfItems;
-    }
-
-    public void setNumberOfItems(int numberOfItems) {
-        this.numberOfItems = numberOfItems;
+        this.isChangeable = isChangeable;
     }
 }

@@ -1,28 +1,6 @@
-INSERT INTO `daotalk`.`Group` (`number`, `department`) 
-VALUES ('230750', 'Кибернетики');
-INSERT INTO `daotalk`.`Group` (`number`, `department`) 
-VALUES ('320890', 'Естественнонаучный');
-INSERT INTO `daotalk`.`Group` (`number`, `department`) 
-VALUES ('440120', 'Экономики');
+INSERT INTO `totalizator`.`user` (`id`, `first_name`, `last_name`, `email`, `login`, `password`, `date_of_registration`) VALUES ('1', 'Mark', 'Lastin', 'm.lastin@ukr.net', 'm.lastin', '1111', '22.01.2017');
+INSERT INTO `totalizator`.`user` (`id`, `first_name`, `last_name`, `email`, `login`, `password`, `date_of_registration`) VALUES ('2', 'Marina', 'Ivanova', 'm.ivanova@mail.net', 'marina', '1111', '05.05.2015');
+INSERT INTO `totalizator`.`user` (`id`, `first_name`, `last_name`, `email`, `login`, `password`, `date_of_registration`) VALUES ('3', 'Serqio', 'Tizio', 'serq2010@gmail.com', 'goldencup', '1111', '06.07.2012');
 
-INSERT INTO `daotalk`.`Student` (`surname`, `name`, `enrolment_date`, `group_id`) 
-VALUES ('Ступенько', 'Василий', '2010-09-01', '1');
-INSERT INTO `daotalk`.`Student` (`surname`, `name`, `enrolment_date`, `group_id`) 
-VALUES ('Ступенько', 'Наталья', '2010-09-01', '1');
-INSERT INTO `daotalk`.`Student` (`surname`, `name`, `enrolment_date`, `group_id`) 
-VALUES ('Иванов', 'Николай', '2005-09-01', '1');
-INSERT INTO `daotalk`.`Student` (`surname`, `name`, `enrolment_date`, `group_id`) 
-VALUES ('Петрова', 'Анастасия', '2007-09-01', '1');
+INSERT INTO `totalizator`.`client` (`id`, `max_bet`, `balance`, `description`, `id_user`) VALUES ('1', '10000', '500', 'vip client', '3');
 
-INSERT INTO `daotalk`.`Student` (`surname`, `name`, `enrolment_date`, `group_id`) 
-VALUES ('Васильева', 'Валентина', '2010-09-01', '2');
-INSERT INTO `daotalk`.`Student` (`surname`, `name`, `enrolment_date`, `group_id`) 
-VALUES ('Цапко', 'Игорь', '2010-09-01', '2');
-
-INSERT INTO `daotalk`.`Student` (`surname`, `name`, `enrolment_date`, `group_id`) 
-VALUES ('Кузницова', 'Светлана', '2010-09-01', '3');
-INSERT INTO `daotalk`.`Student` (`surname`, `name`, `enrolment_date`, `group_id`) 
-VALUES ('Прокопенко', 'Ольга', '2010-09-01', '3');
-
-INSERT INTO `daotalk`.`Student` (`surname`, `name`, `enrolment_date`) 
-VALUES ('Новиков', 'Жан', '2010-09-01');
