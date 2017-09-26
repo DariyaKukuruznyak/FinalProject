@@ -1,9 +1,8 @@
 package com.kukuruznyak.bettingcompany.entity.event.eventbuilder;
 
 import com.kukuruznyak.bettingcompany.entity.event.Event;
-import com.kukuruznyak.bettingcompany.entity.event.market.marketbuilder.MarketBuilderDirector;
-import com.kukuruznyak.bettingcompany.entity.event.market.marketbuilder.WinLoseMarketBuilder;
-import com.kukuruznyak.bettingcompany.entity.event.market.marketbuilder.WinnerMarketBuilder;
+import com.kukuruznyak.bettingcompany.entity.event.Market;
+import com.kukuruznyak.bettingcompany.entity.event.MarketNames;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
 import java.util.Calendar;
@@ -47,7 +46,7 @@ public class EventBuilder {
         return this;
     }
 
-    Event build() {
+    public Event build() {
         Event event = new Event();
         event.setBeginningDateAndTime(this.startDateAndTime);
         event.setCountry(this.country);
@@ -55,13 +54,7 @@ public class EventBuilder {
         event.setBookmaker(this.bookmaker);
         event.setMargin(this.margin);
         event.setMaxWin(this.maxWin);
-
-        MarketBuilderDirector marketBuilderDirector = new MarketBuilderDirector();
-        marketBuilderDirector.setBuilder(new WinnerMarketBuilder());
-        event.addMarket(marketBuilderDirector.buildMarket());
-        marketBuilderDirector.setBuilder(new WinLoseMarketBuilder());
-        event.addMarket(marketBuilderDirector.buildMarket());
-
+        event.addMarket(new Market(MarketNames.WINNER));
         return event;
     }
 }

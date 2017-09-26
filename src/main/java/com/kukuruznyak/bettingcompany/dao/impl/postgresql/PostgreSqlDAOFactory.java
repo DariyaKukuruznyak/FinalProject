@@ -2,8 +2,6 @@ package com.kukuruznyak.bettingcompany.dao.impl.postgresql;
 
 import com.kukuruznyak.bettingcompany.dao.*;
 
-import java.sql.Connection;
-
 public class PostgreSqlDAOFactory extends DaoFactory {
     private static PostgreSqlDAOFactory instance;
 
@@ -25,11 +23,6 @@ public class PostgreSqlDAOFactory extends DaoFactory {
 
     @Override
     public ClientDao getClientDao() {
-        return null;
-    }
-
-    @Override
-    public EmployeeDao getEmployeeDao() {
         return null;
     }
 

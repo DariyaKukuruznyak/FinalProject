@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.entity.enums;
+package com.kukuruznyak.bettingcompany.entity.event;
 
 public enum OutcomeNames {
     WIN{

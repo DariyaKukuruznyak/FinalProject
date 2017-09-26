@@ -10,9 +10,9 @@ public interface AbstractDao<T extends Model> {
 
     List<T> getAll() throws SQLException;
 
-    void add(T model) throws SQLException;
+    T add(T model) throws SQLException;
 
     void update(T model) throws SQLException;
 
-    void delete(T model) throws SQLException;
+    void delete(Long id) throws SQLException;
 }

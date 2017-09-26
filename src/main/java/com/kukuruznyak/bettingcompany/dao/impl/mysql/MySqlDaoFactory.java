@@ -26,11 +26,6 @@ public class MySqlDaoFactory extends DaoFactory {
     }
 
     @Override
-    public EmployeeDao getEmployeeDao() {
-        return MySqlEmployeeDao.getInstance();
-    }
-
-    @Override
     public EventDao getEventDao() {
         return MySqlEventDao.getInstance();
     }

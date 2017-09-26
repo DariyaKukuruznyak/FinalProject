@@ -2,7 +2,7 @@ package com.kukuruznyak.bettingcompany.dao.impl.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.BetDao;
 import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
-import com.kukuruznyak.bettingcompany.entity.Bet;
+import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -33,8 +33,8 @@ public class MySqlBetDao implements BetDao {
     }
 
     @Override
-    public void add(Bet model) throws SQLException {
-
+    public Bet add(Bet bet) throws SQLException {
+        return null;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class MySqlBetDao implements BetDao {
     }
 
     @Override
-    public void delete(Bet model) throws SQLException {
+    public void delete(Long id) throws SQLException {
 
     }
 }

@@ -1,7 +1,6 @@
 package com.kukuruznyak.bettingcompany.entity.user;
 
-import com.kukuruznyak.bettingcompany.entity.Bet;
-import com.kukuruznyak.bettingcompany.entity.enums.EmployeeRole;
+import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 
 import java.math.BigDecimal;
 import java.util.HashSet;

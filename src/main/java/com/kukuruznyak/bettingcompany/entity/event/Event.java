@@ -1,9 +1,7 @@
 package com.kukuruznyak.bettingcompany.entity.event;
 
-import com.kukuruznyak.bettingcompany.entity.FinanceResult;
+import com.kukuruznyak.bettingcompany.entity.company.FinanceResult;
 import com.kukuruznyak.bettingcompany.entity.Model;
-import com.kukuruznyak.bettingcompany.entity.enums.EventStatus;
-import com.kukuruznyak.bettingcompany.entity.event.market.Market;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
 import java.util.Calendar;

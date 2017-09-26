@@ -5,6 +5,7 @@ import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
 import com.kukuruznyak.bettingcompany.entity.event.Participant;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.List;
 
 public class MySqlParticipantDao implements ParticipantDao {
@@ -32,17 +33,17 @@ public class MySqlParticipantDao implements ParticipantDao {
     }
 
     @Override
-    public void add(Participant model) {
+    public Participant add(Participant participant) {
+        return null;
+    }
+
+    @Override
+    public void update(Participant model) throws SQLException {
 
     }
 
     @Override
-    public void update(Participant model) {
-
-    }
-
-    @Override
-    public void delete(Participant model) {
+    public void delete(Long id) throws SQLException {
 
     }
 }

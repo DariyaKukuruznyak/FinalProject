@@ -3,15 +3,17 @@ package com.kukuruznyak.bettingcompany.entity.user;
 import com.kukuruznyak.bettingcompany.entity.Model;
 
 import java.util.Calendar;
+import java.util.Date;
 
-public abstract class User extends Model {
+public class User extends Model {
     protected String firstName;
     protected String lastName;
     protected String email;
     protected String login;
     protected String password;
     protected String securityNumber;
-    protected Calendar dateOfRegistration;
+    protected Date dateOfRegistration;
+    protected UserRole userRole;
 
     public String getFirstName() {
         return firstName;
@@ -61,11 +63,34 @@ public abstract class User extends Model {
         this.securityNumber = securityNumber;
     }
 
-    public Calendar getDateOfRegistration() {
+    public Date getDateOfRegistration() {
         return dateOfRegistration;
     }
 
-    public void setDateOfRegistration(Calendar dateOfRegistration) {
+    public void setDateOfRegistration(Date dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + this.id + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", securityNumber='" + securityNumber + '\'' +
+                ", dateOfRegistration=" + dateOfRegistration +
+                ", userRole=" + userRole +
+                '}';
     }
 }

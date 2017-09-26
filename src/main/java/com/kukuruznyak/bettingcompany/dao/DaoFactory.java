@@ -12,8 +12,6 @@ public abstract class DaoFactory {
 
     public abstract ClientDao getClientDao();
 
-    public abstract EmployeeDao getEmployeeDao();
-
     public abstract EventDao getEventDao();
 
     public abstract ParticipantDao getParticipantDao();

@@ -34,7 +34,7 @@ public class ParticipantBuilder {
         return this;
     }
 
-    Participant build() {
+    public Participant build() {
         Participant participant = new Participant();
         participant.setName(this.name);
         participant.setAge(this.age);

@@ -3,7 +3,7 @@ package com.kukuruznyak.bettingcompany.entity;
 import java.io.Serializable;
 
 public abstract class Model implements Serializable {
-    private Long id;
+    protected Long id;
 
     public Model() {
     }

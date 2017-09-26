@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.entity;
+package com.kukuruznyak.bettingcompany.entity.company;
 
 import java.math.BigDecimal;
 

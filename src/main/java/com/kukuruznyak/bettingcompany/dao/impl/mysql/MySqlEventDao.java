@@ -6,6 +6,7 @@ import com.kukuruznyak.bettingcompany.entity.event.Event;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class MySqlEventDao implements EventDao {
@@ -33,17 +34,17 @@ public class MySqlEventDao implements EventDao {
     }
 
     @Override
-    public void add(Event model) {
+    public Event add(Event event) {
+        return null;
+    }
+
+    @Override
+    public void update(Event model) throws SQLException {
 
     }
 
     @Override
-    public void update(Event model) {
-
-    }
-
-    @Override
-    public void delete(Event model) {
+    public void delete(Long id) throws SQLException {
 
     }
 }

@@ -1,6 +1,5 @@
 package com.kukuruznyak.bettingcompany.entity.company;
 
-import com.kukuruznyak.bettingcompany.entity.FinanceResult;
 import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
 import com.kukuruznyak.bettingcompany.entity.user.User;

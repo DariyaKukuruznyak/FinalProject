@@ -21,7 +21,7 @@
     </properties>
 
     <build>
-        <finalName>horseracing</finalName>
+        <finalName>Betting company</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
