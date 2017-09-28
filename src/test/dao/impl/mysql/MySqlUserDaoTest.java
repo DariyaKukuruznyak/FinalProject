@@ -63,7 +63,7 @@ public class MySqlUserDaoTest {
 
     @Test
     public void findByLogin() throws Exception {
-        User user = userDao.getByLogin("11111");
+        User user = userDao.getByLogin("0");
     }
 
 }

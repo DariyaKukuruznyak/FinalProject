@@ -1,7 +1,7 @@
 package com.kukuruznyak.bettingcompany.entity.event;
 
-import com.kukuruznyak.bettingcompany.entity.company.FinanceResult;
 import com.kukuruznyak.bettingcompany.entity.Model;
+import com.kukuruznyak.bettingcompany.entity.company.FinanceResult;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
 import java.util.Calendar;
@@ -11,8 +11,7 @@ import java.util.Set;
 public class Event extends Model {
     private Calendar creationDateAndTime;
     private Calendar beginningDateAndTime;
-    private String country;
-    private String tournament;
+    private Tournament tournament;
     private Set<Participant> participants;
     private Set<Market> markets;
     private EventStatus status;
@@ -46,19 +45,11 @@ public class Event extends Model {
         this.beginningDateAndTime = beginningDateAndTime;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getTournament() {
+    public Tournament getTournament() {
         return tournament;
     }
 
-    public void setTournament(String tournament) {
+    public void setTournament(Tournament tournament) {
         this.tournament = tournament;
     }
 

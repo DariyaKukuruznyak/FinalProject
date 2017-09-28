@@ -64,6 +64,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 user = fillModel(resultSet);
+                LOGGER.info(currentModel + " with login = " + login + " is found");
             }
         } catch (SQLException e) {
             LOGGER.error("Database error during selecting with message: " + e.getMessage());
@@ -72,8 +73,6 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         }
         if (user == null) {
             LOGGER.info(currentModel + " with login = " + login + " is not found");
-        } else {
-            LOGGER.info(currentModel + " with login = " + login + " is found");
         }
         return user;
     }

@@ -39,6 +39,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 model = fillModel(resultSet);
+                LOGGER.info(currentModel + " with id = " + id + " is found");
             }
         } catch (SQLException e) {
             LOGGER.error("Database error during selecting " + currentModel +
@@ -48,8 +49,6 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         }
         if (model == null) {
             LOGGER.info(currentModel + " with id = " + id + " is not found");
-        } else {
-            LOGGER.info(currentModel + " with id = " + id + " is found");
         }
         return model;
     }
