@@ -4,11 +4,11 @@ import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
 import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.event.Participant;
+import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implements ParticipantDao {
     private static MySqlParticipantDaoImpl instance;
@@ -26,12 +26,12 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
-    protected Participant fillModel(ResultSet resultSet) throws SQLException {
+    protected Participant fillModel(ResultSet resultSet) throws PersistenceException {
         return null;
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Participant model) throws SQLException {
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Participant model) throws PersistenceException {
 
     }
 }

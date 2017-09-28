@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.dao.UserDao;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
+import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,35 +32,43 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    protected User fillModel(ResultSet resultSet) throws SQLException {
+    protected User fillModel(ResultSet resultSet) throws PersistenceException {
         User user = new User();
-        user.setId(resultSet.getLong("id"));
-        user.setFirstName(resultSet.getString("first_name"));
-        user.setLastName(resultSet.getString("last_name"));
-        user.setEmail(resultSet.getString("email"));
-        user.setLogin(resultSet.getString("login"));
-        user.setPassword(resultSet.getString("password"));
-        user.setDateOfRegistration(new Date(resultSet.getDate("date_of_registration").getTime()));
-        user.setUserRole(UserRole.valueOf(resultSet.getString("user_role")));
+        try {
+            user.setId(resultSet.getLong("id"));
+            user.setFirstName(resultSet.getString("first_name"));
+            user.setLastName(resultSet.getString("last_name"));
+            user.setEmail(resultSet.getString("email"));
+            user.setLogin(resultSet.getString("login"));
+            user.setPassword(resultSet.getString("password"));
+            user.setDateOfRegistration(new Date(resultSet.getDate("date_of_registration").getTime()));
+            user.setUserRole(UserRole.valueOf(resultSet.getString("user_role")));
+        } catch (SQLException e) {
+            throw new PersistenceException(e.getMessage());
+        }
         return user;
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
-        preparedStatement.setString(1, user.getFirstName());
-        preparedStatement.setString(2, user.getLastName());
-        preparedStatement.setString(3, user.getEmail());
-        preparedStatement.setString(4, user.getLogin());
-        preparedStatement.setString(5, user.getPassword());
-        preparedStatement.setDate(6, new java.sql.Date(user.getDateOfRegistration().getTime()));
-        preparedStatement.setString(7, user.getUserRole().toString());
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, User user) throws PersistenceException {
+        try {
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getLogin());
+            preparedStatement.setString(5, user.getPassword());
+            preparedStatement.setDate(6, new java.sql.Date(user.getDateOfRegistration().getTime()));
+            preparedStatement.setString(7, user.getUserRole().toString());
+        } catch (SQLException e) {
+            throw new PersistenceException(e.getMessage());
+        }
     }
 
-    public User getByLogin(String login) throws SQLException {
+    public User getByLogin(String login) throws PersistenceException {
         User user = null;
-        Connection connection = dataSource.getConnection();
-        try (PreparedStatement preparedStatement = connection.
-                prepareStatement(QUERIES.getString(currentModel + "." + SELECT_BY_LOGIN))) {
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.
+                    prepareStatement(QUERIES.getString(currentModel + "." + SELECT_BY_LOGIN));
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -68,8 +77,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             }
         } catch (SQLException e) {
             LOGGER.error("Database error during selecting with message: " + e.getMessage());
-        } finally {
-            if (connection != null) connection.close();
+            throw new PersistenceException(e.getMessage());
         }
         if (user == null) {
             LOGGER.info(currentModel + " with login = " + login + " is not found");

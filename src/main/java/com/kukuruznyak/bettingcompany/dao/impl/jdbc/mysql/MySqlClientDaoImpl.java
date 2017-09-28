@@ -3,10 +3,10 @@ package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 import com.kukuruznyak.bettingcompany.dao.ClientDao;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.user.Client;
+import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements ClientDao {
     private static MySqlClientDaoImpl instance;
@@ -23,12 +23,12 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
     }
 
     @Override
-    protected Client fillModel(ResultSet resultSet) throws SQLException {
+    protected Client fillModel(ResultSet resultSet) throws PersistenceException {
         return null;
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Client model) throws SQLException {
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Client model) throws PersistenceException {
 
     }
 }

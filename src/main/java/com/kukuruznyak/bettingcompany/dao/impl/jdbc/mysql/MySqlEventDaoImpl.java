@@ -4,11 +4,11 @@ import com.kukuruznyak.bettingcompany.dao.EventDao;
 import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
+import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDao {
     private static MySqlEventDaoImpl instance;
@@ -26,12 +26,12 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     }
 
     @Override
-    protected Event fillModel(ResultSet resultSet) throws SQLException {
+    protected Event fillModel(ResultSet resultSet) throws PersistenceException {
         return null;
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Event model) throws SQLException {
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Event model) throws PersistenceException {
 
     }
 }

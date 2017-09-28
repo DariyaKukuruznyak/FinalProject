@@ -1,6 +1,9 @@
 package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 
-import com.kukuruznyak.bettingcompany.dao.*;
+import com.kukuruznyak.bettingcompany.dao.BetDao;
+import com.kukuruznyak.bettingcompany.dao.ClientDao;
+import com.kukuruznyak.bettingcompany.dao.EventDao;
+import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
 
 public class MySqlDaoFactory extends DaoFactory {
