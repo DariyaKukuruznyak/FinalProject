@@ -1,6 +1,6 @@
 package dao.impl.mysql;
 
-import com.kukuruznyak.bettingcompany.dao.impl.mysql.*;
+import com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -20,45 +20,45 @@ public class MySqlDaoFactoryTest {
 
     @Test
     public void mySqlBetDaoNotNull() {
-        assertNotNull(MySqlBetDao.getInstance());
+        assertNotNull(MySqlBetDaoImpl.getInstance());
     }
 
     @Test
     public void mySqlBetDaoIsSingleton() {
-        MySqlBetDao instance = MySqlBetDao.getInstance();
-        assertSame(instance, MySqlBetDao.getInstance());
+        MySqlBetDaoImpl instance = MySqlBetDaoImpl.getInstance();
+        assertSame(instance, MySqlBetDaoImpl.getInstance());
     }
 
     @Test
     public void mySqlClientDaoNotNull() {
-        assertNotNull(MySqlClientDao.getInstance());
+        assertNotNull(MySqlClientDaoImpl.getInstance());
     }
 
     @Test
     public void mySqlClientDaoIsSingleton() {
-        MySqlClientDao instance = MySqlClientDao.getInstance();
-        assertSame(instance, MySqlClientDao.getInstance());
+        MySqlClientDaoImpl instance = MySqlClientDaoImpl.getInstance();
+        assertSame(instance, MySqlClientDaoImpl.getInstance());
     }
 
     @Test
     public void mySqlEventDaoNotNull() throws Exception {
-        assertNotNull(MySqlEventDao.getInstance());
+        assertNotNull(MySqlEventDaoImpl.getInstance());
     }
 
     @Test
     public void mySqlEventDaoIsSingleton() {
-        MySqlEventDao instance = MySqlEventDao.getInstance();
-        assertSame(instance, MySqlEventDao.getInstance());
+        MySqlEventDaoImpl instance = MySqlEventDaoImpl.getInstance();
+        assertSame(instance, MySqlEventDaoImpl.getInstance());
     }
 
     @Test
     public void mySqlParticipantDaoNotNull() throws Exception {
-        assertNotNull(MySqlParticipantDao.getInstance());
+        assertNotNull(MySqlParticipantDaoImpl.getInstance());
     }
 
     @Test
     public void mySqlParticipantDaoIsSingleton() {
-        MySqlParticipantDao instance = MySqlParticipantDao.getInstance();
-        assertSame(instance, MySqlParticipantDao.getInstance());
+        MySqlParticipantDaoImpl instance = MySqlParticipantDaoImpl.getInstance();
+        assertSame(instance, MySqlParticipantDaoImpl.getInstance());
     }
 }

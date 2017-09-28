@@ -1,6 +1,7 @@
-package com.kukuruznyak.bettingcompany.dao.impl.mysql;
+package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.*;
+import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
 
 public class MySqlDaoFactory extends DaoFactory {
     private static MySqlDaoFactory instance;
@@ -17,21 +18,21 @@ public class MySqlDaoFactory extends DaoFactory {
 
     @Override
     public BetDao getBetDao() {
-        return MySqlBetDao.getInstance();
+        return MySqlBetDaoImpl.getInstance();
     }
 
     @Override
     public ClientDao getClientDao() {
-        return MySqlClientDao.getInstance();
+        return MySqlClientDaoImpl.getInstance();
     }
 
     @Override
     public EventDao getEventDao() {
-        return MySqlEventDao.getInstance();
+        return MySqlEventDaoImpl.getInstance();
     }
 
     @Override
     public ParticipantDao getParticipantDao() {
-        return MySqlParticipantDao.getInstance();
+        return MySqlParticipantDaoImpl.getInstance();
     }
 }

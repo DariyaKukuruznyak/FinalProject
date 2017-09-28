@@ -1,6 +1,7 @@
-package com.kukuruznyak.bettingcompany.dao.impl.postgresql;
+package com.kukuruznyak.bettingcompany.dao.impl.jdbc.postgresql;
 
 import com.kukuruznyak.bettingcompany.dao.*;
+import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
 
 public class PostgreSqlDAOFactory extends DaoFactory {
     private static PostgreSqlDAOFactory instance;

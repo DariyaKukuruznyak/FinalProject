@@ -2,6 +2,8 @@ package com.kukuruznyak.bettingcompany.dao;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package dao.impl.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.UserDao;
-import com.kukuruznyak.bettingcompany.dao.impl.mysql.MySqlUserDao;
+import com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql.MySqlUserDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.entity.user.builder.UserBuilder;
@@ -9,14 +9,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class MySqlUserDaoTest {
     private UserDao userDao;
 
     @Before
     public void init() throws SQLException {
-        userDao = MySqlUserDao.getInstance();
+        userDao = MySqlUserDaoImpl.getInstance();
     }
 
     @Test
@@ -40,7 +39,7 @@ public class MySqlUserDaoTest {
                 .buildFirstName("Ivan")
                 .buildLastName("Domodedov")
                 .buildEmail("vanya@gmail.com")
-                .buildLogin("11111")
+                .buildLogin("11")
                 .buildPassword("1111")
                 .buildSecurityNumber("1111")
                 .buildUserRole(UserRole.CLIENT)
@@ -50,12 +49,10 @@ public class MySqlUserDaoTest {
 
     @Test
     public void update() throws Exception {
-        User user = userDao.getById(20L);
+        User user = userDao.getById(19L);
         System.out.println(user);
-        user.setUserRole(UserRole.ADMINISTRATOR);
+        user.setPassword("password");
         userDao.update(user);
-        user = userDao.getById(20L);
-        System.out.println(user);
     }
 
     @Test
@@ -67,7 +64,6 @@ public class MySqlUserDaoTest {
     @Test
     public void findByLogin() throws Exception {
         User user = userDao.getByLogin("11111");
-        System.out.println(user);
     }
 
 }
