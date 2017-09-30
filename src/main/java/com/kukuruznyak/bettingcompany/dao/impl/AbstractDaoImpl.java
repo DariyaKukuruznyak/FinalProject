@@ -15,8 +15,8 @@ import java.util.ResourceBundle;
 public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T> {
     protected DataSource dataSource = ConnectionPool.getInstance().getConnectionPool();
     protected static final Logger LOGGER = Logger.getLogger(AbstractDaoImpl.class);
-
     protected static final ResourceBundle QUERIES = ResourceBundle.getBundle("queries");
+
     protected static final String SELECT_ALL = "selectAll";
     protected static final String SELECT_BY_ID = "selectById";
     protected static final String INSERT = "insert";

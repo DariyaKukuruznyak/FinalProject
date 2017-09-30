@@ -15,6 +15,14 @@ public class User extends Model {
     protected Date dateOfRegistration;
     protected UserRole userRole;
 
+    public User() {
+    }
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
     public String getFirstName() {
         return firstName;
     }
