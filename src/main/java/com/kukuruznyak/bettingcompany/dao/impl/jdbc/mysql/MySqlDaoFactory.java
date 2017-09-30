@@ -11,7 +11,11 @@ public class MySqlDaoFactory extends DaoFactory {
 
     public static MySqlDaoFactory getInstance() {
         if (instance == null) {
-            instance = new MySqlDaoFactory();
+            synchronized (MySqlDaoFactory.class) {
+                if (instance == null) {
+                    instance = new MySqlDaoFactory();
+                }
+            }
         }
         return instance;
     }

@@ -13,7 +13,12 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
 
     public static MySqlClientDaoImpl getInstance() {
         if (instance == null) {
-            instance = new MySqlClientDaoImpl();
+            synchronized (MySqlClientDaoImpl.class) {
+                if (instance == null) {
+                    instance = new MySqlClientDaoImpl();
+                    LOGGER.info("Instance of " + MySqlClientDaoImpl.class.getSimpleName() + " was created");
+                }
+            }
         }
         return instance;
     }

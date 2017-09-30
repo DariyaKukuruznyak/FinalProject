@@ -16,7 +16,12 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
 
     public static MySqlParticipantDaoImpl getInstance() {
         if (instance == null) {
-            instance = new MySqlParticipantDaoImpl();
+            synchronized (MySqlParticipantDaoImpl.class) {
+                if (instance == null) {
+                    instance = new MySqlParticipantDaoImpl();
+                    LOGGER.info("Instance of " + MySqlParticipantDaoImpl.class.getSimpleName() + " was created");
+                }
+            }
         }
         return instance;
     }

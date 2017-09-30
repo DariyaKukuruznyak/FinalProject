@@ -15,7 +15,12 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
 
     public static MySqlBetDaoImpl getInstance() {
         if (instance == null) {
-            instance = new MySqlBetDaoImpl();
+            synchronized (MySqlBetDaoImpl.class) {
+                if (instance == null) {
+                    instance = new MySqlBetDaoImpl();
+                    LOGGER.info("Instance of " + MySqlBetDaoImpl.class.getSimpleName() + " was created");
+                }
+            }
         }
         return instance;
     }

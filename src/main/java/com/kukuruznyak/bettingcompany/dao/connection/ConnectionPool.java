@@ -1,15 +1,15 @@
 package com.kukuruznyak.bettingcompany.dao.connection;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.log4j.Logger;
+
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.log4j.Logger;
-
 public class ConnectionPool {
-    private static final ConnectionPool instance = new ConnectionPool();
+    private static ConnectionPool instance;
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
     private static final String JDBC_PROPERTIES = "jdbc.properties";
@@ -31,6 +31,13 @@ public class ConnectionPool {
     }
 
     public static ConnectionPool getInstance() {
+        if (instance == null) {
+            synchronized (ConnectionPool.class) {
+                if (instance == null) {
+                    instance = new ConnectionPool();
+                }
+            }
+        }
         return instance;
     }
 

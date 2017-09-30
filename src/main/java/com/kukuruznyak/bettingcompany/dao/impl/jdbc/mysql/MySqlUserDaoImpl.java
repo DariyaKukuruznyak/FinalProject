@@ -21,8 +21,12 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     public static MySqlUserDaoImpl getInstance() throws SQLException {
         if (instance == null) {
-            instance = new MySqlUserDaoImpl();
-            LOGGER.info("Instance of " + MySqlUserDaoImpl.class.getSimpleName() + " was created");
+            synchronized (MySqlUserDaoImpl.class) {
+                if (instance == null) {
+                    instance = new MySqlUserDaoImpl();
+                    LOGGER.info("Instance of " + MySqlUserDaoImpl.class.getSimpleName() + " was created");
+                }
+            }
         }
         return instance;
     }

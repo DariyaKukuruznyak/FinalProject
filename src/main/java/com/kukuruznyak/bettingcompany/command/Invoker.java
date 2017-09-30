@@ -2,7 +2,6 @@ package com.kukuruznyak.bettingcompany.command;
 
 import com.kukuruznyak.bettingcompany.command.impl.*;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -13,6 +12,7 @@ public class Invoker {
     private static Invoker instance;
     private static final Map<String, Command> urlPatternsList = new HashMap<>();
     private static final ResourceBundle URL_PATTERNS = ResourceBundle.getBundle("urlPatterns");
+
     private Invoker() {
         urlPatternsList.put(URL_PATTERNS.getString("home"), new HomeCommand());
         urlPatternsList.put(URL_PATTERNS.getString("error"), new ErrorCommand());
@@ -28,9 +28,14 @@ public class Invoker {
         urlPatternsList.put(URL_PATTERNS.getString("bets"), new BetsCommand());
         urlPatternsList.put(URL_PATTERNS.getString("events"), new EventsCommand());
     }
+
     public static Invoker getInstance() {
         if (instance == null) {
-            instance = new Invoker();
+            synchronized (Invoker.class) {
+                if (instance == null) {
+                    instance = new Invoker();
+                }
+            }
         }
         return instance;
     }

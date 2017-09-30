@@ -16,7 +16,12 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
 
     public static MySqlEventDaoImpl getInstance() {
         if (instance == null) {
-            instance = new MySqlEventDaoImpl();
+            synchronized (MySqlEventDaoImpl.class) {
+                if (instance == null) {
+                    instance = new MySqlEventDaoImpl();
+                    LOGGER.info("Instance of " + MySqlEventDaoImpl.class.getSimpleName() + " was created");
+                }
+            }
         }
         return instance;
     }
