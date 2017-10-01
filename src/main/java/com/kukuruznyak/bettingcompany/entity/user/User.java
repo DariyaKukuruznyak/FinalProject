@@ -2,7 +2,6 @@ package com.kukuruznyak.bettingcompany.entity.user;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class User extends Model {
@@ -37,6 +36,10 @@ public class User extends Model {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public String getEmail() {

@@ -30,6 +30,7 @@ public class MainServlet extends HttpServlet {
 
     private void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("errorMessage", "");
+        request.setAttribute("successMessage", "");
         String page;
         try {
             page = commandInvoker.invoke(request, response);

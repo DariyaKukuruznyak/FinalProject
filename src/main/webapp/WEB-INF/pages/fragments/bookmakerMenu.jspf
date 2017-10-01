@@ -1,0 +1,2 @@
+<li><a href="?command=eventsByBookmaker&bookmakerId=${user.id}"> My events <span class="glyphicon glyphicon-list-alt"></span></a></li>
+<li><a href="?command=createEvent"> Create new event <span class="glyphicon glyphicon-plus"></span></a></li>

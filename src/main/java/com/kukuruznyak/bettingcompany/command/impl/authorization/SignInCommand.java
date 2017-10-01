@@ -1,7 +1,8 @@
-package com.kukuruznyak.bettingcompany.command.impl.user;
+package com.kukuruznyak.bettingcompany.command.impl.authorization;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
+import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.UserService;
 
@@ -17,6 +18,10 @@ public class SignInCommand extends Command {
             User user = userService.getUserByLogin(request.getParameter("login"));
             request.getSession().setAttribute("user", user);
             LOGGER.info("User " + user.getLogin() + " signed in");
+            request.getSession().setAttribute("adminRole", UserRole.ADMINISTRATOR);
+            request.getSession().setAttribute("bookmakerRole", UserRole.BOOKMAKER);
+            request.getSession().setAttribute("riskControllerRole", UserRole.RISK_CONTROLLER);
+            request.getSession().setAttribute("clientRole", UserRole.CLIENT);
             return pagesResourceBundle.getString("home");
         } else {
             request.setAttribute("errorMessage", "Incorrect input! Try again.");

@@ -1,21 +1,23 @@
 package com.kukuruznyak.bettingcompany.entity.bet;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
-import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
-import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Bet extends Model {
     private User client;
+    private Calendar date;
     private BigDecimal sumIn;
     private BigDecimal sumOut;
     private TypeOfBet type;
     private ResultOfBet result;
     private List<Outcome> outcomes;
+    private double totalCoefficient;
     private String description;
 
     public User getClient() {
@@ -24,6 +26,14 @@ public class Bet extends Model {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public Calendar getDate() {
+        return date;
+    }
+
+    public void setDate(Calendar date) {
+        this.date = date;
     }
 
     public BigDecimal getSumIn() {
@@ -63,6 +73,9 @@ public class Bet extends Model {
     }
 
     public void addOutcome(Outcome outcome) {
+        if (this.outcomes == null) {
+            this.outcomes = new ArrayList<>();
+        }
         this.outcomes.add(outcome);
     }
 
@@ -72,5 +85,13 @@ public class Bet extends Model {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getTotalCoefficient() {
+        return totalCoefficient;
+    }
+
+    public void setTotalCoefficient(double totalCoefficient) {
+        this.totalCoefficient = totalCoefficient;
     }
 }

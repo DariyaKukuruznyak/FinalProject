@@ -8,6 +8,8 @@ import java.util.Set;
 public class Market extends Model {
     private MarketNames name;
     private Set<Outcome> outcomes;
+    private Event event;
+
     public MarketNames getName() {
         return name;
     }
@@ -19,6 +21,14 @@ public class Market extends Model {
         this.name = name;
     }
 
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
     public void setName(MarketNames name) {
         this.name = name;
     }
@@ -28,7 +38,7 @@ public class Market extends Model {
     }
 
     public void addOutcome(Outcome outcomes) {
-        if (this.outcomes==null) {
+        if (this.outcomes == null) {
             this.outcomes = new HashSet<>();
         }
         this.outcomes.add(outcomes);

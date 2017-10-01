@@ -1,4 +1,6 @@
-<html><%@include file="fragments/head.jspf" %>
+<%@include file="fragments/import.jspf" %>
+<html>
+<%@include file="fragments/head.jspf" %>
 <body>
 <%@include file="fragments/headerForForms.jspf" %>
 <div class="container">
@@ -57,23 +59,6 @@
                        placeholder="Confirm password"
                        required
                        pattern="(.{4,20})" maxlength="20" title="Expected from 4 to 20 symbols">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="security-number" class="col-sm-4 col-form-label">Security Number</label>
-            <div class="col-sm-8">
-                <input type="password" name="securityNumber" id="security-number" class="form-control"
-                       placeholder="Security Number" required
-                       pattern="[0-9]{4}" maxlength="4" title="4 digits are expected">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="confirm-security-number" class="col-sm-4 col-form-label">Confirm Security Number</label>
-            <div class="col-sm-8">
-                <input type="password" name="confirmSecurityNumber" id="confirm-security-number"
-                       class="form-control"
-                       placeholder="Confirm Security Number" required pattern="[0-9]{4}" maxlength="4"
-                       title="4 digits  are expected">
             </div>
         </div>
         <input type="checkbox" id="checkbox" required> <label for="checkbox"> I am at least 18 years of age and I

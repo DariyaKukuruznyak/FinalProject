@@ -1,8 +1,5 @@
 <%@include file="fragments/import.jspf" %>
 <html>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
 <%@include file="fragments/head.jspf" %>
 <body>
 <%@include file="fragments/headerForForms.jspf" %>
@@ -30,7 +27,7 @@
                 </div>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <c:if test="${errorMessage!=''}"><a href="?command=register"><span class="btn btn-lg btn-primary btn-block">Register now</span></a></c:if>
+            <c:if test="${errorMessage!=''}"><a href="?command=register">Join us now now</a></c:if>
 
         </form>
     </div>

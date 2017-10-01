@@ -1,7 +1,10 @@
 package com.kukuruznyak.bettingcompany.command;
 
+import com.kukuruznyak.bettingcompany.command.impl.EditUserCommand;
+import com.kukuruznyak.bettingcompany.command.impl.GetProfileCommand;
 import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
-import com.kukuruznyak.bettingcompany.command.impl.user.*;
+import com.kukuruznyak.bettingcompany.command.impl.ShowBetsCommand;
+import com.kukuruznyak.bettingcompany.command.impl.authorization.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +26,7 @@ public class Invoker {
         return instance;
     }
 
-    private Command routeUrl(String url) {
+    private Command routeCommand(String url) {
         switch (url) {
             case "home":
                 return new HomeCommand();
@@ -37,26 +40,13 @@ public class Invoker {
                 return new RegisterCommand();
             case "logout":
                 return new LogoutCommand();
-       /*     case "/add/user":
-                return new AddUserCommand();
-            case "/edit/user":
+           case "betsHistory":
+                return new ShowBetsCommand();
+            case "profile":
+                return new GetProfileCommand();
+            case "editUser":
                 return new EditUserCommand();
-            case "/add/event":
-                return new AddEventCommand();
-            case "/edit/event":
-                return new EditEventCommand();
-            case "/add/participant":
-                return new AddParticipantCommand();
-            case "/edit/participant":
-                return new EditParticipantCommand();
-            case "/edit/client":
-                return new EditUserCommand();
-            case "/bets":
-                return new BetsCommand();
-            case "/events":
-                return new EventsCommand();
-                */
-            default:
+             default:
                 return new HomeCommand();
         }
     }
@@ -66,6 +56,6 @@ public class Invoker {
         if (command == null) {
             command = "home";
         }
-        return routeUrl(command).execute(request, response);
+        return routeCommand(command).execute(request, response);
     }
 }
