@@ -3,7 +3,7 @@ package com.kukuruznyak.bettingcompany.entity.event;
 import com.kukuruznyak.bettingcompany.entity.Model;
 
 public class Outcome extends Model {
-    private Participant participant;
+    private String name;
     private double coefficient;
 
     public Outcome() {
@@ -13,13 +13,21 @@ public class Outcome extends Model {
         super(id);
     }
 
-    public Outcome(Participant participant) {
-        this.participant = participant;
+    public Outcome(String name) {
+        this.name = name;
     }
 
-    public Outcome(Participant participant, double coefficient) {
-        this.participant = participant;
+    public Outcome(String name, double coefficient) {
+        this.name = name;
         this.coefficient = coefficient;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getCoefficient() {
@@ -32,6 +40,6 @@ public class Outcome extends Model {
 
     @Override
     public String toString() {
-        return participant.getName() + ": " + coefficient;
+        return name + ": " + coefficient;
     }
 }

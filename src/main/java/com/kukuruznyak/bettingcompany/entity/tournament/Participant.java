@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.entity.event;
+package com.kukuruznyak.bettingcompany.entity.tournament;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
 
@@ -11,6 +11,7 @@ public class Participant extends Model {
     private int weight;
     private String trainer;
     private String jockey;
+    private Tournament tournament;
 
     public String getName() {
         return name;
@@ -50,6 +51,14 @@ public class Participant extends Model {
 
     public void setJockey(String jockey) {
         this.jockey = jockey;
+    }
+
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
     }
 
     @Override

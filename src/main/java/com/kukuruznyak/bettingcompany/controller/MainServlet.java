@@ -12,9 +12,11 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class MainServlet extends HttpServlet {
+    private static Logger LOGGER = Logger.getLogger(MainServlet.class);
+    private static Invoker commandInvoker = Invoker.getInstance();
 
-    private static final Logger LOGGER = Logger.getLogger(MainServlet.class);
-    private static final Invoker commandInvoker = Invoker.getInstance();
+    public MainServlet() {
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,14 +29,13 @@ public class MainServlet extends HttpServlet {
     }
 
     private void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("errorMessage", "");
         String page;
-        System.out.println("MainServlet");
         try {
             page = commandInvoker.invoke(request, response);
             LOGGER.info("Page " + page + " opened");
         } catch (RuntimeException e) {
-
-            LOGGER.error("Page isn't identified");
+            LOGGER.error("Page isn't identified. URI: " + request.getRequestURI() + " Method: " + request.getMethod());
             LOGGER.error(e.getMessage());
             page = ResourceBundle.getBundle("pages").getString("error");
         }

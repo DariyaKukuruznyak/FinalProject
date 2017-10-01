@@ -1,20 +1,20 @@
 <header>
     <div class="container">
-        <a class="navbar-brand" href="">RACE BET</a>
+        <a class="navbar-brand" href="?command=home">RACE BET</a>
         <c:choose>
-            <c:when test="${user==null}">
+            <c:when test="${user!=null}">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/edit/user"><span class="glyphicon glyphicon-wrench"></span>${user.fullName}</a></li>
-                    <li><span class="glyphicon glyphicon-user"></span>${user.role}</li>
-                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="?command=editUser&id=${user.id}"><span
+                            class="glyphicon glyphicon-wrench"></span>${user.firstName} ${user.lastName}</a></li>
+                    <li><a href="?command=logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </c:when>
-            <c:otherwise>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
-                    <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Join Now</a></li>
-                </ul>
-            </c:otherwise>
+        <c:otherwise>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="?command=login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+                <li><a href="?command=register"><span class="glyphicon glyphicon-user"></span> Join Now</a></li>
+            </ul>
+        </c:otherwise>
         </c:choose>
     </div>
 </header>

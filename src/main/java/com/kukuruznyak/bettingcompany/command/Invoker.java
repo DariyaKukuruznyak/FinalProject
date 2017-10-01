@@ -1,32 +1,15 @@
 package com.kukuruznyak.bettingcompany.command;
 
-import com.kukuruznyak.bettingcompany.command.impl.*;
+import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
+import com.kukuruznyak.bettingcompany.command.impl.user.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 public class Invoker {
     private static Invoker instance;
-    private static final Map<String, Command> urlPatternsList = new HashMap<>();
-    private static final ResourceBundle URL_PATTERNS = ResourceBundle.getBundle("urlPatterns");
 
     private Invoker() {
-        urlPatternsList.put(URL_PATTERNS.getString("home"), new HomeCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("error"), new ErrorCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("login"), new SignInCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("register"), new RegisterCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("addUser"), new AddUserCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("editUser"), new EditUserCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("addEvent"), new AddEventCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("editEvent"), new EditEventCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("addParticipant"), new AddParticipantCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("editParticipant"), new EditParticipantCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("clientEdit"), new EditUserCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("bets"), new BetsCommand());
-        urlPatternsList.put(URL_PATTERNS.getString("events"), new EventsCommand());
     }
 
     public static Invoker getInstance() {
@@ -40,10 +23,49 @@ public class Invoker {
         return instance;
     }
 
+    private Command routeUrl(String url) {
+        switch (url) {
+            case "home":
+                return new HomeCommand();
+            case "login":
+                return new GetLoginPageCommand();
+            case "signIn":
+                return new SignInCommand();
+            case "register":
+                return new GetRegisterPageCommand();
+            case "join":
+                return new RegisterCommand();
+            case "logout":
+                return new LogoutCommand();
+       /*     case "/add/user":
+                return new AddUserCommand();
+            case "/edit/user":
+                return new EditUserCommand();
+            case "/add/event":
+                return new AddEventCommand();
+            case "/edit/event":
+                return new EditEventCommand();
+            case "/add/participant":
+                return new AddParticipantCommand();
+            case "/edit/participant":
+                return new EditParticipantCommand();
+            case "/edit/client":
+                return new EditUserCommand();
+            case "/bets":
+                return new BetsCommand();
+            case "/events":
+                return new EventsCommand();
+                */
+            default:
+                return new HomeCommand();
+        }
+    }
+
     public String invoke(HttpServletRequest request, HttpServletResponse response) {
-        Command command;
-        System.out.println(request.getRequestURI());
-        command = urlPatternsList.get(request.getRequestURI());
-        return command.execute(request, response);
+        String command = request.getParameter("command");
+        if (command == null) {
+            command = "home";
+        }
+        return routeUrl(command).execute(request, response);
     }
 }

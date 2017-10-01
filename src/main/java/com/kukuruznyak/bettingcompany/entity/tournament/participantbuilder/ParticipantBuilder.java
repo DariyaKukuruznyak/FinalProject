@@ -1,6 +1,7 @@
-package com.kukuruznyak.bettingcompany.entity.event.participantbuilder;
+package com.kukuruznyak.bettingcompany.entity.tournament.participantbuilder;
 
-import com.kukuruznyak.bettingcompany.entity.event.Participant;
+import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
+import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 
 public class ParticipantBuilder {
     private String name;
@@ -8,29 +9,35 @@ public class ParticipantBuilder {
     private int weight;
     private String trainer;
     private String jockey;
+    private Tournament tournament;
 
-    ParticipantBuilder buildName(String name) {
+    public ParticipantBuilder buildName(String name) {
         this.name = name;
         return this;
     }
 
-    ParticipantBuilder buildAge(int age) {
+    public ParticipantBuilder buildAge(int age) {
         this.age = age;
         return this;
     }
 
-    ParticipantBuilder buildWeight(int weight) {
+    public ParticipantBuilder buildWeight(int weight) {
         this.weight = weight;
         return this;
     }
 
-    ParticipantBuilder buildTrainer(String trainer) {
+    public ParticipantBuilder buildTrainer(String trainer) {
         this.trainer = trainer;
         return this;
     }
 
-    ParticipantBuilder buildJockey(String jockey) {
+    public ParticipantBuilder buildJockey(String jockey) {
         this.jockey = jockey;
+        return this;
+    }
+
+    public ParticipantBuilder buildTournament(Tournament tournament) {
+        this.tournament = tournament;
         return this;
     }
 
@@ -41,6 +48,7 @@ public class ParticipantBuilder {
         participant.setWeight(this.weight);
         participant.setTrainer(this.trainer);
         participant.setJockey(this.jockey);
+        participant.setTournament(this.tournament);
         return participant;
     }
 }

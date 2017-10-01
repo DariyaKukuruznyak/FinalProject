@@ -16,4 +16,8 @@ public class ServiceFactory {
 
     private ServiceFactory() {
     }
+
+    public UserService getUserService() {
+        return UserService.getInstance();
+    }
 }

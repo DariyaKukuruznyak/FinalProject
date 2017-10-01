@@ -1,0 +1,14 @@
+.form-signin{
+    width: 50%;
+}
+
+.left-panel{
+    position: fixed;
+    left: 0;
+    width: 20%;
+    height: 100%;
+}
+
+.event-details{
+    left: 20%;
+}

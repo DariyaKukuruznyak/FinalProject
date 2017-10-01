@@ -1,23 +1,20 @@
 package com.kukuruznyak.bettingcompany.dao.factory;
 
-import com.kukuruznyak.bettingcompany.dao.BetDao;
-import com.kukuruznyak.bettingcompany.dao.ClientDao;
-import com.kukuruznyak.bettingcompany.dao.EventDao;
-import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
+import com.kukuruznyak.bettingcompany.dao.*;
 import com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql.MySqlDaoFactory;
 import com.kukuruznyak.bettingcompany.dao.impl.jdbc.postgresql.PostgreSqlDAOFactory;
 
 public abstract class DaoFactory {
 
     public abstract BetDao getBetDao();
-
+    public abstract TournamentDao getTournamentDao();
     public abstract ClientDao getClientDao();
-
+    public abstract UserDao getUserDao();
     public abstract EventDao getEventDao();
 
     public abstract ParticipantDao getParticipantDao();
 
-    public static DaoFactory getDAOFactory(DaoFactoryType factoryType) {
+    public static DaoFactory getDaoFactory(DaoFactoryType factoryType) {
         switch (factoryType) {
             case MYSQL:
                 return MySqlDaoFactory.getInstance();

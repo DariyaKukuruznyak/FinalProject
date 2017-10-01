@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 
 public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDao {
     private static MySqlEventDaoImpl instance;
-    private DataSource dataSource = ConnectionPool.getInstance().getConnectionPool();
 
     public static MySqlEventDaoImpl getInstance() {
         if (instance == null) {
@@ -38,5 +37,10 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     @Override
     protected void fillPreparedStatement(PreparedStatement preparedStatement, Event model) throws PersistenceException {
 
+    }
+
+    @Override
+    public Event getEventByTournamentId(Long id) {
+        return null;
     }
 }

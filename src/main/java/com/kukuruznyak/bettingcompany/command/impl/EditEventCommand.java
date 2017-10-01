@@ -8,11 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class EditEventCommand extends Command {
-
-    private static final Logger LOGGER = Logger.getLogger(EditEventCommand.class);
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
-        return "/WEB-INF/pages/bookmaker/evenEdit.jsp";
+        return null;
     }
 }

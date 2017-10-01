@@ -1,10 +1,10 @@
 <head>
     <meta charset="utf-8">
     <title>RaceBet</title>
-    <link rel="icon" href="../../resources/images/icon.jpg"/>
+    <%--<link rel="icon" href="../../resources/images/icon.jpg"/>--%>
+    <%--<link rel="stylesheet" href="../../resources/css/styles.css">--%>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <%--<link rel="stylesheet" href="../../resources/css/bootstrap.css">--%>
     <%--<link rel="stylesheet" href="../../resources/css/bootstrap-theme.css">--%>
     <%--<script type="text/javascript" src="js/registerValidation.js"></script>--%>
 </head>

@@ -1,4 +1,4 @@
-package dao.impl.mysql;
+/*package dao.impl.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.UserDao;
 import com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql.MySqlUserDaoImpl;
@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.sql.SQLException;
 
 public class MySqlUserDaoTest {
+
     private UserDao userDao;
 
     @Before
@@ -30,19 +31,24 @@ public class MySqlUserDaoTest {
 
     @Test
     public void getAll() throws Exception {
-       userDao.getAll();
+        userDao.getAll();
+    }
+
+    @Test
+    public void getAllByRole() throws Exception {
+        System.out.println(userDao.getUsersByRole(UserRole.ADMINISTRATOR.toString()));
     }
 
     @Test
     public void add() throws Exception {
         User user = new UserBuilder()
-                .buildFirstName("Ivan")
-                .buildLastName("Domodedov")
-                .buildEmail("vanya@gmail.com")
-                .buildLogin("11")
+                .buildFirstName("ADMINISTRATOR")
+                .buildLastName("ADMINISTRATOR")
+                .buildEmail("client@gmail.com")
+                .buildLogin("ADMINISTRATOR")
                 .buildPassword("1111")
                 .buildSecurityNumber("1111")
-                .buildUserRole(UserRole.CLIENT)
+                .buildUserRole(UserRole.ADMINISTRATOR)
                 .build();
         userDao.add(user);
     }
@@ -66,4 +72,5 @@ public class MySqlUserDaoTest {
         User user = userDao.getByLogin("0");
     }
 
-}
+
+}*/

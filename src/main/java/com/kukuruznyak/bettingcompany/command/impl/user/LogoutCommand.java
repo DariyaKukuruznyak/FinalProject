@@ -1,18 +1,18 @@
-package com.kukuruznyak.bettingcompany.command.impl;
+package com.kukuruznyak.bettingcompany.command.impl.user;
 
 import com.kukuruznyak.bettingcompany.command.Command;
+import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ErrorCommand extends Command {
-
-    private static final Logger LOGGER = Logger.getLogger(ErrorCommand.class);
-
+public class LogoutCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
-        return "/WEB-INF/pages/error.jsp";
+        LOGGER.info("User " + request.getAttribute("userName") + " logged out");
+        request.getSession().invalidate();
+        return pagesResourceBundle.getString("home");
     }
 }

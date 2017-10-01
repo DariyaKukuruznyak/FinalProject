@@ -24,6 +24,7 @@ public class ConnectionPool {
     private ConnectionPool() {
         try {
             connectionPool = initializeDataSource();
+            LOGGER.info("Connection pool initialized");
         } catch (Exception e) {
             LOGGER.error("Connection pool init error: " + e.getMessage());
             throw new RuntimeException("Error in database connection initialization");

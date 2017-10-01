@@ -3,6 +3,7 @@ package com.kukuruznyak.bettingcompany.dao.impl;
 import com.kukuruznyak.bettingcompany.dao.AbstractDao;
 import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
 import com.kukuruznyak.bettingcompany.entity.Model;
+import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 import org.apache.log4j.Logger;
 
@@ -26,6 +27,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     protected String currentModel;
 
     public AbstractDaoImpl() {
+        System.out.println("AbstractDaoImpl");//TODO
     }
 
     public AbstractDaoImpl(String currentModel) {
@@ -66,6 +68,29 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             LOGGER.error("Database error during selecting " + currentModel +
                     " with message: " + e.getMessage());
             throw new PersistenceException(e.getMessage());
+        }
+        return modelList;
+    }
+
+    protected List<T> getAllByConstrain(String query, String constrain) throws PersistenceException {
+        List<T> modelList = new ArrayList<>();
+        T model = null;
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, constrain);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                model = fillModel(resultSet);
+                modelList.add(model);
+                LOGGER.info(currentModel + " with constrain = " + constrain + " is found");
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Database error during selecting " + currentModel +
+                    " with message: " + e.getMessage());
+            throw new PersistenceException(e.getMessage());
+        }
+        if (model == null) {
+            LOGGER.info(currentModel + " with id = " + 5 + " is not found");
         }
         return modelList;
     }

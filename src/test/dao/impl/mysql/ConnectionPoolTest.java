@@ -1,3 +1,4 @@
+/*
 package dao.impl.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
@@ -32,4 +33,4 @@ public class ConnectionPoolTest {
         assertNotNull(connection);
 //        assertEquals();
     }
-}
+}*/

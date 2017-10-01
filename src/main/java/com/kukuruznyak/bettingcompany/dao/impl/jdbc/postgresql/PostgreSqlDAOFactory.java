@@ -1,9 +1,6 @@
 package com.kukuruznyak.bettingcompany.dao.impl.jdbc.postgresql;
 
-import com.kukuruznyak.bettingcompany.dao.BetDao;
-import com.kukuruznyak.bettingcompany.dao.ClientDao;
-import com.kukuruznyak.bettingcompany.dao.EventDao;
-import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
+import com.kukuruznyak.bettingcompany.dao.*;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
 
 public class PostgreSqlDAOFactory extends DaoFactory {
@@ -30,7 +27,17 @@ public class PostgreSqlDAOFactory extends DaoFactory {
     }
 
     @Override
+    public TournamentDao getTournamentDao() {
+        return null;
+    }
+
+    @Override
     public ClientDao getClientDao() {
+        return null;
+    }
+
+    @Override
+    public UserDao getUserDao() {
         return null;
     }
 

@@ -30,8 +30,8 @@
                 <tr>
                     <td>${event.creationDateAndTime}</td>
                     <td>${event.beginningDateAndTime}</td>
-                    <td>${event.country}</td>
-                    <td>${event.tournament}</td>
+                    <td>${event.toutnament}</td>
+                    <td>${event.toutnament}</td>
                     <td>
                         <c:forEach items="${event.participants}" var="participant">
                             ${participant.name}

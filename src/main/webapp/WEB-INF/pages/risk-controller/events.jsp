@@ -37,8 +37,8 @@
             <c:forEach items="${events}" var="event">
                 <tr>
                     <td>${event.beginningDateAndTime}</td>
-                    <td>${event.country}</td>
-                    <td>${event.tournament}</td>
+                    <td>${event.toutnament}</td>
+                    <td>${event.toutnament}</td>
                     <td>${event.status}</td>
                     <td>${event.bookmaker} <a class="btn btn-success"
                                               href="${pageContext.request.contextPath}/event/edit/${event.id}">

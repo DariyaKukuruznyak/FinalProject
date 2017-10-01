@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
@@ -18,8 +19,9 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     private static final ResourceBundle QUERIES = ResourceBundle.getBundle("queries");
     private static final String SELECT_BY_LOGIN = "selectByLogin";
+    private static final String SELECT_ALL_BY_ROLE = "selectAllByRole";
 
-    public static MySqlUserDaoImpl getInstance() throws SQLException {
+    public static MySqlUserDaoImpl getInstance() {
         if (instance == null) {
             synchronized (MySqlUserDaoImpl.class) {
                 if (instance == null) {
@@ -31,7 +33,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         return instance;
     }
 
-    private MySqlUserDaoImpl() throws SQLException {
+    private MySqlUserDaoImpl() {
         super(User.class.getSimpleName());
     }
 
@@ -66,6 +68,11 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }
+    }
+
+    @Override
+    public List<User> getUsersByRole(String role) {
+        return getAllByConstrain(QUERIES.getString(currentModel + "." + SELECT_ALL_BY_ROLE), role);
     }
 
     public User getByLogin(String login) throws PersistenceException {

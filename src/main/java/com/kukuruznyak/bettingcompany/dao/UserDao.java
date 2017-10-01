@@ -2,9 +2,10 @@ package com.kukuruznyak.bettingcompany.dao;
 
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
-import java.sql.SQLException;
+import java.util.List;
 
 public interface UserDao extends AbstractDao<User> {
+    List<User> getUsersByRole(String role);
 
-    User getByLogin(String login) throws SQLException;
+    User getByLogin(String login);
 }

@@ -1,3 +1,4 @@
+/*
 package com.kukuruznyak.bettingcompany.filter;
 
 import javax.servlet.*;
@@ -26,3 +27,4 @@ public class AuthorizationFilter{
     public void destroy() {
     }
 }
+*/
