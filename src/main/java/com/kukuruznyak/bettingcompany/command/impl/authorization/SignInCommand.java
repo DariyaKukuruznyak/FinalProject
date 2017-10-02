@@ -24,7 +24,7 @@ public class SignInCommand extends Command {
             request.getSession().setAttribute("clientRole", UserRole.CLIENT);
             return pagesResourceBundle.getString("home");
         } else {
-            request.setAttribute("errorMessage", "Incorrect input! Try again.");
+            request.getSession().setAttribute("errorMessage", "Incorrect input! Try again.");
             return pagesResourceBundle.getString("login");
         }
     }

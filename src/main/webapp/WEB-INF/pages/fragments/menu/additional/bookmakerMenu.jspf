@@ -1,0 +1,5 @@
+<li><a href="?command=createEvent"><span class="glyphicon glyphicon-plus"></span> Create new event </a></li>
+<li><a href="?command=eventsByBookmaker&bookmakerId=${user.id}"><span class="glyphicon glyphicon-list-alt"></span> My events </a></li>
+<li><a href="?command=betsByBookmaker&bookmakerId=${user.id}"><span class="glyphicon glyphicon-list-alt"></span> Bets on my events </a></li>
+<li><a href="?command=participants"><span class="glyphicon glyphicon-book"></span> Participants </a></li>
+<li><a href="?command=tournaments"><span class="glyphicon glyphicon-book"></span> Tournaments </a></li>

@@ -1,3 +1,0 @@
-<li><a href="?command=betsHistory&clientId=${user.id}"> My bets <span class="glyphicon glyphicon-list-alt"></span></a></li>
-
-

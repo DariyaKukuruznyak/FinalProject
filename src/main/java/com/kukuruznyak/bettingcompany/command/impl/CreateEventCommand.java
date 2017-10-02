@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl.authorization;
+package com.kukuruznyak.bettingcompany.command.impl;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
@@ -10,7 +10,7 @@ import com.kukuruznyak.bettingcompany.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RegisterCommand extends Command {
+public class CreateEventCommand extends Command {
     private UserService userService = UserService.getInstance();
 
     @Override
@@ -19,24 +19,20 @@ public class RegisterCommand extends Command {
             if (userService.getUserByLogin(request.getParameter("login")) != null) {
                 throw new ApplicationException("User with login '" + request.getParameter("login") + "' already exist!");
             }
-            if (!request.getParameter("password").equals(request.getParameter("confirmPassword"))) {
-                throw new ApplicationException("Passwords are not equals!");
-            }
             User user = createUser(request);
             if (!userService.isValidUser(user)) {
                 throw new ApplicationException("Incorrect user!");
             }
-            user = userService.add(user);
-            request.getSession().setAttribute("user", user);
-            LOGGER.info("New authorization " + user.getLogin() + " joined");
-            return pagesResourceBundle.getString("home");
+            userService.add(user);
+            request.getSession().setAttribute("successMessage", "New user was added successfully");
+
+            return pagesResourceBundle.getString("addUser");
         } catch (ApplicationException e) {
             request.getSession().setAttribute("errorMessage", e.getMessage());
             LOGGER.error(e.getMessage());
-            return pagesResourceBundle.getString("register");
+            return pagesResourceBundle.getString("addUser");
         }
     }
-
 
     private User createUser(HttpServletRequest request) {
         return new UserBuilder()
@@ -45,7 +41,7 @@ public class RegisterCommand extends Command {
                 .buildLogin(request.getParameter("login"))
                 .buildEmail(request.getParameter("email"))
                 .buildPassword(request.getParameter("password"))
-                .buildUserRole(UserRole.CLIENT)
+                .buildUserRole(UserRole.valueOf(request.getParameter("userRole")))
                 .build();
     }
 }

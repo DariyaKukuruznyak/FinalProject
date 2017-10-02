@@ -1,9 +1,6 @@
 package com.kukuruznyak.bettingcompany.command;
 
-import com.kukuruznyak.bettingcompany.command.impl.EditUserCommand;
-import com.kukuruznyak.bettingcompany.command.impl.GetProfileCommand;
-import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
-import com.kukuruznyak.bettingcompany.command.impl.ShowBetsCommand;
+import com.kukuruznyak.bettingcompany.command.impl.*;
 import com.kukuruznyak.bettingcompany.command.impl.authorization.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,9 +40,23 @@ public class Invoker {
            case "betsHistory":
                 return new ShowBetsCommand();
             case "profile":
-                return new GetProfileCommand();
+                return new GetProfilePageCommand();
             case "editUser":
                 return new EditUserCommand();
+            case "users":
+                return new GetStaffPageCommand();
+            case "deleteUser":
+                return new DeleteUserCommand();
+            case "addUser":
+                return new GetAddUserPageCommand();
+            case "createUser":
+                return new CreateUserCommand();
+            case "addEvent":
+                return new GetAddEventPageCommand();
+            case "createEvent":
+                return new CreateEventCommand();
+            case "eventsByBookmaker":
+                return new EventsByBookmakerCommand();
              default:
                 return new HomeCommand();
         }

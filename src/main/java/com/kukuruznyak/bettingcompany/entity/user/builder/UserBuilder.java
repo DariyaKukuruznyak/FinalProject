@@ -11,7 +11,6 @@ public class UserBuilder {
     private String email;
     private String login;
     private String password;
-    private String securityNumber;
     private Date dateOfRegistration = new Date();
     private UserRole userRole;
 
@@ -40,11 +39,6 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder buildSecurityNumber(String securityNumber) {
-        this.securityNumber = securityNumber;
-        return this;
-    }
-
     public UserBuilder buildDateOfRegistration(Date dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;
         return this;
@@ -62,7 +56,6 @@ public class UserBuilder {
         user.setEmail(this.email);
         user.setLogin(this.login);
         user.setPassword(this.password);
-        user.setSecurityNumber(this.securityNumber);
         user.setDateOfRegistration(this.dateOfRegistration);
         user.setUserRole(this.userRole);
         return user;

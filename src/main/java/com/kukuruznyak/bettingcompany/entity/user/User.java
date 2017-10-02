@@ -10,7 +10,6 @@ public class User extends Model {
     protected String email;
     protected String login;
     protected String password;
-    protected String securityNumber;
     protected Date dateOfRegistration;
     protected UserRole userRole;
 
@@ -66,14 +65,6 @@ public class User extends Model {
         this.password = password;
     }
 
-    public String getSecurityNumber() {
-        return securityNumber;
-    }
-
-    public void setSecurityNumber(String securityNumber) {
-        this.securityNumber = securityNumber;
-    }
-
     public Date getDateOfRegistration() {
         return dateOfRegistration;
     }
@@ -85,7 +76,9 @@ public class User extends Model {
     public UserRole getUserRole() {
         return userRole;
     }
-
+    public String getStringUserRole() {
+        return userRole.toString().toLowerCase();
+    }
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
@@ -99,7 +92,6 @@ public class User extends Model {
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", securityNumber='" + securityNumber + '\'' +
                 ", dateOfRegistration=" + dateOfRegistration +
                 ", userRole=" + userRole +
                 '}';

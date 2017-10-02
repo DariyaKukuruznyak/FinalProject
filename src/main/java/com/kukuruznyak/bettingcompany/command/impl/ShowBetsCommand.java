@@ -16,17 +16,21 @@ public class ShowBetsCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         User currentUser = (User) request.getSession().getAttribute("user");
-        if (currentUser == null) {
-            LOGGER.error("Unexpected request!");
-            throw new ApplicationException("Unexpected request!");
-        }
-        switch (currentUser.getUserRole()) {
-            case CLIENT:
-                return showBetsOfClient(request, currentUser.getId());
-            default: {
-                LOGGER.error("Unexpected request!");
+        try {
+            if (currentUser == null) {
                 throw new ApplicationException("Unexpected request!");
             }
+            switch (currentUser.getUserRole()) {
+                case CLIENT:
+                    return showBetsOfClient(request, currentUser.getId());
+                default: {
+                    throw new ApplicationException("Unexpected request!");
+                }
+            }
+        } catch (ApplicationException e) {
+            LOGGER.error(e);
+            request.getSession().setAttribute("errorMessage", e);
+            return pagesResourceBundle.getString("home");
         }
     }
 

@@ -20,13 +20,17 @@ public class EditUserCommand extends Command {
             if (userService.isValidUser(editedUser)) {
                 userService.update(editedUser);
                 request.setAttribute("successMessage","User was updated successfully.");
-                request.getSession().setAttribute("user", editedUser);
+                request.getSession().setAttribute("editedUser", editedUser);
                 LOGGER.info("User with id = " + editedUser.getId() + " updated.");
+                User authorizedUser = (User) request.getSession().getAttribute("user");
+                if(editedUser.getId().equals(authorizedUser.getId())){
+                    request.getSession().setAttribute("user", editedUser);
+                }
             } else {
                 throw new ApplicationException("Incorrect user!");
             }
         } catch (ApplicationException e) {
-            request.setAttribute("errorMessage", e.getMessage());
+            request.getSession().setAttribute("errorMessage", e.getMessage());
             LOGGER.error(e.getMessage());
         } finally {
             return pagesResourceBundle.getString("editUser");

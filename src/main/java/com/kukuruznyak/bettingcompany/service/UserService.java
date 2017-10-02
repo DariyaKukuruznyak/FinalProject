@@ -81,6 +81,7 @@ public class UserService extends AbstractService {
             user.setEmail("");
             return false;
         }
+        System.out.println(validationBundle.getString("password"));
         if (!user.getPassword().matches(validationBundle.getString("password"))) {
             user.setPassword("");
             return false;
@@ -98,5 +99,9 @@ public class UserService extends AbstractService {
 
     public void update(User user) {
         userDao.update(user);
+    }
+
+    public void delete(String id) {
+        userDao.delete(Long.valueOf(id));
     }
 }

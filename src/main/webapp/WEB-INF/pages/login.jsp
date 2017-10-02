@@ -4,6 +4,8 @@
 <body>
 <%@include file="fragments/headerForForms.jspf" %>
 <div class="container">
+    <a class="btn btn-info" href="?command=home"><span
+            class="glyphicon glyphicon-home"></span> Back home</a>
     <div class="form-signin">
         <c:if test="${errorMessage!=''}">
             <div class="alert alert-danger">${errorMessage}</div>

@@ -4,22 +4,24 @@
         <c:choose>
             <c:when test="${user!=null}">
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a><span class="glyphicon glyphicon-user"></span> You signed in like ${user.stringUserRole} </a>
+                    </li>
                     <c:choose>
                         <c:when test="${user.userRole==adminRole}">
-                            <%@include file="adminMenu.jspf" %>
+                            <%@include file="menu/additional/adminMenu.jspf" %>
                         </c:when>
                         <c:when test="${user.userRole==bookmakerRole}">
-                            <%@include file="bookmakerMenu.jspf" %>
+                            <%@include file="menu/additional/bookmakerMenu.jspf" %>
                         </c:when>
                         <c:when test="${user.userRole==riskControllerRole}">
-                            <%@include file="riskControllerMenu.jspf" %>
+                            <%@include file="menu/additional/riskControllerMenu.jspf" %>
                         </c:when>
                         <c:when test="${user.userRole==clientRole}">
-                            <%@include file="clientMenu.jspf" %>
+                            <%@include file="menu/additional/clientMenu.jspf" %>
                         </c:when>
                     </c:choose>
-                    <li><a href="?command=profile"> ${user.fullName} <span
-                            class="glyphicon glyphicon-wrench"></span></a></li>
+                    <li><a href="?command=profile&id=${user.id}"><span
+                            class="glyphicon glyphicon-wrench"></span> ${user.fullName} </a></li>
                     <li><a href="?command=logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </c:when>

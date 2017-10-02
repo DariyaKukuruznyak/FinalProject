@@ -4,7 +4,7 @@
 <body>
 <%@include file="fragments/header.jspf" %>
 <div class="container">
- ERROR :(
+${errorMessage}
 </div>
 <%@include file="fragments/footer.jspf" %>
 </body>
