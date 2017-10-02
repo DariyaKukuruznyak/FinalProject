@@ -2,6 +2,9 @@ package com.kukuruznyak.bettingcompany.entity.tournament;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Participant extends Model {
     /**
      * unique
@@ -11,7 +14,7 @@ public class Participant extends Model {
     private int weight;
     private String trainer;
     private String jockey;
-    private Tournament tournament;
+    private List<Tournament> tournaments;
 
     public String getName() {
         return name;
@@ -53,12 +56,15 @@ public class Participant extends Model {
         this.jockey = jockey;
     }
 
-    public Tournament getTournament() {
-        return tournament;
+    public List<Tournament> getTournaments() {
+        return tournaments;
     }
 
-    public void setTournament(Tournament tournament) {
-        this.tournament = tournament;
+    public void addTournament(Tournament tournament) {
+        if (this.tournaments == null) {
+            this.tournaments = new LinkedList<>();
+        }
+        this.tournaments.add(tournament);
     }
 
     @Override

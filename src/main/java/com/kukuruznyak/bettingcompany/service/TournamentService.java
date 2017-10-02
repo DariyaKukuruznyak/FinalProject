@@ -2,9 +2,12 @@ package com.kukuruznyak.bettingcompany.service;
 
 import com.kukuruznyak.bettingcompany.dao.TournamentDao;
 import com.kukuruznyak.bettingcompany.entity.tournament.Country;
+import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
+import com.kukuruznyak.bettingcompany.entity.tournament.participantbuilder.ParticipantBuilder;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class TournamentService extends AbstractService {
@@ -39,5 +42,19 @@ public class TournamentService extends AbstractService {
         countryList.add(country);
         countryList.add(country);
         return countryList;
+    }
+
+    public List<Tournament> getActiveTournament() {
+        Tournament tournament = new Tournament();
+        tournament.setName("Race");
+        Country country = new Country();
+        country.setName("England");
+        tournament.setCountry(country);
+        List<Tournament> tournamentList = new ArrayList<>();
+        tournamentList.add(tournament);
+        tournamentList.add(tournament);
+        tournamentList.add(tournament);
+        tournamentList.add(tournament);
+        return tournamentList;
     }
 }

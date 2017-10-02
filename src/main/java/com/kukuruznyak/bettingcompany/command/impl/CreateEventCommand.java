@@ -1,47 +1,54 @@
 package com.kukuruznyak.bettingcompany.command.impl;
 
 import com.kukuruznyak.bettingcompany.command.Command;
+import com.kukuruznyak.bettingcompany.entity.event.Event;
+import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.EventBuilder;
+import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
-import com.kukuruznyak.bettingcompany.entity.user.builder.UserBuilder;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
-import com.kukuruznyak.bettingcompany.service.UserService;
+import com.kukuruznyak.bettingcompany.service.EventService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateEventCommand extends Command {
-    private UserService userService = UserService.getInstance();
+    private EventService eventService = EventService.getInstance();
+
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+        User authorizedUser = (User) request.getSession().getAttribute("user");
         try {
-            if (userService.getUserByLogin(request.getParameter("login")) != null) {
-                throw new ApplicationException("User with login '" + request.getParameter("login") + "' already exist!");
+            if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
+                throw new ApplicationException("Access denied");
             }
-            User user = createUser(request);
-            if (!userService.isValidUser(user)) {
-                throw new ApplicationException("Incorrect user!");
+            Event event = fillEvent(request, authorizedUser);
+            if (eventService.isValidEvent(event)) {
+                eventService.add(event);
+                request.getSession().setAttribute("successMessage", "Event was created successfully");
+                LOGGER.error("Event was created successfully");
+            } else {
+                throw new ApplicationException("Invalid event");
             }
-            userService.add(user);
-            request.getSession().setAttribute("successMessage", "New user was added successfully");
-
-            return pagesResourceBundle.getString("addUser");
         } catch (ApplicationException e) {
-            request.getSession().setAttribute("errorMessage", e.getMessage());
             LOGGER.error(e.getMessage());
-            return pagesResourceBundle.getString("addUser");
+            request.getSession().setAttribute("errorMessage", e.getMessage());
         }
+        return pagesResourceBundle.getString("addEvent");
     }
 
-    private User createUser(HttpServletRequest request) {
-        return new UserBuilder()
-                .buildFirstName(request.getParameter("firstName"))
-                .buildLastName(request.getParameter("lastName"))
-                .buildLogin(request.getParameter("login"))
-                .buildEmail(request.getParameter("email"))
-                .buildPassword(request.getParameter("password"))
-                .buildUserRole(UserRole.valueOf(request.getParameter("userRole")))
+    private Event fillEvent(HttpServletRequest request, User bookmaker) {
+        int maxWin;
+        try {
+            maxWin = Integer.valueOf(request.getParameter("maxWin"));
+        } catch (NumberFormatException e) {
+            throw new ApplicationException("Invalid max win");
+        }
+        return new EventBuilder()
+                .buildBookmaker(bookmaker)
+                .buildMaxWin(maxWin)
+                .buildTournament((Tournament) request.getAttribute("tournament"))
                 .build();
     }
 }

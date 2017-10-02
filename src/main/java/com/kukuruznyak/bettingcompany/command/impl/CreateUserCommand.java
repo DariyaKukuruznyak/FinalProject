@@ -19,7 +19,7 @@ public class CreateUserCommand extends Command {
             if (userService.getUserByLogin(request.getParameter("login")) != null) {
                 throw new ApplicationException("User with login '" + request.getParameter("login") + "' already exist!");
             }
-            User user = createUser(request);
+            User user = fillUser(request);
             if (!userService.isValidUser(user)) {
                 throw new ApplicationException("Incorrect user!");
             }
@@ -34,7 +34,7 @@ public class CreateUserCommand extends Command {
         }
     }
 
-    private User createUser(HttpServletRequest request) {
+    private User fillUser(HttpServletRequest request) {
         return new UserBuilder()
                 .buildFirstName(request.getParameter("firstName"))
                 .buildLastName(request.getParameter("lastName"))

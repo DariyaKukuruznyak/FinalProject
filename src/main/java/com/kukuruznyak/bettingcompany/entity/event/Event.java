@@ -1,13 +1,11 @@
 package com.kukuruznyak.bettingcompany.entity.event;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
-
 import com.kukuruznyak.bettingcompany.entity.finance.FinanceResult;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Event extends Model {
@@ -17,14 +15,12 @@ public class Event extends Model {
     private EventStatus status;
     private User bookmaker;
     private double margin;
-    private double maxWin;
+    private int maxWin;
     private boolean isSuspended;
     private FinanceResult financeResult;
 
     public Event() {
-        this.markets = new HashSet<Market>();
-        this.status = EventStatus.NOT_STARTED;
-        this.isSuspended = false;
+
     }
 
     public Calendar getCreationDateAndTime() {
@@ -76,11 +72,11 @@ public class Event extends Model {
         this.margin = margin;
     }
 
-    public double getMaxWin() {
+    public int getMaxWin() {
         return maxWin;
     }
 
-    public void setMaxWin(double maxWin) {
+    public void setMaxWin(int maxWin) {
         this.maxWin = maxWin;
     }
 
@@ -90,6 +86,16 @@ public class Event extends Model {
 
     public void setSuspended(boolean suspended) {
         isSuspended = suspended;
+    }
+
+    public int getNumberOfBets() {
+        int numberOfBets = 0;
+        for (Market market : this.markets) {
+            for (Outcome outcome : market.getOutcomes()) {
+                numberOfBets += outcome.getBets().size();
+            }
+        }
+        return numberOfBets;
     }
 
     public FinanceResult getFinanceResult() {

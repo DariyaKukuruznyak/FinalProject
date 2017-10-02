@@ -41,4 +41,12 @@ public class EventService extends AbstractService {
         event.addMarket(market);
         return event;
     }
+
+    public boolean isValidEvent(Event event) {
+        return true;
+    }
+
+    public void add(Event event) {
+        eventDao.add(event);
+    }
 }

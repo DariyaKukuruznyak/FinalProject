@@ -19,6 +19,10 @@ public class Tournament extends Model {
         return name;
     }
 
+    public String getFullName() {
+        return country.getName() + ". " + name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

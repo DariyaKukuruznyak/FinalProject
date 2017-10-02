@@ -9,7 +9,6 @@ public class ParticipantBuilder {
     private int weight;
     private String trainer;
     private String jockey;
-    private Tournament tournament;
 
     public ParticipantBuilder buildName(String name) {
         this.name = name;
@@ -36,19 +35,13 @@ public class ParticipantBuilder {
         return this;
     }
 
-    public ParticipantBuilder buildTournament(Tournament tournament) {
-        this.tournament = tournament;
-        return this;
-    }
-
     public Participant build() {
         Participant participant = new Participant();
         participant.setName(this.name);
         participant.setAge(this.age);
         participant.setWeight(this.weight);
         participant.setTrainer(this.trainer);
-        participant.setJockey(this.jockey);
-        participant.setTournament(this.tournament);
+        participant.setJockey(this.jockey);;
         return participant;
     }
 }
