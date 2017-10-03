@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Client extends User {
-    private double maxBet;
+    private int maxBet;
     private BigDecimal balance;
     private Set<Bet> bets;
     private String description;
@@ -15,11 +15,15 @@ public class Client extends User {
     public Client() {
     }
 
-    public double getMaxBet() {
+    public Client(User user) {
+        super(user);
+    }
+
+    public int getMaxBet() {
         return maxBet;
     }
 
-    public void setMaxBet(double maxBet) {
+    public void setMaxBet(int maxBet) {
         this.maxBet = maxBet;
     }
 
@@ -48,5 +52,23 @@ public class Client extends User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "maxBet=" + maxBet +
+                ", balance=" + balance +
+                ", bets=" + bets +
+                ", description='" + description + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", dateOfRegistration=" + dateOfRegistration +
+                ", userRole=" + userRole +
+                ", id=" + id +
+                '}';
     }
 }

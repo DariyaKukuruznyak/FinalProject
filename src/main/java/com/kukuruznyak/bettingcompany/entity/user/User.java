@@ -16,6 +16,17 @@ public class User extends Model {
     public User() {
     }
 
+    public User(User user) {
+        this.id = user.getId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.dateOfRegistration = user.getDateOfRegistration();
+        this.userRole = user.getUserRole();
+    }
+
     public User(String login, String password) {
         this.login = login;
         this.password = password;
@@ -76,9 +87,11 @@ public class User extends Model {
     public UserRole getUserRole() {
         return userRole;
     }
+
     public String getStringUserRole() {
         return userRole.toString().toLowerCase();
     }
+
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }

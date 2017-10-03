@@ -21,7 +21,7 @@ public abstract class DaoFactory {
             case POSTGRESQL:
                 return PostgreSqlDAOFactory.getInstance();
             default:
-                return null;
+                return MySqlDaoFactory.getInstance();
         }
     }
 }

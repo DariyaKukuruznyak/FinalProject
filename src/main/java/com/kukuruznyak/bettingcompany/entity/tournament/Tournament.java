@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Tournament extends Model {
     private String name;
-    private Country country;
+    private String country;
     private Calendar beginningDateAndTime;
     private List<Participant> participants;
 
@@ -20,18 +20,18 @@ public class Tournament extends Model {
     }
 
     public String getFullName() {
-        return country.getName() + ". " + name;
+        return country+ ". " + name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
