@@ -1,10 +1,10 @@
-package com.kukuruznyak.bettingcompany.command.impl;
+package com.kukuruznyak.bettingcompany.command.impl.user;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
-import com.kukuruznyak.bettingcompany.service.ServiceFactory;
+import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 import com.kukuruznyak.bettingcompany.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

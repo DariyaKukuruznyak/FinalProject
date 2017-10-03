@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl.authorization;
+package com.kukuruznyak.bettingcompany.command.impl.user.authorization;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;

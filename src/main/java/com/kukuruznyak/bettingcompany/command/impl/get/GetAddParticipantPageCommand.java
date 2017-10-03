@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl;
+package com.kukuruznyak.bettingcompany.command.impl.get;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;

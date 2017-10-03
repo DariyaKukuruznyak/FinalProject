@@ -1,7 +1,15 @@
 package com.kukuruznyak.bettingcompany.command;
 
 import com.kukuruznyak.bettingcompany.command.impl.*;
-import com.kukuruznyak.bettingcompany.command.impl.authorization.*;
+import com.kukuruznyak.bettingcompany.command.impl.bet.ShowBetsCommand;
+import com.kukuruznyak.bettingcompany.command.impl.patricipant.CreateParticipantCommand;
+import com.kukuruznyak.bettingcompany.command.impl.patricipant.ShowParticipantsCommand;
+import com.kukuruznyak.bettingcompany.command.impl.user.authorization.*;
+import com.kukuruznyak.bettingcompany.command.impl.event.CreateEventCommand;
+import com.kukuruznyak.bettingcompany.command.impl.get.*;
+import com.kukuruznyak.bettingcompany.command.impl.user.CreateUserCommand;
+import com.kukuruznyak.bettingcompany.command.impl.user.DeleteUserCommand;
+import com.kukuruznyak.bettingcompany.command.impl.user.EditUserCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

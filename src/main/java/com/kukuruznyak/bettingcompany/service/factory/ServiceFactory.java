@@ -1,4 +1,6 @@
-package com.kukuruznyak.bettingcompany.service;
+package com.kukuruznyak.bettingcompany.service.factory;
+
+import com.kukuruznyak.bettingcompany.service.*;
 
 public class ServiceFactory {
     private static ServiceFactory instance;
