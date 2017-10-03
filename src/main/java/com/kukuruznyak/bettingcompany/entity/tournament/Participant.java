@@ -90,4 +90,16 @@ public class Participant extends Model {
         result = 31 * result + getJockey().hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Participant{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", trainer='" + trainer + '\'' +
+                ", jockey='" + jockey + '\'' +
+                ", tournaments=" + tournaments +
+                '}';
+    }
 }

@@ -63,5 +63,16 @@ public class Tournament extends Model {
     public void setScore(String score) {
         this.score = score;
     }
+
+    @Override
+    public String toString() {
+        return "Tournament{" +
+                "name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", score='" + score + '\'' +
+                ", beginningDateAndTime=" + beginningDateAndTime +
+                ", participants=" + participants +
+                '}';
+    }
 }
 

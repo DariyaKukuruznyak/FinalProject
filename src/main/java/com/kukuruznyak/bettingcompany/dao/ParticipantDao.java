@@ -1,7 +1,6 @@
 package com.kukuruznyak.bettingcompany.dao;
 
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
-import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import java.util.List;
@@ -11,5 +10,5 @@ public interface ParticipantDao extends AbstractDao<Participant> {
 
     void deleteTournament(Long participantId, Long tournamentId) throws PersistenceException;
 
-    List<Tournament> getTournaments(Long participantId) throws PersistenceException;
+    List<Participant> getParticipantsByTournamentId(Long id) throws PersistenceException;
 }

@@ -5,7 +5,6 @@ import com.kukuruznyak.bettingcompany.dao.TournamentDao;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactoryType;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
-import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
@@ -17,6 +16,8 @@ import java.util.List;
 public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implements TournamentDao {
     private static MySqlTournamentDaoImpl instance;
     private static ParticipantDao participantDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getParticipantDao();
+    private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
+    private static final String ALL_TOURNAMENT_BY_PARTICIPANTS = "getTournaments";
 
     public static MySqlTournamentDaoImpl getInstance() {
         if (instance == null) {
@@ -72,7 +73,9 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     }
 
     @Override
-    public List<Participant> getParticipants(Long tournamentId) throws PersistenceException {
-        return null;
+    public List<Tournament> getParticipants(Long id) throws PersistenceException {
+        return super.getAllByConstrain(
+                QUERIES.getString(LINKED_TABLE_QUERY + "." + ALL_TOURNAMENT_BY_PARTICIPANTS),
+                String.valueOf(id));
     }
 }

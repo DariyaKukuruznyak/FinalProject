@@ -3,7 +3,6 @@ package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
-import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.tournament.participantbuilder.ParticipantBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
@@ -18,6 +17,8 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
     private static final String ADD_TOURNAMENT = "addLink";
     private static final String DELETE_TOURNAMENT = "deleteLink";
+    private static final String ALL_PARTICIPANTS_BY_TOURNAMENT = "getParticipants";
+
     public static MySqlParticipantDaoImpl getInstance() {
         if (instance == null) {
             synchronized (MySqlParticipantDaoImpl.class) {
@@ -45,8 +46,10 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
-    public List<Tournament> getTournaments(Long id) throws PersistenceException {
-        return null;
+    public List<Participant> getParticipantsByTournamentId(Long id) throws PersistenceException {
+        return super.getAllByConstrain(
+                QUERIES.getString(LINKED_TABLE_QUERY + "." + ALL_PARTICIPANTS_BY_TOURNAMENT),
+                String.valueOf(id));
     }
 
     @Override

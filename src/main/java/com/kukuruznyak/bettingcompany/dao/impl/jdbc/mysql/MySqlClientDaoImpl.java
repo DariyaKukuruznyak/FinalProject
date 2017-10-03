@@ -81,9 +81,6 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
         Client client;
         try {
             client = new Client(userDao.getById(resultSet.getLong("id")));
-            if (client == null) {
-                return null;
-            }
             client.setBalance(resultSet.getBigDecimal("balance"));
             client.setMaxBet(resultSet.getInt("max_bet"));
             client.setDescription(resultSet.getString("description"));
