@@ -28,6 +28,18 @@ public class ParticipantService extends AbstractService {
     }
 
     public boolean isValidParticipant(Participant participant) {
+        if (!participant.getName().matches(validationBundle.getString("name"))) {
+            participant.setName("");
+            return false;
+        }
+        if (!participant.getTrainer().matches(validationBundle.getString("name"))) {
+            participant.setTrainer("");
+            return false;
+        }
+        if (!participant.getJockey().matches(validationBundle.getString("name"))) {
+            participant.setJockey("");
+            return false;
+        }
         return true;
     }
 

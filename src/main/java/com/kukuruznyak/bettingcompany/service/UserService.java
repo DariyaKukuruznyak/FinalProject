@@ -1,19 +1,18 @@
 package com.kukuruznyak.bettingcompany.service;
 
+import com.kukuruznyak.bettingcompany.dao.ClientDao;
 import com.kukuruznyak.bettingcompany.dao.UserDao;
 import com.kukuruznyak.bettingcompany.entity.user.Client;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ServiceException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class UserService extends AbstractService {
     private static UserService instance;
     private UserDao userDao = daoFactory.getUserDao();
-    private static ResourceBundle validationBundle = ResourceBundle.getBundle("validationPatterns");
+    private ClientDao clientDao = daoFactory.getClientDao();
 
     public static UserService getInstance() {
         if (instance == null) {
@@ -40,18 +39,6 @@ public class UserService extends AbstractService {
         return userDao.getByLogin(login);
     }
 
-    public List<User> getAllAdministrators() {
-        return userDao.getUsersByRole(UserRole.ADMINISTRATOR.toString());
-    }
-
-    public List<User> getAllBookmakers() {
-        return userDao.getUsersByRole(UserRole.BOOKMAKER.toString());
-    }
-
-    public List<User> getAllRiskControllers() {
-        return userDao.getUsersByRole(UserRole.RISK_CONTROLLER.toString());
-    }
-
     public List<User> getStaff() {
         List<User> staff = getAllAdministrators();
         staff.addAll(getAllBookmakers());
@@ -60,16 +47,15 @@ public class UserService extends AbstractService {
     }
 
     public List<Client> getAllClients() {
-        List<Client> clients = new ArrayList<>();
-        return clients;
+        return clientDao.getAll();
     }
 
     public boolean isValidUser(User user) {
-        if (!user.getFirstName().matches(validationBundle.getString("firstName"))) {
+        if (!user.getFirstName().matches(validationBundle.getString("name"))) {
             user.setFirstName("");
             return false;
         }
-        if (!user.getLastName().matches(validationBundle.getString("lastName"))) {
+        if (!user.getLastName().matches(validationBundle.getString("name"))) {
             user.setLastName("");
             return false;
         }
@@ -81,7 +67,6 @@ public class UserService extends AbstractService {
             user.setEmail("");
             return false;
         }
-        System.out.println(validationBundle.getString("password"));
         if (!user.getPassword().matches(validationBundle.getString("password"))) {
             user.setPassword("");
             return false;
@@ -103,5 +88,17 @@ public class UserService extends AbstractService {
 
     public void delete(String id) {
         userDao.delete(Long.valueOf(id));
+    }
+
+    private List<User> getAllAdministrators() {
+        return userDao.getUsersByRole(UserRole.ADMINISTRATOR.toString());
+    }
+
+    private List<User> getAllBookmakers() {
+        return userDao.getUsersByRole(UserRole.BOOKMAKER.toString());
+    }
+
+    private List<User> getAllRiskControllers() {
+        return userDao.getUsersByRole(UserRole.RISK_CONTROLLER.toString());
     }
 }

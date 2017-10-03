@@ -38,6 +38,7 @@ public class MainServlet extends HttpServlet {
         } catch (RuntimeException e) {
             LOGGER.error("Page isn't identified. URI: " + request.getRequestURI() + " Method: " + request.getMethod());
             LOGGER.error(e.getMessage());
+            request.getSession().setAttribute("errorMessage", e.getMessage());
             page = ResourceBundle.getBundle("pages").getString("error");
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher(page);

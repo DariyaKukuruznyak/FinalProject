@@ -64,16 +64,16 @@
                 <input class="form-control" id="dateOfRegistration" name="dateOfRegistration"
                        value="${editedUser.dateOfRegistration}" disabled>
             </fieldset>
-            <c:if test="${editedUser.userRole==clientRole}">
-                <div class="form-group row">
-                    <label for="balance" class="col-sm-4 col-form-label">Balance</label>
-                    <div class="col-sm-8">
-                        <input name="balance" id="balance" class="form-control" value="${editedUser.balance}"
-                               placeholder="Balance" disabled>
-                    </div>
-                    <a href="">Operations with wallet</a>
-                </div>
-            </c:if>
+            <%--<c:if test="${editedUser.userRole==clientRole}">--%>
+                <%--<div class="form-group row">--%>
+                    <%--<label for="balance" class="col-sm-4 col-form-label">Balance</label>--%>
+                    <%--<div class="col-sm-8">--%>
+                        <%--<input name="balance" id="balance" class="form-control" value="${editedUser.balance}"--%>
+                               <%--placeholder="Balance" disabled>--%>
+                    <%--</div>--%>
+                    <%--<a href="">Operations with wallet</a>--%>
+                <%--</div>--%>
+            <%--</c:if>--%>
             <fieldset class="form-group">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
             </fieldset>

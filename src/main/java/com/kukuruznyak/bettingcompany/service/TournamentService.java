@@ -25,14 +25,6 @@ public class TournamentService extends AbstractService {
     }
 
      public List<Tournament> getActiveTournament() {
-        Tournament tournament = new Tournament();
-        tournament.setName("Race");
-        tournament.setCountry("England");
-        List<Tournament> tournamentList = new ArrayList<>();
-        tournamentList.add(tournament);
-        tournamentList.add(tournament);
-        tournamentList.add(tournament);
-        tournamentList.add(tournament);
-        return tournamentList;
+        return tournamentDao.getAll(); //TODO
     }
 }

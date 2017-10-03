@@ -42,7 +42,7 @@ public class BetService extends AbstractService {
 
         Bet bet2 = new Bet();
         bet2.setType(TypeOfBet.EXPRESS);
-        bet2.setTotalCoefficient(2);
+        bet2.setTotalCoefficient(4);
         bet2.setSumIn(new BigDecimal("2"));
         bet2.setSumOut(new BigDecimal("4"));
         bet2.setResult(ResultOfBet.WIN);

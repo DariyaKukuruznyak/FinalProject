@@ -24,13 +24,9 @@ public class CreateEventCommand extends Command {
                 throw new ApplicationException("Access denied");
             }
             Event event = fillEvent(request, authorizedUser);
-            if (eventService.isValidEvent(event)) {
-                eventService.add(event);
-                request.getSession().setAttribute("successMessage", "Event was created successfully");
-                LOGGER.error("Event was created successfully");
-            } else {
-                throw new ApplicationException("Invalid event");
-            }
+            eventService.add(event);
+            request.getSession().setAttribute("successMessage", "Event was created successfully");
+            LOGGER.error("Event was created successfully");
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
             request.getSession().setAttribute("errorMessage", e.getMessage());

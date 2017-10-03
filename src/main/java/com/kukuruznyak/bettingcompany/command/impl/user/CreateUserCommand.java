@@ -37,7 +37,7 @@ public class CreateUserCommand extends Command {
 
     private User fillUser(HttpServletRequest request) {
         return new UserBuilder()
-                .buildFirstName(request.getParameter("firstName"))
+                .buildFirstName(request.getParameter("name"))
                 .buildLastName(request.getParameter("lastName"))
                 .buildLogin(request.getParameter("login"))
                 .buildEmail(request.getParameter("email"))
