@@ -1,17 +1,22 @@
 package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 
-import com.kukuruznyak.bettingcompany.dao.EventDao;
+import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
 import com.kukuruznyak.bettingcompany.dao.TournamentDao;
+import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
+import com.kukuruznyak.bettingcompany.dao.factory.DaoFactoryType;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
-import com.kukuruznyak.bettingcompany.entity.event.Event;
+import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implements TournamentDao {
     private static MySqlTournamentDaoImpl instance;
+    private static ParticipantDao participantDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getParticipantDao();
 
     public static MySqlTournamentDaoImpl getInstance() {
         if (instance == null) {
@@ -31,11 +36,43 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
 
     @Override
     protected Tournament fillModel(ResultSet resultSet) throws PersistenceException {
-        return null;
+        Tournament tournament = new Tournament();
+        try {
+            tournament.setId(resultSet.getLong("id"));
+            tournament.setName(resultSet.getString("name"));
+            tournament.setCountry(resultSet.getString("country"));
+            tournament.setBeginningDateAndTime(resultSet.getDate("start_date_and_time"));//TODO
+            tournament.setScore(resultSet.getString("score"));
+        } catch (SQLException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+        return tournament;
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Tournament model) throws PersistenceException {
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Tournament tournament) throws PersistenceException {
+        try {
+            preparedStatement.setString(1, tournament.getName());
+            preparedStatement.setString(2, tournament.getCountry());
+            preparedStatement.setDate(3, new java.sql.Date(tournament.getBeginningDateAndTime().getTime()));
+            preparedStatement.setString(4, tournament.getScore());
+        } catch (SQLException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
 
+    @Override
+    public void addParticipant(Long participantId, Long tournamentId) throws PersistenceException {
+        participantDao.addTournament(participantId, tournamentId);
+    }
+
+    @Override
+    public void deleteParticipant(Long participantId, Long tournamentId) throws PersistenceException {
+        participantDao.deleteTournament(participantId, tournamentId);
+    }
+
+    @Override
+    public List<Participant> getParticipants(Long tournamentId) throws PersistenceException {
+        return null;
     }
 }

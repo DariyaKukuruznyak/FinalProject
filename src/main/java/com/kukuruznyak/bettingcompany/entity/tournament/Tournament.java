@@ -3,13 +3,14 @@ package com.kukuruznyak.bettingcompany.entity.tournament;
 import com.kukuruznyak.bettingcompany.entity.Model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Tournament extends Model {
     private String name;
     private String country;
-    private Calendar beginningDateAndTime;
+    private String score;
+    private Date beginningDateAndTime;
     private List<Participant> participants;
 
     public Tournament() {
@@ -20,7 +21,7 @@ public class Tournament extends Model {
     }
 
     public String getFullName() {
-        return country+ ". " + name;
+        return country + ". " + name;
     }
 
     public void setName(String name) {
@@ -39,18 +40,28 @@ public class Tournament extends Model {
         return participants;
     }
 
-    public Calendar getBeginningDateAndTime() {
-        return beginningDateAndTime;
-    }
-
-    public void setBeginningDateAndTime(Calendar beginningDateAndTime) {
-        this.beginningDateAndTime = beginningDateAndTime;
-    }
-
     public void addParticipant(Participant participant) {
         if (this.participants == null) {
             this.participants = new ArrayList<>();
         }
         this.participants.add(participant);
     }
+
+
+    public Date getBeginningDateAndTime() {
+        return beginningDateAndTime;
+    }
+
+    public void setBeginningDateAndTime(Date beginningDateAndTime) {
+        this.beginningDateAndTime = beginningDateAndTime;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
 }
+

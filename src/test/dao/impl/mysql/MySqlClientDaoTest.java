@@ -1,3 +1,4 @@
+/*
 package dao.impl.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.ClientDao;
@@ -62,4 +63,4 @@ public class MySqlClientDaoTest {
         clientDao.delete(13L);
     }
 
-}
+}*/

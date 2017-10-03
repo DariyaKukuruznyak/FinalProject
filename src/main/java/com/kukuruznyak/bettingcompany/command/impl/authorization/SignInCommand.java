@@ -4,13 +4,14 @@ import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
+import com.kukuruznyak.bettingcompany.service.ServiceFactory;
 import com.kukuruznyak.bettingcompany.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class SignInCommand extends Command {
-    private UserService userService = UserService.getInstance();
+    private UserService userService = ServiceFactory.getInstance().getUserService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {

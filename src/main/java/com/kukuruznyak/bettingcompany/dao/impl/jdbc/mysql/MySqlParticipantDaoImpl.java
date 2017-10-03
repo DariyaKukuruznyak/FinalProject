@@ -3,16 +3,21 @@ package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
+import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.tournament.participantbuilder.ParticipantBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implements ParticipantDao {
     private static MySqlParticipantDaoImpl instance;
-
+    private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
+    private static final String ADD_TOURNAMENT = "addLink";
+    private static final String DELETE_TOURNAMENT = "deleteLink";
     public static MySqlParticipantDaoImpl getInstance() {
         if (instance == null) {
             synchronized (MySqlParticipantDaoImpl.class) {
@@ -30,9 +35,25 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
+    public void addTournament(Long participantId, Long tournamentId) {
+        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + "." + ADD_TOURNAMENT));
+    }
+
+    @Override
+    public void deleteTournament(Long participantId, Long tournamentId) {
+        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + "." + DELETE_TOURNAMENT));
+    }
+
+    @Override
+    public List<Tournament> getTournaments(Long id) throws PersistenceException {
+        return null;
+    }
+
+    @Override
     protected Participant fillModel(ResultSet resultSet) throws PersistenceException {
         try {
             return new ParticipantBuilder()
+                    .buildId(resultSet.getLong("id"))
                     .buildName(resultSet.getString("name"))
                     .buildAge(resultSet.getInt("age"))
                     .buildWeight(resultSet.getInt("weight"))
@@ -55,6 +76,18 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }
+    }
 
+    private void updateLinkedTable(Long participantId, Long tournamentId, String query) {
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, participantId);
+            preparedStatement.setLong(2, tournamentId);
+            preparedStatement.executeUpdate();
+            LOGGER.info("Database error during action with linked table");
+        } catch (SQLException e) {
+            LOGGER.error("Database error during action with linked table with message: " + e.getMessage());
+            throw new PersistenceException(e.getMessage());
+        }
     }
 }

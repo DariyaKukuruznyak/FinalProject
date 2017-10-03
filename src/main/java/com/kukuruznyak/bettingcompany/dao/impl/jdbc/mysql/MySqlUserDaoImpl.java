@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.dao.UserDao;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
+import com.kukuruznyak.bettingcompany.entity.user.builder.UserBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import java.sql.Connection;
@@ -39,20 +40,20 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     protected User fillModel(ResultSet resultSet) throws PersistenceException {
-        User user = new User();
         try {
-            user.setId(resultSet.getLong("id"));
-            user.setFirstName(resultSet.getString("first_name"));
-            user.setLastName(resultSet.getString("last_name"));
-            user.setEmail(resultSet.getString("email"));
-            user.setLogin(resultSet.getString("login"));
-            user.setPassword(resultSet.getString("password"));
-            user.setDateOfRegistration(new Date(resultSet.getDate("date_of_registration").getTime()));
-            user.setUserRole(UserRole.valueOf(resultSet.getString("user_role")));
+            return new UserBuilder()
+                    .buildId(resultSet.getLong("id"))
+                    .buildFirstName(resultSet.getString("first_name"))
+                    .buildLastName(resultSet.getString("last_name"))
+                    .buildEmail(resultSet.getString("email"))
+                    .buildLogin(resultSet.getString("login"))
+                    .buildPassword(resultSet.getString("password"))
+                    .buildDateOfRegistration(new Date(resultSet.getDate("date_of_registration").getTime()))
+                    .buildUserRole(UserRole.valueOf(resultSet.getString("user_role")))
+                    .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }
-        return user;
     }
 
     @Override
@@ -71,7 +72,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public List<User> getUsersByRole(String role) {
+    public List<User> getUsersByRole(String role) throws PersistenceException{
         return getAllByConstrain(QUERIES.getString(currentModel + "." + SELECT_ALL_BY_ROLE), role);
     }
 

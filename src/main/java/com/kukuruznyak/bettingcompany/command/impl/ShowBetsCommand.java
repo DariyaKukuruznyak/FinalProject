@@ -5,13 +5,14 @@ import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.BetService;
+import com.kukuruznyak.bettingcompany.service.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class ShowBetsCommand extends Command {
-    private BetService betService = BetService.getInstance();
+    private BetService betService = ServiceFactory.getInstance().getBetService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {

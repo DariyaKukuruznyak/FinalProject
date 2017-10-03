@@ -5,12 +5,13 @@ import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.entity.tournament.participantbuilder.ParticipantBuilder;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ParticipantService;
+import com.kukuruznyak.bettingcompany.service.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateParticipantCommand extends Command {
-    private ParticipantService participantService = ParticipantService.getInstance();
+    private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {

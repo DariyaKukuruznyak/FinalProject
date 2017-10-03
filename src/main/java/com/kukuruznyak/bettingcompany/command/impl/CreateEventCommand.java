@@ -8,13 +8,13 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.EventService;
+import com.kukuruznyak.bettingcompany.service.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateEventCommand extends Command {
-    private EventService eventService = EventService.getInstance();
-
+    private EventService eventService = ServiceFactory.getInstance().getEventService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {

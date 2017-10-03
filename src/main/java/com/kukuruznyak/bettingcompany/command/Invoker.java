@@ -55,8 +55,6 @@ public class Invoker {
                 return new GetAddEventPageCommand();
             case "createEvent":
                 return new CreateEventCommand();
-            case "eventsByBookmaker":
-                return new EventsByBookmakerCommand();
             case "participants":
                 return new ShowParticipantsCommand();
             case "addParticipant":

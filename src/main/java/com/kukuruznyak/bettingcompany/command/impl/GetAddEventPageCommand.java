@@ -7,6 +7,7 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.EventService;
+import com.kukuruznyak.bettingcompany.service.ServiceFactory;
 import com.kukuruznyak.bettingcompany.service.TournamentService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class GetAddEventPageCommand extends Command {
-    private TournamentService tournamentService = TournamentService.getInstance();
+    private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {

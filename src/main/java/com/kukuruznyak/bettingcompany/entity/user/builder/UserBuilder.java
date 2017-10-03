@@ -6,6 +6,7 @@ import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import java.util.Date;
 
 public class UserBuilder {
+    private Long id = null;
     private String firstName;
     private String lastName;
     private String email;
@@ -13,6 +14,11 @@ public class UserBuilder {
     private String password;
     private Date dateOfRegistration = new Date();
     private UserRole userRole;
+
+    public UserBuilder buildId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public UserBuilder buildFirstName(String firstName) {
         this.firstName = firstName;
@@ -51,6 +57,7 @@ public class UserBuilder {
 
     public User build() {
         User user = new User();
+        user.setId(this.id);
         user.setFirstName(this.firstName);
         user.setLastName(this.lastName);
         user.setEmail(this.email);

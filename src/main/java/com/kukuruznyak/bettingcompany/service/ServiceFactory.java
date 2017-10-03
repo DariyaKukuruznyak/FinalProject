@@ -20,4 +20,20 @@ public class ServiceFactory {
     public UserService getUserService() {
         return UserService.getInstance();
     }
+
+    public BetService getBetService() {
+        return BetService.getInstance();
+    }
+
+    public EventService getEventService() {
+        return EventService.getInstance();
+    }
+
+    public ParticipantService getParticipantService() {
+        return ParticipantService.getInstance();
+    }
+
+    public TournamentService getTournamentService() {
+        return TournamentService.getInstance();
+    }
 }
