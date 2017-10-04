@@ -17,6 +17,8 @@ public class Client extends User {
 
     public Client(User user) {
         super(user);
+        this.maxBet = 500;//TODO extract ot interface
+        this.balance = new BigDecimal(100);
     }
 
     public int getMaxBet() {

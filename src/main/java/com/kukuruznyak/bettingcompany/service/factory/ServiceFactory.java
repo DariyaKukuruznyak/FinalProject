@@ -38,4 +38,8 @@ public class ServiceFactory {
     public TournamentService getTournamentService() {
         return TournamentService.getInstance();
     }
+
+    public ClientService getClientService() {
+        return ClientService.getInstance();
+    }
 }

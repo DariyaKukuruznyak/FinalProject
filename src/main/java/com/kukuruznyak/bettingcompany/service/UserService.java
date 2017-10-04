@@ -1,8 +1,6 @@
 package com.kukuruznyak.bettingcompany.service;
 
-import com.kukuruznyak.bettingcompany.dao.ClientDao;
 import com.kukuruznyak.bettingcompany.dao.UserDao;
-import com.kukuruznyak.bettingcompany.entity.user.Client;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ServiceException;
@@ -12,7 +10,6 @@ import java.util.List;
 public class UserService extends AbstractService {
     private static UserService instance;
     private UserDao userDao = daoFactory.getUserDao();
-    private ClientDao clientDao = daoFactory.getClientDao();
 
     public static UserService getInstance() {
         if (instance == null) {
@@ -44,10 +41,6 @@ public class UserService extends AbstractService {
         staff.addAll(getAllBookmakers());
         staff.addAll(getAllRiskControllers());
         return staff;
-    }
-
-    public List<Client> getAllClients() {
-        return clientDao.getAll();
     }
 
     public boolean isValidUser(User user) {
@@ -100,5 +93,9 @@ public class UserService extends AbstractService {
 
     private List<User> getAllRiskControllers() {
         return userDao.getUsersByRole(UserRole.RISK_CONTROLLER.toString());
+    }
+
+    public UserRole getRoleByLogin(String login) {
+        return userDao.getUSerRoleByLogin(login);
     }
 }

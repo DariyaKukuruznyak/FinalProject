@@ -21,6 +21,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     private static final ResourceBundle QUERIES = ResourceBundle.getBundle("queries");
     private static final String SELECT_BY_LOGIN = "selectByLogin";
     private static final String SELECT_ALL_BY_ROLE = "selectAllByRole";
+    private static final String SELECT_ROLE_BY_LOGIN = "selectRoleByLogin";
 
     public static MySqlUserDaoImpl getInstance() {
         if (instance == null) {
@@ -72,7 +73,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public List<User> getUsersByRole(String role) throws PersistenceException{
+    public List<User> getUsersByRole(String role) throws PersistenceException {
         return getAllByConstrain(QUERIES.getString(currentModel + "." + SELECT_ALL_BY_ROLE), role);
     }
 
@@ -95,5 +96,24 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             LOGGER.info(currentModel + " with login = " + login + " is not found");
         }
         return user;
+    }
+
+    @Override
+    public UserRole getUSerRoleByLogin(String login) {
+        UserRole userRole = null;
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.
+                    prepareStatement(QUERIES.getString(currentModel + "." + SELECT_ROLE_BY_LOGIN));
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                userRole = UserRole.valueOf(resultSet.getString("user_role"));
+                LOGGER.info(currentModel + " with login = " + login + " has role " + userRole);
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Database error during selecting with message: " + e.getMessage());
+            throw new PersistenceException(e.getMessage());
+        }
+        return userRole;
     }
 }

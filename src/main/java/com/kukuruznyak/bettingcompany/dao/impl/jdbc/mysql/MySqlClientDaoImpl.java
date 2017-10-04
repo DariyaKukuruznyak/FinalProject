@@ -37,33 +37,18 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
     @Override
     public Client add(Client client) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            connection.setAutoCommit(false);
-            User user = userDao.add(client);
-            client.setId(user.getId());
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + INSERT));
-            fillPreparedStatement(preparedStatement, client);
-            int rowInserted = preparedStatement.executeUpdate();
-            connection.commit();
-            LOGGER.info(rowInserted + " row(s) inserted");
-            LOGGER.info(currentModel + " was inserted. Details: " + client.toString());
+            return addClient(connection, client);
         } catch (SQLException e) {
-            LOGGER.error("Database error during inserting " + currentModel +
+            LOGGER.error("Database error during adding " + currentModel +
                     " with message: " + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
-        return client;
-
     }
 
     @Override
     public void update(Client client) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            connection.setAutoCommit(false);
-            userDao.update(client);
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + UPDATE));
-            fillPreparedStatement(preparedStatement, client);
-            preparedStatement.executeUpdate();
-            connection.commit();
+            updateClient(connection, client);
         } catch (SQLException e) {
             LOGGER.error("Database error during updating " + currentModel +
                     " with message: " + e.getMessage());
@@ -98,6 +83,39 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
             preparedStatement.setInt(3, client.getMaxBet());
             preparedStatement.setString(4, client.getDescription());
         } catch (SQLException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+    private Client addClient(Connection connection, Client client) throws SQLException {
+        try {
+            connection = dataSource.getConnection();
+            connection.setAutoCommit(false);
+            User user = userDao.add(client);
+            client.setId(user.getId());
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + INSERT));
+            fillPreparedStatement(preparedStatement, client);
+            int rowInserted = preparedStatement.executeUpdate();
+            connection.commit();
+            LOGGER.info(rowInserted + " row(s) inserted");
+            LOGGER.info(currentModel + " was inserted. Details: " + client.toString());
+        } catch (SQLException e) {
+            connection.rollback();
+            throw new PersistenceException(e.getMessage());
+        }
+        return client;
+    }
+
+    private void updateClient(Connection connection, Client client) throws SQLException {
+        try {
+            connection.setAutoCommit(false);
+            userDao.update(client);
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + UPDATE));
+            fillPreparedStatement(preparedStatement, client);
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
             throw new PersistenceException(e.getMessage());
         }
     }

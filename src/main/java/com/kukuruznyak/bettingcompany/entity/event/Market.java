@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class Market extends Model {
     private MarketNames name;
+    private double margin;
     private Set<Outcome> outcomes;
     private Event event;
 
@@ -31,6 +32,14 @@ public class Market extends Model {
 
     public void setName(MarketNames name) {
         this.name = name;
+    }
+
+    public double getMargin() {
+        return margin;
+    }
+
+    public void setMargin(double margin) {
+        this.margin = margin;
     }
 
     public Set<Outcome> getOutcomes() {

@@ -14,7 +14,6 @@ public class Event extends Model {
     private Set<Market> markets;
     private EventStatus status;
     private User bookmaker;
-    private double margin;
     private int maxWin;
     private boolean isSuspended;
     private FinanceResult financeResult;
@@ -61,15 +60,6 @@ public class Event extends Model {
 
     public void setBookmaker(User bookmaker) {
         this.bookmaker = bookmaker;
-    }
-
-
-    public double getMargin() {
-        return margin;
-    }
-
-    public void setMargin(double margin) {
-        this.margin = margin;
     }
 
     public int getMaxWin() {
