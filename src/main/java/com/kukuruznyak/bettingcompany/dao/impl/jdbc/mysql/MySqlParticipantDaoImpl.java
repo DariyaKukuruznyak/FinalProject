@@ -1,9 +1,13 @@
 package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
+import com.kukuruznyak.bettingcompany.dao.TournamentDao;
+import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
+import com.kukuruznyak.bettingcompany.dao.factory.DaoFactoryType;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
-import com.kukuruznyak.bettingcompany.entity.tournament.participantbuilder.ParticipantBuilder;
+import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
+import com.kukuruznyak.bettingcompany.entity.tournament.builder.ParticipantBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import java.sql.Connection;
@@ -13,6 +17,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implements ParticipantDao {
+    private static TournamentDao tournamentDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getTournamentDao();
     private static MySqlParticipantDaoImpl instance;
     private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
     private static final String ADD_TOURNAMENT = "addLink";
@@ -36,6 +41,23 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
+    public Participant getById(Long id) throws PersistenceException {
+        Participant participant = super.getById(id);
+        List<Tournament> tournaments = tournamentDao.getTournamentsByParticipant(participant.getId());
+        participant.setTournaments(tournaments);
+        return participant;
+    }
+
+    @Override
+    public List<Participant> getAll() throws PersistenceException {
+        List<Participant> participants = super.getAll();
+        for (Participant participant : participants) {
+            participant.setTournaments(tournamentDao.getTournamentsByParticipant(participant.getId()));
+        }
+        return participants;
+    }
+
+    @Override
     public void addTournament(Long participantId, Long tournamentId) {
         updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + "." + ADD_TOURNAMENT));
     }
@@ -46,7 +68,7 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
-    public List<Participant> getParticipantsByTournamentId(Long id) throws PersistenceException {
+    public List<Participant> getParticipantsByTournament(Long id) throws PersistenceException {
         return super.getAllByConstrain(
                 QUERIES.getString(LINKED_TABLE_QUERY + "." + ALL_PARTICIPANTS_BY_TOURNAMENT),
                 String.valueOf(id));

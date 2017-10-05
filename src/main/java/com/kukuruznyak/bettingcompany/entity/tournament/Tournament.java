@@ -40,6 +40,10 @@ public class Tournament extends Model {
         return participants;
     }
 
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
+    }
+
     public void addParticipant(Participant participant) {
         if (this.participants == null) {
             this.participants = new ArrayList<>();

@@ -24,19 +24,22 @@
             <tr>
             </thead>
             <tbody>
-            <c:forEach items="${users}" var="user">
-                <tr>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
-                    <td>${user.email}</td>
-                    <td>${user.login}</td>
-                    <td>${user.dateOfRegistration}</td>
-                    <td>${user.stringUserRole}</td>
-                    <td><a href="?command=profile&id=${user.id}"><span class="glyphicon glyphicon-pencil"></span> Edit
-                    </a></td>
-                    <td><a href="?command=deleteUser&id=${user.id}"><span class="glyphicon glyphicon-trash"></span>
-                        Delete </a></td>
-                </tr>
+            <c:forEach items="${users}" var="userItem">
+                <c:if test="${userItem.id!=user.id}">
+                    <tr>
+                        <td>${userItem.firstName}</td>
+                        <td>${userItem.lastName}</td>
+                        <td>${userItem.email}</td>
+                        <td>${userItem.login}</td>
+                        <td>${userItem.dateOfRegistration}</td>
+                        <td>${userItem.stringUserRole}</td>
+                        <td><a href="?command=profile&id=${userItem.id}"><span class="glyphicon glyphicon-pencil"></span>
+                            Edit
+                        </a></td>
+                        <td><a href="?command=deleteUser&id=${userItem.id}"><span class="glyphicon glyphicon-trash"></span>
+                            Delete </a></td>
+                    </tr>
+                </c:if>
             </c:forEach>
             </tbody>
         </table>

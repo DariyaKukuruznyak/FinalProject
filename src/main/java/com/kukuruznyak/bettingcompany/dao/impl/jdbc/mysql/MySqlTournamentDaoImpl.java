@@ -5,7 +5,9 @@ import com.kukuruznyak.bettingcompany.dao.TournamentDao;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactoryType;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
+import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
+import com.kukuruznyak.bettingcompany.entity.tournament.builder.TournamentBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import java.sql.PreparedStatement;
@@ -36,18 +38,35 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     }
 
     @Override
+    public Tournament getById(Long id) throws PersistenceException {
+        Tournament tournament = super.getById(id);
+        List<Participant> participants = participantDao.getParticipantsByTournament(tournament.getId());
+        tournament.setParticipants(participants);
+        return tournament;
+    }
+
+    @Override
+    public List<Tournament> getAll() throws PersistenceException {
+        List<Tournament> tournaments = super.getAll();
+        for (Tournament tournament : tournaments) {
+            tournament.setParticipants(participantDao.getParticipantsByTournament(tournament.getId()));
+        }
+        return tournaments;
+    }
+
+    @Override
     protected Tournament fillModel(ResultSet resultSet) throws PersistenceException {
-        Tournament tournament = new Tournament();
         try {
-            tournament.setId(resultSet.getLong("id"));
-            tournament.setName(resultSet.getString("name"));
-            tournament.setCountry(resultSet.getString("country"));
-            tournament.setBeginningDateAndTime(resultSet.getDate("start_date_and_time"));//TODO
-            tournament.setScore(resultSet.getString("score"));
+            return new TournamentBuilder()
+                    .buildId(resultSet.getLong("id"))
+                    .buildName(resultSet.getString("name"))
+                    .buildCountry(resultSet.getString("country"))
+                    .buildBeginningDateAndTime(resultSet.getDate("start_date_and_time"))//TODO
+                    .buildScore(resultSet.getString("score"))
+                    .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }
-        return tournament;
     }
 
     @Override
@@ -73,7 +92,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     }
 
     @Override
-    public List<Tournament> getParticipants(Long id) throws PersistenceException {
+    public List<Tournament> getTournamentsByParticipant(Long id) throws PersistenceException {
         return super.getAllByConstrain(
                 QUERIES.getString(LINKED_TABLE_QUERY + "." + ALL_TOURNAMENT_BY_PARTICIPANTS),
                 String.valueOf(id));

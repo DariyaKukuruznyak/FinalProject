@@ -61,7 +61,7 @@ public class MySqlParticipantDaoTest {
     */
     @Test
     public void getParticipantsByTournamentId() {
-        System.out.println( participantDao.getParticipantsByTournamentId(1l));
+        System.out.println( participantDao.getParticipantsByTournament(1l));
     }
 }
 

@@ -10,5 +10,5 @@ public interface ParticipantDao extends AbstractDao<Participant> {
 
     void deleteTournament(Long participantId, Long tournamentId) throws PersistenceException;
 
-    List<Participant> getParticipantsByTournamentId(Long id) throws PersistenceException;
+    List<Participant> getParticipantsByTournament(Long id) throws PersistenceException;
 }

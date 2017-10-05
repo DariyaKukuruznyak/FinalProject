@@ -1,8 +1,6 @@
 package dao.impl.mysql;
 
-import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
 import com.kukuruznyak.bettingcompany.dao.TournamentDao;
-import com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql.MySqlParticipantDaoImpl;
 import com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql.MySqlTournamentDaoImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,7 +61,7 @@ public class MySqlTournamentDaoTest {
     */
     @Test
     public void getTournamentsByParticipantId() {
-        System.out.println( tournamentDao.getParticipants(1l));
+        System.out.println( tournamentDao.getTournamentsByParticipant(1l));
     }
 }
 

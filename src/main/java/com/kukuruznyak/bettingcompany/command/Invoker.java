@@ -1,15 +1,20 @@
 package com.kukuruznyak.bettingcompany.command;
 
-import com.kukuruznyak.bettingcompany.command.impl.*;
+import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
 import com.kukuruznyak.bettingcompany.command.impl.bet.ShowBetsCommand;
-import com.kukuruznyak.bettingcompany.command.impl.patricipant.CreateParticipantCommand;
-import com.kukuruznyak.bettingcompany.command.impl.patricipant.ShowParticipantsCommand;
-import com.kukuruznyak.bettingcompany.command.impl.user.authorization.*;
 import com.kukuruznyak.bettingcompany.command.impl.event.CreateEventCommand;
 import com.kukuruznyak.bettingcompany.command.impl.get.*;
+import com.kukuruznyak.bettingcompany.command.impl.patricipant.CreateParticipantCommand;
+import com.kukuruznyak.bettingcompany.command.impl.patricipant.DeleteParticipantCommand;
+import com.kukuruznyak.bettingcompany.command.impl.patricipant.EditParticipantCommand;
+import com.kukuruznyak.bettingcompany.command.impl.patricipant.ShowParticipantsCommand;
+import com.kukuruznyak.bettingcompany.command.impl.tournament.*;
 import com.kukuruznyak.bettingcompany.command.impl.user.CreateUserCommand;
 import com.kukuruznyak.bettingcompany.command.impl.user.DeleteUserCommand;
 import com.kukuruznyak.bettingcompany.command.impl.user.EditUserCommand;
+import com.kukuruznyak.bettingcompany.command.impl.user.authorization.LogoutCommand;
+import com.kukuruznyak.bettingcompany.command.impl.user.authorization.RegisterCommand;
+import com.kukuruznyak.bettingcompany.command.impl.user.authorization.SignInCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,7 +74,30 @@ public class Invoker {
                 return new GetAddParticipantPageCommand();
             case "createParticipant":
                 return new CreateParticipantCommand();
-             default:
+            case "editParticipant":
+                return new GetEditParticipantPageCommand();
+            case "updateParticipant":
+                return new EditParticipantCommand();
+            case "deleteParticipant":
+                return new DeleteParticipantCommand();
+            case "tournaments":
+                return new ShowTournamentsCommand();
+            case "addTournament":
+                return new GetAddTournamentPageCommand();
+            case "createTournament":
+                return new CreateTournamentCommand();
+            case "editTournament":
+                return new GetEditTournamentPageCommand();
+            case "updateTournament":
+                return new EditTournamentCommand();
+            case "deleteTournament":
+                return new DeleteTournamentCommand();
+            case "excludeParticipant":
+                return new ExcludeParticipantFromTournamentCommand();
+            case "includeParticipant":
+                return new IncludeParticipantToTournamentCommand();
+
+            default:
                 return new HomeCommand();
         }
     }

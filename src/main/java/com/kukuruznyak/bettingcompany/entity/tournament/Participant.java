@@ -60,6 +60,10 @@ public class Participant extends Model {
         return tournaments;
     }
 
+    public void setTournaments(List<Tournament> tournaments) {
+        this.tournaments = tournaments;
+    }
+
     public void addTournament(Tournament tournament) {
         if (this.tournaments == null) {
             this.tournaments = new LinkedList<>();
@@ -89,6 +93,16 @@ public class Participant extends Model {
         result = 31 * result + getTrainer().hashCode();
         result = 31 * result + getJockey().hashCode();
         return result;
+    }
+
+    public String getFullName() {
+        return "Participant{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", trainer='" + trainer + '\'' +
+                ", jockey='" + jockey + '\'' +
+                '}';
     }
 
     @Override

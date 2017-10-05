@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.entity.tournament.participantbuilder;
+package com.kukuruznyak.bettingcompany.entity.tournament.builder;
 
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 

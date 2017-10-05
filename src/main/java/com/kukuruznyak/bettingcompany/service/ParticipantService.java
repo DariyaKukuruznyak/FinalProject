@@ -46,4 +46,20 @@ public class ParticipantService extends AbstractService {
     public void add(Participant participant) {
         participantDao.add(participant);
     }
+
+    public void delete(String participantId) {
+        participantDao.delete(new Long(participantId));
+    }
+
+    public Participant getParticipantById(String participantId) {
+        return participantDao.getById(new Long(participantId));
+    }
+
+    public void update(Participant participant) {
+        participantDao.update(participant);
+    }
+
+    public Participant getById(String participantId) {
+        return participantDao.getById(new Long(participantId));
+    }
 }

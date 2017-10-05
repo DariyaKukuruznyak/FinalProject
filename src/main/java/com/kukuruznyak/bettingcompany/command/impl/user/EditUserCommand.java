@@ -2,7 +2,6 @@ package com.kukuruznyak.bettingcompany.command.impl.user;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
-import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ClientService;
 import com.kukuruznyak.bettingcompany.service.UserService;
@@ -44,11 +43,6 @@ public class EditUserCommand extends Command {
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));
         user.setEmail(request.getParameter("email"));
-        if (((User) request.getSession().getAttribute("user")).getUserRole().equals(UserRole.ADMINISTRATOR)) {
-            user.setUserRole(UserRole.valueOf(request.getParameter("userRole")));
-        }
-        if (user.getUserRole().equals(UserRole.CLIENT)) {
-        }
         return user;
     }
 }

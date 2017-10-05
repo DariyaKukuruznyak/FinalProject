@@ -15,24 +15,7 @@
             <div class="alert alert-success">${successMessage}</div>
         </c:if>
         <form class="form-horizontal" action="?command=editUser&id=${editedUser.id}" method="POST">
-            <c:if test="${user.userRole==adminRole}">
-                <fieldset class="form-group">
-                    <label for="userRole">Role</label>
-                    <select class="form-control" id="userRole" name="userRole" size="1">
-                        <option>${user.userRole}</option>
-                        <c:if test="${user.userRole!=adminRole}">
-                            <option>${adminRole}</option>
-                        </c:if>
-                        <c:if test="${user.userRole!=riskControllerRole}">
-                            <option>${riskControllerRole}</option>
-                        </c:if>
-                        <c:if test="${user.userRole!=bookmakerRole}">
-                            <option>${bookmakerRole}</option>
-                        </c:if>
-                    </select>
-                </fieldset>
-            </c:if>
-            <fieldset class="form-group">
+             <fieldset class="form-group">
                 <label for="firstName">First name</label>
                 <input class="form-control" id="firstName" name="firstName" value="${editedUser.firstName}"
                        pattern="[A-Z]?[a-z]+)|([А-Я]?[а-я]+" maxlength="20"
@@ -65,14 +48,9 @@
                        value="${editedUser.dateOfRegistration}" disabled>
             </fieldset>
             <c:if test="${editedUser.userRole==clientRole}">
-                <div class="form-group row">
-                    <label for="balance" class="col-sm-4 col-form-label">Balance</label>
-                    <div class="col-sm-8">
-                        <input name="balance" id="balance" class="form-control" value="${editedUser.balance}"
-                               placeholder="Balance" disabled>
-                    </div>
-                    <a href="">Operations with wallet</a>
-                </div>
+            <fieldset class="form-group">
+                <a class="btn btn-info" href="?command=showWallet"> Show wallet</a>
+            </fieldset>
             </c:if>
             <fieldset class="form-group">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>

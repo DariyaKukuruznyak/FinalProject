@@ -1,4 +1,3 @@
-/*
 package dao.impl.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.ClientDao;
@@ -42,7 +41,7 @@ public class MySqlClientDaoTest {
                 .buildFirstName("Client")
                 .buildLastName("Client")
                 .buildEmail("client@gmail.com")
-                .buildLogin("Client2")
+                .buildLogin("Client3")
                 .buildPassword("1111")
                 .buildUserRole(UserRole.CLIENT)
                 .build();
@@ -63,4 +62,4 @@ public class MySqlClientDaoTest {
         clientDao.delete(13L);
     }
 
-}*/
+}

@@ -4,7 +4,6 @@ import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
-import com.kukuruznyak.bettingcompany.service.ClientService;
 import com.kukuruznyak.bettingcompany.service.UserService;
 import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
