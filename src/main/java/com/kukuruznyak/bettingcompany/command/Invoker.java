@@ -18,11 +18,43 @@ import com.kukuruznyak.bettingcompany.command.impl.user.authorization.SignInComm
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Invoker {
     private static Invoker instance;
+    private Map<String, Command> commandMap = new HashMap<>();
 
     private Invoker() {
+        commandMap.put("home", new HomeCommand());
+        commandMap.put("login", new GetLoginPageCommand());
+        commandMap.put("signIn", new SignInCommand());
+        commandMap.put("register", new GetRegisterPageCommand());
+        commandMap.put("join", new RegisterCommand());
+        commandMap.put("logout", new LogoutCommand());
+        commandMap.put("betsHistory", new ShowBetsCommand());
+        commandMap.put("profile", new GetProfilePageCommand());
+        commandMap.put("editUser", new EditUserCommand());
+        commandMap.put("users", new GetStaffPageCommand());
+        commandMap.put("deleteUser", new DeleteUserCommand());
+        commandMap.put("addUser", new GetAddUserPageCommand());
+        commandMap.put("createUser", new CreateUserCommand());
+        commandMap.put("addEvent", new GetAddEventPageCommand());
+        commandMap.put("createEvent", new CreateEventCommand());
+        commandMap.put("participants", new ShowParticipantsCommand());
+        commandMap.put("addParticipant", new GetAddParticipantPageCommand());
+        commandMap.put("createParticipant", new CreateParticipantCommand());
+        commandMap.put("editParticipant", new GetEditParticipantPageCommand());
+        commandMap.put("updateParticipant", new EditParticipantCommand());
+        commandMap.put("deleteParticipant", new DeleteParticipantCommand());
+        commandMap.put("tournaments", new ShowTournamentsCommand());
+        commandMap.put("addTournament", new GetAddTournamentPageCommand());
+        commandMap.put("createTournament", new CreateTournamentCommand());
+        commandMap.put("editTournament", new GetEditTournamentPageCommand());
+        commandMap.put("updateTournament", new EditTournamentCommand());
+        commandMap.put("deleteTournament", new DeleteTournamentCommand());
+        commandMap.put("excludeParticipant", new ExcludeParticipantFromTournamentCommand());
+        commandMap.put("includeParticipant", new IncludeParticipantToTournamentCommand());
     }
 
     public static Invoker getInstance() {
@@ -36,77 +68,11 @@ public class Invoker {
         return instance;
     }
 
-    private Command routeCommand(String url) {
-        switch (url) {
-            case "home":
-                return new HomeCommand();
-            case "login":
-                return new GetLoginPageCommand();
-            case "signIn":
-                return new SignInCommand();
-            case "register":
-                return new GetRegisterPageCommand();
-            case "join":
-                return new RegisterCommand();
-            case "logout":
-                return new LogoutCommand();
-           case "betsHistory":
-                return new ShowBetsCommand();
-            case "profile":
-                return new GetProfilePageCommand();
-            case "editUser":
-                return new EditUserCommand();
-            case "users":
-                return new GetStaffPageCommand();
-            case "deleteUser":
-                return new DeleteUserCommand();
-            case "addUser":
-                return new GetAddUserPageCommand();
-            case "createUser":
-                return new CreateUserCommand();
-            case "addEvent":
-                return new GetAddEventPageCommand();
-            case "createEvent":
-                return new CreateEventCommand();
-            case "participants":
-                return new ShowParticipantsCommand();
-            case "addParticipant":
-                return new GetAddParticipantPageCommand();
-            case "createParticipant":
-                return new CreateParticipantCommand();
-            case "editParticipant":
-                return new GetEditParticipantPageCommand();
-            case "updateParticipant":
-                return new EditParticipantCommand();
-            case "deleteParticipant":
-                return new DeleteParticipantCommand();
-            case "tournaments":
-                return new ShowTournamentsCommand();
-            case "addTournament":
-                return new GetAddTournamentPageCommand();
-            case "createTournament":
-                return new CreateTournamentCommand();
-            case "editTournament":
-                return new GetEditTournamentPageCommand();
-            case "updateTournament":
-                return new EditTournamentCommand();
-            case "deleteTournament":
-                return new DeleteTournamentCommand();
-            case "excludeParticipant":
-                return new ExcludeParticipantFromTournamentCommand();
-            case "includeParticipant":
-                return new IncludeParticipantToTournamentCommand();
-
-            default:
-                return new HomeCommand();
-        }
-    }
-
     public String invoke(HttpServletRequest request, HttpServletResponse response) {
         String command = request.getParameter("command");
         if (command == null) {
             command = "home";
         }
-        return routeCommand(command).execute(request, response);
+        return commandMap.get(command).execute(request, response);
     }
 }
