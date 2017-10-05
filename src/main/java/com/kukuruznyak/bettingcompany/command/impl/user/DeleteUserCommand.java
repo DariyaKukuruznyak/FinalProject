@@ -10,6 +10,7 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.List;
 
 public class DeleteUserCommand extends Command {
@@ -19,7 +20,7 @@ public class DeleteUserCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         userService.delete(request.getParameter("id"));
-        List<?> users = null;
+        Collection<?> users = null;
         User authorizedUser = (User) request.getSession().getAttribute("user");
         if (authorizedUser.getUserRole().equals(UserRole.ADMINISTRATOR)) {
             users = userService.getStaff();

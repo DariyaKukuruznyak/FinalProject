@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.dao.ClientDao;
 import com.kukuruznyak.bettingcompany.entity.user.Client;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
+import java.util.Collection;
 import java.util.List;
 
 public class ClientService extends AbstractService {
@@ -25,7 +26,7 @@ public class ClientService extends AbstractService {
     private ClientService() {
     }
 
-    public List<Client> getAllClients() {
+    public Collection<Client> getAllClients() {
         return clientDao.getAll();
     }
 

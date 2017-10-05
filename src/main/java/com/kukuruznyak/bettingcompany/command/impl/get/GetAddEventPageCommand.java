@@ -10,6 +10,7 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.List;
 
 public class GetAddEventPageCommand extends Command {
@@ -22,7 +23,7 @@ public class GetAddEventPageCommand extends Command {
             LOGGER.error("Access denied");
             throw new ApplicationException("Access denied");
         }
-        List<Tournament> activeTournaments = tournamentService.getActiveTournament();
+        Collection<Tournament> activeTournaments = tournamentService.getActiveTournament();
         request.getSession().setAttribute("activeTournaments", activeTournaments);
         return pagesResourceBundle.getString("addEvent");
     }

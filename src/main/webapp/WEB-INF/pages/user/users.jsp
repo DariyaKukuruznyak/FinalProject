@@ -1,8 +1,8 @@
-<%@include file="fragments/import.jspf" %>
+<%@include file="../fragments/import.jspf" %>
 <html>
-<%@include file="fragments/head.jspf" %>
+<%@include file="../fragments/head.jspf" %>
 <body>
-<%@include file="fragments/header.jspf" %>
+<%@include file="../fragments/header.jspf" %>
 <div class="container">
     <a class="btn btn-info" href="?command=home"><span
             class="glyphicon glyphicon-home"></span> Back home </a>
@@ -44,6 +44,6 @@
             </tbody>
         </table>
     </div>
-    <%@include file="fragments/footer.jspf" %>
+    <%@include file="../fragments/footer.jspf" %>
 </body>
 </html>

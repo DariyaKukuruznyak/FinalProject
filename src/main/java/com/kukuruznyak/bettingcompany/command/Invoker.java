@@ -53,7 +53,7 @@ public class Invoker {
         commandMap.put("editTournament", new GetEditTournamentPageCommand());
         commandMap.put("updateTournament", new EditTournamentCommand());
         commandMap.put("deleteTournament", new DeleteTournamentCommand());
-        commandMap.put("excludeParticipant", new ExcludeParticipantFromTournamentCommand());
+//        commandMap.put("excludeParticipant", new ExcludeParticipantFromTournamentCommand());
         commandMap.put("includeParticipant", new IncludeParticipantToTournamentCommand());
     }
 

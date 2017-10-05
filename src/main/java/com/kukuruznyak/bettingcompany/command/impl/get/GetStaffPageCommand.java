@@ -9,6 +9,7 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.List;
 
 public class GetStaffPageCommand extends Command {
@@ -21,7 +22,7 @@ public class GetStaffPageCommand extends Command {
             LOGGER.error("Unexpected request!");
             throw new ApplicationException("Unexpected request!");
         }
-        List<User> staff = userService.getStaff();
+        Collection<User> staff = userService.getStaff();
         request.getSession().setAttribute("users", staff);
         return pagesResourceBundle.getString("userList");
     }

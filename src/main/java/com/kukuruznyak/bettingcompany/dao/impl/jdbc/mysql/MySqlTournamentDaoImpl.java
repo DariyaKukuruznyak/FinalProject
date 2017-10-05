@@ -13,7 +13,9 @@ import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implements TournamentDao {
     private static MySqlTournamentDaoImpl instance;
@@ -40,14 +42,14 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     @Override
     public Tournament getById(Long id) throws PersistenceException {
         Tournament tournament = super.getById(id);
-        List<Participant> participants = participantDao.getParticipantsByTournament(tournament.getId());
+        Collection<Participant> participants = participantDao.getParticipantsByTournament(tournament.getId());
         tournament.setParticipants(participants);
         return tournament;
     }
 
     @Override
-    public List<Tournament> getAll() throws PersistenceException {
-        List<Tournament> tournaments = super.getAll();
+    public Collection<Tournament> getAll() throws PersistenceException {
+        Collection<Tournament> tournaments = super.getAll();
         for (Tournament tournament : tournaments) {
             tournament.setParticipants(participantDao.getParticipantsByTournament(tournament.getId()));
         }
@@ -92,7 +94,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     }
 
     @Override
-    public List<Tournament> getTournamentsByParticipant(Long id) throws PersistenceException {
+    public Collection<Tournament> getTournamentsByParticipant(Long id) throws PersistenceException {
         return super.getAllByConstrain(
                 QUERIES.getString(LINKED_TABLE_QUERY + "." + ALL_TOURNAMENT_BY_PARTICIPANTS),
                 String.valueOf(id));

@@ -5,6 +5,7 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ServiceException;
 
+import java.util.Collection;
 import java.util.List;
 
 public class UserService extends AbstractService {
@@ -36,8 +37,8 @@ public class UserService extends AbstractService {
         return userDao.getByLogin(login);
     }
 
-    public List<User> getStaff() {
-        List<User> staff = getAllAdministrators();
+    public Collection<User> getStaff() {
+        Collection<User> staff = getAllAdministrators();
         staff.addAll(getAllBookmakers());
         staff.addAll(getAllRiskControllers());
         return staff;
@@ -83,15 +84,15 @@ public class UserService extends AbstractService {
         userDao.delete(Long.valueOf(id));
     }
 
-    private List<User> getAllAdministrators() {
+    private Collection<User> getAllAdministrators() {
         return userDao.getUsersByRole(UserRole.ADMINISTRATOR.toString());
     }
 
-    private List<User> getAllBookmakers() {
+    private Collection<User> getAllBookmakers() {
         return userDao.getUsersByRole(UserRole.BOOKMAKER.toString());
     }
 
-    private List<User> getAllRiskControllers() {
+    private Collection<User> getAllRiskControllers() {
         return userDao.getUsersByRole(UserRole.RISK_CONTROLLER.toString());
     }
 

@@ -17,9 +17,8 @@ public class ExcludeParticipantFromTournamentCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
-        Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
-        tournamentService.excludeParticipant(request.getParameter("participantId"), tournament.getId().toString());
-        request.getSession().setAttribute("tournament", tournamentService.getById(tournament.getId().toString()));
+         tournamentService.excludeParticipant(request.getParameter("participantId"), request.getParameter("tournamentId"));
+        request.getSession().setAttribute("tournament", tournamentService.getById( request.getParameter("tournamentId")));
         request.getSession().setAttribute("participants", participantService.getParticipants());
         return new GetEditTournamentPageCommand().execute(request, response);
     }

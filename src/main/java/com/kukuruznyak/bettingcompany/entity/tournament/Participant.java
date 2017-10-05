@@ -2,8 +2,8 @@ package com.kukuruznyak.bettingcompany.entity.tournament;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class Participant extends Model {
     /**
@@ -14,7 +14,7 @@ public class Participant extends Model {
     private int weight;
     private String trainer;
     private String jockey;
-    private List<Tournament> tournaments;
+    private Collection<Tournament> tournaments;
 
     public String getName() {
         return name;
@@ -56,17 +56,17 @@ public class Participant extends Model {
         this.jockey = jockey;
     }
 
-    public List<Tournament> getTournaments() {
+    public Collection<Tournament> getTournaments() {
         return tournaments;
     }
 
-    public void setTournaments(List<Tournament> tournaments) {
+    public void setTournaments(Collection<Tournament> tournaments) {
         this.tournaments = tournaments;
     }
 
     public void addTournament(Tournament tournament) {
         if (this.tournaments == null) {
-            this.tournaments = new LinkedList<>();
+            this.tournaments = new HashSet<>();
         }
         this.tournaments.add(tournament);
     }
@@ -95,20 +95,11 @@ public class Participant extends Model {
         return result;
     }
 
-    public String getFullName() {
-        return "Participant{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", weight=" + weight +
-                ", trainer='" + trainer + '\'' +
-                ", jockey='" + jockey + '\'' +
-                '}';
-    }
-
     @Override
     public String toString() {
         return "Participant{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", age=" + age +
                 ", weight=" + weight +
                 ", trainer='" + trainer + '\'' +

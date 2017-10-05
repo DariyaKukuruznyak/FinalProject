@@ -1,8 +1,8 @@
-<%@include file="fragments/import.jspf" %>
+<%@include file="../fragments/import.jspf" %>
 <html>
-<%@include file="fragments/head.jspf" %>
+<%@include file="../fragments/head.jspf" %>
 <body>
-<%@include file="fragments/header.jspf" %>
+<%@include file="../fragments/header.jspf" %>
 <div class="container">
     <a class="btn btn-info" href="?command=home"><span
             class="glyphicon glyphicon-home"></span> Back home</a>
@@ -16,7 +16,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <h2 class="form-signin-heading">Edit tournament</h2>
-                <form class="form-horizontal" action="?command=updateTournament&tournamentId=${tournament.id}" method="POST">
+                <form class="form-horizontal" action="?command=updateTournament&tournamentId=${tournament.id}"
+                      method="POST">
                     <fieldset class="form-group">
                         <label for="name">Name</label>
                         <input class="form-control" id="name" name="name"
@@ -49,8 +50,8 @@
                                     <tr>
                                         <td>
                                             <div>${participant.name} <a class="btn btn-info"
-                                                                        href="?command=excludeParticipant&participantId=${participant.id}"><span
-                                                    class="glyphicon glyphicon-minus"></span></a></div>
+                                                                        href="?command=excludeParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament">
+                                                <span class="glyphicon glyphicon-minus"></span></a></div>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -69,7 +70,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Active tournaments</th>
+                            <th>Active participants</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -77,7 +78,7 @@
                             <tr>
                                 <td>
                                     <div>${participant.name} <a class="btn btn-info"
-                                                                href="?command=includeParticipant&participantId=${participant.id}">
+                                                                href="?command=includeParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament">
                                         <span class="glyphicon glyphicon-plus"></span></a></div>
                                 </td>
                             </tr>
@@ -89,6 +90,6 @@
         </div>
     </div>
 </div>
-<%@include file="fragments/footer.jspf" %>
+<%@include file="../fragments/footer.jspf" %>
 </body>
 </html>

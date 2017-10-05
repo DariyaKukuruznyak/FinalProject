@@ -8,6 +8,7 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.List;
 
 public class ShowTournamentsCommand extends Command {
@@ -15,7 +16,7 @@ public class ShowTournamentsCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
-        List<Tournament> tournaments = tournamentService.getActiveTournament();
+        Collection<Tournament> tournaments = tournamentService.getActiveTournament();
         request.getSession().setAttribute("tournaments", tournaments);
         return pagesResourceBundle.getString("tournaments");
     }

@@ -6,12 +6,13 @@ import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 public interface AbstractDao<T extends Model> {
     T getById(Long id) throws PersistenceException;
 
-    List<T> getAll() throws PersistenceException;
+    Collection<T> getAll() throws PersistenceException;
 
     T add(T model) throws PersistenceException;
 

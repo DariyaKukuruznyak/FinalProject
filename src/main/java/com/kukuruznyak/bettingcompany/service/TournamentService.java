@@ -3,6 +3,7 @@ package com.kukuruznyak.bettingcompany.service;
 import com.kukuruznyak.bettingcompany.dao.TournamentDao;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 
+import java.util.Collection;
 import java.util.List;
 
 public class TournamentService extends AbstractService {
@@ -23,7 +24,7 @@ public class TournamentService extends AbstractService {
     private TournamentService() {
     }
 
-    public List<Tournament> getActiveTournament() {
+    public Collection<Tournament> getActiveTournament() {
         return tournamentDao.getAll(); //TODO
     }
 

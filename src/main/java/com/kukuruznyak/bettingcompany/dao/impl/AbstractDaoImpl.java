@@ -9,9 +9,7 @@ import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T> {
     protected DataSource dataSource = ConnectionPool.getInstance().getConnectionPool();
@@ -55,7 +53,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         return model;
     }
 
-    public List<T> getAll() throws PersistenceException {
+    public Collection<T> getAll() throws PersistenceException {
         List<T> modelList = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
@@ -72,8 +70,8 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         return modelList;
     }
 
-    protected List<T> getAllByConstrain(String query, String constrain) throws PersistenceException {
-        List<T> modelList = new ArrayList<>();
+    protected Collection<T> getAllByConstrain(String query, String constrain) throws PersistenceException {
+        Set<T> modelList = new HashSet<>();
         T model = null;
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
