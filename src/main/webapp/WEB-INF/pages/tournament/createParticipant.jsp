@@ -7,10 +7,10 @@
     <a class="btn btn-info" href="?command=home"><span
             class="glyphicon glyphicon-home"></span> Back home</a>
     <div class="panel-body">
-        <c:if test="${errorMessage!=''}">
+        <c:if test="${not empty errorMessage}">
             <div class="alert alert-danger">${errorMessage}</div>
         </c:if>
-        <c:if test="${successMessage!=''}">
+        <c:if test="${not empty successMessage}">
             <div class="alert alert-success">${successMessage}</div>
         </c:if>
         <h2 class="form-signin-heading">Create new participant</h2>

@@ -5,6 +5,7 @@ import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.entity.tournament.builder.ParticipantBuilder;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ParticipantService;
+import com.kukuruznyak.bettingcompany.service.TournamentService;
 import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,25 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CreateParticipantCommand extends Command {
     private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+    private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
-        try {
-            Participant participant = fillParticipant(request);
-            if (participantService.isValidParticipant(participant)) {
-                participantService.add(participant);
-                request.getSession().setAttribute("successMessage", "Participant was created successfully");
-                LOGGER.info("Participant was created successfully");
-//                request.getSession().setAttribute("participants", participantService.getTournamentsByParticipant());
-                request.getSession().setAttribute("participant", participant);
-            } else {
-                throw new ApplicationException("Invalid participant");
-            }
-        } catch (ApplicationException e) {
-            LOGGER.error(e.getMessage());
-            request.getSession().setAttribute("errorMessage", e.getMessage());
+        Participant participant = fillParticipant(request);
+        if (participantService.isValidParticipant(participant)) {
+            participant = participantService.add(participant);
+            request.getSession().setAttribute("participantId", participant.getId());
+            request.getSession().setAttribute("successMessage", "Participant was created successfully");
+            LOGGER.info("Participant was created successfully");
+            request.getSession().setAttribute("tournaments", tournamentService.getActiveTournament());
+            request.getSession().setAttribute("participant", participant);
+        } else {
+            throw new ApplicationException("Invalid participant");
         }
-        return pagesResourceBundle.getString("addParticipant");
+        return pagesResourceBundle.getString("editParticipant");
     }
 
     private Participant fillParticipant(HttpServletRequest request) {

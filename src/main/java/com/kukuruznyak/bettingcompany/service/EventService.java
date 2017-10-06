@@ -2,11 +2,8 @@ package com.kukuruznyak.bettingcompany.service;
 
 import com.kukuruznyak.bettingcompany.dao.EventDao;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
-import com.kukuruznyak.bettingcompany.entity.event.Market;
-import com.kukuruznyak.bettingcompany.entity.event.MarketNames;
-import com.kukuruznyak.bettingcompany.entity.event.Outcome;
-import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.EventBuilder;
-import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
+
+import java.util.Collection;
 
 public class EventService extends AbstractService {
     private static EventService instance;
@@ -26,23 +23,23 @@ public class EventService extends AbstractService {
     private EventService() {
     }
 
-    public Event getEventByTournamentId(Long id) {
-        Event event = new EventBuilder().build();
-        Tournament tournament = new Tournament();
-        tournament.setName("Tournament");
-        event.setTournament(tournament);
-        Market market = new Market(MarketNames.WINNER);
-        Outcome outcome = new Outcome();
-        outcome.setName("Black horse");
-        outcome.setCoefficient(2.50);
-        market.addOutcome(outcome);
-        market.addOutcome(outcome);
-        market.addOutcome(outcome);
-        event.addMarket(market);
-        return event;
+    public Event add(Event event) {
+        return eventDao.add(event);
     }
 
-    public void add(Event event) {
-        eventDao.add(event);
+    public Event getById(String id) {
+        return eventDao.getById(new Long(id));
+    }
+
+    public Collection<Event> getEventsByBookmakerId(Long id) {
+        return eventDao.getAllByBookmakerId(id);
+    }
+
+    public Collection<Event> getAll() {
+        return eventDao.getAll();
+    }
+
+    public void createMarkets(Event event) {
+
     }
 }

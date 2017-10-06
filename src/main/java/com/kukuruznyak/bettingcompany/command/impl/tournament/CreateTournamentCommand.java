@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.tournament.builder.TournamentBuilder;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
+import com.kukuruznyak.bettingcompany.service.ParticipantService;
 import com.kukuruznyak.bettingcompany.service.TournamentService;
 import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CreateTournamentCommand extends Command {
     private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+    private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
@@ -21,7 +23,9 @@ public class CreateTournamentCommand extends Command {
                 tournamentService.add(tournament);
                 request.getSession().setAttribute("successMessage", "Tournament was created successfully");
                 LOGGER.error("Tournament was created successfully");
-                request.getSession().setAttribute("tournament",tournament);
+                request.getSession().setAttribute("tournament", tournament);
+                request.getSession().setAttribute("participants", participantService.getParticipants());
+
             } else {
                 throw new ApplicationException("Invalid tournament");
             }
@@ -29,8 +33,7 @@ public class CreateTournamentCommand extends Command {
             LOGGER.error(e.getMessage());
             request.getSession().setAttribute("errorMessage", e.getMessage());
         }
-//        request.getSession().setAttribute("tournaments",tournamentService.getActiveTournament());
-        return pagesResourceBundle.getString("addTournament");
+        return pagesResourceBundle.getString("editTournament");
     }
 
     private Tournament fillTournament(HttpServletRequest request) {

@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     private static MySqlUserDaoImpl instance;
 
-    private static final ResourceBundle QUERIES = ResourceBundle.getBundle("queries");
     private static final String SELECT_BY_LOGIN = "selectByLogin";
     private static final String SELECT_ALL_BY_ROLE = "selectAllByRole";
     private static final String SELECT_ROLE_BY_LOGIN = "selectRoleByLogin";

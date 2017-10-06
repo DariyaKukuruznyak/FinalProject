@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class GetEditParticipantPageCommand extends Command {
-    TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+    private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
     private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         request.getSession().setAttribute("activeTournaments", tournamentService.getActiveTournament());

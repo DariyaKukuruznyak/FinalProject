@@ -9,11 +9,10 @@
     <div class="panel-body">
         <div class="page-header">
             <h1>All Tournaments</h1>
-            <h3>
-                <a href="?command=addTournament"><span class="glyphicon glyphicon-plus"></span> Create new
-                    tournament</a>
-            </h3>
         </div>
+        <h3><a href="?command=addTournament"><span class="glyphicon glyphicon-plus"></span> Create new
+                    tournament</a></h3>
+
         <table class="table">
             <thead>
             <tr>
@@ -21,7 +20,7 @@
                 <th>Country</th>
                 <th>Date of beginning</th>
                 <th>Participants</th>
-                <th>Score</th>
+                <th>Winner</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -38,6 +37,7 @@
                             <div>${participant.name}</div>
                         </c:forEach>
                     </td>
+                    <td>${tournament.winner}</td>
                     <td>
                         <a href="?command=editTournament&tournamentId=${tournament.id}"><span
                                 class="glyphicon glyphicon-pencil"></span> Edit</a>
@@ -47,7 +47,7 @@
                                 class="glyphicon glyphicon-trash"></span> Delete</a>
                     </td>
                 </tr>
-                <td>${tournament.score}</td>
+
             </c:forEach>
             </tbody>
         </table>

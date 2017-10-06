@@ -21,6 +21,7 @@ import java.util.Set;
 public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implements ParticipantDao {
     private static TournamentDao tournamentDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getTournamentDao();
     private static MySqlParticipantDaoImpl instance;
+
     private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
     private static final String ADD_TOURNAMENT = "addLink";
     private static final String DELETE_TOURNAMENT = "deleteLink";

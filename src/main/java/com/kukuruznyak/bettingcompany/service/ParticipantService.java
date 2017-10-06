@@ -44,8 +44,8 @@ public class ParticipantService extends AbstractService {
         return true;
     }
 
-    public void add(Participant participant) {
-        participantDao.add(participant);
+    public Participant add(Participant participant) {
+       return participantDao.add(participant);
     }
 
     public void delete(String participantId) {

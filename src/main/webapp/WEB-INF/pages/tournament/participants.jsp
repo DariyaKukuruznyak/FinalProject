@@ -9,10 +9,9 @@
     <div class="panel-body">
         <div class="page-header">
             <h1>All Participants</h1>
-            <h3>
-                <a href="?command=addParticipant"><span class="glyphicon glyphicon-plus"></span> Create new participant</a>
-            </h3>
         </div>
+        <h3><a href="?command=addParticipant"><span class="glyphicon glyphicon-plus"></span> Create new participant</a>
+        </h3>
         <table class="table">
             <thead>
             <tr>
@@ -47,7 +46,6 @@
                         <a href="?command=deleteParticipant&participantId=${participant.id}"><span
                                 class="glyphicon glyphicon-trash"></span> Delete</a>
                     </td>
-
                 </tr>
             </c:forEach>
             </tbody>

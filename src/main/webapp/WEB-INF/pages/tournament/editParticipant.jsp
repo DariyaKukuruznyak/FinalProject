@@ -7,10 +7,10 @@
     <a class="btn btn-info" href="?command=home"><span
             class="glyphicon glyphicon-home"></span> Back home</a>
     <div class="panel-body">
-        <c:if test="${errorMessage!=''}">
+        <c:if test="${not empty errorMessage}">
             <div class="alert alert-danger">${errorMessage}</div>
         </c:if>
-        <c:if test="${successMessage!=''}">
+        <c:if test="${not empty successMessage}">
             <div class="alert alert-success">${successMessage}</div>
         </c:if>
         <div class="row">
@@ -55,19 +55,23 @@
                     </fieldset>
                     <c:if test="${not empty participant.tournaments}">
                         <fieldset class="form-group">
+                            <h2 class="form-signin-heading">Tournaments</h2>
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>Active tournaments</th>
+                                    <th>Name</th>
+                                    <th>Country</th>
+                                    <th>Exclude</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${participant.tournaments}" var="tournament">
                                     <tr>
-                                        <td>
-                                            <div>${tournament.fullName} <a class="btn btn-info"
-                                                                           href="?command=excludeParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=participant"">
-                                                <span class="glyphicon glyphicon-minus"></span></a></div>
+                                        <td>${tournament.name}</td>
+                                        <td>${tournament.country}</td>
+                                        <td><a class="btn btn-info"
+                                               href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=participant&action=exclude">
+                                            <span class="glyphicon glyphicon-minus"></span></a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -86,16 +90,20 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Active tournaments</th>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th>Include</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${activeTournaments}" var="tournament">
                             <tr>
+                                <td>${tournament.name}</td>
+                                <td>${tournament.country}</td>
                                 <td>
-                                    <div>${tournament.fullName} <a class="btn btn-info"
-                                                                   href="?command=includeParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=participant">
-                                        <span class="glyphicon glyphicon-plus"></span></a></div>
+                                    <a class="btn btn-info"
+                                       href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=participant&action=include">
+                                        <span class="glyphicon glyphicon-plus"></span></a>
                                 </td>
                             </tr>
                         </c:forEach>

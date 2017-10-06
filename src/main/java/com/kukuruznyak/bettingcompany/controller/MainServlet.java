@@ -29,8 +29,8 @@ public class MainServlet extends HttpServlet {
     }
 
     private void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("errorMessage", "");
-        request.getSession().setAttribute("successMessage", "");
+        request.getSession().removeAttribute("errorMessage");
+        request.getSession().removeAttribute("successMessage");
         String page;
         try {
             page = commandInvoker.invoke(request, response);

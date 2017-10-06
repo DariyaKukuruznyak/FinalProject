@@ -8,10 +8,10 @@
             class="glyphicon glyphicon-home"></span> Back home</a>
     <h2 class="form-signin-heading">Profile</h2>
     <div class="panel-body">
-        <c:if test="${errorMessage!=''}">
+        <c:if test="${not empty errorMessage}">
             <div class="alert alert-danger">${errorMessage}</div>
         </c:if>
-        <c:if test="${successMessage!=''}">
+        <c:if test="${not empty successMessage}">
             <div class="alert alert-success">${successMessage}</div>
         </c:if>
         <form class="form-horizontal" action="?command=editUser&id=${editedUser.id}" method="POST">

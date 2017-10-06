@@ -2,8 +2,6 @@ package com.kukuruznyak.bettingcompany.command.impl.event;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
-import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.EventBuilder;
-import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
@@ -13,7 +11,7 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CreateEventCommand extends Command {
+public class EditEventCommand extends Command {
     private EventService eventService = ServiceFactory.getInstance().getEventService();
 
     @Override
@@ -23,23 +21,15 @@ public class CreateEventCommand extends Command {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
                 throw new ApplicationException("Access denied");
             }
-            Tournament tournament = (Tournament) request.getSession().getAttribute("selectedTournament");
-            if (tournament == null) {
-                throw new ApplicationException("No tournament selected.");
+            Event event = eventService.getById(request.getParameter("eventId"));
+            if (event == null) {
+                throw new ApplicationException("No event selected.");
             }
-            Event event = new EventBuilder()
-                    .buildBookmaker(authorizedUser)
-                    .buildTournament(tournament)
-                    .build();
-            eventService.createMarkets(event);
-            event = eventService.add(event);
-            request.getSession().setAttribute("event", event);
-            request.getSession().setAttribute("successMessage", "Event was created successfully");
-            LOGGER.info("Event was created successfully");
+//           eventService.
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
             request.getSession().setAttribute("errorMessage", e.getMessage());
         }
-        return pagesResourceBundle.getString("addEvent");
+        return pagesResourceBundle.getString("editEvent");
     }
 }

@@ -38,6 +38,6 @@ public class EditTournamentCommand extends Command {
     private void editTournament(HttpServletRequest request, Tournament tournament) {
         tournament.setName(request.getParameter("name"));
         tournament.setCountry(request.getParameter("country"));
-        tournament.setScore(request.getParameter("score"));
+        tournament.setWinner(request.getParameter("winner"));
     }
 }

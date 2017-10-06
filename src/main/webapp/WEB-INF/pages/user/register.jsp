@@ -6,7 +6,7 @@
 <div class="container">
     <a class="btn btn-info" href="?command=home"><span
             class="glyphicon glyphicon-home"></span> Back home</a>
-    <c:if test="${errorMessage!=''}">
+    <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger">${errorMessage}</div>
     </c:if>
     <form class="form-signin" action="?command=join" method="post">

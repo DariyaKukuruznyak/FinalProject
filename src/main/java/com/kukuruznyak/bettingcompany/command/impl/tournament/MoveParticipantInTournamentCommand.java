@@ -9,19 +9,21 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class IncludeParticipantToTournamentCommand extends Command {
+public class MoveParticipantInTournamentCommand extends Command {
     private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
     private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
 
+    private static final String INCLUDE_ACTION = "include";
+    private static final String EXCLUDE_ACTION = "exclude";
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         String participantId = request.getParameter("participantId");
         String tournamentId = request.getParameter("tournamentId");
-        String command = request.getParameter("command");
-        if (command.equals("includeParticipant")) {
+        String action = request.getParameter("action");
+        if (action.equals(INCLUDE_ACTION)) {
             tournamentService.includeParticipant(participantId, tournamentId);
         }
-        if (command.equals("excludeParticipant")) {
+        if (action.equals(EXCLUDE_ACTION)) {
             tournamentService.excludeParticipant(participantId, tournamentId);
         }
         String editedModel = request.getParameter("editedModel");

@@ -20,6 +20,7 @@ import java.util.Set;
 public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implements TournamentDao {
     private static MySqlTournamentDaoImpl instance;
     private static ParticipantDao participantDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getParticipantDao();
+
     private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
     private static final String ALL_TOURNAMENT_BY_PARTICIPANTS = "getTournaments";
 
@@ -63,8 +64,8 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
                     .buildId(resultSet.getLong("id"))
                     .buildName(resultSet.getString("name"))
                     .buildCountry(resultSet.getString("country"))
-                    .buildBeginningDateAndTime(resultSet.getDate("start_date_and_time"))//TODO
-                    .buildScore(resultSet.getString("score"))
+                    .buildBeginningDateAndTime(resultSet.getDate("start_date_and_time"))
+                    .buildWinner(resultSet.getString("winner"))
                     .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
@@ -77,7 +78,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
             preparedStatement.setString(1, tournament.getName());
             preparedStatement.setString(2, tournament.getCountry());
             preparedStatement.setDate(3, new java.sql.Date(tournament.getBeginningDateAndTime().getTime()));
-            preparedStatement.setString(4, tournament.getScore());
+            preparedStatement.setString(4, tournament.getWinner());
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }

@@ -7,10 +7,10 @@
     <a class="btn btn-info" href="?command=home"><span
             class="glyphicon glyphicon-home"></span> Back home</a>
     <div class="panel-body">
-        <c:if test="${errorMessage!=''}">
+        <c:if test="${not empty errorMessage}">
             <div class="alert alert-danger">${errorMessage}</div>
         </c:if>
-        <c:if test="${successMessage!=''}">
+        <c:if test="${not empty successMessage}">
             <div class="alert alert-success">${successMessage}</div>
         </c:if>
         <div class="row">
@@ -33,25 +33,31 @@
                                value="${tournament.country}">
                     </fieldset>
                     <fieldset class="form-group">
-                        <label for="score">Score</label>
-                        <input class="form-control" id="score" name="score" placeholder="Score"
-                               value="${tournament.score}">
+                        <label for="winner">Winner</label>
+                        <input class="form-control" id="winner" name="winner" placeholder="Winner"
+                               value="${tournament.winner}">
                     </fieldset>
                     <c:if test="${not empty tournament.participants}">
                         <fieldset class="form-group">
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>Participants</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Weight</th>
+                                    <th>Exclude</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${tournament.participants}" var="participant">
                                     <tr>
+                                        <td>${participant.name}</td>
+                                        <td>${participant.age}</td>
+                                        <td>${participant.weight}</td>
                                         <td>
-                                            <div>${participant.name} <a class="btn btn-info"
-                                                                        href="?command=excludeParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament">
-                                                <span class="glyphicon glyphicon-minus"></span></a></div>
+                                            <a class="btn btn-info"
+                                               href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament&action=exclude">
+                                                <span class="glyphicon glyphicon-minus"></span></a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -70,16 +76,21 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Active participants</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Weight</th>
+                            <th>Exclude</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${participants}" var="participant">
                             <tr>
-                                <td>
-                                    <div>${participant.name} <a class="btn btn-info"
-                                                                href="?command=includeParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament">
-                                        <span class="glyphicon glyphicon-plus"></span></a></div>
+                        <tr>
+                            <td>${participant.name}</td>
+                            <td>${participant.age}</td>
+                            <td>${participant.weight}</td>
+                            <td><a class="btn btn-info" href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament&action=include">
+                                        <span class="glyphicon glyphicon-plus"></span></a>
                                 </td>
                             </tr>
                         </c:forEach>

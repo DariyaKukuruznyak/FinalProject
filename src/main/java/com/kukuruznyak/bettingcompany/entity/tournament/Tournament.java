@@ -9,7 +9,7 @@ import java.util.HashSet;
 public class Tournament extends Model {
     private String name;
     private String country;
-    private String score;
+    private String winner;
     private Date beginningDateAndTime;
     private Collection<Participant> participants;
 
@@ -50,7 +50,7 @@ public class Tournament extends Model {
         }
         this.participants.add(participant);
     }
-    
+
     public Date getBeginningDateAndTime() {
         return beginningDateAndTime;
     }
@@ -59,12 +59,18 @@ public class Tournament extends Model {
         this.beginningDateAndTime = beginningDateAndTime;
     }
 
-    public String getScore() {
-        return score;
+    public String getWinner() {
+        return winner;
     }
 
-    public void setScore(String score) {
-        this.score = score;
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
+
+    public int getNumberOfParticipants() {
+        if (this.participants != null) {
+            return this.participants.size();
+        } else return 0;
     }
 
     @Override
@@ -76,7 +82,7 @@ public class Tournament extends Model {
 
         if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
         if (getCountry() != null ? !getCountry().equals(that.getCountry()) : that.getCountry() != null) return false;
-        if (getScore() != null ? !getScore().equals(that.getScore()) : that.getScore() != null) return false;
+        if (getWinner() != null ? !getWinner().equals(that.getWinner()) : that.getWinner() != null) return false;
         return getBeginningDateAndTime() != null ? getBeginningDateAndTime().equals(that.getBeginningDateAndTime()) : that.getBeginningDateAndTime() == null;
     }
 
@@ -84,7 +90,7 @@ public class Tournament extends Model {
     public int hashCode() {
         int result = getName() != null ? getName().hashCode() : 0;
         result = 31 * result + (getCountry() != null ? getCountry().hashCode() : 0);
-        result = 31 * result + (getScore() != null ? getScore().hashCode() : 0);
+        result = 31 * result + (getWinner() != null ? getWinner().hashCode() : 0);
         result = 31 * result + (getBeginningDateAndTime() != null ? getBeginningDateAndTime().hashCode() : 0);
         return result;
     }
@@ -95,7 +101,7 @@ public class Tournament extends Model {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
-                ", score='" + score + '\'' +
+                ", winner='" + winner + '\'' +
                 ", beginningDateAndTime=" + beginningDateAndTime +
                 ", participants=" + participants +
                 '}';

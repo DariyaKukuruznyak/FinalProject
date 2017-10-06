@@ -7,7 +7,7 @@
     <a class="btn btn-info" href="?command=home"><span
             class="glyphicon glyphicon-home"></span> Back home</a>
     <div class="form-signin">
-        <c:if test="${errorMessage!=''}">
+        <c:if test="${not empty errorMessage}">
             <div class="alert alert-danger">${errorMessage}</div>
         </c:if>
         <form class="form-horizontal" action="?command=signIn" method="post">
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <c:if test="${errorMessage!=''}"><a href="?command=register">Join us now now</a></c:if>
+            <c:if test="${not empty errorMessage}"><a href="?command=register">Join us now now</a></c:if>
 
         </form>
     </div>

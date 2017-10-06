@@ -1,4 +1,4 @@
-/*package dao.impl.mysql;
+package dao.impl.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.UserDao;
 import com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql.MySqlUserDaoImpl;
@@ -47,7 +47,6 @@ public class MySqlUserDaoTest {
                 .buildEmail("client@gmail.com")
                 .buildLogin("ADMINISTRATOR")
                 .buildPassword("1111")
-                .buildSecurityNumber("1111")
                 .buildUserRole(UserRole.ADMINISTRATOR)
                 .build();
         userDao.add(user);
@@ -69,8 +68,6 @@ public class MySqlUserDaoTest {
 
     @Test
     public void findByLogin() throws Exception {
-        User user = userDao.getByLogin("0");
+        userDao.getByLogin("0");
     }
-
-
-}*/
+}

@@ -4,24 +4,24 @@
 <body>
 <%@include file="../fragments/header.jspf" %>
 <div class="container">
-    <c:if test="${errorMessage!=''}">
+    <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger">${errorMessage}</div>
     </c:if>
-    <c:if test="${successMessage!=''}">
+    <c:if test="${not empty successMessage}">
         <div class="alert alert-success">${successMessage}</div>
     </c:if>
     <form class="form-signin" action="?command=createUser" method="post">
         <h2 class="form-signin-heading">Add new user</h2>
-        <div class="form-group">
-            <label for="userRole">Role</label>
-            <div class="col-sm-8">
-                <select class="form-control" id="userRole" name="userRole" size="1">
-                    <option>${adminRole}</option>
-                    <option>${riskControllerRole}</option>
-                    <option selected>${bookmakerRole}</option>
-                </select>
+            <div class="form-group row">
+                <label for="userRole" class="col-sm-4 col-form-label">Role</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="userRole" name="userRole" size="1">
+                        <option>${adminRole}</option>
+                        <option>${riskControllerRole}</option>
+                        <option selected>${bookmakerRole}</option>
+                    </select>
+                </div>
             </div>
-        </div>
         <div class="form-group row">
             <label for="first-name" class="col-sm-4 col-form-label">First Name</label>
             <div class="col-sm-8">

@@ -2,9 +2,9 @@
     <div class="container">
         <a class="navbar-brand" href="?command=home">RACE BET</a>
         <c:choose>
-            <c:when test="${user!=null}">
+            <c:when test="${not empty user}">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a><span class="glyphicon glyphicon-user"></span> You signed in like ${user.stringUserRole} </a>
+                    <li><a><span class="glyphicon glyphicon-user"></span> You signed in as ${user.stringUserRole} </a>
                     </li>
                     <c:choose>
                         <c:when test="${user.userRole==adminRole}">
