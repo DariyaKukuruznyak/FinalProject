@@ -28,19 +28,8 @@
                     <label for="winner">Winner</label>
                     <div class="form-control" id="winner">${event.tournament.winner}</div>
                 </fieldset>
-                <%--<fieldset class="form-group">--%>
                     <label for="status">Status</label>
                 <div class="form-control" id="status">${event.status}</div>
-                <%--</fieldset>--%>
-                <%--<fieldset class="form-group row">--%>
-                <%--<label for="status" class="col-sm-4 col-form-label">Status</label>--%>
-                <%--<div class="col-sm-8">--%>
-                <%--<select class="form-control" id="status" name="status" size="1" value="${event.status}">--%>
-                <%--<option>${inprogressStatus}</option>--%>
-                <%--<option>${finishedStaus}</option>--%>
-                <%--</select>--%>
-                <%--</div>--%>
-                <%--</fieldset>--%>
             </div>
             <div class="col-sm-6">
                 <c:if test="${not empty event.markets}">

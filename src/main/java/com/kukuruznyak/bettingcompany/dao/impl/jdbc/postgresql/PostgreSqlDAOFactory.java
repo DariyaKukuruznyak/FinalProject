@@ -47,6 +47,16 @@ public class PostgreSqlDAOFactory extends DaoFactory {
     }
 
     @Override
+    public MarketDao getMarketDao() {
+        return null;
+    }
+
+    @Override
+    public OutcomeDao getOutcomeDao() {
+        return null;
+    }
+
+    @Override
     public ParticipantDao getParticipantDao() {
         return null;
     }

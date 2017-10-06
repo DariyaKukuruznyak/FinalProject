@@ -2,23 +2,32 @@ package com.kukuruznyak.bettingcompany.entity.event;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Market extends Model {
     private MarketNames name;
-    private double margin;
-    private Set<Outcome> outcomes;
+    private Collection<Outcome> outcomes;
     private Event event;
-
-    public MarketNames getName() {
-        return name;
-    }
 
     public Market() {
     }
 
     public Market(MarketNames name) {
+        this.name = name;
+    }
+
+    public Market(MarketNames name, Event event) {
+        this.name = name;
+        this.event = event;
+    }
+
+    public MarketNames getName() {
+        return name;
+    }
+
+    public void setName(MarketNames name) {
         this.name = name;
     }
 
@@ -30,19 +39,15 @@ public class Market extends Model {
         this.event = event;
     }
 
-    public void setName(MarketNames name) {
-        this.name = name;
-    }
-
     public double getMargin() {
-        return margin;
+        return 1.07;
+    }//TODO
+
+    public void setOutcomes(Collection<Outcome> outcomes) {
+        this.outcomes = outcomes;
     }
 
-    public void setMargin(double margin) {
-        this.margin = margin;
-    }
-
-    public Set<Outcome> getOutcomes() {
+    public Collection<Outcome> getOutcomes() {
         return outcomes;
     }
 

@@ -7,10 +7,18 @@ import com.kukuruznyak.bettingcompany.dao.impl.jdbc.postgresql.PostgreSqlDAOFact
 public abstract class DaoFactory {
 
     public abstract BetDao getBetDao();
+
     public abstract TournamentDao getTournamentDao();
+
     public abstract ClientDao getClientDao();
+
     public abstract UserDao getUserDao();
+
     public abstract EventDao getEventDao();
+
+    public abstract MarketDao getMarketDao();
+
+    public abstract OutcomeDao getOutcomeDao();
 
     public abstract ParticipantDao getParticipantDao();
 

@@ -49,6 +49,10 @@ public class Outcome extends Model {
         this.market = market;
     }
 
+    public Market getMarket() {
+        return market;
+    }
+
     public List<Bet> getBets() {
         return bets;
     }
@@ -58,12 +62,6 @@ public class Outcome extends Model {
             this.bets=new LinkedList<>();
         }
         this.bets.add(bet);
-    }
-
-    public String getMarket() {
-        //TODO
-        return "I am Market Name";
-//        return this.market.getEvent().getTournament().toString();
     }
 
     @Override

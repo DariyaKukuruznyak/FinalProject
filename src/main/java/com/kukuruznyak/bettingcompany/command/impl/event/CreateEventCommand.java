@@ -2,6 +2,7 @@ package com.kukuruznyak.bettingcompany.command.impl.event;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
+import com.kukuruznyak.bettingcompany.entity.event.MarketNames;
 import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.EventBuilder;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.user.User;
@@ -31,10 +32,11 @@ public class CreateEventCommand extends Command {
                     .buildBookmaker(authorizedUser)
                     .buildTournament(tournament)
                     .build();
-            eventService.createMarkets(event);
             event = eventService.add(event);
+            eventService.createMarket(event, MarketNames.WINNER);
             request.getSession().setAttribute("event", event);
             request.getSession().setAttribute("successMessage", "Event was created successfully");
+            request.getSession().removeAttribute("selectedTournament");
             LOGGER.info("Event was created successfully");
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());

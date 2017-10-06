@@ -95,8 +95,4 @@ public class UserService extends AbstractService {
     private Collection<User> getAllRiskControllers() {
         return userDao.getUsersByRole(UserRole.RISK_CONTROLLER.toString());
     }
-
-    public UserRole getRoleByLogin(String login) {
-        return userDao.getUSerRoleByLogin(login);
-    }
 }

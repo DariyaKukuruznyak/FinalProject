@@ -46,6 +46,16 @@ public class MySqlDaoFactory extends DaoFactory {
     }
 
     @Override
+    public MarketDao getMarketDao() {
+        return MySqlMarketDaoImpl.getInstance();
+    }
+
+    @Override
+    public OutcomeDao getOutcomeDao() {
+        return MySqlOutcomeDaoImpl.getInstance();
+    }
+
+    @Override
     public ParticipantDao getParticipantDao() {
         return MySqlParticipantDaoImpl.getInstance();
     }

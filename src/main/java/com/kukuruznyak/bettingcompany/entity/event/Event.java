@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ public class Event extends Model {
     private EventStatus status;
     private User bookmaker;
     private boolean isSuspended;
+
     //    private FinanceResult financeResultSingle;
     //    private FinanceResult financeResultExpress;
     public Event() {
@@ -45,6 +47,9 @@ public class Event extends Model {
     }
 
     public void addMarket(Market market) {
+        if (this.markets == null) {
+            this.markets = new ArrayList<>();
+        }
         this.markets.add(market);
     }
 
