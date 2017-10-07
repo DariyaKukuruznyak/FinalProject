@@ -10,14 +10,8 @@
         <c:if test="${not empty errorMessage}">
             <div class="alert alert-danger">${errorMessage}</div>
         </c:if>
-        <c:if test="${not empty successMessage}">
-            <div class="alert alert-success">${successMessage}</div>
-        </c:if>
         <c:if test="${not empty selectedTournament}">
                 <a href="?command=createEvent" class="btn btn-success"><h2>Create event</h2></a>
-        </c:if>
-        <c:if test="${not empty event.id}">
-                <a href="?command=editEvent&eventId=${event.id}" class="btn btn-success"><h2>Edit event</h2></a>
         </c:if>
         <div class="row">
             <div class="col-sm-6">

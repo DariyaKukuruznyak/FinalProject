@@ -44,7 +44,7 @@ public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements Out
                     .buildId(resultSet.getLong("id"))
                     .buildName(resultSet.getString("name"))
                     .buildCoefficient(resultSet.getDouble("coefficient"))
-                    .buildMarket(marketDao.getById(resultSet.getLong("market_id")))
+                    .buildMarketId(resultSet.getLong("market_id"))
                     .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
@@ -56,7 +56,7 @@ public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements Out
         try {
             preparedStatement.setString(1, outcome.getName());
             preparedStatement.setDouble(2, outcome.getCoefficient());
-            preparedStatement.setLong(3, outcome.getMarket().getId());
+            preparedStatement.setLong(3, outcome.getMarketId());
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }

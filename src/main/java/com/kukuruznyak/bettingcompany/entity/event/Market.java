@@ -2,14 +2,13 @@ package com.kukuruznyak.bettingcompany.entity.event;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Market extends Model {
     private MarketNames name;
     private Collection<Outcome> outcomes;
-    private Event event;
+    private Long eventId;
 
     public Market() {
     }
@@ -18,9 +17,9 @@ public class Market extends Model {
         this.name = name;
     }
 
-    public Market(MarketNames name, Event event) {
+    public Market(MarketNames name, Long eventId) {
         this.name = name;
-        this.event = event;
+        this.eventId = eventId;
     }
 
     public MarketNames getName() {
@@ -31,17 +30,23 @@ public class Market extends Model {
         this.name = name;
     }
 
-    public Event getEvent() {
-        return event;
+    public Long getEventId() {
+        return eventId;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
     }
 
     public double getMargin() {
-        return 1.07;
-    }//TODO
+        double totalChance = 0;
+        for (Outcome outcome : this.outcomes) {
+            totalChance += 1 / outcome.getCoefficient();
+        }
+        double margin = (totalChance - 1) * 100;
+        System.out.println(margin);
+        return margin;
+    }
 
     public void setOutcomes(Collection<Outcome> outcomes) {
         this.outcomes = outcomes;
@@ -53,7 +58,7 @@ public class Market extends Model {
 
     public void addOutcome(Outcome outcomes) {
         if (this.outcomes == null) {
-            this.outcomes = new HashSet<>();
+            this.outcomes = new ArrayList<>();
         }
         this.outcomes.add(outcomes);
     }

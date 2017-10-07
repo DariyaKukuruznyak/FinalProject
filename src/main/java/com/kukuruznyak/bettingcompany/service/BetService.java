@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.dao.BetDao;
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
+import com.kukuruznyak.bettingcompany.entity.event.Event;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 
 import java.math.BigDecimal;
@@ -52,5 +53,8 @@ public class BetService extends AbstractService {
         bets.add(bet1);
         bets.add(bet2);
         return bets;
+    }
+
+    public void calculateBets(Event event) {
     }
 }

@@ -85,31 +85,33 @@
                 </form>
             </div>
             <div class="col-sm-6">
-                <h2 class="form-signin-heading">Include participant to tournament</h2>
-                <c:if test="${not empty activeTournaments}">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Country</th>
-                            <th>Include</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${activeTournaments}" var="tournament">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Include participant to tournament</div>
+                    <c:if test="${not empty activeTournaments}">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>${tournament.name}</td>
-                                <td>${tournament.country}</td>
-                                <td>
-                                    <a class="btn btn-info"
-                                       href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=participant&action=include">
-                                        <span class="glyphicon glyphicon-plus"></span></a>
-                                </td>
+                                <th>Name</th>
+                                <th>Country</th>
+                                <th>Include</th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </c:if>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${activeTournaments}" var="tournament">
+                                <tr>
+                                    <td>${tournament.name}</td>
+                                    <td>${tournament.country}</td>
+                                    <td>
+                                        <a class="btn btn-info"
+                                           href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=participant&action=include">
+                                            <span class="glyphicon glyphicon-plus"></span></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:if>
+                </div>
             </div>
         </div>
     </div>

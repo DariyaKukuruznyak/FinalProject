@@ -7,4 +7,5 @@ import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 import java.util.Collection;
 
 public interface MarketDao extends AbstractDao<Market> {
-  }
+  Collection<Market> getAllByEventId(Long id);
+}

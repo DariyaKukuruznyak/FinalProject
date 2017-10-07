@@ -9,14 +9,19 @@ import com.kukuruznyak.bettingcompany.entity.event.MarketNames;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.OutcomeBuilder;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
+import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class EventService extends AbstractService {
     private static EventService instance;
     private EventDao eventDao = daoFactory.getEventDao();
     private MarketDao marketDao = daoFactory.getMarketDao();
     private OutcomeDao outcomeDao = daoFactory.getOutcomeDao();
+    private BetService betService = ServiceFactory.getInstance().getBetService();
 
     public static EventService getInstance() {
         if (instance == null) {
@@ -37,27 +42,59 @@ public class EventService extends AbstractService {
     }
 
     public Event getById(String id) {
-        return eventDao.getById(new Long(id));
+        return getById(new Long(id));
+    }
+
+    public Event getById(Long id) {
+        Event event = eventDao.getById(id);
+        sortOutcomes(event);
+        return event;
     }
 
     public Collection<Event> getEventsByBookmakerId(Long id) {
-        return eventDao.getAllByBookmakerId(id);
+        Collection<Event> events = eventDao.getAllByBookmakerId(id);
+        for (Event event : events) {
+            sortOutcomes(event);
+        }
+        return events;
     }
 
     public Collection<Event> getAll() {
-        return eventDao.getAll();
+        Collection<Event> events = eventDao.getAll();
+        for (Event event : events) {
+            sortOutcomes(event);
+        }
+        return events;
     }
 
     public Event createMarket(Event event, MarketNames marketNames) {
-        Market market = marketDao.add(new Market(marketNames, event));
+        Market market = marketDao.add(new Market(marketNames, event.getId()));
         for (Participant participant : event.getTournament().getParticipants()) {
             Outcome outcome = new OutcomeBuilder()
                     .buildName(participant.getFullName())
-                    .buildMarket(market)
+                    .buildMarketId(market.getId())
                     .build();
             market.addOutcome(outcomeDao.add(outcome));
         }
         event.addMarket(market);
         return event;
+    }
+
+    public void update(Event event) {
+        eventDao.update(event);
+    }
+
+    private void sortOutcomes(Event event) {
+        if (event.getMarkets() != null) {
+            for (Market market : event.getMarkets()) {
+                List<Outcome> outcomes = new ArrayList<>(market.getOutcomes());
+                Collections.sort(outcomes);
+                market.setOutcomes(outcomes);
+            }
+        }
+    }
+
+    public void finishEvent(Event event) {
+        betService.calculateBets(event);
     }
 }

@@ -2,10 +2,7 @@ package com.kukuruznyak.bettingcompany.command;
 
 import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
 import com.kukuruznyak.bettingcompany.command.impl.bet.ShowBetsCommand;
-import com.kukuruznyak.bettingcompany.command.impl.event.CreateEventCommand;
-import com.kukuruznyak.bettingcompany.command.impl.event.EditEventCommand;
-import com.kukuruznyak.bettingcompany.command.impl.event.SelectTournamentCommand;
-import com.kukuruznyak.bettingcompany.command.impl.event.ShowEventsCommand;
+import com.kukuruznyak.bettingcompany.command.impl.event.*;
 import com.kukuruznyak.bettingcompany.command.impl.get.*;
 import com.kukuruznyak.bettingcompany.command.impl.patricipant.CreateParticipantCommand;
 import com.kukuruznyak.bettingcompany.command.impl.patricipant.DeleteParticipantCommand;
@@ -47,6 +44,8 @@ public class Invoker {
         commandMap.put("addEvent", new GetAddEventPageCommand());
         commandMap.put("createEvent", new CreateEventCommand());
         commandMap.put("editEvent", new GetEditEventPageCommand());
+        commandMap.put("changeStatus", new ChangeEventStatusCommand());
+        commandMap.put("applyCoefficient", new ApplyCoefficientCommand());
 
         commandMap.put("participants", new ShowParticipantsCommand());
         commandMap.put("addParticipant", new GetAddParticipantPageCommand());

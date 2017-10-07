@@ -13,11 +13,14 @@ import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 
 public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements MarketDao {
     private static MySqlMarketDaoImpl instance;
     private static EventDao eventDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getEventDao();
     private static OutcomeDao outcomeDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getOutcomeDao();
+
+    private static final String GET_MARKETS_BY_EVENT_ID = "selectAllByEventId";
 
     public static MySqlMarketDaoImpl getInstance() {
         if (instance == null) {
@@ -41,7 +44,7 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
         try {
             market.setId(resultSet.getLong("id"));
             market.setName(MarketNames.valueOf(resultSet.getString("name")));
-            market.setEvent(eventDao.getById(resultSet.getLong("event_id")));
+            market.setEventId(resultSet.getLong("event_id"));
             market.setOutcomes(outcomeDao.getAllByMarketId(market.getId()));
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
@@ -53,9 +56,30 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
     protected void fillPreparedStatement(PreparedStatement preparedStatement, Market market) throws PersistenceException {
         try {
             preparedStatement.setString(1, market.getName().toString());
-            preparedStatement.setLong(2, market.getEvent().getId());
+            preparedStatement.setLong(2, market.getEventId());
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }
+    }
+
+    @Override
+    public Market getById(Long id) throws PersistenceException {
+        Market market = super.getById(id);
+        market.setOutcomes(outcomeDao.getAllByMarketId(market.getId()));
+        return market;
+    }
+
+    @Override
+    public Collection<Market> getAll() throws PersistenceException {
+        Collection<Market> markets = super.getAll();
+        for (Market market : markets) {
+            market.setOutcomes(outcomeDao.getAllByMarketId(market.getId()));
+        }
+        return markets;
+    }
+
+    public Collection<Market> getAllByEventId(Long eventId) throws PersistenceException {
+        return super.getAllByConstrain(QUERIES.getString(currentModel + "." + GET_MARKETS_BY_EVENT_ID),
+                String.valueOf(eventId));
     }
 }

@@ -71,32 +71,35 @@
                 </form>
             </div>
             <div class="col-sm-6">
-                <h2 class="form-signin-heading">Include participant to tournament</h2>
-                <c:if test="${not empty participants}">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Age</th>
-                            <th>Weight</th>
-                            <th>Exclude</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${participants}" var="participant">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Include participant to tournament</div>
+                    <c:if test="${not empty participants}">
+                        <table class="table">
+                            <thead>
                             <tr>
-                        <tr>
-                            <td>${participant.name}</td>
-                            <td>${participant.age}</td>
-                            <td>${participant.weight}</td>
-                            <td><a class="btn btn-info" href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament&action=include">
-                                        <span class="glyphicon glyphicon-plus"></span></a>
-                                </td>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Weight</th>
+                                <th>Exclude</th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </c:if>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${participants}" var="participant">
+                                <tr>
+                                <tr>
+                                    <td>${participant.name}</td>
+                                    <td>${participant.age}</td>
+                                    <td>${participant.weight}</td>
+                                    <td><a class="btn btn-info"
+                                           href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament&action=include">
+                                        <span class="glyphicon glyphicon-plus"></span></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:if>
+                </div>
             </div>
         </div>
     </div>

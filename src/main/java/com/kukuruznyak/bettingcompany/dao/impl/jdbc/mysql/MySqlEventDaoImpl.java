@@ -1,6 +1,7 @@
 package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 
 import com.kukuruznyak.bettingcompany.dao.EventDao;
+import com.kukuruznyak.bettingcompany.dao.MarketDao;
 import com.kukuruznyak.bettingcompany.dao.TournamentDao;
 import com.kukuruznyak.bettingcompany.dao.UserDao;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
@@ -8,6 +9,7 @@ import com.kukuruznyak.bettingcompany.dao.factory.DaoFactoryType;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
 import com.kukuruznyak.bettingcompany.entity.event.EventStatus;
+import com.kukuruznyak.bettingcompany.entity.event.Market;
 import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.EventBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
@@ -20,6 +22,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     private static MySqlEventDaoImpl instance;
     private static TournamentDao tournamentDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getTournamentDao();
     private static UserDao userDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getUserDao();
+    private static MarketDao marketDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getMarketDao();
 
     private static final String GET_EVENTS_BY_BOOKMAKER_ID = "selectAllByBookmakerId";
 
@@ -37,6 +40,23 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
 
     private MySqlEventDaoImpl() {
         super(Event.class.getSimpleName());
+    }
+
+    @Override
+    public Event getById(Long id) throws PersistenceException {
+        Event event = super.getById(id);
+        Collection<Market> markets = marketDao.getAllByEventId(event.getId());
+        event.setMarkets(markets);
+        return event;
+    }
+
+    @Override
+    public Collection<Event> getAll() throws PersistenceException {
+        Collection<Event> events = super.getAll();
+        for (Event event : events) {
+            event.setMarkets(marketDao.getAllByEventId(event.getId()));
+        }
+        return events;
     }
 
     @Override
@@ -70,7 +90,11 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
 
     @Override
     public Collection<Event> getAllByBookmakerId(Long bookmakerId) throws PersistenceException {
-        return super.getAllByConstrain(QUERIES.getString(currentModel + "." + GET_EVENTS_BY_BOOKMAKER_ID),
+        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel + "." + GET_EVENTS_BY_BOOKMAKER_ID),
                 String.valueOf(bookmakerId));
+        for (Event event : events) {
+            event.setMarkets(marketDao.getAllByEventId(event.getId()));
+        }
+        return events;
     }
 }

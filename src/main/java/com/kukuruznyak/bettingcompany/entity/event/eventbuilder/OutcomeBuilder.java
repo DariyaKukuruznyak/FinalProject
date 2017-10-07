@@ -1,13 +1,12 @@
 package com.kukuruznyak.bettingcompany.entity.event.eventbuilder;
 
-import com.kukuruznyak.bettingcompany.entity.event.Market;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 
 public class OutcomeBuilder {
     private Long id;
     private String name;
     private double coefficient = 1;
-    private Market market;
+    private Long marketId;
 
     public OutcomeBuilder buildId(Long id) {
         this.id = id;
@@ -24,8 +23,8 @@ public class OutcomeBuilder {
         return this;
     }
 
-    public OutcomeBuilder buildMarket(Market market) {
-        this.market = market;
+    public OutcomeBuilder buildMarketId(Long marketId) {
+        this.marketId = marketId;
         return this;
     }
 
@@ -34,7 +33,7 @@ public class OutcomeBuilder {
         outcome.setId(this.id);
         outcome.setName(this.name);
         outcome.setCoefficient(this.coefficient);
-        outcome.setMarket(this.market);
+        outcome.setMarketId(this.marketId);
         return outcome;
     }
 }

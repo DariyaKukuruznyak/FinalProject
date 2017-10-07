@@ -3,14 +3,13 @@ package com.kukuruznyak.bettingcompany.entity.event;
 import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Outcome extends Model {
+public class Outcome extends Model implements Comparable<Object> {
     private String name;
     private double coefficient;
-    private Market market;
+    private Long marketId;
     private List<Bet> bets;
 
     public Outcome() {
@@ -45,12 +44,12 @@ public class Outcome extends Model {
         this.coefficient = coefficient;
     }
 
-    public void setMarket(Market market) {
-        this.market = market;
+    public void setMarketId(Long marketId) {
+        this.marketId = marketId;
     }
 
-    public Market getMarket() {
-        return market;
+    public Long getMarketId() {
+        return marketId;
     }
 
     public List<Bet> getBets() {
@@ -58,8 +57,8 @@ public class Outcome extends Model {
     }
 
     public void addBet(Bet bet) {
-        if(this.bets==null){
-            this.bets=new LinkedList<>();
+        if (this.bets == null) {
+            this.bets = new LinkedList<>();
         }
         this.bets.add(bet);
     }
@@ -67,5 +66,11 @@ public class Outcome extends Model {
     @Override
     public String toString() {
         return name + ": " + coefficient;
+    }
+
+    @Override
+    public int compareTo(Object object) {
+        Outcome outcome = (Outcome) object;
+        return this.id > outcome.getId() ? 1 : this.id.equals(outcome.getId()) ? 0 : -1;
     }
 }
