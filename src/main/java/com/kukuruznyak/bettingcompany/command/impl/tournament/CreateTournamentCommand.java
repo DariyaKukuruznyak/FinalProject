@@ -12,20 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateTournamentCommand extends Command {
-    private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
-    private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         try {
             Tournament tournament = fillTournament(request);
+            TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
             if (tournamentService.isValidParticipant(tournament)) {
                 tournamentService.add(tournament);
                 request.getSession().setAttribute("successMessage", "Tournament was created successfully");
                 LOGGER.error("Tournament was created successfully");
                 request.getSession().setAttribute("tournament", tournament);
+                ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
                 request.getSession().setAttribute("participants", participantService.getParticipants());
-
             } else {
                 throw new ApplicationException("Invalid tournament");
             }

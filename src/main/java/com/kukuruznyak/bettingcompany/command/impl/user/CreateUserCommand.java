@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateUserCommand extends Command {
-    private UserService userService = ServiceFactory.getInstance().getUserService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         try {
+            UserService userService = ServiceFactory.getInstance().getUserService();
             if (userService.getUserByLogin(request.getParameter("login")) != null) {
                 throw new ApplicationException("User with login '" + request.getParameter("login") + "' already exist!");
             }

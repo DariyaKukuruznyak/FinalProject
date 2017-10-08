@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateEventCommand extends Command {
-    private EventService eventService = ServiceFactory.getInstance().getEventService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         User authorizedUser = (User) request.getSession().getAttribute("user");
@@ -32,6 +30,7 @@ public class CreateEventCommand extends Command {
                     .buildBookmaker(authorizedUser)
                     .buildTournament(tournament)
                     .build();
+            EventService eventService = ServiceFactory.getInstance().getEventService();
             event = eventService.add(event);
             eventService.createMarket(event, MarketNames.WINNER);
             request.getSession().setAttribute("event", event);

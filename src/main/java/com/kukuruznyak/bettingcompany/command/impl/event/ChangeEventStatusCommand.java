@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ChangeEventStatusCommand extends Command {
-    private EventService eventService = ServiceFactory.getInstance().getEventService();
     private static final String INPROGRESS_STATUS = "inprogress";
     private static final String FINISHED_STATUS = "finished";
     private static final String SUSPEND_STATUS = "suspend";
@@ -29,6 +28,7 @@ public class ChangeEventStatusCommand extends Command {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
                 throw new ApplicationException("Access denied");
             }
+            EventService eventService = ServiceFactory.getInstance().getEventService();
             switch (status) {
                 case LOCKED_STATUS:
                     event.setStatus(EventStatus.LOCKED);
@@ -61,4 +61,6 @@ public class ChangeEventStatusCommand extends Command {
         }
         return pagesResourceBundle.getString("editEvent");
     }
+
+
 }

@@ -10,12 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class GetEditParticipantPageCommand extends Command {
-    private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
-    private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+        TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
         request.getSession().setAttribute("activeTournaments", tournamentService.getActiveTournament());
+        ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
         request.getSession().setAttribute("participant", participantService.getById(request.getParameter("participantId")));
         return pagesResourceBundle.getString("editParticipant");
     }

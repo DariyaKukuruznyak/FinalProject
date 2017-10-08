@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class EditTournamentCommand extends Command {
-    private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
-    private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         try {
+            TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
             Tournament tournament = tournamentService.getById(request.getParameter("tournamentId"));
             editTournament(request, tournament);
             if (tournamentService.isValidParticipant(tournament)) {
@@ -23,6 +22,7 @@ public class EditTournamentCommand extends Command {
                 LOGGER.info("Tournament with id = " + tournament.getId() + " updated.");
                 request.setAttribute("successMessage", "Tournament was updated successfully.");
                 request.getSession().setAttribute("tournament", tournament);
+                ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
                 request.getSession().setAttribute("participant", participantService.getParticipants());
             } else {
                 throw new ApplicationException("Incorrect tournament!");

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class GetAddUserPageCommand extends Command {
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
             return pagesResourceBundle.getString("addUser");

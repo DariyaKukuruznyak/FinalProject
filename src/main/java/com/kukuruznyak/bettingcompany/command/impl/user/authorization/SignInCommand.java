@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class SignInCommand extends Command {
-    private UserService userService = ServiceFactory.getInstance().getUserService();
-
-    @Override
+ @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         String login = request.getParameter("login");
+        UserService userService = ServiceFactory.getInstance().getUserService();
         if (userService.isUserExist(login, request.getParameter("password"))) {
             User user = userService.getUserByLogin(request.getParameter("login"));
             request.getSession().setAttribute("user", user);

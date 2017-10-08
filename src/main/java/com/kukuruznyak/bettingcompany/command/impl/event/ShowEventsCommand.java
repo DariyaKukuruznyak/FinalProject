@@ -13,12 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 
 public class ShowEventsCommand extends Command {
-    private EventService eventService = ServiceFactory.getInstance().getEventService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         User authorizedUser = (User) request.getSession().getAttribute("user");
         Collection<Event> events;
+        EventService eventService = ServiceFactory.getInstance().getEventService();
         if (authorizedUser != null && authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
             events = eventService.getEventsByBookmakerId(authorizedUser.getId());
         } else {

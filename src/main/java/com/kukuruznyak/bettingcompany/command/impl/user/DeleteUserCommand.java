@@ -11,14 +11,11 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
-import java.util.List;
 
 public class DeleteUserCommand extends Command {
-    private UserService userService = ServiceFactory.getInstance().getUserService();
-    private ClientService clientService = ServiceFactory.getInstance().getClientService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+        UserService userService = ServiceFactory.getInstance().getUserService();
         userService.delete(request.getParameter("id"));
         Collection<?> users = null;
         User authorizedUser = (User) request.getSession().getAttribute("user");
@@ -26,6 +23,7 @@ public class DeleteUserCommand extends Command {
             users = userService.getStaff();
         }
         if (authorizedUser.getUserRole().equals(UserRole.RISK_CONTROLLER)) {
+            ClientService clientService = ServiceFactory.getInstance().getClientService();
             users = clientService.getAllClients();
         }
         request.getSession().setAttribute("users", users);

@@ -14,12 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RegisterCommand extends Command {
-    private ClientService clientService = ServiceFactory.getInstance().getClientService();
-    private UserService userService = ServiceFactory.getInstance().getUserService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         try {
+            UserService userService = ServiceFactory.getInstance().getUserService();
             if (userService.getUserByLogin(request.getParameter("login")) != null) {
                 throw new ApplicationException("User with login '" + request.getParameter("login") + "' already exist!");
             }
@@ -30,6 +28,7 @@ public class RegisterCommand extends Command {
             if (!userService.isValidUser(client)) {
                 throw new ApplicationException("Incorrect user!");
             }
+            ClientService clientService = ServiceFactory.getInstance().getClientService();
             client = clientService.add(client);
             request.getSession().setAttribute("user", client);
             LOGGER.info("New authorization " + client.getLogin() + " joined");

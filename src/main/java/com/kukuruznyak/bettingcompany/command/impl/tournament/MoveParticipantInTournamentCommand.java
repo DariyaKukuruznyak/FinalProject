@@ -10,16 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class MoveParticipantInTournamentCommand extends Command {
-    private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
-    private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
-
     private static final String INCLUDE_ACTION = "include";
     private static final String EXCLUDE_ACTION = "exclude";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         String participantId = request.getParameter("participantId");
         String tournamentId = request.getParameter("tournamentId");
         String action = request.getParameter("action");
+        TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
         if (action.equals(INCLUDE_ACTION)) {
             tournamentService.includeParticipant(participantId, tournamentId);
         }
@@ -27,6 +26,7 @@ public class MoveParticipantInTournamentCommand extends Command {
             tournamentService.excludeParticipant(participantId, tournamentId);
         }
         String editedModel = request.getParameter("editedModel");
+        ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
         switch (editedModel) {
             case "participant":
                 request.getSession().setAttribute("participant", participantService.getById(participantId));

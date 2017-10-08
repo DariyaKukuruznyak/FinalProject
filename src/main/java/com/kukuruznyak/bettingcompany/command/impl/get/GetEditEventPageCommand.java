@@ -11,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class GetEditEventPageCommand extends Command {
-    private EventService eventService = ServiceFactory.getInstance().getEventService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+        EventService eventService = ServiceFactory.getInstance().getEventService();
         Event event = eventService.getById(request.getParameter("eventId"));
         request.getSession().setAttribute("lockedStatus", EventStatus.LOCKED);
         request.getSession().setAttribute("inprogressStatus", EventStatus.INPROGRESS);

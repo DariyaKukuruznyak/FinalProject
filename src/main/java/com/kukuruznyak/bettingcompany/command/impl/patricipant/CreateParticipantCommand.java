@@ -12,17 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateParticipantCommand extends Command {
-    private ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
-    private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         Participant participant = fillParticipant(request);
+        ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
         if (participantService.isValidParticipant(participant)) {
             participant = participantService.add(participant);
             request.getSession().setAttribute("participantId", participant.getId());
             request.getSession().setAttribute("successMessage", "Participant was created successfully");
             LOGGER.info("Participant was created successfully");
+            TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
             request.getSession().setAttribute("tournaments", tournamentService.getActiveTournament());
             request.getSession().setAttribute("participant", participant);
         } else {

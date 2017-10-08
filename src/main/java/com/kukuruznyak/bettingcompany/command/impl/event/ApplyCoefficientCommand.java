@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ApplyCoefficientCommand extends Command {
-    private EventService eventService = ServiceFactory.getInstance().getEventService();
-    private OutcomeService outcomeService = ServiceFactory.getInstance().getOutcomeService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -25,16 +22,18 @@ public class ApplyCoefficientCommand extends Command {
                 throw new ApplicationException("Access denied");
             }
             double coefficient = new Double(request.getParameter("coefficient"));
-            if(coefficient<1){
+            if (coefficient < 1) {
                 throw new ApplicationException("Forbidden coefficient");
             }
+            OutcomeService outcomeService = ServiceFactory.getInstance().getOutcomeService();
             Outcome outcome = outcomeService.getById(request.getParameter("outcomeId"));
             outcome.setCoefficient(coefficient);
             outcomeService.update(outcome);
             Event event = (Event) request.getSession().getAttribute("event");
+            EventService eventService = ServiceFactory.getInstance().getEventService();
             event = eventService.getById(event.getId());
             request.getSession().setAttribute("event", event);
-            request.getSession().setAttribute("successMessage", "Coefficient for outcome "+outcome.getName()+" has been changed successfully.");
+            request.getSession().setAttribute("successMessage", "Coefficient for outcome " + outcome.getName() + " has been changed successfully.");
         } catch (ApplicationException | NumberFormatException e) {
             LOGGER.error(e.getMessage());
             request.getSession().setAttribute("errorMessage", e.getMessage());

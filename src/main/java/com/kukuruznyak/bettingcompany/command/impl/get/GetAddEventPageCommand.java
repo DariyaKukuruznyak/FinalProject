@@ -11,11 +11,8 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
-import java.util.List;
 
 public class GetAddEventPageCommand extends Command {
-    private TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         User authorizedUser = (User) request.getSession().getAttribute("user");
@@ -23,6 +20,7 @@ public class GetAddEventPageCommand extends Command {
             LOGGER.error("Access denied");
             throw new ApplicationException("Access denied");
         }
+        TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
         Collection<Tournament> activeTournaments = tournamentService.getActiveTournament();
         request.getSession().setAttribute("tournaments", activeTournaments);
         return pagesResourceBundle.getString("addEvent");

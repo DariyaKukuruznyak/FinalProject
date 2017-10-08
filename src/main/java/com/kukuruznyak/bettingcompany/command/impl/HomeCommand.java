@@ -12,13 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 
 public class HomeCommand extends Command {
-    private EventService eventService = ServiceFactory.getInstance().getEventService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+        EventService eventService = ServiceFactory.getInstance().getEventService();
         Collection<Event> activeEvents = eventService.getActiveEvens(EventStatus.INPROGRESS);
-        request.getSession().setAttribute("activeEvents",activeEvents);
-        request.getSession().setAttribute("selectedEvents",activeEvents);
+        request.getSession().setAttribute("activeEvents", activeEvents);
+        request.getSession().setAttribute("selectedEvents", activeEvents);
         return pagesResourceBundle.getString("home");
     }
 }

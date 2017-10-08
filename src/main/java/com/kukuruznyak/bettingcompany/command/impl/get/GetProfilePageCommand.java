@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class GetProfilePageCommand extends Command {
-    private UserService userService = ServiceFactory.getInstance().getUserService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+        UserService userService = ServiceFactory.getInstance().getUserService();
         User editedUser = userService.getUserById(request.getParameter("id"));
         try {
             if (editedUser == null) {

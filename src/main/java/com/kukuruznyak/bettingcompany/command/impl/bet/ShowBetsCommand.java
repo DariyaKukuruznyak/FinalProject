@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class ShowBetsCommand extends Command {
-    private BetService betService = ServiceFactory.getInstance().getBetService();
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+
         User currentUser = (User) request.getSession().getAttribute("user");
         try {
             if (currentUser == null) {
@@ -36,6 +35,7 @@ public class ShowBetsCommand extends Command {
     }
 
     private String showBetsOfClient(HttpServletRequest request, Long clientId) {
+        BetService betService = ServiceFactory.getInstance().getBetService();
         List<Bet> bets = betService.getBetByUser(clientId);
         request.getSession().setAttribute("bets", bets);
         return pagesResourceBundle.getString("bets");
