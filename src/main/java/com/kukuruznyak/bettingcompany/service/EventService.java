@@ -3,10 +3,7 @@ package com.kukuruznyak.bettingcompany.service;
 import com.kukuruznyak.bettingcompany.dao.EventDao;
 import com.kukuruznyak.bettingcompany.dao.MarketDao;
 import com.kukuruznyak.bettingcompany.dao.OutcomeDao;
-import com.kukuruznyak.bettingcompany.entity.event.Event;
-import com.kukuruznyak.bettingcompany.entity.event.Market;
-import com.kukuruznyak.bettingcompany.entity.event.MarketNames;
-import com.kukuruznyak.bettingcompany.entity.event.Outcome;
+import com.kukuruznyak.bettingcompany.entity.event.*;
 import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.OutcomeBuilder;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
@@ -96,5 +93,9 @@ public class EventService extends AbstractService {
 
     public void finishEvent(Event event) {
         betService.calculateBets(event);
+    }
+
+    public Collection<Event> getActiveEvens(EventStatus status) {
+        return eventDao.getAllByStatus(status);
     }
 }

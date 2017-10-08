@@ -34,8 +34,12 @@
                     </fieldset>
                     <fieldset class="form-group">
                         <label for="winner">Winner</label>
-                        <input class="form-control" id="winner" name="winner" placeholder="Winner"
-                               value="${tournament.winner}">
+                        <select class="form-control" id="winner" name="winner" size="1" value="${tournament.winner}">
+                            <option selected></option>
+                            <c:forEach items="${tournament.participants}" var="participant">
+                                <option>${participant.name}</option>
+                            </c:forEach>
+                        </select>
                     </fieldset>
                     <c:if test="${not empty tournament.participants}">
                         <fieldset class="form-group">
@@ -43,8 +47,8 @@
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Age</th>
-                                    <th>Weight</th>
+                                    <th>Trainer</th>
+                                    <th>Jockey</th>
                                     <th>Exclude</th>
                                 </tr>
                                 </thead>
@@ -52,8 +56,8 @@
                                 <c:forEach items="${tournament.participants}" var="participant">
                                     <tr>
                                         <td>${participant.name}</td>
-                                        <td>${participant.age}</td>
-                                        <td>${participant.weight}</td>
+                                        <td>${participant.trainer}</td>
+                                        <td>${participant.jockey}</td>
                                         <td>
                                             <a class="btn btn-info"
                                                href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament&action=exclude">
@@ -70,7 +74,7 @@
                     </fieldset>
                 </form>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="panel panel-primary">
                     <div class="panel-heading">Include participant to tournament</div>
                     <c:if test="${not empty participants}">
@@ -78,8 +82,8 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Age</th>
-                                <th>Weight</th>
+                                <th>Trainer</th>
+                                <th>Jockey</th>
                                 <th>Exclude</th>
                             </tr>
                             </thead>
@@ -88,8 +92,8 @@
                                 <tr>
                                 <tr>
                                     <td>${participant.name}</td>
-                                    <td>${participant.age}</td>
-                                    <td>${participant.weight}</td>
+                                    <td>${participant.trainer}</td>
+                                    <td>${participant.jockey}</td>
                                     <td><a class="btn btn-info"
                                            href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament&action=include">
                                         <span class="glyphicon glyphicon-plus"></span></a>

@@ -25,7 +25,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     private static MarketDao marketDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getMarketDao();
 
     private static final String GET_EVENTS_BY_BOOKMAKER_ID = "selectAllByBookmakerId";
-
+    private static final String GET_EVENTS_BY_STATUS = "selectAllStatus";
     public static MySqlEventDaoImpl getInstance() {
         if (instance == null) {
             synchronized (MySqlEventDaoImpl.class) {
@@ -92,6 +92,16 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     public Collection<Event> getAllByBookmakerId(Long bookmakerId) throws PersistenceException {
         Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel + "." + GET_EVENTS_BY_BOOKMAKER_ID),
                 String.valueOf(bookmakerId));
+        for (Event event : events) {
+            event.setMarkets(marketDao.getAllByEventId(event.getId()));
+        }
+        return events;
+    }
+
+    @Override
+    public Collection<Event> getAllByStatus(EventStatus eventStatus) {
+        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel + "." + GET_EVENTS_BY_STATUS),
+                String.valueOf(eventStatus));
         for (Event event : events) {
             event.setMarkets(marketDao.getAllByEventId(event.getId()));
         }

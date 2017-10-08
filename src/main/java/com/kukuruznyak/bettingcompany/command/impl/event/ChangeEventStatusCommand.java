@@ -18,6 +18,7 @@ public class ChangeEventStatusCommand extends Command {
     private static final String FINISHED_STATUS = "finished";
     private static final String SUSPEND_STATUS = "suspend";
     private static final String ACTIVATE_STATUS = "activate";
+    private static final String LOCKED_STATUS = "locked";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -29,6 +30,9 @@ public class ChangeEventStatusCommand extends Command {
                 throw new ApplicationException("Access denied");
             }
             switch (status) {
+                case LOCKED_STATUS:
+                    event.setStatus(EventStatus.LOCKED);
+                    break;
                 case INPROGRESS_STATUS:
                     event.setStatus(EventStatus.INPROGRESS);
                     break;

@@ -1,6 +1,7 @@
 package com.kukuruznyak.bettingcompany.dao;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
+import com.kukuruznyak.bettingcompany.entity.event.Event;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
 import java.sql.PreparedStatement;
@@ -19,4 +20,5 @@ public interface AbstractDao<T extends Model> {
     void update(T model) throws PersistenceException;
 
     void delete(Long id) throws PersistenceException;
+
 }

@@ -43,8 +43,12 @@
                                href="?command=changeStatus&status=inprogress&eventId=${event.id}">Run to
                                 inprogress</a>
                         </c:when>
-                        <c:when test="${event.status==inprogressStatus && not empty event.tournament.winner }">
-                            <a class="btn btn-success" href="?command=changeStatus&status=finished&eventId=${event.id}">Finished</a>
+                        <c:when test="${event.status==inprogressStatus}">
+                            <a class="btn btn-danger" href="?command=changeStatus&status=locked&eventId=${event.id}">Locked</a>
+                            <c:if test="not empty event.tournament.winner">
+                                <a class="btn btn-success"
+                                   href="?command=changeStatus&status=finished&eventId=${event.id}">Finished</a>
+                            </c:if>
                         </c:when>
                     </c:choose>
                 </fieldset>
@@ -76,12 +80,15 @@
                                 <tr>
                                     <td>${outcome.name}</td>
                                     <td><input name="coefficient" id="coefficient" class="form-control"
-                                            placeholder="Coefficient" required
-                                            pattern="[1-9][0-9]*(\.[0-9]{1,2}?" maxlength="6"
-                                            title="Expected integer or double. Max length = 6"
-                                            value="${outcome.coefficient}">
+                                               placeholder="Coefficient" required
+                                               pattern="[1-9][0-9]*(\.[0-9]{1,2}?" maxlength="6"
+                                               title="Expected integer or double. Max length = 6"
+                                               value="${outcome.coefficient}">
                                     </td>
-                                    <td><button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>apply</button></td>
+                                    <td>
+                                        <button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>apply
+                                        </button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
