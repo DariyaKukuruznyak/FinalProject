@@ -33,7 +33,7 @@ public class CreateEventCommand extends Command {
                     .buildBookmaker(authorizedUser)
                     .buildTournament(tournament)
                     .build();
-            EventService eventService = ServiceFactory.getInstance().getEventService();
+            EventService eventService = serviceFactory.getEventService();
             event = eventService.add(event);
             eventService.createMarket(event, MarketNames.WINNER);
             currentSession.setAttribute("event", event);

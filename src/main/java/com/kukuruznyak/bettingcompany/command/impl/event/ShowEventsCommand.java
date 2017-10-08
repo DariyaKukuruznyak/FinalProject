@@ -18,7 +18,7 @@ public class ShowEventsCommand extends Command {
         HttpSession currentSession = request.getSession();
         User authorizedUser = (User) currentSession.getAttribute("user");
         Collection<Event> events;
-        EventService eventService = ServiceFactory.getInstance().getEventService();
+        EventService eventService = serviceFactory.getEventService();
         if (authorizedUser != null && authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
             events = eventService.getEventsByBookmakerId(authorizedUser.getId());
         } else {

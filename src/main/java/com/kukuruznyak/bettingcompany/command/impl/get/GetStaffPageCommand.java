@@ -21,7 +21,7 @@ public class GetStaffPageCommand extends Command {
             LOGGER.error("Unexpected request!");
             throw new ApplicationException("Unexpected request!");
         }
-        UserService userService = ServiceFactory.getInstance().getUserService();
+        UserService userService = serviceFactory.getUserService();
         Collection<User> staff = userService.getStaff();
         currentSession.setAttribute("users", staff);
         return pagesResourceBundle.getString("userList");

@@ -1,6 +1,7 @@
 package com.kukuruznyak.bettingcompany.command;
 
 import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
+import com.kukuruznyak.bettingcompany.command.impl.bet.MoveOutcomeCommand;
 import com.kukuruznyak.bettingcompany.command.impl.bet.ShowBetsCommand;
 import com.kukuruznyak.bettingcompany.command.impl.event.*;
 import com.kukuruznyak.bettingcompany.command.impl.get.*;
@@ -38,7 +39,9 @@ public class Invoker {
         commandMap.put("deleteUser", new DeleteUserCommand());
         commandMap.put("addUser", new GetAddUserPageCommand());
         commandMap.put("createUser", new CreateUserCommand());
+
         commandMap.put("betsHistory", new ShowBetsCommand());//TODO
+        commandMap.put("moveOutcome", new MoveOutcomeCommand());
 
         commandMap.put("events", new ShowEventsCommand());
         commandMap.put("addEvent", new GetAddEventPageCommand());

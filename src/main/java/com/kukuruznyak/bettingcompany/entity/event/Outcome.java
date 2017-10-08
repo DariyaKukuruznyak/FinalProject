@@ -64,6 +64,24 @@ public class Outcome extends Model implements Comparable<Object> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Outcome)) return false;
+
+        Outcome outcome = (Outcome) o;
+
+        if (!getName().equals(outcome.getName())) return false;
+        return getMarketId().equals(outcome.getMarketId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName().hashCode();
+        result = 31 * result + getMarketId().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return name + ": " + coefficient;
     }

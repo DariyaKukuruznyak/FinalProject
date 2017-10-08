@@ -14,7 +14,7 @@ public class SignInCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String login = request.getParameter("login");
-        UserService userService = ServiceFactory.getInstance().getUserService();
+        UserService userService = serviceFactory.getUserService();
         HttpSession currentSession = request.getSession();
         if (userService.isUserExist(login, request.getParameter("password"))) {
             User user = userService.getUserByLogin(request.getParameter("login"));

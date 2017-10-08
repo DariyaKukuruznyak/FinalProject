@@ -1,13 +1,12 @@
 package com.kukuruznyak.bettingcompany.entity.bet;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
-import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 public class Bet extends Model {
     private User client;
@@ -16,7 +15,7 @@ public class Bet extends Model {
     private BigDecimal sumOut;
     private TypeOfBet type;
     private ResultOfBet result;
-    private List<Outcome> outcomes;
+    private Collection<BetItem> items;
     private double totalCoefficient;
     private String description;
 
@@ -68,15 +67,19 @@ public class Bet extends Model {
         this.result = result;
     }
 
-    public List<Outcome> getOutcomes() {
-        return outcomes;
+    public Collection<BetItem> getItems() {
+        return items;
     }
 
-    public void addOutcome(Outcome outcome) {
-        if (this.outcomes == null) {
-            this.outcomes = new ArrayList<>();
+    public void setItems(Collection<BetItem> items) {
+        this.items = items;
+    }
+
+    public void addItems(BetItem item) {
+        if (this.items == null) {
+            this.items = new ArrayList<>();
         }
-        this.outcomes.add(outcome);
+        this.items.add(item);
     }
 
     public String getDescription() {

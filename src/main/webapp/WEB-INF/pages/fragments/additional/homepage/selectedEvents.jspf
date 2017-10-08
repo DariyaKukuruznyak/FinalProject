@@ -8,34 +8,27 @@
             <c:forEach items="${event.markets}" var="market">
                 <div class="panel panel-info">
                     <div class="panel-heading"> ${market.name}</div>
-                    <table class="panel-body">
-                        <thead>
-                        <tr>
-                            <th>Name (age / weight, trainer / jockey</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${market.outcomes}" var="outcome">
-                            <tr>
-                                <td class="list-group-item">${outcome.name}</td>
-                                <td>
-                                    <c:choose>
-                                        <c:when test="${event.suspended}">
-                                            <button class="btn btn-danger">
-                                                <fmt:formatNumber value="${outcome.coefficient}"
-                                                                  maxFractionDigits="2"/></button>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <a class="btn btn-info" onclick="selectCoefficient(${outcome.id})">
-                                                <fmt:formatNumber value="${outcome.coefficient}"
-                                                                  maxFractionDigits="2"/></a>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                    Name (age / weight, trainer / jockey
+                    <c:forEach items="${market.outcomes}" var="outcome">
+                        <div class="form-group row">
+                            <label class="col-sm-8 col-form-label">${outcome.name}</label>
+                            <div class="col-sm-4">
+                                <c:choose>
+                                    <c:when test="${event.suspended}">
+                                        <div class="btn btn-danger">
+                                            <fmt:formatNumber value="${outcome.coefficient}"
+                                                              maxFractionDigits="2"/></div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="?command=moveOutcome&outcomeId=${outcome.id}&action=add"
+                                           class="btn btn-info">
+                                            <fmt:formatNumber value="${outcome.coefficient}"
+                                                              maxFractionDigits="2"/></a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
             </c:forEach>
         </div>

@@ -17,7 +17,6 @@ import java.util.Collection;
 
 public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements MarketDao {
     private static MySqlMarketDaoImpl instance;
-    private static EventDao eventDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getEventDao();
     private static OutcomeDao outcomeDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getOutcomeDao();
 
     private static final String GET_MARKETS_BY_EVENT_ID = "selectAllByEventId";
@@ -27,7 +26,6 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
             synchronized (MySqlMarketDaoImpl.class) {
                 if (instance == null) {
                     instance = new MySqlMarketDaoImpl();
-                    LOGGER.info("Instance of " + MySqlMarketDaoImpl.class.getSimpleName() + " was created");
                 }
             }
         }

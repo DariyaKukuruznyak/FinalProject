@@ -32,7 +32,6 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
             synchronized (MySqlParticipantDaoImpl.class) {
                 if (instance == null) {
                     instance = new MySqlParticipantDaoImpl();
-                    LOGGER.info("Instance of " + MySqlParticipantDaoImpl.class.getSimpleName() + " was created");
                 }
             }
         }
@@ -112,7 +111,6 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
             preparedStatement.setLong(1, participantId);
             preparedStatement.setLong(2, tournamentId);
             preparedStatement.executeUpdate();
-            LOGGER.info("Database error during action with linked table");
         } catch (SQLException e) {
             LOGGER.error("Database error during action with linked table with message: " + e.getMessage());
             throw new PersistenceException(e.getMessage());

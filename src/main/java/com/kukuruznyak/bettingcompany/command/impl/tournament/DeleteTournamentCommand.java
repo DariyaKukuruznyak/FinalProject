@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteTournamentCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+        TournamentService tournamentService = serviceFactory.getTournamentService();
         tournamentService.delete(request.getParameter("tournamentId"));
         return new ShowTournamentsCommand().execute(request, response);
     }

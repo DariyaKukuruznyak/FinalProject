@@ -1,9 +1,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<form class="form-signin" action="?command=setBet" method="post">
-    <c:forEach items="${selectedOutcomes}" var="outcome">
+<div class="form-signin">
+    <div class="alert alert-warning">
+        <c:choose>
+            <c:when test="${fn:length(collectedOutcomes)==1}">
+                SINGLE
+            </c:when>
+            <c:otherwise>
+                EXPRESS
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <hr>
+    <hr>
+    <c:forEach items="${collectedOutcomes}" var="outcome">
         <div class="form-group row">
             <label for="outcome" class="col-sm-8 col-form-label">
-                <a href="command=deleteSelectedOutcome&outcomeId=${outcome.id}" class="glyphicon glyphicon-remove"></a> ${outcome.name}
+                <a href="?command=moveOutcome&outcomeId=${outcome.id}&action=remove"
+                   class="glyphicon glyphicon-remove"></a> ${outcome.name}
             </label>
             <div class="col-sm-4">
                 <input name="outcome" id="outcome" class="form-control"
@@ -11,13 +24,20 @@
             </div>
         </div>
     </c:forEach>
+    <hr>
+    <hr>
     <fieldset class="form-group row">
-        <label class="col-sm-4" for="sum">Sum</label>
-        <div class="col-sm-6">
+        <label class="col-sm-2" for="sum">Sum</label>
+        <div class="col-sm-4">
             <input class="form-control" id="sum" name="sum"
                    pattern="[0-9]*" title="Expected only integer." placeholder="Sum"
                    required>
         </div>
+        <label class="col-sm-2" for="totalCoefficient">Total coeff</label>
+        <div class="col-sm-4">
+            <input class="form-control" id="totalCoefficient" name="totalCoefficient" disabled
+                   value="${totalCoefficient}">
+        </div>
     </fieldset>
-    <button class="btn btn-lg btn-primary btn-block">Place a bet</button>
-</form>
+    <a href="?command=setBet" class="btn btn-lg btn-primary btn-block">Place a bet</a>
+</div>

@@ -30,30 +30,7 @@ public class BetService extends AbstractService {
     private BetService() {
     }
 
-    public List<Bet> getBetByUser(Long clientId) {
-        Bet bet1 = new Bet();
-        bet1.setType(TypeOfBet.SINGLE);
-        bet1.setTotalCoefficient(2);
-        bet1.setSumIn(new BigDecimal("2"));
-        bet1.setSumOut(new BigDecimal("4"));
-        bet1.setResult(ResultOfBet.WIN);
-        Outcome outcome1 = new Outcome();
-        outcome1.setName("Black horse");
-        outcome1.setCoefficient(2);
-        bet1.addOutcome(outcome1);
-
-        Bet bet2 = new Bet();
-        bet2.setType(TypeOfBet.EXPRESS);
-        bet2.setTotalCoefficient(4);
-        bet2.setSumIn(new BigDecimal("2"));
-        bet2.setSumOut(new BigDecimal("4"));
-        bet2.setResult(ResultOfBet.WIN);
-        bet2.addOutcome(outcome1);
-        bet2.addOutcome(outcome1);
-        List<Bet> bets = new ArrayList<>();
-        bets.add(bet1);
-        bets.add(bet2);
-        return bets;
+    public List<Bet> getBetByUser(Long clientId) {return null;
     }
 
     public void calculateBets(Event event) {

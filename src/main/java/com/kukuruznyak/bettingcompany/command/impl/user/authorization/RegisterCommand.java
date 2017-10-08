@@ -19,7 +19,7 @@ public class RegisterCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
         try {
-            UserService userService = ServiceFactory.getInstance().getUserService();
+            UserService userService = serviceFactory.getUserService();
             if (userService.getUserByLogin(request.getParameter("login")) != null) {
                 throw new ApplicationException("User with login '" + request.getParameter("login") + "' already exist!");
             }
@@ -30,7 +30,7 @@ public class RegisterCommand extends Command {
             if (!userService.isValidUser(client)) {
                 throw new ApplicationException("Incorrect user!");
             }
-            ClientService clientService = ServiceFactory.getInstance().getClientService();
+            ClientService clientService = serviceFactory.getClientService();
             client = clientService.add(client);
             currentSession.setAttribute("user", client);
             LOGGER.info("New authorization " + client.getLogin() + " joined");

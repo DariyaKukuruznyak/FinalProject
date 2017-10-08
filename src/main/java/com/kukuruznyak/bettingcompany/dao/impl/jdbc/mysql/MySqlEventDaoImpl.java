@@ -26,12 +26,12 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
 
     private static final String GET_EVENTS_BY_BOOKMAKER_ID = "selectAllByBookmakerId";
     private static final String GET_EVENTS_BY_STATUS = "selectAllStatus";
+
     public static MySqlEventDaoImpl getInstance() {
         if (instance == null) {
             synchronized (MySqlEventDaoImpl.class) {
                 if (instance == null) {
                     instance = new MySqlEventDaoImpl();
-                    LOGGER.info("Instance of " + MySqlEventDaoImpl.class.getSimpleName() + " was created");
                 }
             }
         }

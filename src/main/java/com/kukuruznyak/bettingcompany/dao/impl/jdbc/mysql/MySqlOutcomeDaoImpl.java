@@ -17,7 +17,6 @@ import java.util.Collection;
 
 public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements OutcomeDao {
     private static MySqlOutcomeDaoImpl instance;
-    private static MarketDao marketDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getMarketDao();
 
     private static final String GET_EVENTS_BY_MARKET_ID="selectAllByMarketId";
 
@@ -26,7 +25,6 @@ public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements Out
             synchronized (MySqlOutcomeDaoImpl.class) {
                 if (instance == null) {
                     instance = new MySqlOutcomeDaoImpl();
-                    LOGGER.info("Instance of " + MySqlOutcomeDaoImpl.class.getSimpleName() + " was created");
                 }
             }
         }

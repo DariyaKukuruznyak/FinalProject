@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 public class GetEditEventPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        EventService eventService = ServiceFactory.getInstance().getEventService();
+        EventService eventService = serviceFactory.getEventService();
         Event event = eventService.getById(request.getParameter("eventId"));
         HttpSession currentSession = request.getSession();
         currentSession.setAttribute("lockedStatus", EventStatus.LOCKED);

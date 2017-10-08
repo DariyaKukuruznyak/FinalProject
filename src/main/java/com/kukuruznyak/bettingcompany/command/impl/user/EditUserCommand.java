@@ -15,7 +15,7 @@ public class EditUserCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
         try {
-            UserService userService = ServiceFactory.getInstance().getUserService();
+            UserService userService = serviceFactory.getUserService();
             User editedUser = userService.getUserById(request.getParameter("id"));
             editedUser = editUser(request, editedUser);
             if (userService.isValidUser(editedUser)) {

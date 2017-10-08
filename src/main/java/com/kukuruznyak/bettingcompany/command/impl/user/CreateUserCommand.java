@@ -17,7 +17,7 @@ public class CreateUserCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
         try {
-            UserService userService = ServiceFactory.getInstance().getUserService();
+            UserService userService = serviceFactory.getUserService();
             if (userService.getUserByLogin(request.getParameter("login")) != null) {
                 throw new ApplicationException("User with login '" + request.getParameter("login") + "' already exist!");
             }

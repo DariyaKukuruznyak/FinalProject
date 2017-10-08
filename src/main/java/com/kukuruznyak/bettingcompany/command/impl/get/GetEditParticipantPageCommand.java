@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
 public class GetEditParticipantPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+        TournamentService tournamentService = serviceFactory.getTournamentService();
         HttpSession currentSession = request.getSession();
         currentSession.setAttribute("activeTournaments", tournamentService.getActiveTournament());
-        ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+        ParticipantService participantService = serviceFactory.getParticipantService();
         currentSession.setAttribute("participant", participantService.getById(request.getParameter("participantId")));
         return pagesResourceBundle.getString("editParticipant");
     }

@@ -28,7 +28,6 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             synchronized (MySqlUserDaoImpl.class) {
                 if (instance == null) {
                     instance = new MySqlUserDaoImpl();
-                    LOGGER.info("Instance of " + MySqlUserDaoImpl.class.getSimpleName() + " was created");
                 }
             }
         }
@@ -86,7 +85,6 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 user = fillModel(resultSet);
-                LOGGER.info(currentModel + " with login = " + login + " is found");
             }
         } catch (SQLException e) {
             LOGGER.error("Database error during selecting with message: " + e.getMessage());
@@ -108,7 +106,6 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 userRole = UserRole.valueOf(resultSet.getString("user_role"));
-                LOGGER.info(currentModel + " with login = " + login + " has role " + userRole);
             }
         } catch (SQLException e) {
             LOGGER.error("Database error during selecting with message: " + e.getMessage());

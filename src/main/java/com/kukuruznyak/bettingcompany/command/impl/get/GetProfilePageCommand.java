@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 public class GetProfilePageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        UserService userService = ServiceFactory.getInstance().getUserService();
+        UserService userService = serviceFactory.getUserService();
         User editedUser = userService.getUserById(request.getParameter("id"));
         HttpSession currentSession = request.getSession();
         try {

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SelectTournamentCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+        TournamentService tournamentService = serviceFactory.getTournamentService();
         Tournament selectedTournament = tournamentService.getById(request.getParameter("tournamentId"));
         request.getSession().setAttribute("selectedTournament", selectedTournament);
         return pagesResourceBundle.getString("addEvent");

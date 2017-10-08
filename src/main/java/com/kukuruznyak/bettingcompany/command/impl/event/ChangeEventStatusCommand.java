@@ -30,7 +30,7 @@ public class ChangeEventStatusCommand extends Command {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
                 throw new ApplicationException("Access denied");
             }
-            EventService eventService = ServiceFactory.getInstance().getEventService();
+            EventService eventService = serviceFactory.getEventService();
             switch (status) {
                 case LOCKED_STATUS:
                     event.setStatus(EventStatus.LOCKED);

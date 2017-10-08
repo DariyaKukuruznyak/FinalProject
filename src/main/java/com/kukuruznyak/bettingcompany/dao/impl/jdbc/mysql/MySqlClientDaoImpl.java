@@ -23,7 +23,6 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
             synchronized (MySqlClientDaoImpl.class) {
                 if (instance == null) {
                     instance = new MySqlClientDaoImpl();
-                    LOGGER.info("Instance of " + MySqlClientDaoImpl.class.getSimpleName() + " was created");
                 }
             }
         }
@@ -97,8 +96,6 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
             fillPreparedStatement(preparedStatement, client);
             int rowInserted = preparedStatement.executeUpdate();
             connection.commit();
-            LOGGER.info(rowInserted + " row(s) inserted");
-            LOGGER.info(currentModel + " was inserted. Details: " + client.toString());
         } catch (SQLException e) {
             connection.rollback();
             throw new PersistenceException(e.getMessage());

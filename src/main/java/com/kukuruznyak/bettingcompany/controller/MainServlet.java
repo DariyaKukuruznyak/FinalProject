@@ -3,7 +3,6 @@ package com.kukuruznyak.bettingcompany.controller;
 import com.kukuruznyak.bettingcompany.command.Invoker;
 import org.apache.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,6 @@ import java.util.ResourceBundle;
 
 public class MainServlet extends HttpServlet {
     private static Logger LOGGER = Logger.getLogger(MainServlet.class);
-    private static Invoker commandInvoker = Invoker.getInstance();
 
     public MainServlet() {
     }
@@ -35,6 +33,7 @@ public class MainServlet extends HttpServlet {
         currentSession.removeAttribute("successMessage");
         String page;
         try {
+            Invoker commandInvoker = Invoker.getInstance();
             page = commandInvoker.invoke(request, response);
         } catch (RuntimeException e) {
             LOGGER.error("Page isn't identified. URI: " + request.getRequestURI() + " Method: " + request.getMethod());
@@ -42,7 +41,6 @@ public class MainServlet extends HttpServlet {
             request.getSession().setAttribute("errorMessage", e.getMessage());
             page = ResourceBundle.getBundle("pages").getString("error");
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher(page).forward(request, response);
     }
 }

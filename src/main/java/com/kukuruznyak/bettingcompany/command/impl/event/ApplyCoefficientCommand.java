@@ -27,12 +27,12 @@ public class ApplyCoefficientCommand extends Command {
             if (coefficient < 1) {
                 throw new ApplicationException("Forbidden coefficient");
             }
-            OutcomeService outcomeService = ServiceFactory.getInstance().getOutcomeService();
+            OutcomeService outcomeService = serviceFactory.getOutcomeService();
             Outcome outcome = outcomeService.getById(request.getParameter("outcomeId"));
             outcome.setCoefficient(coefficient);
             outcomeService.update(outcome);
             Event event = (Event) currentSession.getAttribute("event");
-            EventService eventService = ServiceFactory.getInstance().getEventService();
+            EventService eventService = serviceFactory.getEventService();
             event = eventService.getById(event.getId());
             currentSession.setAttribute("event", event);
             currentSession.setAttribute("successMessage", "Coefficient for outcome " + outcome.getName() + " has been changed successfully.");

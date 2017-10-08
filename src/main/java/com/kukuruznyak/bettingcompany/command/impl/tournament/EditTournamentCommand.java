@@ -16,7 +16,7 @@ public class EditTournamentCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
         try {
-            TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+            TournamentService tournamentService = serviceFactory.getTournamentService();
             Tournament tournament = tournamentService.getById(request.getParameter("tournamentId"));
             editTournament(request, tournament);
             if (tournamentService.isValidParticipant(tournament)) {
@@ -24,7 +24,7 @@ public class EditTournamentCommand extends Command {
                 LOGGER.info("Tournament with id = " + tournament.getId() + " updated.");
                 currentSession.setAttribute("successMessage", "Tournament was updated successfully.");
                 currentSession.setAttribute("tournament", tournament);
-                ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+                ParticipantService participantService = serviceFactory.getParticipantService();
                 currentSession.setAttribute("participant", participantService.getParticipants());
             } else {
                 throw new ApplicationException("Incorrect tournament!");

@@ -16,14 +16,14 @@ public class CreateParticipantCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         Participant participant = fillParticipant(request);
-        ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+        ParticipantService participantService =serviceFactory.getParticipantService();
         if (participantService.isValidParticipant(participant)) {
             participant = participantService.add(participant);
             HttpSession currentSession = request.getSession();
             currentSession.setAttribute("participantId", participant.getId());
             currentSession.setAttribute("successMessage", "Participant was created successfully");
             LOGGER.info("Participant was created successfully");
-            TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+            TournamentService tournamentService = serviceFactory.getTournamentService();
             currentSession.setAttribute("tournaments", tournamentService.getActiveTournament());
             currentSession.setAttribute("participant", participant);
         } else {

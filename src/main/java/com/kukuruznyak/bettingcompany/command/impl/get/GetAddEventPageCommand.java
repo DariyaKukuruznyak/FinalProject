@@ -22,7 +22,7 @@ public class GetAddEventPageCommand extends Command {
             LOGGER.error("Access denied");
             throw new ApplicationException("Access denied");
         }
-        TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+        TournamentService tournamentService = serviceFactory.getTournamentService();
         Collection<Tournament> activeTournaments = tournamentService.getActiveTournament();
         currentSession.setAttribute("tournaments", activeTournaments);
         return pagesResourceBundle.getString("addEvent");

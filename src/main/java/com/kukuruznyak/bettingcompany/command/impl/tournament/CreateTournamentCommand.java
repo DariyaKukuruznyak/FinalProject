@@ -18,13 +18,13 @@ public class CreateTournamentCommand extends Command {
         HttpSession currentSession = request.getSession();
         try {
             Tournament tournament = fillTournament(request);
-            TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+            TournamentService tournamentService = serviceFactory.getTournamentService();
             if (tournamentService.isValidParticipant(tournament)) {
                 tournamentService.add(tournament);
                 currentSession.setAttribute("successMessage", "Tournament was created successfully");
                 LOGGER.error("Tournament was created successfully");
                 request.getSession().setAttribute("tournament", tournament);
-                ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+                ParticipantService participantService = serviceFactory.getParticipantService();
                 currentSession.setAttribute("participants", participantService.getParticipants());
             } else {
                 throw new ApplicationException("Invalid tournament");

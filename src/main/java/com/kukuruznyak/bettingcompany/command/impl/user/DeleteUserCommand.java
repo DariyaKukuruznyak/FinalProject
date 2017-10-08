@@ -15,7 +15,7 @@ import java.util.Collection;
 public class DeleteUserCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        UserService userService = ServiceFactory.getInstance().getUserService();
+        UserService userService = serviceFactory.getUserService();
         userService.delete(request.getParameter("id"));
         Collection<?> users = null;
         HttpSession currentSession = request.getSession();
@@ -24,7 +24,7 @@ public class DeleteUserCommand extends Command {
             users = userService.getStaff();
         }
         if (authorizedUser.getUserRole().equals(UserRole.RISK_CONTROLLER)) {
-            ClientService clientService = ServiceFactory.getInstance().getClientService();
+            ClientService clientService = serviceFactory.getClientService();
             users = clientService.getAllClients();
         }
         currentSession.setAttribute("users", users);

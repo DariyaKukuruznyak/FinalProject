@@ -22,7 +22,7 @@ public class ShowBetsCommand extends Command {
                 throw new ApplicationException("Unexpected request!");
             }
             Collection<Bet> bets;
-            BetService betService = ServiceFactory.getInstance().getBetService();
+            BetService betService = serviceFactory.getBetService();
             switch (currentUser.getUserRole()) {
                 case CLIENT:
                     bets = betService.getBetByUser(currentUser.getId());

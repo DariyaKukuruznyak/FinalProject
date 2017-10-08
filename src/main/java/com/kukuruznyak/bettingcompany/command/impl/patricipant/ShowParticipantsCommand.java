@@ -12,7 +12,7 @@ import java.util.Collection;
 public class ShowParticipantsCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+        ParticipantService participantService =serviceFactory.getParticipantService();
         Collection<Participant> participants = participantService.getParticipants();
         request.getSession().setAttribute("participants", participants);
         return pagesResourceBundle.getString("participants");

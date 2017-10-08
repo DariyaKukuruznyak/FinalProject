@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.entity.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Market extends Model {
     private MarketNames name;
@@ -58,9 +59,26 @@ public class Market extends Model {
 
     public void addOutcome(Outcome outcomes) {
         if (this.outcomes == null) {
-            this.outcomes = new ArrayList<>();
+            this.outcomes = new HashSet<>();
         }
         this.outcomes.add(outcomes);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Market)) return false;
+
+        Market market = (Market) o;
+
+        if (getName() != market.getName()) return false;
+        return getEventId().equals(market.getEventId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName().hashCode();
+        result = 31 * result + getEventId().hashCode();
+        return result;
+    }
 }

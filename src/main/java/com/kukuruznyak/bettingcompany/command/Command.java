@@ -1,5 +1,6 @@
 package com.kukuruznyak.bettingcompany.command;
 
+import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import java.util.ResourceBundle;
 public abstract class Command {
     protected static Logger LOGGER = Logger.getLogger(Command.class);
     protected static ResourceBundle pagesResourceBundle = ResourceBundle.getBundle("pages");
+    protected static ServiceFactory serviceFactory = ServiceFactory.getInstance();
 
     public abstract String execute(HttpServletRequest request, HttpServletResponse response);
 }

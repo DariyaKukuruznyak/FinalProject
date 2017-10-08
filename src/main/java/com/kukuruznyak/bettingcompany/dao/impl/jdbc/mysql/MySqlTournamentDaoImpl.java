@@ -29,7 +29,6 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
             synchronized (MySqlTournamentDaoImpl.class) {
                 if (instance == null) {
                     instance = new MySqlTournamentDaoImpl();
-                    LOGGER.info("Instance of " + MySqlTournamentDaoImpl.class.getSimpleName() + " was created");
                 }
             }
         }

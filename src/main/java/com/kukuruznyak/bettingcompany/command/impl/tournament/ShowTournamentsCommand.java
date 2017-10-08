@@ -12,7 +12,7 @@ import java.util.Collection;
 public class ShowTournamentsCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+        TournamentService tournamentService = serviceFactory.getTournamentService();
         Collection<Tournament> tournaments = tournamentService.getActiveTournament();
         request.getSession().setAttribute("tournaments", tournaments);
         return pagesResourceBundle.getString("tournaments");

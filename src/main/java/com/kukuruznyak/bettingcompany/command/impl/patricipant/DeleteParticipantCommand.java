@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteParticipantCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+        ParticipantService participantService = serviceFactory.getParticipantService();
         participantService.delete(request.getParameter("participantId"));
         return new ShowParticipantsCommand().execute(request, response);
     }

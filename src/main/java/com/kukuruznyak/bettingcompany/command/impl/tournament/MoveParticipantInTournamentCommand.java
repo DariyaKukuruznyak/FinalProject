@@ -19,7 +19,7 @@ public class MoveParticipantInTournamentCommand extends Command {
         String participantId = request.getParameter("participantId");
         String tournamentId = request.getParameter("tournamentId");
         String action = request.getParameter("action");
-        TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
+        TournamentService tournamentService = serviceFactory.getTournamentService();
         if (action.equals(INCLUDE_ACTION)) {
             tournamentService.includeParticipant(participantId, tournamentId);
         }
@@ -27,7 +27,7 @@ public class MoveParticipantInTournamentCommand extends Command {
             tournamentService.excludeParticipant(participantId, tournamentId);
         }
         String editedModel = request.getParameter("editedModel");
-        ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+        ParticipantService participantService = serviceFactory.getParticipantService();
         HttpSession currentSession = request.getSession();
         switch (editedModel) {
             case "participant":

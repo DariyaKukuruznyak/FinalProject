@@ -3,7 +3,6 @@ package com.kukuruznyak.bettingcompany.dao.impl;
 import com.kukuruznyak.bettingcompany.dao.AbstractDao;
 import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
 import com.kukuruznyak.bettingcompany.entity.Model;
-import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 import org.apache.log4j.Logger;
 
@@ -40,7 +39,6 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 model = fillModel(resultSet);
-                LOGGER.info(currentModel + " with id = " + id + " is found");
             }
         } catch (SQLException e) {
             LOGGER.error("Database error during selecting " + currentModel +
@@ -61,7 +59,6 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             while (resultSet.next()) {
                 modelList.add(fillModel(resultSet));
             }
-            LOGGER.info(modelList.size() + " row(s) are found");
         } catch (SQLException e) {
             LOGGER.error("Database error during selecting " + currentModel +
                     " with message: " + e.getMessage());
@@ -80,7 +77,6 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             while (resultSet.next()) {
                 model = fillModel(resultSet);
                 modelList.add(model);
-                LOGGER.info(currentModel + " with constrain = " + constrain + " is found");
             }
         } catch (SQLException e) {
             LOGGER.error("Database error during selecting " + currentModel +
@@ -99,11 +95,9 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
                     Statement.RETURN_GENERATED_KEYS);
             fillPreparedStatement(preparedStatement, model);
             int rowInserted = preparedStatement.executeUpdate();
-            LOGGER.info(rowInserted + " row(s) inserted");
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 generatedKeys.next();
                 model.setId(generatedKeys.getLong(1));
-                LOGGER.info(currentModel + " was inserted. Details: " + model.toString());
             }
         } catch (SQLException e) {
             LOGGER.error("Database error during inserting " + currentModel +
@@ -119,8 +113,6 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             fillPreparedStatement(preparedStatement, model);
             preparedStatement.setLong(Integer.valueOf(QUERIES.getString(currentModel + "." + ID_INDEX_IN_UPDATE)), model.getId());
             int rowUpdated = preparedStatement.executeUpdate();
-            LOGGER.info(rowUpdated + " row(s) updated");
-            LOGGER.info(currentModel + " with id " + model.getId() + " was updated in database. Details: " + model.toString());
         } catch (SQLException e) {
             LOGGER.error("Database error during updating " + currentModel +
                     " with message: " + e.getMessage());
@@ -133,8 +125,6 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + DELETE));
             preparedStatement.setLong(1, id);
             int rowDeleted = preparedStatement.executeUpdate();
-            LOGGER.info(rowDeleted + " row(s) deleted");
-            LOGGER.info(currentModel + " with id = " + id + " was successfully deleted from database.");
             preparedStatement.close();
         } catch (SQLException e) {
             LOGGER.error("Database error during removing " + currentModel + " with id = " + id +

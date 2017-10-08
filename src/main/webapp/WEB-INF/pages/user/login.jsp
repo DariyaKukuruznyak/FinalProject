@@ -15,14 +15,16 @@
             <div class="form-group row">
                 <label for="login" class="col-sm-2 col-form-label">Login</label>
                 <div class="col-sm-10">
+                    <span class="fontawesome-user">
                     <input name="login" id="login" class="form-control" placeholder="Login" required autofocus
                            pattern="(.{4,20})"
-                           maxlength="20" title="Expected from 4 to 20 symbols">
+                           maxlength="20" title="Expected from 4 to 20 symbols"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="password" class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-10">
+                    <span class="fontawesome-lock"></span>
                     <input type="password" name="password" id="password" class="form-control" placeholder="Password"
                            required
                            pattern="(.{4,20})" maxlength="20" title="Expected from 4 to 20 symbols">

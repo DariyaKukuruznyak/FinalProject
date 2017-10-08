@@ -15,9 +15,8 @@ public class HomeCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
-        EventService eventService = ServiceFactory.getInstance().getEventService();
+        EventService eventService = serviceFactory.getEventService();
         Collection<Event> activeEvents = eventService.getActiveEvens(EventStatus.INPROGRESS);
-        currentSession.setAttribute("selectedOutcomes", activeEvents.iterator().next().getMarkets().iterator().next().getOutcomes());
         currentSession.setAttribute("activeEvents", activeEvents);
         currentSession.setAttribute("selectedEvents", activeEvents);
         return pagesResourceBundle.getString("home");
