@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
@@ -29,12 +30,12 @@ public class MainServlet extends HttpServlet {
     }
 
     private void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().removeAttribute("errorMessage");
-        request.getSession().removeAttribute("successMessage");
+        HttpSession currentSession = request.getSession();
+        currentSession.removeAttribute("errorMessage");
+        currentSession.removeAttribute("successMessage");
         String page;
         try {
             page = commandInvoker.invoke(request, response);
-            LOGGER.info("Page " + page + " opened");
         } catch (RuntimeException e) {
             LOGGER.error("Page isn't identified. URI: " + request.getRequestURI() + " Method: " + request.getMethod());
             LOGGER.error(e.getMessage());

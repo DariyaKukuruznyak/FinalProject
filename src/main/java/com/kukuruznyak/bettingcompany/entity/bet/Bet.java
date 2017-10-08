@@ -6,12 +6,12 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Bet extends Model {
     private User client;
-    private Calendar date;
+    private Date date;
     private BigDecimal sumIn;
     private BigDecimal sumOut;
     private TypeOfBet type;
@@ -28,11 +28,11 @@ public class Bet extends Model {
         this.client = client;
     }
 
-    public Calendar getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

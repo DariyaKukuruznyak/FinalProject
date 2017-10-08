@@ -8,16 +8,16 @@
                     </li>
                     <c:choose>
                         <c:when test="${user.userRole==adminRole}">
-                            <%@include file="menu/additional/adminMenu.jspf" %>
+                            <%@include file="additional/menu/adminMenu.jspf" %>
                         </c:when>
                         <c:when test="${user.userRole==bookmakerRole}">
-                            <%@include file="menu/additional/bookmakerMenu.jspf" %>
+                            <%@include file="additional/menu/bookmakerMenu.jspf" %>
                         </c:when>
                         <c:when test="${user.userRole==riskControllerRole}">
-                            <%@include file="menu/additional/riskControllerMenu.jspf" %>
+                            <%@include file="additional/menu/riskControllerMenu.jspf" %>
                         </c:when>
                         <c:when test="${user.userRole==clientRole}">
-                            <%@include file="menu/additional/clientMenu.jspf" %>
+                            <%@include file="additional/menu/clientMenu.jspf" %>
                         </c:when>
                     </c:choose>
                     <li><a href="?command=profile&id=${user.id}"><span

@@ -9,6 +9,7 @@ import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class BetService extends AbstractService {
@@ -56,5 +57,9 @@ public class BetService extends AbstractService {
     }
 
     public void calculateBets(Event event) {
+    }
+
+    public Collection<Bet> getAll() {
+        return betDao.getAll();
     }
 }

@@ -1,0 +1,9 @@
+<ul class="list-group">
+    <c:forEach items="${activeEvents}" var="event">
+        <li class="list-group-item">
+            <a style="text-decoration:none" href=""><input type="checkbox" id="${event.id}"
+                                                           value="coding">
+                <label for="${event.id}">${event.tournament.fullName}</label></a>
+        </li>
+    </c:forEach>
+</ul>

@@ -39,14 +39,14 @@
                 <fieldset>
                     <c:choose>
                         <c:when test="${event.status==lockedStatus}">
-                            <a class="btn btn-success"
+                            <a class="btn btn-lg btn-success btn-block"
                                href="?command=changeStatus&status=inprogress&eventId=${event.id}">Run to
                                 inprogress</a>
                         </c:when>
                         <c:when test="${event.status==inprogressStatus}">
-                            <a class="btn btn-danger" href="?command=changeStatus&status=locked&eventId=${event.id}">Locked</a>
+                            <a class="btn btn-lg btn-danger btn-block" href="?command=changeStatus&status=locked&eventId=${event.id}">Locked</a>
                             <c:if test="not empty event.tournament.winner">
-                                <a class="btn btn-success"
+                                <a class="btn btn-lg btn-success btn-block"
                                    href="?command=changeStatus&status=finished&eventId=${event.id}">Finished</a>
                             </c:if>
                         </c:when>
@@ -57,10 +57,10 @@
                 <fieldset>
                     <c:choose>
                         <c:when test="${event.suspended}">
-                            <a class="btn btn-danger" href="?command=changeStatus&status=activate&eventId=${event.id}">Suspend</a>
+                            <a class="btn btn-lg btn-danger btn-block" href="?command=changeStatus&status=activate&eventId=${event.id}">Suspend</a>
                         </c:when>
                         <c:otherwise>
-                            <a class="btn btn-success"
+                            <a class="btn btn-lg btn-success btn-block"
                                href="?command=changeStatus&status=suspend&eventId=${event.id}">Activate</a>
                         </c:otherwise>
                     </c:choose>

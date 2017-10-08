@@ -10,7 +10,7 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.Collection;
 
 public class ShowBetsCommand extends Command {
     @Override
@@ -21,24 +21,25 @@ public class ShowBetsCommand extends Command {
             if (currentUser == null) {
                 throw new ApplicationException("Unexpected request!");
             }
+            Collection<Bet> bets;
+            BetService betService = ServiceFactory.getInstance().getBetService();
             switch (currentUser.getUserRole()) {
                 case CLIENT:
-                    return showBetsOfClient(request, currentUser.getId());
+                    bets = betService.getBetByUser(currentUser.getId());
+                    break;
+                case RISK_CONTROLLER:
+                    bets = betService.getAll();
+                    break;
                 default: {
                     throw new ApplicationException("Unexpected request!");
                 }
             }
+            currentSession.setAttribute("bets", bets);
+            return pagesResourceBundle.getString("bets");
         } catch (ApplicationException e) {
             LOGGER.error(e);
             currentSession.setAttribute("errorMessage", e);
             return pagesResourceBundle.getString("home");
         }
-    }
-
-    private String showBetsOfClient(HttpServletRequest request, Long clientId) {
-        BetService betService = ServiceFactory.getInstance().getBetService();
-        List<Bet> bets = betService.getBetByUser(clientId);
-        request.getSession().setAttribute("bets", bets);
-        return pagesResourceBundle.getString("bets");
     }
 }

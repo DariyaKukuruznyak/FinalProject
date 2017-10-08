@@ -1,0 +1,23 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<form class="form-signin" action="?command=setBet" method="post">
+    <c:forEach items="${selectedOutcomes}" var="outcome">
+        <div class="form-group row">
+            <label for="outcome" class="col-sm-8 col-form-label">
+                <a href="command=deleteSelectedOutcome&outcomeId=${outcome.id}" class="glyphicon glyphicon-remove"></a> ${outcome.name}
+            </label>
+            <div class="col-sm-4">
+                <input name="outcome" id="outcome" class="form-control"
+                       value="${outcome.coefficient}" disabled>
+            </div>
+        </div>
+    </c:forEach>
+    <fieldset class="form-group row">
+        <label class="col-sm-4" for="sum">Sum</label>
+        <div class="col-sm-6">
+            <input class="form-control" id="sum" name="sum"
+                   pattern="[0-9]*" title="Expected only integer." placeholder="Sum"
+                   required>
+        </div>
+    </fieldset>
+    <button class="btn btn-lg btn-primary btn-block">Place a bet</button>
+</form>
