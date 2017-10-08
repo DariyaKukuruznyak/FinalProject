@@ -10,26 +10,28 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class CreateTournamentCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession currentSession = request.getSession();
         try {
             Tournament tournament = fillTournament(request);
             TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
             if (tournamentService.isValidParticipant(tournament)) {
                 tournamentService.add(tournament);
-                request.getSession().setAttribute("successMessage", "Tournament was created successfully");
+                currentSession.setAttribute("successMessage", "Tournament was created successfully");
                 LOGGER.error("Tournament was created successfully");
                 request.getSession().setAttribute("tournament", tournament);
                 ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
-                request.getSession().setAttribute("participants", participantService.getParticipants());
+                currentSession.setAttribute("participants", participantService.getParticipants());
             } else {
                 throw new ApplicationException("Invalid tournament");
             }
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
-            request.getSession().setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute("errorMessage", e.getMessage());
         }
         return pagesResourceBundle.getString("editTournament");
     }

@@ -8,28 +8,30 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class EditUserCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession currentSession = request.getSession();
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
             User editedUser = userService.getUserById(request.getParameter("id"));
             editedUser = editUser(request, editedUser);
             if (userService.isValidUser(editedUser)) {
                 userService.update(editedUser);
-                request.setAttribute("successMessage", "User was updated successfully.");
-                request.getSession().setAttribute("editedUser", editedUser);
+                currentSession.setAttribute("successMessage", "User was updated successfully.");
+                currentSession.setAttribute("editedUser", editedUser);
                 LOGGER.info("User with id = " + editedUser.getId() + " updated.");
-                User authorizedUser = (User) request.getSession().getAttribute("user");
+                User authorizedUser = (User) currentSession.getAttribute("user");
                 if (editedUser.getId().equals(authorizedUser.getId())) {
-                    request.getSession().setAttribute("user", editedUser);
+                    currentSession.setAttribute("user", editedUser);
                 }
             } else {
                 throw new ApplicationException("Incorrect user!");
             }
         } catch (ApplicationException e) {
-            request.getSession().setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute("errorMessage", e.getMessage());
             LOGGER.error(e.getMessage());
         } finally {
             return pagesResourceBundle.getString("editUser");

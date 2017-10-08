@@ -10,6 +10,7 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class CreateParticipantCommand extends Command {
     @Override
@@ -18,12 +19,13 @@ public class CreateParticipantCommand extends Command {
         ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
         if (participantService.isValidParticipant(participant)) {
             participant = participantService.add(participant);
-            request.getSession().setAttribute("participantId", participant.getId());
-            request.getSession().setAttribute("successMessage", "Participant was created successfully");
+            HttpSession currentSession = request.getSession();
+            currentSession.setAttribute("participantId", participant.getId());
+            currentSession.setAttribute("successMessage", "Participant was created successfully");
             LOGGER.info("Participant was created successfully");
             TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
-            request.getSession().setAttribute("tournaments", tournamentService.getActiveTournament());
-            request.getSession().setAttribute("participant", participant);
+            currentSession.setAttribute("tournaments", tournamentService.getActiveTournament());
+            currentSession.setAttribute("participant", participant);
         } else {
             throw new ApplicationException("Invalid participant");
         }

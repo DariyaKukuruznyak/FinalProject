@@ -11,6 +11,7 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class ChangeEventStatusCommand extends Command {
     private static final String INPROGRESS_STATUS = "inprogress";
@@ -21,8 +22,9 @@ public class ChangeEventStatusCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        User authorizedUser = (User) request.getSession().getAttribute("user");
-        Event event = (Event) request.getSession().getAttribute("event");
+        HttpSession currentSession = request.getSession();
+        User authorizedUser = (User) currentSession.getAttribute("user");
+        Event event = (Event) currentSession.getAttribute("event");
         String status = request.getParameter("status");
         try {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
@@ -53,11 +55,11 @@ public class ChangeEventStatusCommand extends Command {
                     throw new ApplicationException("Unexpected request!");
             }
             eventService.update(event);
-            request.getSession().setAttribute("event", event);
-            request.getSession().setAttribute("successMessage", "Event has been " + status);
+            currentSession.setAttribute("event", event);
+            currentSession.setAttribute("successMessage", "Event has been " + status);
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
-            request.getSession().setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute("errorMessage", e.getMessage());
         }
         return pagesResourceBundle.getString("editEvent");
     }

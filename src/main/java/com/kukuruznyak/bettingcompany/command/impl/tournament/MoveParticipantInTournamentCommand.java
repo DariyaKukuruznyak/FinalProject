@@ -8,13 +8,14 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class MoveParticipantInTournamentCommand extends Command {
     private static final String INCLUDE_ACTION = "include";
     private static final String EXCLUDE_ACTION = "exclude";
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String participantId = request.getParameter("participantId");
         String tournamentId = request.getParameter("tournamentId");
         String action = request.getParameter("action");
@@ -27,14 +28,15 @@ public class MoveParticipantInTournamentCommand extends Command {
         }
         String editedModel = request.getParameter("editedModel");
         ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
+        HttpSession currentSession = request.getSession();
         switch (editedModel) {
             case "participant":
-                request.getSession().setAttribute("participant", participantService.getById(participantId));
-                request.getSession().setAttribute("tournaments", tournamentService.getActiveTournament());
+                currentSession.setAttribute("participant", participantService.getById(participantId));
+                currentSession.setAttribute("tournaments", tournamentService.getActiveTournament());
                 return pagesResourceBundle.getString("editParticipant");
             case "tournament":
-                request.getSession().setAttribute("tournament", tournamentService.getById(tournamentId));
-                request.getSession().setAttribute("participants", participantService.getParticipants());
+                currentSession.setAttribute("tournament", tournamentService.getById(tournamentId));
+                currentSession.setAttribute("participants", participantService.getParticipants());
                 return pagesResourceBundle.getString("editTournament");
             default:
                 throw new ApplicationException("Unexpected request!");

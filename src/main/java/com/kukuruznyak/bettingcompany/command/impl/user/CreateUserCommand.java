@@ -10,10 +10,12 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class CreateUserCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession currentSession = request.getSession();
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
             if (userService.getUserByLogin(request.getParameter("login")) != null) {
@@ -24,11 +26,10 @@ public class CreateUserCommand extends Command {
                 throw new ApplicationException("Incorrect user!");
             }
             userService.add(user);
-            request.getSession().setAttribute("successMessage", "New user was added successfully");
-
+            currentSession.setAttribute("successMessage", "New user was added successfully");
             return pagesResourceBundle.getString("addUser");
         } catch (ApplicationException e) {
-            request.getSession().setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute("errorMessage", e.getMessage());
             LOGGER.error(e.getMessage());
             return pagesResourceBundle.getString("addUser");
         }

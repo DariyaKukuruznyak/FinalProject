@@ -13,16 +13,18 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class CreateEventCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
-        User authorizedUser = (User) request.getSession().getAttribute("user");
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession currentSession = request.getSession();
+        User authorizedUser = (User) currentSession.getAttribute("user");
         try {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
                 throw new ApplicationException("Access denied");
             }
-            Tournament tournament = (Tournament) request.getSession().getAttribute("selectedTournament");
+            Tournament tournament = (Tournament) currentSession.getAttribute("selectedTournament");
             if (tournament == null) {
                 throw new ApplicationException("No tournament selected.");
             }
@@ -33,13 +35,13 @@ public class CreateEventCommand extends Command {
             EventService eventService = ServiceFactory.getInstance().getEventService();
             event = eventService.add(event);
             eventService.createMarket(event, MarketNames.WINNER);
-            request.getSession().setAttribute("event", event);
-            request.getSession().setAttribute("successMessage", "Event was created successfully");
-            request.getSession().removeAttribute("selectedTournament");
+            currentSession.setAttribute("event", event);
+            currentSession.setAttribute("successMessage", "Event was created successfully");
+            currentSession.removeAttribute("selectedTournament");
             LOGGER.info("Event was created successfully");
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
-            request.getSession().setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute("errorMessage", e.getMessage());
         }
         return pagesResourceBundle.getString("editEvent");
     }

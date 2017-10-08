@@ -9,13 +9,14 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ShowBetsCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
-
-        User currentUser = (User) request.getSession().getAttribute("user");
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession currentSession = request.getSession();
+        User currentUser = (User) currentSession.getAttribute("user");
         try {
             if (currentUser == null) {
                 throw new ApplicationException("Unexpected request!");
@@ -29,7 +30,7 @@ public class ShowBetsCommand extends Command {
             }
         } catch (ApplicationException e) {
             LOGGER.error(e);
-            request.getSession().setAttribute("errorMessage", e);
+            currentSession.setAttribute("errorMessage", e);
             return pagesResourceBundle.getString("home");
         }
     }

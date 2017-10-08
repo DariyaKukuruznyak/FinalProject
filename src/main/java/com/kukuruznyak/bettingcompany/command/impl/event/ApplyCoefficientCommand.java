@@ -12,12 +12,14 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class ApplyCoefficientCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession currentSession = request.getSession();
         try {
-            User authorizedUser = (User) request.getSession().getAttribute("user");
+            User authorizedUser = (User) currentSession.getAttribute("user");
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
                 throw new ApplicationException("Access denied");
             }
@@ -29,14 +31,14 @@ public class ApplyCoefficientCommand extends Command {
             Outcome outcome = outcomeService.getById(request.getParameter("outcomeId"));
             outcome.setCoefficient(coefficient);
             outcomeService.update(outcome);
-            Event event = (Event) request.getSession().getAttribute("event");
+            Event event = (Event) currentSession.getAttribute("event");
             EventService eventService = ServiceFactory.getInstance().getEventService();
             event = eventService.getById(event.getId());
-            request.getSession().setAttribute("event", event);
-            request.getSession().setAttribute("successMessage", "Coefficient for outcome " + outcome.getName() + " has been changed successfully.");
+            currentSession.setAttribute("event", event);
+            currentSession.setAttribute("successMessage", "Coefficient for outcome " + outcome.getName() + " has been changed successfully.");
         } catch (ApplicationException | NumberFormatException e) {
             LOGGER.error(e.getMessage());
-            request.getSession().setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute("errorMessage", e.getMessage());
         }
         return pagesResourceBundle.getString("editEvent");
     }

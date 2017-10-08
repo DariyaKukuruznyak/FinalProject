@@ -8,21 +8,23 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class GetProfilePageCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserService userService = ServiceFactory.getInstance().getUserService();
         User editedUser = userService.getUserById(request.getParameter("id"));
+        HttpSession currentSession = request.getSession();
         try {
             if (editedUser == null) {
                 throw new ApplicationException("Unexpected request!");
             }
-            request.getSession().setAttribute("editedUser", editedUser);
+            currentSession.setAttribute("editedUser", editedUser);
             return pagesResourceBundle.getString("editUser");
         } catch (ApplicationException e) {
             LOGGER.error(e);
-            request.getSession().setAttribute("errorMessage", e);
+            currentSession.setAttribute("errorMessage", e);
             return pagesResourceBundle.getString("home");
         }
     }

@@ -9,10 +9,12 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class EditParticipantCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession currentSession = request.getSession();
         try {
             ParticipantService participantService = ServiceFactory.getInstance().getParticipantService();
             Participant participant = participantService.getParticipantById(request.getParameter("participantId"));
@@ -20,15 +22,15 @@ public class EditParticipantCommand extends Command {
             if (participantService.isValidParticipant(participant)) {
                 participantService.update(participant);
                 LOGGER.info("Participant with id = " + participant.getId() + " updated.");
-                request.setAttribute("successMessage", "Participant was updated successfully.");
-                request.getSession().setAttribute("participant", participant);
+                currentSession.setAttribute("successMessage", "Participant was updated successfully.");
+                currentSession.setAttribute("participant", participant);
                 TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
-                request.getSession().setAttribute("activeTournaments", tournamentService.getActiveTournament());
+                currentSession.setAttribute("activeTournaments", tournamentService.getActiveTournament());
             } else {
                 throw new ApplicationException("Incorrect participant!");
             }
         } catch (ApplicationException e) {
-            request.getSession().setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute("errorMessage", e.getMessage());
             LOGGER.error(e.getMessage());
         } finally {
             return pagesResourceBundle.getString("editParticipant");

@@ -12,10 +12,12 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class RegisterCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession currentSession = request.getSession();
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
             if (userService.getUserByLogin(request.getParameter("login")) != null) {
@@ -30,11 +32,11 @@ public class RegisterCommand extends Command {
             }
             ClientService clientService = ServiceFactory.getInstance().getClientService();
             client = clientService.add(client);
-            request.getSession().setAttribute("user", client);
+            currentSession.setAttribute("user", client);
             LOGGER.info("New authorization " + client.getLogin() + " joined");
             return pagesResourceBundle.getString("home");
         } catch (ApplicationException e) {
-            request.getSession().setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute("errorMessage", e.getMessage());
             LOGGER.error(e.getMessage());
             return pagesResourceBundle.getString("register");
         }
