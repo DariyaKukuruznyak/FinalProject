@@ -19,6 +19,9 @@ public class Bet extends Model {
     private double totalCoefficient;
     private String description;
 
+    public Bet() {
+    }
+
     public User getClient() {
         return client;
     }

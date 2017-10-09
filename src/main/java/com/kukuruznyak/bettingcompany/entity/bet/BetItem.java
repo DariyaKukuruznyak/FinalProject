@@ -1,11 +1,21 @@
 package com.kukuruznyak.bettingcompany.entity.bet;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
+import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 
-public class BetItem extends Model{
+public class BetItem extends Model {
     private String name;
     private double coefficient;
     private Long outcomeId;
+
+    public BetItem() {
+    }
+
+    public BetItem(Outcome outcome) {
+        this.name = outcome.getName();
+        this.coefficient = outcome.getCoefficient();
+        this.outcomeId = outcome.getId();
+    }
 
     public String getName() {
         return name;

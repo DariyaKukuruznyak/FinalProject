@@ -3,7 +3,7 @@ package com.kukuruznyak.bettingcompany.entity.event.eventbuilder;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 
 public class OutcomeBuilder {
-    private Long id;
+    private Long id = null;
     private String name;
     private double coefficient = 1;
     private Long marketId;

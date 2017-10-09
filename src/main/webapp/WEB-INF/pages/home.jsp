@@ -35,7 +35,12 @@
                             <c:when test="${not empty collectedOutcomes}">
                                 <%@include file="fragments/additional/homepage/basket.jspf" %>
                             </c:when>
-                            <c:otherwise><h3>Basket is empty</h3></c:otherwise>
+                            <c:otherwise>
+                                <c:if test="${not empty successMessage}">
+                                    <div class="alert alert-success">${successMessage}</div>
+                                </c:if>
+                                <h3>Basket is empty</h3>
+                            </c:otherwise>
                         </c:choose>
                     </div>
                 </div>

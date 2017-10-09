@@ -9,6 +9,7 @@ import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 
 public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
     private static MySqlBetDaoImpl instance;
@@ -53,5 +54,10 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }
+    }
+
+    @Override
+    public Collection<Bet> getByUserId(Long clientId) {
+        return null;
     }
 }

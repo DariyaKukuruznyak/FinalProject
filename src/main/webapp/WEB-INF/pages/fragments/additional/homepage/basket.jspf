@@ -13,6 +13,8 @@
     <hr>
     <hr>
     <c:forEach items="${collectedOutcomes}" var="outcome">
+
+    <form class="form-horizontal" action="?command=setBet" method="post">
         <div class="form-group row">
             <label for="outcome" class="col-sm-8 col-form-label">
                 <a href="?command=moveOutcome&outcomeId=${outcome.id}&action=remove"
@@ -23,21 +25,22 @@
                        value="${outcome.coefficient}" disabled>
             </div>
         </div>
-    </c:forEach>
-    <hr>
-    <hr>
-    <fieldset class="form-group row">
-        <label class="col-sm-2" for="sum">Sum</label>
-        <div class="col-sm-4">
-            <input class="form-control" id="sum" name="sum"
-                   pattern="[0-9]*" title="Expected only integer." placeholder="Sum"
-                   required>
-        </div>
-        <label class="col-sm-2" for="totalCoefficient">Total coeff</label>
-        <div class="col-sm-4">
-            <input class="form-control" id="totalCoefficient" name="totalCoefficient" disabled
-                   value="${totalCoefficient}">
-        </div>
-    </fieldset>
-    <a href="?command=setBet" class="btn btn-lg btn-primary btn-block">Place a bet</a>
+        </c:forEach>
+        <hr>
+        <hr>
+        <fieldset class="form-group row">
+            <label class="col-sm-2" for="sum">Sum</label>
+            <div class="col-sm-4">
+                <input class="form-control" id="sum" name="sum"
+                       pattern="[0-9]*" title="Expected only integer." placeholder="Sum"
+                       required>
+            </div>
+            <label class="col-sm-2" for="totalCoefficient">Total coeff</label>
+            <div class="col-sm-4">
+                <input class="form-control" id="totalCoefficient" name="totalCoefficient" disabled
+                       value="${totalCoefficient}">
+            </div>
+        </fieldset>
+        <button class="btn btn-lg btn-primary btn-block">Place a bet</button>
+    </form>
 </div>

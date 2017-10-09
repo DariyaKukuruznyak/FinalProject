@@ -2,6 +2,7 @@ package com.kukuruznyak.bettingcompany.command;
 
 import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
 import com.kukuruznyak.bettingcompany.command.impl.bet.MoveOutcomeCommand;
+import com.kukuruznyak.bettingcompany.command.impl.bet.SetBetCommand;
 import com.kukuruznyak.bettingcompany.command.impl.bet.ShowBetsCommand;
 import com.kukuruznyak.bettingcompany.command.impl.event.*;
 import com.kukuruznyak.bettingcompany.command.impl.get.*;
@@ -42,6 +43,7 @@ public class Invoker {
 
         commandMap.put("betsHistory", new ShowBetsCommand());//TODO
         commandMap.put("moveOutcome", new MoveOutcomeCommand());
+        commandMap.put("setBet", new SetBetCommand());
 
         commandMap.put("events", new ShowEventsCommand());
         commandMap.put("addEvent", new GetAddEventPageCommand());

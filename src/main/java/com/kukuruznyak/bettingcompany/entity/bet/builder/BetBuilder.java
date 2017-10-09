@@ -1,6 +1,5 @@
 package com.kukuruznyak.bettingcompany.entity.bet.builder;
 
-import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
@@ -9,8 +8,8 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class BetBuilder extends Model {
-    private Long id;
+public class BetBuilder {
+    private Long id = null;
     private User client;
     private Date date = new Date();
     private BigDecimal sumIn;
@@ -19,6 +18,14 @@ public class BetBuilder extends Model {
     private ResultOfBet result = ResultOfBet.UNKNOWN;
     private double totalCoefficient;
     private String description;
+
+    public BetBuilder() {
+    }
+
+    public BetBuilder(User client, BigDecimal sumIn) {
+        this.client = client;
+        this.sumIn = sumIn;
+    }
 
     public BetBuilder buildId(Long id) {
         this.id = id;

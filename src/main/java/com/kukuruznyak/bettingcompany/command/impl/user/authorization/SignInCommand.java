@@ -23,7 +23,7 @@ public class SignInCommand extends Command {
             currentSession.setAttribute("adminRole", UserRole.ADMINISTRATOR);
             currentSession.setAttribute("bookmakerRole", UserRole.BOOKMAKER);
             currentSession.setAttribute("riskControllerRole", UserRole.RISK_CONTROLLER);
-            request.getSession().setAttribute("clientRole", UserRole.CLIENT);
+            currentSession.setAttribute("clientRole", UserRole.CLIENT);
             return pagesResourceBundle.getString("home");
         } else {
             currentSession.setAttribute("errorMessage", "Incorrect input! Try again.");

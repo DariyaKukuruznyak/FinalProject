@@ -10,7 +10,6 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.EventService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +34,7 @@ public class CreateEventCommand extends Command {
                     .build();
             EventService eventService = serviceFactory.getEventService();
             event = eventService.add(event);
-            eventService.createMarket(event, MarketNames.WINNER);
+            event = eventService.createMarket(event, MarketNames.WINNER);
             currentSession.setAttribute("event", event);
             currentSession.setAttribute("successMessage", "Event was created successfully");
             currentSession.setAttribute("lockedStatus", EventStatus.LOCKED);
