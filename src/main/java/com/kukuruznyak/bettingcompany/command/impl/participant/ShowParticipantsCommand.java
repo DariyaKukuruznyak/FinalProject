@@ -15,6 +15,6 @@ public class ShowParticipantsCommand extends Command {
         ParticipantService participantService =serviceFactory.getParticipantService();
         Collection<Participant> participants = participantService.getParticipants();
         request.getSession().setAttribute(PARTICIPANTS, participants);
-        return pagesResourceBundle.getString("participants");
+        return pagesResourceBundle.getString(PARTICIPANTS_PAGE);
     }
 }

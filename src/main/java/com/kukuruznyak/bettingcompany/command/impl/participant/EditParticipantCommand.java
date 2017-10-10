@@ -30,11 +30,11 @@ public class EditParticipantCommand extends Command {
             } else {
                 throw new ApplicationException("Incorrect participant!");
             }
-            return pagesResourceBundle.getString("editParticipant");
+            return pagesResourceBundle.getString(EDIT_PARTICIPANT_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             LOGGER.error(e.getMessage());
-            return pagesResourceBundle.getString("editParticipant");
+            return pagesResourceBundle.getString(EDIT_PARTICIPANT_PAGE);
         }
     }
 

@@ -40,10 +40,10 @@ public class SetBetCommand extends Command {
             betService.add(bet);
             currentSession.removeAttribute(COLLECTED_OUTCOMES);
             currentSession.setAttribute(SUCCESS_MESSAGE, "Bet has been placed!");
-            return pagesResourceBundle.getString("home");
+            return pagesResourceBundle.getString(HOME_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
-            return pagesResourceBundle.getString("home");
+            return pagesResourceBundle.getString(HOME_PAGE);
         }
     }
 }

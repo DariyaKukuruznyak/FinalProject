@@ -18,6 +18,6 @@ public class GetEditParticipantPageCommand extends Command {
         currentSession.setAttribute(ACTIVE_TOURNAMENTS, tournamentService.getActiveTournament());
         ParticipantService participantService = serviceFactory.getParticipantService();
         currentSession.setAttribute(PARTICIPANT, participantService.getById(request.getParameter(PARTICIPANT_ID)));
-        return pagesResourceBundle.getString("editParticipant");
+        return pagesResourceBundle.getString(EDIT_PARTICIPANT_PAGE);
     }
 }

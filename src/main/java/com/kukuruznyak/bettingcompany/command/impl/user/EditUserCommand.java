@@ -29,11 +29,11 @@ public class EditUserCommand extends Command {
             } else {
                 throw new ApplicationException("Incorrect user!");
             }
-            return pagesResourceBundle.getString("editUser");
+            return pagesResourceBundle.getString(EDIT_USER_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             LOGGER.error(e.getMessage());
-            return pagesResourceBundle.getString("editUser");
+            return pagesResourceBundle.getString(EDIT_USER_PAGE);
         }
     }
 

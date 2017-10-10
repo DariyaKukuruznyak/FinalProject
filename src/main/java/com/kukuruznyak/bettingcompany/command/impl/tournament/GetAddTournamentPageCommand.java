@@ -9,6 +9,6 @@ public class GetAddTournamentPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute(TOURNAMENT);
-        return pagesResourceBundle.getString("addTournament");
+        return pagesResourceBundle.getString(ADD_TOURNAMENT_PAGE);
     }
 }

@@ -33,13 +33,13 @@ public class CreateTournamentCommand extends Command {
             LOGGER.error(e.getMessage());
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
         }
-        return pagesResourceBundle.getString("editTournament");
+        return pagesResourceBundle.getString(EDIT_TOURNAMENT_PAGE);
     }
 
     private Tournament fillTournament(HttpServletRequest request) {
         return new TournamentBuilder()
-                .buildName(request.getParameter("name"))
-                .buildCountry(request.getParameter("country"))
+                .buildName(request.getParameter(NAME))
+                .buildCountry(request.getParameter(COUNTRY))
                 .build();
     }
 }

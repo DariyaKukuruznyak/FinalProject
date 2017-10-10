@@ -45,6 +45,6 @@ public class CreateEventCommand extends Command {
             LOGGER.error(e.getMessage());
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
         }
-        return pagesResourceBundle.getString("editEvent");
+        return pagesResourceBundle.getString(EDIT_EVENT_PAGE);
     }
 }

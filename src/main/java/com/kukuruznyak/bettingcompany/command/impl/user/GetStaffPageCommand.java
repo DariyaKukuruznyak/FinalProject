@@ -1,6 +1,7 @@
 package com.kukuruznyak.bettingcompany.command.impl.user;
 
 import com.kukuruznyak.bettingcompany.command.Command;
+import com.kukuruznyak.bettingcompany.command.PageNameConstants;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
@@ -24,6 +25,6 @@ public class GetStaffPageCommand extends Command {
         UserService userService = serviceFactory.getUserService();
         Collection<User> staff = userService.getStaff();
         currentSession.setAttribute(USERS, staff);
-        return pagesResourceBundle.getString("userList");
+        return pagesResourceBundle.getString(USER_LIST_PAGE);
     }
 }

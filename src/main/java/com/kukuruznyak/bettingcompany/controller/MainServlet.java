@@ -11,8 +11,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+import static com.kukuruznyak.bettingcompany.command.PageNameConstants.ERROR_PAGE;
+import static com.kukuruznyak.bettingcompany.command.RequestAttributeConstants.ERROR_MESSAGE;
+import static com.kukuruznyak.bettingcompany.command.RequestAttributeConstants.SUCCESS_MESSAGE;
+
 public class MainServlet extends HttpServlet {
     private static Logger LOGGER = Logger.getLogger(MainServlet.class);
+    private static final String PAGE_RESOURCE_BUNDLE = "pages";
 
     public MainServlet() {
     }
@@ -29,8 +34,8 @@ public class MainServlet extends HttpServlet {
 
     private void requestHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession currentSession = request.getSession();
-        currentSession.removeAttribute("errorMessage");
-        currentSession.removeAttribute("successMessage");
+        currentSession.removeAttribute(ERROR_MESSAGE);
+        currentSession.removeAttribute(SUCCESS_MESSAGE);
         String page;
         try {
             Invoker commandInvoker = Invoker.getInstance();
@@ -38,8 +43,8 @@ public class MainServlet extends HttpServlet {
         } catch (RuntimeException e) {
             LOGGER.error("Page isn't identified. URI: " + request.getRequestURI() + " Method: " + request.getMethod());
             LOGGER.error(e.getMessage());
-            request.getSession().setAttribute("errorMessage", e.getMessage());
-            page = ResourceBundle.getBundle("pages").getString("error");
+            request.getSession().setAttribute(ERROR_MESSAGE, e.getMessage());
+            page = ResourceBundle.getBundle(PAGE_RESOURCE_BUNDLE).getString(ERROR_PAGE);
         }
         request.getRequestDispatcher(page).forward(request, response);
     }

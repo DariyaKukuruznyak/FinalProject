@@ -34,7 +34,7 @@ public class EditTournamentCommand extends Command {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             LOGGER.error(e.getMessage());
         } finally {
-            return pagesResourceBundle.getString("editTournament");
+            return pagesResourceBundle.getString(EDIT_TOURNAMENT_PAGE);
         }
     }
 

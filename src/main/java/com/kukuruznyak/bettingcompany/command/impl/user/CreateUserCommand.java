@@ -26,11 +26,11 @@ public class CreateUserCommand extends Command {
             }
             userService.add(user);
             currentSession.setAttribute(SUCCESS_MESSAGE, "New user was added successfully");
-            return pagesResourceBundle.getString("addUser");
+            return pagesResourceBundle.getString(ADD_USER_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             LOGGER.error(e.getMessage());
-            return pagesResourceBundle.getString("addUser");
+            return pagesResourceBundle.getString(ADD_USER_PAGE);
         }
     }
 

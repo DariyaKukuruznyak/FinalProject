@@ -25,6 +25,6 @@ public class ShowEventsCommand extends Command {
             events = eventService.getAll();
         }
         currentSession.setAttribute(EVENTS, events);
-        return pagesResourceBundle.getString("events");
+        return pagesResourceBundle.getString(EVENTS_PAGE);
     }
 }

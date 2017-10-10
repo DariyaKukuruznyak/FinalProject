@@ -16,6 +16,6 @@ public class SetLanguageCommand extends Command {
         } else {
             request.getSession().setAttribute(LANG, EN_LANG);
         }
-        return pagesResourceBundle.getString("home");
+        return pagesResourceBundle.getString(HOME_PAGE);
     }
 }

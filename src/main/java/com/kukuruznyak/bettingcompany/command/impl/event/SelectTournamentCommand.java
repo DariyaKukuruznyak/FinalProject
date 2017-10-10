@@ -14,6 +14,6 @@ public class SelectTournamentCommand extends Command {
         TournamentService tournamentService = serviceFactory.getTournamentService();
         Tournament selectedTournament = tournamentService.getById(request.getParameter(TOURNAMENT_ID));
         request.getSession().setAttribute(SELECTED_TOURNAMENT, selectedTournament);
-        return pagesResourceBundle.getString("addEvent");
+        return pagesResourceBundle.getString(ADD_EVENT_PAGE);
     }
 }

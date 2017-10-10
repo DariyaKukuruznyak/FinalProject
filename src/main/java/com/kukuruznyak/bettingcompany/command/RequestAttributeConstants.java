@@ -59,4 +59,5 @@ public interface RequestAttributeConstants {
     String LANG = "lang";
     String EN_LANG = "en_US";
     String RU_LANG = "ru_RU";
+    String COMMAND = "command";
 }

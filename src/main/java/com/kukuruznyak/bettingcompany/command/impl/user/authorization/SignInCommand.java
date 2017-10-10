@@ -25,10 +25,10 @@ public class SignInCommand extends Command {
             currentSession.setAttribute(BOOKMAKER_ROLE, UserRole.BOOKMAKER);
             currentSession.setAttribute(RISK_CONTROLLER_ROLE, UserRole.RISK_CONTROLLER);
             currentSession.setAttribute(CLIENT_ROLE, UserRole.CLIENT);
-            return pagesResourceBundle.getString("home");
+            return pagesResourceBundle.getString(HOME_PAGE);
         } else {
             currentSession.setAttribute(ERROR_MESSAGE, "Incorrect input! Try again.");
-            return pagesResourceBundle.getString("login");
+            return pagesResourceBundle.getString(LOGIN_PAGE);
         }
     }
 }

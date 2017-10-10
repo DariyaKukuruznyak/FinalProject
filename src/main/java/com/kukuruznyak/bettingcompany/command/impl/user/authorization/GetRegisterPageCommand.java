@@ -8,6 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 public class GetRegisterPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return pagesResourceBundle.getString("register");
+        return pagesResourceBundle.getString(REGISTER_PAGE);
     }
 }

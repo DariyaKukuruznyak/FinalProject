@@ -9,6 +9,6 @@ public class GetAddParticipantPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute(PARTICIPANT);
-        return pagesResourceBundle.getString("addParticipant");
+        return pagesResourceBundle.getString(ADD_PARTICIPANT_PAGE);
     }
 }

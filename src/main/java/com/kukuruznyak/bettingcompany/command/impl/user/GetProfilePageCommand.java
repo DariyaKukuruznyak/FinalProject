@@ -21,11 +21,11 @@ public class GetProfilePageCommand extends Command {
                 throw new ApplicationException("Unexpected request!");
             }
             currentSession.setAttribute(EDITED_USER, editedUser);
-            return pagesResourceBundle.getString("editUser");
+            return pagesResourceBundle.getString(EDIT_USER_PAGE);
         } catch (ApplicationException e) {
             LOGGER.error(e);
             currentSession.setAttribute(ERROR_MESSAGE, e);
-            return pagesResourceBundle.getString("home");
+            return pagesResourceBundle.getString(HOME_PAGE);
         }
     }
 

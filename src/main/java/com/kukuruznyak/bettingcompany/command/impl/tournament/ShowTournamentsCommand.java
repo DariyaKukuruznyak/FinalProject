@@ -15,7 +15,6 @@ public class ShowTournamentsCommand extends Command {
         TournamentService tournamentService = serviceFactory.getTournamentService();
         Collection<Tournament> tournaments = tournamentService.getActiveTournament();
         request.getSession().setAttribute(TOURNAMENTS, tournaments);
-        return pagesResourceBundle.getString("tournaments");
+        return pagesResourceBundle.getString(TOURNAMENTS_PAGE);
     }
-
 }

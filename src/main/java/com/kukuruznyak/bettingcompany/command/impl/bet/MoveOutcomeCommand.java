@@ -36,6 +36,6 @@ public class MoveOutcomeCommand extends Command {
         }
         currentSession.setAttribute(COLLECTED_OUTCOMES, collectedOutcomes);
         currentSession.setAttribute(TOTAL_COEFFICIENT, totalCoefficient);
-        return pagesResourceBundle.getString("home");
+        return pagesResourceBundle.getString(HOME_PAGE);
     }
 }

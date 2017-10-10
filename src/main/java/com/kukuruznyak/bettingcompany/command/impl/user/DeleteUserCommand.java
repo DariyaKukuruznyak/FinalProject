@@ -28,6 +28,6 @@ public class DeleteUserCommand extends Command {
             users = clientService.getAllClients();
         }
         currentSession.setAttribute(USERS, users);
-        return pagesResourceBundle.getString("userList");
+        return pagesResourceBundle.getString(USER_LIST_PAGE);
     }
 }

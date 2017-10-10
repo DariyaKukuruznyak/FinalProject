@@ -19,6 +19,6 @@ public class GetEditEventPageCommand extends Command {
         currentSession.setAttribute(LOCKED_STATUS, EventStatus.LOCKED);
         currentSession.setAttribute(INPROGRESS_STATUS, EventStatus.INPROGRESS);
         currentSession.setAttribute(EVENT, event);
-        return pagesResourceBundle.getString("editEvent");
+        return pagesResourceBundle.getString(EDIT_EVENT_PAGE);
     }
 }

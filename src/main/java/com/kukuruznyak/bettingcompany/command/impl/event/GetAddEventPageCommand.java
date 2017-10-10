@@ -25,6 +25,6 @@ public class GetAddEventPageCommand extends Command {
         TournamentService tournamentService = serviceFactory.getTournamentService();
         Collection<Tournament> activeTournaments = tournamentService.getActiveTournament();
         currentSession.setAttribute(TOURNAMENTS, activeTournaments);
-        return pagesResourceBundle.getString("addEvent");
+        return pagesResourceBundle.getString(ADD_EVENT_PAGE);
     }
 }

@@ -5,7 +5,6 @@ import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.BetService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,11 +34,11 @@ public class ShowBetsCommand extends Command {
                 }
             }
             currentSession.setAttribute(BETS, bets);
-            return pagesResourceBundle.getString(BETS);
+            return pagesResourceBundle.getString(BETS_PAGE);
         } catch (ApplicationException e) {
             LOGGER.error(e);
             currentSession.setAttribute(ERROR_MESSAGE, e);
-            return pagesResourceBundle.getString("home");
+            return pagesResourceBundle.getString(HOME_PAGE);
         }
     }
 }

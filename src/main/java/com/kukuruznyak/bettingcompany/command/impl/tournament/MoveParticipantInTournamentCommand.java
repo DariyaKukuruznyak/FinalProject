@@ -31,11 +31,11 @@ public class MoveParticipantInTournamentCommand extends Command {
             case PARTICIPANT:
                 currentSession.setAttribute(PARTICIPANT, participantService.getById(participantId));
                 currentSession.setAttribute(TOURNAMENTS, tournamentService.getActiveTournament());
-                return pagesResourceBundle.getString("editParticipant");
+                return pagesResourceBundle.getString(EDIT_PARTICIPANT_PAGE);
             case TOURNAMENT:
                 currentSession.setAttribute(TOURNAMENT, tournamentService.getById(tournamentId));
                 currentSession.setAttribute(PARTICIPANTS, participantService.getParticipants());
-                return pagesResourceBundle.getString("editTournament");
+                return pagesResourceBundle.getString(EDIT_TOURNAMENT_PAGE);
             default:
                 throw new ApplicationException("Unexpected request!");
         }

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.kukuruznyak.bettingcompany.command.RequestAttributeConstants.COMMAND;
+
 public class Invoker {
     private static Invoker instance;
     private Map<String, Command> commandMap = new HashMap<>();
@@ -76,7 +78,7 @@ public class Invoker {
     }
 
     public String invoke(HttpServletRequest request, HttpServletResponse response) {
-        String command = request.getParameter("command");
+        String command = request.getParameter(COMMAND);
         if (command == null) {
             command = "home";
         }

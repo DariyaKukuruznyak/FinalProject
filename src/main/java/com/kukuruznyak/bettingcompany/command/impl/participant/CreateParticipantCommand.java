@@ -28,7 +28,7 @@ public class CreateParticipantCommand extends Command {
         } else {
             throw new ApplicationException("Invalid participant");
         }
-        return pagesResourceBundle.getString("editParticipant");
+        return pagesResourceBundle.getString(EDIT_PARTICIPANT_PAGE);
     }
 
     private Participant fillParticipant(HttpServletRequest request) {

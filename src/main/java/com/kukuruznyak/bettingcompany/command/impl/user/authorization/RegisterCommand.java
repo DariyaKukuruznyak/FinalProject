@@ -34,11 +34,11 @@ public class RegisterCommand extends Command {
             client = clientService.add(client);
             currentSession.setAttribute(USER, client);
             LOGGER.info("New authorization " + client.getLogin() + " joined");
-            return pagesResourceBundle.getString("home");
+            return pagesResourceBundle.getString(HOME_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             LOGGER.error(e.getMessage());
-            return pagesResourceBundle.getString("register");
+            return pagesResourceBundle.getString(REGISTER_PAGE);
         }
     }
 

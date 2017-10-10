@@ -8,6 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 public class GetLoginPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return pagesResourceBundle.getString("login");
+        return pagesResourceBundle.getString(LOGIN_PAGE);
     }
 }
