@@ -1,6 +1,9 @@
 package com.kukuruznyak.bettingcompany.entity.tournament.builder;
 
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
+import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
+
+import java.util.Collection;
 
 public class ParticipantBuilder {
     private Long id = null;
@@ -9,6 +12,7 @@ public class ParticipantBuilder {
     private int weight;
     private String trainer;
     private String jockey;
+    private Collection<Tournament> tournaments;
 
     public ParticipantBuilder buildId(long id) {
         this.id = id;
@@ -40,6 +44,11 @@ public class ParticipantBuilder {
         return this;
     }
 
+    public ParticipantBuilder buildTournaments(Collection<Tournament> tournaments) {
+        this.tournaments = tournaments;
+        return this;
+    }
+
     public Participant build() {
         Participant participant = new Participant();
         participant.setId(this.id);
@@ -48,9 +57,7 @@ public class ParticipantBuilder {
         participant.setWeight(this.weight);
         participant.setTrainer(this.trainer);
         participant.setJockey(this.jockey);
-        ;
+        participant.setTournaments(this.tournaments);
         return participant;
     }
-
-
 }

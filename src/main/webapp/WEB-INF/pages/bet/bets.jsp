@@ -5,28 +5,28 @@
 <%@include file="../fragments/header.jspf" %>
 <div class="container">
     <a class="btn btn-info" href="?command=home"><span
-            class="glyphicon glyphicon-home"></span> Back home </a>
+            class="glyphicon glyphicon-home"></span><fmt:message key="back_home" bundle="${bundle}"/></a>
     <div class="panel-body">
         <div class="page-header">
-            <h1>All bets</h1>
+            <h1><fmt:message key="bets" bundle="${bundle}"/></h1>
         </div>
         <table class="table">
             <thead>
             <tr>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Market</th>
-                <th>Outcome</th>
-                <th>Coefficient</th>
-                <th>Total coefficient</th>
-                <th>Sum in</th>
-                <th>Sum out</th>
-                <th>Result</th>
+                <th><fmt:message key="date" bundle="${bundle}"/></th>
+                <th><fmt:message key="type" bundle="${bundle}"/></th>
+                <th><fmt:message key="market" bundle="${bundle}"/></th>
+                <th><fmt:message key="outcome" bundle="${bundle}"/></th>
+                <th><fmt:message key="coefficient" bundle="${bundle}"/></th>
+                <th><fmt:message key="total_coefficient" bundle="${bundle}"/></th>
+                <th><fmt:message key="sum_in" bundle="${bundle}"/></th>
+                <th><fmt:message key="sum_out" bundle="${bundle}"/></th>
+                <th><fmt:message key="result" bundle="${bundle}"/></th>
                 <c:if test="${user.userRole!=clientRole}">
-                    <th>Description</th>
+                    <th><fmt:message key="description" bundle="${bundle}"/></th>
                 </c:if>
                 <c:if test="${user.userRole==riskControllerRole}">
-                    <th>Cancel</th>
+                    <th><fmt:message key="cancel" bundle="${bundle}"/></th>
                 </c:if>
             </tr>
             </thead>
@@ -50,12 +50,12 @@
                     <td>${bet.result}</td>
                     <c:if test="${user.userRole!=clientRole}">
                         <td><textarea name="betDescription" cols="100" rows="3"></textarea>
-                            <a href="?command=editBetDescription&betId=${bet.id}">Save</a></td>
+                            <a href="?command=editBetDescription&betId=${bet.id}"><fmt:message key="save" bundle="${bundle}"/></a></td>
                     </c:if>
                     <c:if test="${user.userRole==riskControllerRole}">
                         <td><a class="btn btn-dangerous"
                                href="?command=cancelBet&betId=${bet.id}">
-                            Cancel
+                            <fmt:message key="cancel" bundle="${bundle}"/>
                         </a></td>
                     </c:if>
                 </tr>

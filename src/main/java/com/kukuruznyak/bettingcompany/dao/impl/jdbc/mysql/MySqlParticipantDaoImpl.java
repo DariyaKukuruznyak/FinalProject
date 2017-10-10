@@ -15,8 +15,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implements ParticipantDao {
     private static TournamentDao tournamentDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getTournamentDao();
@@ -40,23 +38,6 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
 
     private MySqlParticipantDaoImpl() {
         super(Participant.class.getSimpleName());
-    }
-
-    @Override
-    public Participant getById(Long id) throws PersistenceException {
-        Participant participant = super.getById(id);
-        Collection<Tournament> tournaments = tournamentDao.getTournamentsByParticipant(participant.getId());
-        participant.setTournaments(tournaments);
-        return participant;
-    }
-
-    @Override
-    public Collection<Participant> getAll() throws PersistenceException {
-        Collection<Participant> participants = super.getAll();
-        for (Participant participant : participants) {
-            participant.setTournaments(tournamentDao.getTournamentsByParticipant(participant.getId()));
-        }
-        return participants;
     }
 
     @Override

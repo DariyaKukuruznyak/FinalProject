@@ -1,4 +1,8 @@
-<li><a href="?command=events"><span class="glyphicon glyphicon-list-alt"></span> My events </a></li>
-<li><a href="?command=betsByBookmaker&bookmakerId=${user.id}"><span class="glyphicon glyphicon-list-alt"></span> Bets on my events </a></li>
-<li><a href="?command=participants"><span class="glyphicon glyphicon-book"></span> Participants </a></li>
-<li><a href="?command=tournaments"><span class="glyphicon glyphicon-book"></span> Tournaments </a></li>
+<li><a href="?command=events"><span class="glyphicon glyphicon-list-alt"></span>
+    <fmt:message key="events" bundle="${bundle}"/></a></li>
+<li><a href="?command=betsByBookmaker&bookmakerId=${user.id}"><span class="glyphicon glyphicon-list-alt"></span>
+    <fmt:message key="bets" bundle="${bundle}"/></a></li>
+<li><a href="?command=participants"><span class="glyphicon glyphicon-book"></span>
+    <fmt:message key="participants" bundle="${bundle}"/></a></li>
+<li><a href="?command=tournaments"><span class="glyphicon glyphicon-book"></span>
+    <fmt:message key="tournaments" bundle="${bundle}"/></a></li>

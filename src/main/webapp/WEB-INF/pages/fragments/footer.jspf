@@ -1,4 +1,4 @@
 <footer class="navbar-fixed-bottom row-fluid">
     <hr>
-    <p>&copy; RaceBet 2017</p>
+    <p><fmt:message key="footer_label" bundle="${bundle}"/>&copy; RaceBet 2017</p>
 </footer>

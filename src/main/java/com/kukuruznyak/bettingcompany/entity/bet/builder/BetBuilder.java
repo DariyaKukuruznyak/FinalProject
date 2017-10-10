@@ -1,28 +1,31 @@
 package com.kukuruznyak.bettingcompany.entity.bet.builder;
 
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
+import com.kukuruznyak.bettingcompany.entity.bet.BetItem;
 import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
-import com.kukuruznyak.bettingcompany.entity.user.User;
+import com.kukuruznyak.bettingcompany.entity.user.Client;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 
 public class BetBuilder {
     private Long id = null;
-    private User client;
+    private Client client;
     private Date date = new Date();
     private BigDecimal sumIn;
-    private BigDecimal sumOut;
+    private BigDecimal sumOut = new BigDecimal(0);
     private TypeOfBet type;
     private ResultOfBet result = ResultOfBet.UNKNOWN;
     private double totalCoefficient;
-    private String description;
+    private String description = "";
+    private Collection<BetItem> items;
 
     public BetBuilder() {
     }
 
-    public BetBuilder(User client, BigDecimal sumIn) {
+    public BetBuilder(Client client, BigDecimal sumIn) {
         this.client = client;
         this.sumIn = sumIn;
     }
@@ -32,7 +35,7 @@ public class BetBuilder {
         return this;
     }
 
-    public BetBuilder buildClient(User client) {
+    public BetBuilder buildClient(Client client) {
         this.client = client;
         return this;
     }
@@ -72,6 +75,11 @@ public class BetBuilder {
         return this;
     }
 
+    public BetBuilder buildItems(Collection<BetItem> items) {
+        this.items = items;
+        return this;
+    }
+
     public Bet build() {
         Bet bet = new Bet();
         bet.setId(this.id);
@@ -83,6 +91,7 @@ public class BetBuilder {
         bet.setResult(this.result);
         bet.setTotalCoefficient(this.totalCoefficient);
         bet.setDescription(this.description);
+        bet.setItems(this.items);
         return bet;
     }
 }

@@ -7,6 +7,8 @@ public class BetItem extends Model {
     private String name;
     private double coefficient;
     private Long outcomeId;
+    private Long betId;
+    private ResultOfBet result;
 
     public BetItem() {
     }
@@ -39,6 +41,22 @@ public class BetItem extends Model {
 
     public void setOutcomeId(Long outcomeId) {
         this.outcomeId = outcomeId;
+    }
+
+    public ResultOfBet getResult() {
+        return result;
+    }
+
+    public void setResult(ResultOfBet result) {
+        this.result = result;
+    }
+
+    public Long getBetId() {
+        return betId;
+    }
+
+    public void setBetId(Long betId) {
+        this.betId = betId;
     }
 
     @Override

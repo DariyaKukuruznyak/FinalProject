@@ -27,6 +27,11 @@ public class PostgreSqlDAOFactory extends DaoFactory {
     }
 
     @Override
+    public BetItemDao getBetItemDao() {
+        return null;
+    }
+
+    @Override
     public TournamentDao getTournamentDao() {
         return null;
     }

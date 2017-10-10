@@ -5,6 +5,7 @@ import com.kukuruznyak.bettingcompany.command.impl.get.GetLoginPageCommand;
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.bet.builder.BetBuilder;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
+import com.kukuruznyak.bettingcompany.entity.user.Client;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
@@ -22,7 +23,7 @@ public class SetBetCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
         try {
-            User authorizedUser = (User) currentSession.getAttribute("user");
+            Client authorizedUser = (Client) currentSession.getAttribute("user");
             if (authorizedUser == null) {
                 return new GetLoginPageCommand().execute(request, response);
             }

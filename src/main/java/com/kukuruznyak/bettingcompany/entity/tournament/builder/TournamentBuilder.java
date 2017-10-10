@@ -1,7 +1,9 @@
 package com.kukuruznyak.bettingcompany.entity.tournament.builder;
 
+import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 
+import java.util.Collection;
 import java.util.Date;
 
 public class TournamentBuilder {
@@ -10,7 +12,7 @@ public class TournamentBuilder {
     private String country;
     private String winner = "";
     private Date beginningDateAndTime = new Date();
-
+    private Collection<Participant> participants;
     public TournamentBuilder buildId(Long id) {
         this.id = id;
         return this;
@@ -36,6 +38,11 @@ public class TournamentBuilder {
         return this;
     }
 
+    public TournamentBuilder buildParticipants(Collection<Participant> participants) {
+        this.participants = participants;
+        return this;
+    }
+
     public Tournament build() {
         Tournament tournament = new Tournament();
         tournament.setId(this.id);
@@ -43,6 +50,7 @@ public class TournamentBuilder {
         tournament.setCountry(this.country);
         tournament.setWinner(this.winner);
         tournament.setBeginningDateAndTime(this.beginningDateAndTime);
+        tournament.setParticipants(this.participants);
         return tournament;
     }
 }

@@ -8,6 +8,8 @@ public abstract class DaoFactory {
 
     public abstract BetDao getBetDao();
 
+    public abstract BetItemDao getBetItemDao();
+
     public abstract TournamentDao getTournamentDao();
 
     public abstract ClientDao getClientDao();

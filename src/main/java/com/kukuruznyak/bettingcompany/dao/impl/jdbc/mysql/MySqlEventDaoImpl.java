@@ -65,8 +65,8 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
             return new EventBuilder()
                     .buildId(resultSet.getLong("id"))
                     .buildDate(resultSet.getDate("open_date_and_time"))
-                    .buildTournament(tournamentDao.getById(resultSet.getLong("tournament_id")))
                     .buildBookmaker(userDao.getById(resultSet.getLong("bookmaker_id")))
+                    .buildTournament(tournamentDao.getById(resultSet.getLong("tournament_id")))
                     .buildStatus(EventStatus.valueOf(resultSet.getString("status")))
                     .buildIsSuspended(resultSet.getBoolean("is_suspended"))
                     .build();

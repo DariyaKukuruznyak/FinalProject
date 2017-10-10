@@ -5,8 +5,8 @@
 <%@include file="../fragments/header.jspf" %>
 <div class="container">
     <a class="btn btn-info" href="?command=home"><span
-            class="glyphicon glyphicon-home"></span> Back home</a>
-    <h2 class="form-signin-heading">Profile</h2>
+            class="glyphicon glyphicon-home"></span> <fmt:message key="back_home" bundle="${bundle}"/></a>
+    <h2 class="form-signin-heading"><fmt:message key="profile" bundle="${bundle}"/></h2>
     <div class="panel-body">
         <c:if test="${not empty errorMessage}">
             <div class="alert alert-danger">${errorMessage}</div>
@@ -15,45 +15,49 @@
             <div class="alert alert-success">${successMessage}</div>
         </c:if>
         <form class="form-horizontal" action="?command=editUser&id=${editedUser.id}" method="POST">
-             <fieldset class="form-group">
-                <label for="firstName">First name</label>
+            <fieldset class="form-group">
+                <label for="firstName"><fmt:message key="first_name" bundle="${bundle}"/></label>
                 <input class="form-control" id="firstName" name="firstName" value="${editedUser.firstName}"
                        pattern="[A-Z]?[a-z]+)|([А-Я]?[а-я]+" maxlength="20"
-                       title="Expected only letters. Max length = 20" placeholder="First Name"
+                       title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
+                       placeholder="<fmt:message key="first_name" bundle="${bundle}"/>"
                        required>
             </fieldset>
             <fieldset class="form-group">
-                <label for="lastName">Last name</label>
+                <label for="lastName"><fmt:message key="last_name" bundle="${bundle}"/></label>
                 <input id="lastName" class="form-control" name="lastName"
-                       value="${editedUser.lastName}" placeholder="Last Name" required
+                       value="${editedUser.lastName}" placeholder="<fmt:message key="last_name" bundle="${bundle}"/>"
+                       required
                        pattern="([A-Z]?[a-z]+)(-[A-Z]?[a-z]+)*)|(([А-Я]?[а-я]+)(-[А-Я]?[а-я]+)*" maxlength="50"
-                       title="Expected only letters. Max length = 50">
+                       title="<fmt:message key="expected_letters" bundle="${bundle}"/> 50">
             </fieldset>
             <fieldset class="form-group">
-                <label for="login">Login</label>
+                <label for="login"><fmt:message key="user_login" bundle="${bundle}"/></label>
                 <input class="form-control" id="login" name="login"
                        value="${editedUser.login}" disabled>
             </fieldset>
             <fieldset class="form-group">
-                <label for="email">Email</label>
+                <label for="email"><fmt:message key="user_email" bundle="${bundle}"/></label>
                 <input class="form-control" id="email" name="email"
-                       value="${editedUser.email}" placeholder="Email" required
+                       value="${editedUser.email}" placeholder="<fmt:message key="user_email" bundle="${bundle}"/>"
+                       required
                        pattern=".+@.+"
                        maxlength="50"
-                       title="Incorrect format">
+                       title="<fmt:message key="incorrect_format" bundle="${bundle}"/>">
             </fieldset>
             <fieldset class="form-group">
-                <label for="dateOfRegistration">Date of registration</label>
+                <label for="dateOfRegistration"><fmt:message key="date_of_registration" bundle="${bundle}"/></label>
                 <input class="form-control" id="dateOfRegistration" name="dateOfRegistration"
                        value="${editedUser.dateOfRegistration}" disabled>
             </fieldset>
             <c:if test="${editedUser.userRole==clientRole}">
-            <fieldset class="form-group">
-                <a class="btn btn-info" href="?command=showWallet"> Show wallet</a>
-            </fieldset>
+                <fieldset class="form-group">
+                    <a class="btn btn-info" href="?command=showWallet"> <fmt:message key="show_wallet"
+                                                                                     bundle="${bundle}"/></a>
+                </fieldset>
             </c:if>
             <fieldset class="form-group">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+                <button class="btn btn-lg btn-primary btn-block"z><fmt:message key="save" bundle="${bundle}"/></button>
             </fieldset>
         </form>
     </div>

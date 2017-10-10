@@ -5,22 +5,22 @@
 <%@include file="../fragments/header.jspf" %>
 <div class="container">
     <a class="btn btn-info" href="?command=home"><span
-            class="glyphicon glyphicon-home"></span> Back home </a>
+            class="glyphicon glyphicon-home"></span> <fmt:message key="back_home" bundle="${bundle}"/></a>
     <div class="panel-body">
         <div class="page-header">
-            <h1>All users</h1>
+            <h1><fmt:message key="users" bundle="${bundle}"/></h1>
         </div>
         <table class="table">
             <thead>
             <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Email</th>
-                <th>Login</th>
-                <th>Date of registration</th>
-                <th>Role</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th><fmt:message key="first_name" bundle="${bundle}"/></th>
+                <th><fmt:message key="last_name" bundle="${bundle}"/></th>
+                <th><fmt:message key="user_email" bundle="${bundle}"/></th>
+                <th><fmt:message key="user_login" bundle="${bundle}"/></th>
+                <th><fmt:message key="date_of_registration" bundle="${bundle}"/></th>
+                <th><fmt:message key="role" bundle="${bundle}"/></th>
+                <th><fmt:message key="edit" bundle="${bundle}"/></th>
+                <th><fmt:message key="delete" bundle="${bundle}"/></th>
             <tr>
             </thead>
             <tbody>
@@ -34,10 +34,10 @@
                         <td>${userItem.dateOfRegistration}</td>
                         <td>${userItem.stringUserRole}</td>
                         <td><a href="?command=profile&id=${userItem.id}"><span class="glyphicon glyphicon-pencil"></span>
-                            Edit
+                            <fmt:message key="edit" bundle="${bundle}"/>
                         </a></td>
                         <td><a href="?command=deleteUser&id=${userItem.id}"><span class="glyphicon glyphicon-trash"></span>
-                            Delete </a></td>
+                            <fmt:message key="delete" bundle="${bundle}"/></a></td>
                     </tr>
                 </c:if>
             </c:forEach>

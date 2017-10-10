@@ -94,7 +94,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + INSERT),
                     Statement.RETURN_GENERATED_KEYS);
             fillPreparedStatement(preparedStatement, model);
-            int rowInserted = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 generatedKeys.next();
                 model.setId(generatedKeys.getLong(1));
@@ -112,7 +112,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + UPDATE));
             fillPreparedStatement(preparedStatement, model);
             preparedStatement.setLong(Integer.valueOf(QUERIES.getString(currentModel + "." + ID_INDEX_IN_UPDATE)), model.getId());
-            int rowUpdated = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("Database error during updating " + currentModel +
                     " with message: " + e.getMessage());
@@ -124,7 +124,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + DELETE));
             preparedStatement.setLong(1, id);
-            int rowDeleted = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
             LOGGER.error("Database error during removing " + currentModel + " with id = " + id +

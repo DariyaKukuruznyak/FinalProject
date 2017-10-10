@@ -15,9 +15,6 @@ public class Event extends Model {
     private EventStatus status;
     private User bookmaker;
     private boolean isSuspended;
-
-    //    private FinanceResult financeResultSingle;
-    //    private FinanceResult financeResultExpress;
     public Event() {
 
     }

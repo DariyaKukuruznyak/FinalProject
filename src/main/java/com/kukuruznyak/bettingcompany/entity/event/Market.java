@@ -81,4 +81,13 @@ public class Market extends Model {
         result = 31 * result + getEventId().hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Market{" +
+                "name=" + name +
+                ", outcomes=" + outcomes +
+                ", eventId=" + eventId +
+                '}';
+    }
 }

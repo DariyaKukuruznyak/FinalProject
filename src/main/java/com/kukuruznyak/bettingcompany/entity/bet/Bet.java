@@ -1,6 +1,7 @@
 package com.kukuruznyak.bettingcompany.entity.bet;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
+import com.kukuruznyak.bettingcompany.entity.user.Client;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
 import java.math.BigDecimal;
@@ -9,7 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 
 public class Bet extends Model {
-    private User client;
+    private Client client;
     private Date date;
     private BigDecimal sumIn;
     private BigDecimal sumOut;
@@ -22,11 +23,11 @@ public class Bet extends Model {
     public Bet() {
     }
 
-    public User getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(User client) {
+    public void setClient(Client client) {
         this.client = client;
     }
 
@@ -99,5 +100,20 @@ public class Bet extends Model {
 
     public void setTotalCoefficient(double totalCoefficient) {
         this.totalCoefficient = totalCoefficient;
+    }
+
+    @Override
+    public String toString() {
+        return "Bet{" +
+                "client=" + client +
+                ", date=" + date +
+                ", sumIn=" + sumIn +
+                ", sumOut=" + sumOut +
+                ", type=" + type +
+                ", result=" + result +
+                ", items=" + items +
+                ", totalCoefficient=" + totalCoefficient +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

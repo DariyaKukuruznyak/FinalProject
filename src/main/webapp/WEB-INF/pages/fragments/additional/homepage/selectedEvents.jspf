@@ -8,7 +8,7 @@
             <c:forEach items="${event.markets}" var="market">
                 <div class="panel panel-info">
                     <div class="panel-heading"> ${market.name}</div>
-                    Name (age / weight, trainer / jockey
+                    <fmt:message key="outcome_description" bundle="${bundle}"/>
                     <c:forEach items="${market.outcomes}" var="outcome">
                         <div class="form-group row">
                             <label class="col-sm-8 col-form-label">${outcome.name}</label>

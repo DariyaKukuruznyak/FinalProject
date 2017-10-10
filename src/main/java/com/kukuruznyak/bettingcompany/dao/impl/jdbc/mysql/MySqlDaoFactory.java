@@ -26,6 +26,11 @@ public class MySqlDaoFactory extends DaoFactory {
     }
 
     @Override
+    public BetItemDao getBetItemDao() {
+        return MySqlBetItemDaoImpl.getInstance();
+    }
+
+    @Override
     public TournamentDao getTournamentDao() {
         return MySqlTournamentDaoImpl.getInstance();
     }

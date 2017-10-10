@@ -5,24 +5,24 @@
 <%@include file="../fragments/header.jspf" %>
 <div class="container">
     <a class="btn btn-info" href="?command=home"><span
-            class="glyphicon glyphicon-home"></span> Back home </a>
+            class="glyphicon glyphicon-home"></span> <fmt:message key="back_home" bundle="${bundle}"/></a>
     <div class="panel-body">
         <div class="page-header">
-            <h1>All Tournaments</h1>
+            <h1><fmt:message key="tournaments" bundle="${bundle}"/></h1>
         </div>
-        <h3><a href="?command=addTournament"><span class="glyphicon glyphicon-plus"></span> Create new
-                    tournament</a></h3>
+        <h3><a href="?command=addTournament"><span class="glyphicon glyphicon-plus"></span> <fmt:message
+                key="create_tournament" bundle="${bundle}"/></a></h3>
 
         <table class="table">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Country</th>
-                <th>Date of beginning</th>
-                <th>Participants</th>
-                <th>Winner</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th><fmt:message key="name" bundle="${bundle}"/></th>
+                <th><fmt:message key="country" bundle="${bundle}"/></th>
+                <th><fmt:message key="date_of_beginning" bundle="${bundle}"/></th>
+                <th><fmt:message key="participants" bundle="${bundle}"/></th>
+                <th><fmt:message key="winner" bundle="${bundle}"/></th>
+                <th><fmt:message key="edit" bundle="${bundle}"/></th>
+                <th><fmt:message key="delete" bundle="${bundle}"/></th>
             </tr>
             </thead>
             <tbody>
@@ -31,23 +31,17 @@
                     <td>${tournament.name}</td>
                     <td>${tournament.country}</td>
                     <td>${tournament.beginningDateAndTime}</td>
-
-                    <td>
-                        <c:forEach items="${tournament.participants}" var="participant">
-                            <div>${participant.name}</div>
-                        </c:forEach>
-                    </td>
+                    <td><c:forEach items="${tournament.participants}" var="participant">
+                        <div>${participant.name}</div>
+                    </c:forEach></td>
                     <td>${tournament.winner}</td>
-                    <td>
-                        <a href="?command=editTournament&tournamentId=${tournament.id}"><span
-                                class="glyphicon glyphicon-pencil"></span> Edit</a>
-                    </td>
-                    <td>
-                        <a href="?command=deleteTournament&tournamentId=${tournament.id}"><span
-                                class="glyphicon glyphicon-trash"></span> Delete</a>
-                    </td>
+                    <td><a href="?command=editTournament&tournamentId=${tournament.id}"><span
+                            class="glyphicon glyphicon-pencil"></span>
+                        <fmt:message key="edit" bundle="${bundle}"/></a></td>
+                    <td><a href="?command=deleteTournament&tournamentId=${tournament.id}"><span
+                            class="glyphicon glyphicon-trash"></span>
+                        <fmt:message key="delete" bundle="${bundle}"/></a></td>
                 </tr>
-
             </c:forEach>
             </tbody>
         </table>
