@@ -2,8 +2,10 @@
 <header>
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
-            <li><a href="?command=setLanguage&lang=en_EN"><fmt:message key="en" bundle="${bundle}"/></a></li>
-            <li><a href="?command=setLanguage&lang=ru_RU"><fmt:message key="ru" bundle="${bundle}"/></a></li>
+            <li><a <c:if test="${empty lang or lang == 'en_US'}">class="alert alert-info"</c:if>
+                   href="?command=setLanguage&lang=en_EN"><fmt:message key="en" bundle="${bundle}"/></a></li>
+            <li><a <c:if test="${ not empty lang and lang == 'ru_RU'}">class="alert alert-info"</c:if>
+                    href="?command=setLanguage&lang=ru_RU"><fmt:message key="ru" bundle="${bundle}"/></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <c:choose>

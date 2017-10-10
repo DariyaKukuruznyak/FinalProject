@@ -12,9 +12,9 @@ public class SetLanguageCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String lang = request.getParameter("lang");
         if (lang.equals("en_US")) {
-            request.getSession().setAttribute("language", "en_US");
+            request.getSession().setAttribute("lang", "en_US");
         } else {
-            request.getSession().setAttribute("language", "ru_RU");
+            request.getSession().setAttribute("lang", "ru_RU");
         }
         return pagesResourceBundle.getString("home");
     }
