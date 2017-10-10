@@ -18,7 +18,11 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
     private static MySqlMarketDaoImpl instance;
     private static OutcomeDao outcomeDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getOutcomeDao();
 
-    private static final String GET_MARKETS_BY_EVENT_ID = "selectAllByEventId";
+    private static final String GET_MARKETS_BY_EVENT_ID_QUERY = "selectAllByEventId";
+
+    private static final String ID_COLUMN = "id";
+    private static final String NAME_COLUMN = "name";
+    private static final String EVENT_COLUMN = "event_id";
 
     public static MySqlMarketDaoImpl getInstance() {
         if (instance == null) {
@@ -39,10 +43,10 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
     protected Market fillModel(ResultSet resultSet) throws PersistenceException {
         Market market = new Market();
         try {
-            market.setId(resultSet.getLong("id"));
-            market.setName(MarketNames.valueOf(resultSet.getString("name")));
-            market.setEventId(resultSet.getLong("event_id"));
-            market.setOutcomes(outcomeDao.getAllByMarketId(market.getId()));
+            market.setId(resultSet.getLong(ID_COLUMN));
+            market.setName(MarketNames.valueOf(resultSet.getString(NAME_COLUMN)));
+            market.setEventId(resultSet.getLong(EVENT_COLUMN));
+            market.setOutcomes(outcomeDao.getAllByMarketId(resultSet.getLong(ID_COLUMN)));
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }
@@ -76,7 +80,7 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
     }
 
     public Collection<Market> getAllByEventId(Long eventId) throws PersistenceException {
-        return super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + GET_MARKETS_BY_EVENT_ID),
+        return super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + GET_MARKETS_BY_EVENT_ID_QUERY),
                 String.valueOf(eventId));
     }
 }

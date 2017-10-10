@@ -16,13 +16,19 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implements ParticipantDao {
-    private static TournamentDao tournamentDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getTournamentDao();
     private static MySqlParticipantDaoImpl instance;
 
     private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
-    private static final String ADD_TOURNAMENT = "addLink";
-    private static final String DELETE_TOURNAMENT = "deleteLink";
-    private static final String ALL_PARTICIPANTS_BY_TOURNAMENT = "getParticipants";
+    private static final String ADD_TOURNAMENT_QUERY = "addLink";
+    private static final String DELETE_TOURNAMENT_QUERY = "deleteLink";
+    private static final String ALL_PARTICIPANTS_BY_TOURNAMENT_QUERY = "getParticipants";
+
+    private static final String ID_COLUMN = "id";
+    private static final String NAME_COLUMN = "name";
+    private static final String AGE_COLUMN = "age";
+    private static final String WEIGHT_COLUMN = "weight";
+    private static final String TRAINER_COLUMN = "trainer";
+    private static final String JOCKEY_COLUMN = "jockey";
 
     public static MySqlParticipantDaoImpl getInstance() {
         if (instance == null) {
@@ -41,18 +47,18 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
 
     @Override
     public void addTournament(Long participantId, Long tournamentId) {
-        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ADD_TOURNAMENT));
+        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ADD_TOURNAMENT_QUERY));
     }
 
     @Override
     public void deleteTournament(Long participantId, Long tournamentId) {
-        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + DELETE_TOURNAMENT));
+        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + DELETE_TOURNAMENT_QUERY));
     }
 
     @Override
     public Collection<Participant> getParticipantsByTournament(Long id) throws PersistenceException {
         return super.getAllByConstrain(
-                QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ALL_PARTICIPANTS_BY_TOURNAMENT),
+                QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ALL_PARTICIPANTS_BY_TOURNAMENT_QUERY),
                 String.valueOf(id));
     }
 
@@ -60,12 +66,12 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     protected Participant fillModel(ResultSet resultSet) throws PersistenceException {
         try {
             return new ParticipantBuilder()
-                    .buildId(resultSet.getLong("id"))
-                    .buildName(resultSet.getString("name"))
-                    .buildAge(resultSet.getInt("age"))
-                    .buildWeight(resultSet.getInt("weight"))
-                    .buildTrainer(resultSet.getString("trainer"))
-                    .buildJockey(resultSet.getString("jockey"))
+                    .buildId(resultSet.getLong(ID_COLUMN))
+                    .buildName(resultSet.getString(NAME_COLUMN))
+                    .buildAge(resultSet.getInt(AGE_COLUMN))
+                    .buildWeight(resultSet.getInt(WEIGHT_COLUMN))
+                    .buildTrainer(resultSet.getString(TRAINER_COLUMN))
+                    .buildJockey(resultSet.getString(JOCKEY_COLUMN))
                     .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());

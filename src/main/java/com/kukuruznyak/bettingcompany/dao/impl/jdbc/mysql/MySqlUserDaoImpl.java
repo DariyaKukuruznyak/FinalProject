@@ -17,9 +17,18 @@ import java.util.Date;
 public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     private static MySqlUserDaoImpl instance;
 
-    private static final String SELECT_BY_LOGIN = "selectByLogin";
-    private static final String SELECT_ALL_BY_ROLE = "selectAllByRole";
-    private static final String SELECT_ROLE_BY_LOGIN = "selectRoleByLogin";
+    private static final String SELECT_BY_LOGIN_QUERY = "selectByLogin";
+    private static final String SELECT_ALL_BY_ROLE_QUERY = "selectAllByRole";
+    private static final String SELECT_ROLE_BY_LOGIN_QUERY = "selectRoleByLogin";
+
+    private static final String ID_COLUMN = "id";
+    private static final String FIRST_NAME_COLUMN = "first_name";
+    private static final String LAST_NAME_COLUMN = "last_name";
+    private static final String EMAIL_COLUMN = "email";
+    private static final String LOGIN_COLUMN = "login";
+    private static final String PASSWORD_COLUMN = "password";
+    private static final String REGISTRATION_DATE_COLUMN = "date_of_registration";
+    private static final String USER_ROLE_COLUMN = "user_role";
 
     public static MySqlUserDaoImpl getInstance() {
         if (instance == null) {
@@ -40,14 +49,14 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     protected User fillModel(ResultSet resultSet) throws PersistenceException {
         try {
             return new UserBuilder()
-                    .buildId(resultSet.getLong("id"))
-                    .buildFirstName(resultSet.getString("first_name"))
-                    .buildLastName(resultSet.getString("last_name"))
-                    .buildEmail(resultSet.getString("email"))
-                    .buildLogin(resultSet.getString("login"))
-                    .buildPassword(resultSet.getString("password"))
-                    .buildDateOfRegistration(new Date(resultSet.getDate("date_of_registration").getTime()))
-                    .buildUserRole(UserRole.valueOf(resultSet.getString("user_role")))
+                    .buildId(resultSet.getLong(ID_COLUMN))
+                    .buildFirstName(resultSet.getString(FIRST_NAME_COLUMN))
+                    .buildLastName(resultSet.getString(LAST_NAME_COLUMN))
+                    .buildEmail(resultSet.getString(EMAIL_COLUMN))
+                    .buildLogin(resultSet.getString(LOGIN_COLUMN))
+                    .buildPassword(resultSet.getString(PASSWORD_COLUMN))
+                    .buildDateOfRegistration(new Date(resultSet.getDate(REGISTRATION_DATE_COLUMN).getTime()))
+                    .buildUserRole(UserRole.valueOf(resultSet.getString(USER_ROLE_COLUMN)))
                     .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
@@ -71,14 +80,14 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     public Collection<User> getUsersByRole(String role) throws PersistenceException {
-        return getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_BY_ROLE), role);
+        return getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_BY_ROLE_QUERY), role);
     }
 
     public User getByLogin(String login) throws PersistenceException {
         User user = null;
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.
-                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_LOGIN));
+                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_LOGIN_QUERY));
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -99,11 +108,11 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         UserRole userRole = null;
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.
-                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_ROLE_BY_LOGIN));
+                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_ROLE_BY_LOGIN_QUERY));
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                userRole = UserRole.valueOf(resultSet.getString("user_role"));
+                userRole = UserRole.valueOf(resultSet.getString(USER_ROLE_COLUMN));
             }
         } catch (SQLException e) {
             LOGGER.error(DB_SELECTING_ERROR + e.getMessage());

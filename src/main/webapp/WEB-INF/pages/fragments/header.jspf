@@ -32,7 +32,7 @@
                 </c:when>
                 <c:otherwise>
                     <li><a href="?command=login"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="sign_in" bundle="${bundle}"/></a></li>
-                    <li><a href="?command=register"><span class="glyphicon glyphicon-user"></span> <fmt:message key="join_now" bundle="${bundle}"/></a></li>
+                    <li><a href="?command=register"><span class="glyphicon glyphicon-user"></span> <fmt:message key="join" bundle="${bundle}"/></a></li>
                 </c:otherwise>
             </c:choose>
         </ul>

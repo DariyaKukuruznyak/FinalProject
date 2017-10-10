@@ -18,6 +18,11 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
     private static MySqlClientDaoImpl instance;
     private static UserDao userDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getUserDao();
 
+    private static final String ID_COLUMN = "id";
+    private static final String BALANCE_COLUMN = "balance";
+    private static final String MAX_BET_COLUMN = "max_bet";
+    private static final String DESCRIPTION_COLUMN = "description";
+
     public static MySqlClientDaoImpl getInstance() {
         if (instance == null) {
             synchronized (MySqlClientDaoImpl.class) {
@@ -62,10 +67,10 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
     protected Client fillModel(ResultSet resultSet) throws PersistenceException {
         Client client;
         try {
-            client = new Client(userDao.getById(resultSet.getLong("id")));
-            client.setBalance(resultSet.getBigDecimal("balance"));
-            client.setMaxBet(resultSet.getInt("max_bet"));
-            client.setDescription(resultSet.getString("description"));
+            client = new Client(userDao.getById(resultSet.getLong(ID_COLUMN)));
+            client.setBalance(resultSet.getBigDecimal(BALANCE_COLUMN));
+            client.setMaxBet(resultSet.getInt(MAX_BET_COLUMN));
+            client.setDescription(resultSet.getString(DESCRIPTION_COLUMN));
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }
@@ -90,9 +95,9 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
             connection.setAutoCommit(false);
             User user = userDao.add(client);
             client.setId(user.getId());
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT_QUERY));
             fillPreparedStatement(preparedStatement, client);
-            int rowInserted = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
@@ -105,7 +110,7 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
         try {
             connection.setAutoCommit(false);
             userDao.update(client);
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + UPDATE));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + UPDATE_QUERY));
             fillPreparedStatement(preparedStatement, client);
             preparedStatement.executeUpdate();
             connection.commit();

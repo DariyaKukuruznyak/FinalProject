@@ -24,8 +24,15 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     private static UserDao userDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getUserDao();
     private static MarketDao marketDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getMarketDao();
 
-    private static final String GET_EVENTS_BY_BOOKMAKER_ID = "selectAllByBookmakerId";
-    private static final String GET_EVENTS_BY_STATUS = "selectAllStatus";
+    private static final String GET_EVENTS_BY_BOOKMAKER_ID_QUERY = "selectAllByBookmakerId";
+    private static final String GET_EVENTS_BY_STATUS_QUERY = "selectAllStatus";
+
+    private static final String ID_COLUMN = "id";
+    private static final String OPEN_DATE_COLUMN = "open_date_and_time";
+    private static final String BOOKMAKER_ID_COLUMN = "bookmaker_id";
+    private static final String TOURNAMENT_ID_COLUMN = "tournament_id";
+    private static final String STATUS_COLUMN = "status";
+    private static final String IS_SUSPENDED_COLUMN = "is_suspended";
 
     public static MySqlEventDaoImpl getInstance() {
         if (instance == null) {
@@ -63,12 +70,12 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     protected Event fillModel(ResultSet resultSet) throws PersistenceException {
         try {
             return new EventBuilder()
-                    .buildId(resultSet.getLong("id"))
-                    .buildDate(resultSet.getDate("open_date_and_time"))
-                    .buildBookmaker(userDao.getById(resultSet.getLong("bookmaker_id")))
-                    .buildTournament(tournamentDao.getById(resultSet.getLong("tournament_id")))
-                    .buildStatus(EventStatus.valueOf(resultSet.getString("status")))
-                    .buildIsSuspended(resultSet.getBoolean("is_suspended"))
+                    .buildId(resultSet.getLong(ID_COLUMN))
+                    .buildDate(resultSet.getDate(OPEN_DATE_COLUMN))
+                    .buildBookmaker(userDao.getById(resultSet.getLong(BOOKMAKER_ID_COLUMN)))
+                    .buildTournament(tournamentDao.getById(resultSet.getLong(TOURNAMENT_ID_COLUMN)))
+                    .buildStatus(EventStatus.valueOf(resultSet.getString(STATUS_COLUMN)))
+                    .buildIsSuspended(resultSet.getBoolean(IS_SUSPENDED_COLUMN))
                     .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
@@ -90,7 +97,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
 
     @Override
     public Collection<Event> getAllByBookmakerId(Long bookmakerId) throws PersistenceException {
-        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel +DELIMITER+ GET_EVENTS_BY_BOOKMAKER_ID),
+        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + GET_EVENTS_BY_BOOKMAKER_ID_QUERY),
                 String.valueOf(bookmakerId));
         for (Event event : events) {
             event.setMarkets(marketDao.getAllByEventId(event.getId()));
@@ -100,7 +107,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
 
     @Override
     public Collection<Event> getAllByStatus(EventStatus eventStatus) {
-        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel +DELIMITER + GET_EVENTS_BY_STATUS),
+        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + GET_EVENTS_BY_STATUS_QUERY),
                 String.valueOf(eventStatus));
         for (Event event : events) {
             event.setMarkets(marketDao.getAllByEventId(event.getId()));

@@ -21,6 +21,16 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
     private static ClientDao clientDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getClientDao();
     private static BetItemDao betItemDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getBetItemDao();
 
+    private static final String ID_COLUMN = "id";
+    private static final String SUM_IN_COLUMN = "sum_in";
+    private static final String SUM_OUT_COLUMN = "sum_out";
+    private static final String TYPE_COLUMN = "type";
+    private static final String RESULT_COLUMN = "result";
+    private static final String DESCRIPTION_COLUMN = "description";
+    private static final String DATE_COLUMN = "date";
+    private static final String CLIENT_ID_COLUMN = "client_id";
+    private static final String TOTAL_COEFFICIENT_COLUMN = "total_coefficient";
+
     public static MySqlBetDaoImpl getInstance() {
         if (instance == null) {
             synchronized (MySqlBetDaoImpl.class) {
@@ -40,7 +50,7 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
     public Bet add(Bet bet) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT),
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT_QUERY),
                     Statement.RETURN_GENERATED_KEYS);
             fillPreparedStatement(preparedStatement, bet);
             preparedStatement.executeUpdate();
@@ -77,16 +87,16 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
     protected Bet fillModel(ResultSet resultSet) throws PersistenceException {
         try {
             return new BetBuilder()
-                    .buildId(resultSet.getLong("id"))
-                    .buildSumIn(resultSet.getBigDecimal("sum_in"))
-                    .buildSumOut(resultSet.getBigDecimal("sum_out"))
-                    .buildType(TypeOfBet.valueOf(resultSet.getString("type")))
-                    .buildResult(ResultOfBet.valueOf(resultSet.getString("result")))
-                    .buildDescription(resultSet.getString("description"))
-                    .buildDate(resultSet.getDate("date"))
-                    .buildClient(clientDao.getById(resultSet.getLong("client_id")))
-                    .buildTotalCoefficient(resultSet.getDouble("total_coefficient"))
-                    .buildItems(betItemDao.getAllByBetId(resultSet.getLong("id")))
+                    .buildId(resultSet.getLong(ID_COLUMN))
+                    .buildSumIn(resultSet.getBigDecimal(SUM_IN_COLUMN))
+                    .buildSumOut(resultSet.getBigDecimal(SUM_OUT_COLUMN))
+                    .buildType(TypeOfBet.valueOf(resultSet.getString(TYPE_COLUMN)))
+                    .buildResult(ResultOfBet.valueOf(resultSet.getString(RESULT_COLUMN)))
+                    .buildDescription(resultSet.getString(DESCRIPTION_COLUMN))
+                    .buildDate(resultSet.getDate(DATE_COLUMN))
+                    .buildClient(clientDao.getById(resultSet.getLong(CLIENT_ID_COLUMN)))
+                    .buildTotalCoefficient(resultSet.getDouble(TOTAL_COEFFICIENT_COLUMN))
+                    .buildItems(betItemDao.getAllByBetId(resultSet.getLong(ID_COLUMN)))
                     .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());

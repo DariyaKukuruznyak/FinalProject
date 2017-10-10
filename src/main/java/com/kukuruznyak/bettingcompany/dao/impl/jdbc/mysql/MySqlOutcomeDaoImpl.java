@@ -14,7 +14,12 @@ import java.util.Collection;
 public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements OutcomeDao {
     private static MySqlOutcomeDaoImpl instance;
 
-    private static final String GET_EVENTS_BY_MARKET_ID = "selectAllByMarketId";
+    private static final String GET_EVENTS_BY_MARKET_ID_QUERY = "selectAllByMarketId";
+
+    private static final String ID_COLUMN = "id";
+    private static final String NAME_COLUMN = "name";
+    private static final String COEFFICIENT_COLUMN = "coefficient";
+    private static final String MARKET_COLUMN = "market_id";
 
     public static MySqlOutcomeDaoImpl getInstance() {
         if (instance == null) {
@@ -35,10 +40,10 @@ public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements Out
     protected Outcome fillModel(ResultSet resultSet) throws PersistenceException {
         try {
             return new OutcomeBuilder()
-                    .buildId(resultSet.getLong("id"))
-                    .buildName(resultSet.getString("name"))
-                    .buildCoefficient(resultSet.getDouble("coefficient"))
-                    .buildMarketId(resultSet.getLong("market_id"))
+                    .buildId(resultSet.getLong(ID_COLUMN))
+                    .buildName(resultSet.getString(NAME_COLUMN))
+                    .buildCoefficient(resultSet.getDouble(COEFFICIENT_COLUMN))
+                    .buildMarketId(resultSet.getLong(MARKET_COLUMN))
                     .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
@@ -58,7 +63,7 @@ public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements Out
 
     @Override
     public Collection<Outcome> getAllByMarketId(Long marketId) {
-        return super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + GET_EVENTS_BY_MARKET_ID),
+        return super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + GET_EVENTS_BY_MARKET_ID_QUERY),
                 String.valueOf(marketId));
     }
 }

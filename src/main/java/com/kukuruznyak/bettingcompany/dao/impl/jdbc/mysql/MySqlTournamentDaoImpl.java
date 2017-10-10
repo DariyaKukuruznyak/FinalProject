@@ -20,7 +20,13 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     private static ParticipantDao participantDao = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL).getParticipantDao();
 
     private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
-    private static final String ALL_TOURNAMENT_BY_PARTICIPANTS = "getTournaments";
+    private static final String ALL_TOURNAMENT_BY_PARTICIPANTS_QUERY = "getTournaments";
+
+    private static final String ID_COLUMN = "id";
+    private static final String NAME_COLUMN = "name";
+    private static final String COUNTRY_COLUMN = "country";
+    private static final String START_DATE_COLUMN = "start_date_and_time";
+    private static final String WINNER_COLUMN = "winner";
 
     public static MySqlTournamentDaoImpl getInstance() {
         if (instance == null) {
@@ -58,11 +64,11 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     protected Tournament fillModel(ResultSet resultSet) throws PersistenceException {
         try {
             return new TournamentBuilder()
-                    .buildId(resultSet.getLong("id"))
-                    .buildName(resultSet.getString("name"))
-                    .buildCountry(resultSet.getString("country"))
-                    .buildBeginningDateAndTime(resultSet.getDate("start_date_and_time"))
-                    .buildWinner(resultSet.getString("winner"))
+                    .buildId(resultSet.getLong(ID_COLUMN))
+                    .buildName(resultSet.getString(NAME_COLUMN))
+                    .buildCountry(resultSet.getString(COUNTRY_COLUMN))
+                    .buildBeginningDateAndTime(resultSet.getDate(START_DATE_COLUMN))
+                    .buildWinner(resultSet.getString(WINNER_COLUMN))
                     .build();
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
@@ -94,7 +100,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     @Override
     public Collection<Tournament> getTournamentsByParticipant(Long id) throws PersistenceException {
         return super.getAllByConstrain(
-                QUERIES.getString(LINKED_TABLE_QUERY +DELIMITER + ALL_TOURNAMENT_BY_PARTICIPANTS),
+                QUERIES.getString(LINKED_TABLE_QUERY +DELIMITER + ALL_TOURNAMENT_BY_PARTICIPANTS_QUERY),
                 String.valueOf(id));
     }
 }

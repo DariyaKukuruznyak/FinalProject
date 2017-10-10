@@ -13,8 +13,15 @@ import java.util.Collection;
 
 public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements BetItemDao {
     private static MySqlBetItemDaoImpl instance;
-    private static final String SELECT_BY_BET_ID = "selectByBetId";
-    private static final String SELECT_BY_OUTCOME_ID = "selectByOutcomeId";
+    private static final String SELECT_BY_BET_ID_QUERY = "selectByBetId";
+    private static final String SELECT_BY_OUTCOME_ID_QUERY = "selectByOutcomeId";
+
+    private static final String ID_COLUMN = "id";
+    private static final String NAME_COLUMN = "name";
+    private static final String COEFFICIENT_COLUMN = "coefficient";
+    private static final String RESULT_COLUMN = "result";
+    private static final String OUTCOME_ID_COLUMN = "outcome_id";
+    private static final String BET_ID_COLUMN = "bet_id";
 
     public static MySqlBetItemDaoImpl getInstance() {
         if (instance == null) {
@@ -33,13 +40,13 @@ public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements Bet
 
     public Collection<BetItem> getAllByBetId(Long id) throws PersistenceException {
         return super.getAllByConstrain(
-                QUERIES.getString(currentModel + DELIMITER + SELECT_BY_BET_ID),
+                QUERIES.getString(currentModel + DELIMITER + SELECT_BY_BET_ID_QUERY),
                 String.valueOf(id));
     }
 
     public Collection<BetItem> getAllByOutcomeId(Long id) throws PersistenceException {
         return super.getAllByConstrain(
-                QUERIES.getString(currentModel + DELIMITER + SELECT_BY_OUTCOME_ID),
+                QUERIES.getString(currentModel + DELIMITER + SELECT_BY_OUTCOME_ID_QUERY),
                 String.valueOf(id));
     }
 
@@ -57,12 +64,12 @@ public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements Bet
     protected BetItem fillModel(ResultSet resultSet) throws PersistenceException {
         BetItem betItem = new BetItem();
         try {
-            betItem.setId(resultSet.getLong("id"));
-            betItem.setName(resultSet.getString("name"));
-            betItem.setCoefficient(resultSet.getDouble("coefficient"));
-            betItem.setResult(ResultOfBet.valueOf(resultSet.getString("result")));
-            betItem.setOutcomeId(resultSet.getLong("outcome_id"));
-            betItem.setBetId(resultSet.getLong("bet_id"));
+            betItem.setId(resultSet.getLong(ID_COLUMN));
+            betItem.setName(resultSet.getString(NAME_COLUMN));
+            betItem.setCoefficient(resultSet.getDouble(COEFFICIENT_COLUMN));
+            betItem.setResult(ResultOfBet.valueOf(resultSet.getString(RESULT_COLUMN)));
+            betItem.setOutcomeId(resultSet.getLong(OUTCOME_ID_COLUMN));
+            betItem.setBetId(resultSet.getLong(BET_ID_COLUMN));
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());
         }

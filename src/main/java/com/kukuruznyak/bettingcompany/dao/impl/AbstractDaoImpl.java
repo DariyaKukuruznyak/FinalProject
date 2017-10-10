@@ -15,11 +15,11 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     protected static final Logger LOGGER = Logger.getLogger(AbstractDaoImpl.class);
     protected static final ResourceBundle QUERIES = ResourceBundle.getBundle("queries");
 
-    protected static final String SELECT_ALL = "selectAll";
-    protected static final String SELECT_BY_ID = "selectById";
-    protected static final String INSERT = "insert";
-    protected static final String UPDATE = "update";
-    protected static final String DELETE = "delete";
+    protected static final String SELECT_ALL_QUERY = "selectAll";
+    protected static final String SELECT_BY_ID_QUERY = "selectById";
+    protected static final String INSERT_QUERY = "insert";
+    protected static final String UPDATE_QUERY = "update";
+    protected static final String DELETE_QUERY = "delete";
     protected static final String ID_INDEX_IN_UPDATE = "idIndexInUpdate";
     protected static final String DELIMITER = ".";
     protected String currentModel;
@@ -34,7 +34,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     public T getById(Long id) throws PersistenceException {
         T model = null;
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_ID));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_ID_QUERY));
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -54,7 +54,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         List<T> modelList = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL));
+            ResultSet resultSet = statement.executeQuery(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_QUERY));
             while (resultSet.next()) {
                 modelList.add(fillModel(resultSet));
             }
@@ -88,7 +88,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
 
     public T add(T model) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT),
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT_QUERY),
                     Statement.RETURN_GENERATED_KEYS);
             fillPreparedStatement(preparedStatement, model);
             preparedStatement.executeUpdate();
@@ -105,7 +105,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
 
     public void update(T model) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + UPDATE));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + UPDATE_QUERY));
             fillPreparedStatement(preparedStatement, model);
             preparedStatement.setLong(Integer.valueOf(QUERIES.getString(currentModel +DELIMITER+ ID_INDEX_IN_UPDATE)), model.getId());
             preparedStatement.executeUpdate();
@@ -117,7 +117,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
 
     public void delete(Long id) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + DELETE));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + DELETE_QUERY));
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();
