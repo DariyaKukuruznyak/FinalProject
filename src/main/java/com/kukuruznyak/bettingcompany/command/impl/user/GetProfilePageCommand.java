@@ -18,7 +18,7 @@ public class GetProfilePageCommand extends Command {
         HttpSession currentSession = request.getSession();
         try {
             if (editedUser == null) {
-                throw new ApplicationException("Unexpected request!");
+                throw new ApplicationException(UNEXPECTED_REQUEST);
             }
             currentSession.setAttribute(EDITED_USER, editedUser);
             return pagesResourceBundle.getString(EDIT_USER_PAGE);

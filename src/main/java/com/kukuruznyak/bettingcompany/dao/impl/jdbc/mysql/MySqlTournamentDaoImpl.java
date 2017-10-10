@@ -94,7 +94,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     @Override
     public Collection<Tournament> getTournamentsByParticipant(Long id) throws PersistenceException {
         return super.getAllByConstrain(
-                QUERIES.getString(LINKED_TABLE_QUERY + "." + ALL_TOURNAMENT_BY_PARTICIPANTS),
+                QUERIES.getString(LINKED_TABLE_QUERY +DELIMITER + ALL_TOURNAMENT_BY_PARTICIPANTS),
                 String.valueOf(id));
     }
 }

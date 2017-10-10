@@ -17,7 +17,6 @@ public class UserService extends AbstractService {
             synchronized (UserService.class) {
                 if (instance == null) {
                     instance = new UserService();
-                    LOGGER.info("Instance of " + UserService.class.getSimpleName() + " was created");
                 }
             }
         }

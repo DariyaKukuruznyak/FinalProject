@@ -16,7 +16,6 @@ public class ClientService extends AbstractService {
             synchronized (ClientService.class) {
                 if (instance == null) {
                     instance = new ClientService();
-                    LOGGER.info("Instance of " + ClientService.class.getSimpleName() + " was created");
                 }
             }
         }

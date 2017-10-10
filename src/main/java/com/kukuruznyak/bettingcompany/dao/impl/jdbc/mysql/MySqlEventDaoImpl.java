@@ -90,7 +90,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
 
     @Override
     public Collection<Event> getAllByBookmakerId(Long bookmakerId) throws PersistenceException {
-        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel + "." + GET_EVENTS_BY_BOOKMAKER_ID),
+        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel +DELIMITER+ GET_EVENTS_BY_BOOKMAKER_ID),
                 String.valueOf(bookmakerId));
         for (Event event : events) {
             event.setMarkets(marketDao.getAllByEventId(event.getId()));
@@ -100,7 +100,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
 
     @Override
     public Collection<Event> getAllByStatus(EventStatus eventStatus) {
-        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel + "." + GET_EVENTS_BY_STATUS),
+        Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel +DELIMITER + GET_EVENTS_BY_STATUS),
                 String.valueOf(eventStatus));
         for (Event event : events) {
             event.setMarkets(marketDao.getAllByEventId(event.getId()));

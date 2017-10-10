@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LogoutCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        LOGGER.info("User " + ((User) request.getSession().getAttribute("user")).getFullName() + " logged out");
+        LOGGER.info(USER_LOGGED_OUT + ((User) request.getSession().getAttribute(USER)).getFullName());
         request.getSession().invalidate();
         return new HomeCommand().execute(request, response);
     }

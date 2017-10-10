@@ -42,6 +42,7 @@ public class ServiceFactory {
     public ClientService getClientService() {
         return ClientService.getInstance();
     }
+
     public MarketService getMarketService() {
         return MarketService.getInstance();
     }

@@ -8,7 +8,6 @@ import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.EventService;
 import com.kukuruznyak.bettingcompany.service.OutcomeService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,11 +20,11 @@ public class ApplyCoefficientCommand extends Command {
         try {
             User authorizedUser = (User) currentSession.getAttribute(USER);
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
-                throw new ApplicationException("Access denied");
+                throw new ApplicationException(ACCESS_DENIED);
             }
             double coefficient = new Double(request.getParameter(COEFFICIENT));
             if (coefficient < 1) {
-                throw new ApplicationException("Forbidden coefficient");
+                throw new ApplicationException(FORBIDDEN_COEFFICIENT);
             }
             OutcomeService outcomeService = serviceFactory.getOutcomeService();
             Outcome outcome = outcomeService.getById(request.getParameter(OUTCOME_ID));
@@ -35,7 +34,7 @@ public class ApplyCoefficientCommand extends Command {
             EventService eventService = serviceFactory.getEventService();
             event = eventService.getById(event.getId());
             currentSession.setAttribute(EVENT, event);
-            currentSession.setAttribute(SUCCESS_MESSAGE, "Coefficient for outcome " + outcome.getName() + " has been changed successfully.");
+            currentSession.setAttribute(SUCCESS_MESSAGE, COEFFICIENT_CHANGED_SUCCESSFULLY + outcome.getName());
         } catch (ApplicationException | NumberFormatException e) {
             LOGGER.error(e.getMessage());
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());

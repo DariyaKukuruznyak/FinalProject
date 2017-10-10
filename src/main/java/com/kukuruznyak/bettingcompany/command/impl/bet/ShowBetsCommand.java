@@ -18,7 +18,7 @@ public class ShowBetsCommand extends Command {
         User currentUser = (User) currentSession.getAttribute(USER);
         try {
             if (currentUser == null) {
-                throw new ApplicationException("Unexpected request!");
+                throw new ApplicationException(UNEXPECTED_REQUEST);
             }
             Collection<Bet> bets;
             BetService betService = serviceFactory.getBetService();
@@ -30,7 +30,7 @@ public class ShowBetsCommand extends Command {
                     bets = betService.getAll();
                     break;
                 default: {
-                    throw new ApplicationException("Unexpected request!");
+                    throw new ApplicationException(UNEXPECTED_REQUEST);
                 }
             }
             currentSession.setAttribute(BETS, bets);

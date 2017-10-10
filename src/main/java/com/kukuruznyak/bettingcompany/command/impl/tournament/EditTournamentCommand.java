@@ -22,13 +22,13 @@ public class EditTournamentCommand extends Command {
             editTournament(request, tournament);
             if (tournamentService.isValidParticipant(tournament)) {
                 tournamentService.update(tournament);
-                LOGGER.info("Tournament with id = " + tournament.getId() + " updated.");
-                currentSession.setAttribute(SUCCESS_MESSAGE, "Tournament was updated successfully.");
+                LOGGER.info(TOURNAMENT_UPDATED_SUCCESSFULLY);
+                currentSession.setAttribute(SUCCESS_MESSAGE, TOURNAMENT_UPDATED_SUCCESSFULLY);
                 currentSession.setAttribute(TOURNAMENT, tournament);
                 ParticipantService participantService = serviceFactory.getParticipantService();
                 currentSession.setAttribute(PARTICIPANT, participantService.getParticipants());
             } else {
-                throw new ApplicationException("Incorrect tournament!");
+                throw new ApplicationException(INCORRECT_TOURNAMENT);
             }
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());

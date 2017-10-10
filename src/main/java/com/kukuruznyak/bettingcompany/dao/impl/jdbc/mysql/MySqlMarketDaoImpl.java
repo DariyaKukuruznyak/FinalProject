@@ -1,6 +1,5 @@
 package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 
-import com.kukuruznyak.bettingcompany.dao.EventDao;
 import com.kukuruznyak.bettingcompany.dao.MarketDao;
 import com.kukuruznyak.bettingcompany.dao.OutcomeDao;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
@@ -77,7 +76,7 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
     }
 
     public Collection<Market> getAllByEventId(Long eventId) throws PersistenceException {
-        return super.getAllByConstrain(QUERIES.getString(currentModel + "." + GET_MARKETS_BY_EVENT_ID),
+        return super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + GET_MARKETS_BY_EVENT_ID),
                 String.valueOf(eventId));
     }
 }

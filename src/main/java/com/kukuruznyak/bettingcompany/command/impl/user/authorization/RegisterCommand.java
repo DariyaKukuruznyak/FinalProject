@@ -8,7 +8,6 @@ import com.kukuruznyak.bettingcompany.entity.user.builder.UserBuilder;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ClientService;
 import com.kukuruznyak.bettingcompany.service.UserService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,19 +20,19 @@ public class RegisterCommand extends Command {
         try {
             UserService userService = serviceFactory.getUserService();
             if (userService.getUserByLogin(request.getParameter(LOGIN)) != null) {
-                throw new ApplicationException("User with login '" + request.getParameter(LOGIN) + "' already exist!");
+                throw new ApplicationException(USER_EXIST + request.getParameter(LOGIN));
             }
             if (!request.getParameter(PASSWORD).equals(request.getParameter(CONFIRM_PASSWORD))) {
-                throw new ApplicationException("Passwords are not equals!");
+                throw new ApplicationException(PASSWORDS_NOT_EXIST);
             }
             Client client = createClient(request);
             if (!userService.isValidUser(client)) {
-                throw new ApplicationException("Incorrect user!");
+                throw new ApplicationException(INCORRECT_USER);
             }
             ClientService clientService = serviceFactory.getClientService();
             client = clientService.add(client);
             currentSession.setAttribute(USER, client);
-            LOGGER.info("New authorization " + client.getLogin() + " joined");
+            LOGGER.info(CLIENT_JOINED + client.getLogin());
             return pagesResourceBundle.getString(HOME_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
@@ -41,7 +40,6 @@ public class RegisterCommand extends Command {
             return pagesResourceBundle.getString(REGISTER_PAGE);
         }
     }
-
 
     private Client createClient(HttpServletRequest request) {
         User user = new UserBuilder()

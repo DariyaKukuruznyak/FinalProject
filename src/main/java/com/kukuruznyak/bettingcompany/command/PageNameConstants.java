@@ -18,5 +18,4 @@ public interface PageNameConstants {
     String EDIT_USER_PAGE = "editUserPage";
     String USER_LIST_PAGE = "userListPage";
     String ERROR_PAGE = "errorPage";
-
 }

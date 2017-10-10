@@ -19,8 +19,8 @@ public class GetStaffPageCommand extends Command {
         HttpSession currentSession = request.getSession();
         User authorizedUser = (User) currentSession.getAttribute(USER);
         if (authorizedUser == null || !authorizedUser.getUserRole().equals(UserRole.ADMINISTRATOR)) {
-            LOGGER.error("Unexpected request!");
-            throw new ApplicationException("Unexpected request!");
+            LOGGER.error(UNEXPECTED_REQUEST);
+            throw new ApplicationException(UNEXPECTED_REQUEST);
         }
         UserService userService = serviceFactory.getUserService();
         Collection<User> staff = userService.getStaff();

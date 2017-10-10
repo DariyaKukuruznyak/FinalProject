@@ -38,8 +38,7 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
         try (Connection connection = dataSource.getConnection()) {
             return addClient(connection, client);
         } catch (SQLException e) {
-            LOGGER.error("Database error during adding " + currentModel +
-                    " with message: " + e.getMessage());
+            LOGGER.error(DB_INSERTING_ERROR + currentModel + MESSAGE + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
     }
@@ -49,8 +48,7 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
         try (Connection connection = dataSource.getConnection()) {
             updateClient(connection, client);
         } catch (SQLException e) {
-            LOGGER.error("Database error during updating " + currentModel +
-                    " with message: " + e.getMessage());
+            LOGGER.error(DB_UPDATING_ERROR + currentModel + MESSAGE + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
     }
@@ -92,7 +90,7 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
             connection.setAutoCommit(false);
             User user = userDao.add(client);
             client.setId(user.getId());
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + INSERT));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT));
             fillPreparedStatement(preparedStatement, client);
             int rowInserted = preparedStatement.executeUpdate();
             connection.commit();
@@ -107,7 +105,7 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
         try {
             connection.setAutoCommit(false);
             userDao.update(client);
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + UPDATE));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + UPDATE));
             fillPreparedStatement(preparedStatement, client);
             preparedStatement.executeUpdate();
             connection.commit();

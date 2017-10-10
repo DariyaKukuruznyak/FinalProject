@@ -21,7 +21,7 @@ public class ChangeEventStatusCommand extends Command {
         String status = request.getParameter(STATUS);
         try {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
-                throw new ApplicationException("Access denied");
+                throw new ApplicationException(ACCESS_DENIED);
             }
             EventService eventService = serviceFactory.getEventService();
             switch (status) {
@@ -33,7 +33,7 @@ public class ChangeEventStatusCommand extends Command {
                     break;
                 case FINISHED_STATUS:
                     if (event.getTournament().getWinner() == null) {
-                        throw new ApplicationException("Result of tournament is unknown!");
+                        throw new ApplicationException(TOURNAMENT_RESULT_UNKNOWN);
                     }
                     event.setStatus(EventStatus.FINISHED);
                     eventService.finishEvent(event);
@@ -45,11 +45,11 @@ public class ChangeEventStatusCommand extends Command {
                     event.setSuspended(false);
                     break;
                 default:
-                    throw new ApplicationException("Unexpected request!");
+                    throw new ApplicationException(UNEXPECTED_REQUEST);
             }
             eventService.update(event);
             currentSession.setAttribute(EVENT, event);
-            currentSession.setAttribute(SUCCESS_MESSAGE, "Event has been " + status);
+            currentSession.setAttribute(SUCCESS_MESSAGE, EVENT_STATUS_CHANGED + status);
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());

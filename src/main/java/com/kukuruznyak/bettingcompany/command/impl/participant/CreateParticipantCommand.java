@@ -20,13 +20,13 @@ public class CreateParticipantCommand extends Command {
             participant = participantService.add(participant);
             HttpSession currentSession = request.getSession();
             currentSession.setAttribute(PARTICIPANT_ID, participant.getId());
-            currentSession.setAttribute(SUCCESS_MESSAGE, "Participant was created successfully");
-            LOGGER.info("Participant was created successfully");
+            currentSession.setAttribute(SUCCESS_MESSAGE, PARTICIPANT_CREATED_SUCCESSFULLY);
+            LOGGER.info(PARTICIPANT_CREATED_SUCCESSFULLY);
             TournamentService tournamentService = serviceFactory.getTournamentService();
             currentSession.setAttribute(TOURNAMENTS, tournamentService.getActiveTournament());
             currentSession.setAttribute(PARTICIPANT, participant);
         } else {
-            throw new ApplicationException("Invalid participant");
+            throw new ApplicationException(INCORRECT_PARTICIPANT);
         }
         return pagesResourceBundle.getString(EDIT_PARTICIPANT_PAGE);
     }

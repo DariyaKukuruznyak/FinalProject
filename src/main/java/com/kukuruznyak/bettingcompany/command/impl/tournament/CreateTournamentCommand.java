@@ -21,13 +21,13 @@ public class CreateTournamentCommand extends Command {
             TournamentService tournamentService = serviceFactory.getTournamentService();
             if (tournamentService.isValidParticipant(tournament)) {
                 tournamentService.add(tournament);
-                currentSession.setAttribute(SUCCESS_MESSAGE, "Tournament was created successfully");
-                LOGGER.error("Tournament was created successfully");
+                currentSession.setAttribute(SUCCESS_MESSAGE, TOURNAMENT_CREATED_SUCCESSFULLY);
+                LOGGER.error(TOURNAMENT_CREATED_SUCCESSFULLY);
                 request.getSession().setAttribute(TOURNAMENT, tournament);
                 ParticipantService participantService = serviceFactory.getParticipantService();
                 currentSession.setAttribute(PARTICIPANTS, participantService.getParticipants());
             } else {
-                throw new ApplicationException("Invalid tournament");
+                throw new ApplicationException(INCORRECT_TOURNAMENT);
             }
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());

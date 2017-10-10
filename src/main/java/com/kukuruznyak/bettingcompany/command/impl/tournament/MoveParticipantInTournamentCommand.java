@@ -37,7 +37,7 @@ public class MoveParticipantInTournamentCommand extends Command {
                 currentSession.setAttribute(PARTICIPANTS, participantService.getParticipants());
                 return pagesResourceBundle.getString(EDIT_TOURNAMENT_PAGE);
             default:
-                throw new ApplicationException("Unexpected request!");
+                throw new ApplicationException(UNEXPECTED_REQUEST);
         }
     }
 }

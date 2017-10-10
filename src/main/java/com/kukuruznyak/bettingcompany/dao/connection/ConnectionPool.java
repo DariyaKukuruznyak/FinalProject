@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import static com.kukuruznyak.bettingcompany.util.StringMessages.CONNECTION_POOL_INITIALIZED;
+import static com.kukuruznyak.bettingcompany.util.StringMessages.DB_INITIALIZATION_ERROR;
+
 public class ConnectionPool {
     private static ConnectionPool instance;
 
@@ -24,10 +27,10 @@ public class ConnectionPool {
     private ConnectionPool() {
         try {
             connectionPool = initializeDataSource();
-            LOGGER.info("Connection pool initialized");
+            LOGGER.info(CONNECTION_POOL_INITIALIZED);
         } catch (Exception e) {
-            LOGGER.error("Connection pool init error: " + e.getMessage());
-            throw new RuntimeException("Error in database connection initialization");
+            LOGGER.error(DB_INITIALIZATION_ERROR + e.getMessage());
+            throw new RuntimeException(DB_INITIALIZATION_ERROR + e.getMessage());
         }
     }
 

@@ -33,24 +33,24 @@ public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements Bet
 
     public Collection<BetItem> getAllByBetId(Long id) throws PersistenceException {
         return super.getAllByConstrain(
-                QUERIES.getString(currentModel + "." + SELECT_BY_BET_ID),
+                QUERIES.getString(currentModel + DELIMITER + SELECT_BY_BET_ID),
                 String.valueOf(id));
     }
 
     public Collection<BetItem> getAllByOutcomeId(Long id) throws PersistenceException {
         return super.getAllByConstrain(
-                QUERIES.getString(currentModel + "." + SELECT_BY_OUTCOME_ID),
+                QUERIES.getString(currentModel + DELIMITER + SELECT_BY_OUTCOME_ID),
                 String.valueOf(id));
     }
 
     @Override
     public BetItem getById(Long id) throws PersistenceException {
-        throw new PersistenceException("Unexpected request!");
+        throw new PersistenceException(UNEXPECTED_REQUEST);
     }
 
     @Override
     public Collection<BetItem> getAll() throws PersistenceException {
-        throw new PersistenceException("Unexpected request!");
+        throw new PersistenceException(UNEXPECTED_REQUEST);
     }
 
     @Override

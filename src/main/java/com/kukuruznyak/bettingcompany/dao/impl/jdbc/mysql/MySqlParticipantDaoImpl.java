@@ -6,7 +6,6 @@ import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactoryType;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
-import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.tournament.builder.ParticipantBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
@@ -42,18 +41,18 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
 
     @Override
     public void addTournament(Long participantId, Long tournamentId) {
-        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + "." + ADD_TOURNAMENT));
+        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ADD_TOURNAMENT));
     }
 
     @Override
     public void deleteTournament(Long participantId, Long tournamentId) {
-        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + "." + DELETE_TOURNAMENT));
+        updateLinkedTable(participantId, tournamentId, QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + DELETE_TOURNAMENT));
     }
 
     @Override
     public Collection<Participant> getParticipantsByTournament(Long id) throws PersistenceException {
         return super.getAllByConstrain(
-                QUERIES.getString(LINKED_TABLE_QUERY + "." + ALL_PARTICIPANTS_BY_TOURNAMENT),
+                QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ALL_PARTICIPANTS_BY_TOURNAMENT),
                 String.valueOf(id));
     }
 
@@ -93,7 +92,7 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
             preparedStatement.setLong(2, tournamentId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error("Database error during action with linked table with message: " + e.getMessage());
+            LOGGER.error(LINKED_TABLE_DB_ERROR + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
     }

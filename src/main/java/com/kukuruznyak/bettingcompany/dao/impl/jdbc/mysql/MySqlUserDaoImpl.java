@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     private static MySqlUserDaoImpl instance;
@@ -73,25 +71,25 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     @Override
     public Collection<User> getUsersByRole(String role) throws PersistenceException {
-        return getAllByConstrain(QUERIES.getString(currentModel + "." + SELECT_ALL_BY_ROLE), role);
+        return getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_BY_ROLE), role);
     }
 
     public User getByLogin(String login) throws PersistenceException {
         User user = null;
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.
-                    prepareStatement(QUERIES.getString(currentModel + "." + SELECT_BY_LOGIN));
+                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_LOGIN));
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 user = fillModel(resultSet);
             }
         } catch (SQLException e) {
-            LOGGER.error("Database error during selecting with message: " + e.getMessage());
+            LOGGER.error(DB_SELECTING_ERROR + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         if (user == null) {
-            LOGGER.info(currentModel + " with login = " + login + " is not found");
+            LOGGER.info(currentModel + NOT_FOUND);
         }
         return user;
     }
@@ -101,14 +99,14 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
         UserRole userRole = null;
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.
-                    prepareStatement(QUERIES.getString(currentModel + "." + SELECT_ROLE_BY_LOGIN));
+                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_ROLE_BY_LOGIN));
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 userRole = UserRole.valueOf(resultSet.getString("user_role"));
             }
         } catch (SQLException e) {
-            LOGGER.error("Database error during selecting with message: " + e.getMessage());
+            LOGGER.error(DB_SELECTING_ERROR + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         return userRole;

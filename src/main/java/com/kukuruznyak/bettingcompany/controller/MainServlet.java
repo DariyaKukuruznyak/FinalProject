@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import static com.kukuruznyak.bettingcompany.command.PageNameConstants.ERROR_PAGE;
 import static com.kukuruznyak.bettingcompany.command.RequestAttributeConstants.ERROR_MESSAGE;
 import static com.kukuruznyak.bettingcompany.command.RequestAttributeConstants.SUCCESS_MESSAGE;
+import static com.kukuruznyak.bettingcompany.util.StringMessages.NO_PAGE_IDENTIFIED;
 
 public class MainServlet extends HttpServlet {
     private static Logger LOGGER = Logger.getLogger(MainServlet.class);
@@ -41,7 +42,7 @@ public class MainServlet extends HttpServlet {
             Invoker commandInvoker = Invoker.getInstance();
             page = commandInvoker.invoke(request, response);
         } catch (RuntimeException e) {
-            LOGGER.error("Page isn't identified. URI: " + request.getRequestURI() + " Method: " + request.getMethod());
+            LOGGER.error(NO_PAGE_IDENTIFIED + request.getRequestURI());
             LOGGER.error(e.getMessage());
             request.getSession().setAttribute(ERROR_MESSAGE, e.getMessage());
             page = ResourceBundle.getBundle(PAGE_RESOURCE_BUNDLE).getString(ERROR_PAGE);

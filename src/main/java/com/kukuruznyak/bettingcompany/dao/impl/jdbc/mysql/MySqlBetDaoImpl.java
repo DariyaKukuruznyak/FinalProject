@@ -40,7 +40,7 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
     public Bet add(Bet bet) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + INSERT),
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT),
                     Statement.RETURN_GENERATED_KEYS);
             fillPreparedStatement(preparedStatement, bet);
             preparedStatement.executeUpdate();
@@ -54,9 +54,7 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
             }
             connection.commit();
         } catch (SQLException e) {
-
-            LOGGER.error("Database error during inserting " + currentModel +
-                    " with message: " + e.getMessage());
+            LOGGER.error(DB_INSERTING_ERROR + currentModel + MESSAGE + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         return bet;

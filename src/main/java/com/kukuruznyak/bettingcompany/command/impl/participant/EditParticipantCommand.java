@@ -22,13 +22,13 @@ public class EditParticipantCommand extends Command {
             participant = editParticipant(request, participant);
             if (participantService.isValidParticipant(participant)) {
                 participantService.update(participant);
-                LOGGER.info("Participant with id = " + participant.getId() + " updated.");
-                currentSession.setAttribute(SUCCESS_MESSAGE, "Participant was updated successfully.");
+                LOGGER.info(PARTICIPANT_UPDATED_SUCCESSFULLY + participant.getId());
+                currentSession.setAttribute(SUCCESS_MESSAGE, PARTICIPANT_UPDATED_SUCCESSFULLY);
                 currentSession.setAttribute(RequestAttributeConstants.PARTICIPANT, participant);
                 TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
                 currentSession.setAttribute(ACTIVE_TOURNAMENTS, tournamentService.getActiveTournament());
             } else {
-                throw new ApplicationException("Incorrect participant!");
+                throw new ApplicationException(INCORRECT_PARTICIPANT);
             }
             return pagesResourceBundle.getString(EDIT_PARTICIPANT_PAGE);
         } catch (ApplicationException e) {

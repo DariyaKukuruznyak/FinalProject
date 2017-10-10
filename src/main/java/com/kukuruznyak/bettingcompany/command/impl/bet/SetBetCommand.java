@@ -27,11 +27,11 @@ public class SetBetCommand extends Command {
                 return new GetLoginPageCommand().execute(request, response);
             }
             if (!authorizedUser.getUserRole().equals(UserRole.CLIENT)) {
-                throw new ApplicationException("Access denied");
+                throw new ApplicationException(ACCESS_DENIED);
             }
             Set<Outcome> collectedOutcomes = (Set<Outcome>) currentSession.getAttribute(COLLECTED_OUTCOMES);
             if (collectedOutcomes == null) {
-                throw new ApplicationException("Basket is empty.");
+                throw new ApplicationException(EMPTY_BASKET);
             }
             BigDecimal sumIn = new BigDecimal(currentSession.getAttribute(SUM).toString());
             Bet bet = new BetBuilder(authorizedUser, sumIn).build();
@@ -39,7 +39,7 @@ public class SetBetCommand extends Command {
             bet = betService.writeOutcomesIntoBet(bet, collectedOutcomes);
             betService.add(bet);
             currentSession.removeAttribute(COLLECTED_OUTCOMES);
-            currentSession.setAttribute(SUCCESS_MESSAGE, "Bet has been placed!");
+            currentSession.setAttribute(SUCCESS_MESSAGE, BET_PLACED);
             return pagesResourceBundle.getString(HOME_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());

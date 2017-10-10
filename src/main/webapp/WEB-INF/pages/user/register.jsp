@@ -55,10 +55,10 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="confirm-password" class="col-sm-4 col-form-label"><fmt:message key="confirm_passwors" bundle="${bundle}"/></label>
+            <label for="confirm-password" class="col-sm-4 col-form-label"><fmt:message key="confirm_password" bundle="${bundle}"/></label>
             <div class="col-sm-8">
                 <input type="password" name="confirmPassword" id="confirm-password" class="form-control"
-                       placeholder="<fmt:message key="confirm_passwors" bundle="${bundle}"/>"
+                       placeholder="<fmt:message key="confirm_password" bundle="${bundle}"/>"
                        required
                        pattern="(.{4,20})" maxlength="20" title="<fmt:message key="expected_symbols4_20" bundle="${bundle}"/>">
             </div>

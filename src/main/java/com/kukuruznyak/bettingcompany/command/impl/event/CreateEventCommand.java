@@ -22,11 +22,11 @@ public class CreateEventCommand extends Command {
         User authorizedUser = (User) currentSession.getAttribute(USER);
         try {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
-                throw new ApplicationException("Access denied");
+                throw new ApplicationException(ACCESS_DENIED);
             }
             Tournament tournament = (Tournament) currentSession.getAttribute(SELECTED_TOURNAMENT);
             if (tournament == null) {
-                throw new ApplicationException("No tournament selected.");
+                throw new ApplicationException(NO_TOURNAMENT_SELECTED);
             }
             Event event = new EventBuilder()
                     .buildBookmaker(authorizedUser)
@@ -36,11 +36,11 @@ public class CreateEventCommand extends Command {
             event = eventService.add(event);
             event = eventService.createMarket(event, MarketNames.WINNER);
             currentSession.setAttribute(EVENT, event);
-            currentSession.setAttribute(SUCCESS_MESSAGE, "Event was created successfully");
+            currentSession.setAttribute(SUCCESS_MESSAGE, EVENT_CREATED_SUCCESSFULLY);
             currentSession.setAttribute(LOCKED_STATUS, EventStatus.LOCKED);
             currentSession.setAttribute(INPROGRESS_STATUS, EventStatus.INPROGRESS);
             currentSession.removeAttribute(SELECTED_TOURNAMENT);
-            LOGGER.info("Event was created successfully");
+            LOGGER.info(EVENT_CREATED_SUCCESSFULLY);
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());

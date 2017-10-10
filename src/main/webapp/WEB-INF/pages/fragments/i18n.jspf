@@ -1,3 +1,3 @@
 <c:set var="language" value="${empty lang ? 'en_US' : lang}" />
 <fmt:setLocale value="${language}"/>
-<fmt:setBundle basename="/i18n/language" var="bundle"/>
+<fmt:setBundle basename="/i18n/web" var="bundle"/>

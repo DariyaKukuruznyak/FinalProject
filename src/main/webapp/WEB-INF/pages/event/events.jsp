@@ -11,7 +11,7 @@
             <h1><fmt:message key="events" bundle="${bundle}"/></h1>
         </div>
         <h3><a href="?command=addEvent"><span class="glyphicon glyphicon-plus"></span>
-            <fmt:message key="create_new_event" bundle="${bundle}"/></a></h3>
+            <fmt:message key="create_event" bundle="${bundle}"/></a></h3>
         <table class="table">
             <thead>
             <tr>

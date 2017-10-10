@@ -19,8 +19,8 @@ public class GetAddEventPageCommand extends Command {
         HttpSession currentSession = request.getSession();
         User authorizedUser = (User) currentSession.getAttribute(USER);
         if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
-            LOGGER.error("Access denied");
-            throw new ApplicationException("Access denied");
+            LOGGER.error(ACCESS_DENIED);
+            throw new ApplicationException(ACCESS_DENIED);
         }
         TournamentService tournamentService = serviceFactory.getTournamentService();
         Collection<Tournament> activeTournaments = tournamentService.getActiveTournament();

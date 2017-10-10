@@ -19,18 +19,18 @@ public class EditUserCommand extends Command {
             editedUser = editUser(request, editedUser);
             if (userService.isValidUser(editedUser)) {
                 userService.update(editedUser);
-                currentSession.setAttribute(SUCCESS_MESSAGE, "User was updated successfully.");
+                currentSession.setAttribute(SUCCESS_MESSAGE, USER_UPDATED_SUCCESSFULLY);
                 currentSession.setAttribute(EDITED_USER, editedUser);
-                LOGGER.info("User with id = " + editedUser.getId() + " updated.");
                 User authorizedUser = (User) currentSession.getAttribute(USER);
                 if (editedUser.getId().equals(authorizedUser.getId())) {
                     currentSession.setAttribute(USER, editedUser);
                 }
             } else {
-                throw new ApplicationException("Incorrect user!");
+                throw new ApplicationException(INCORRECT_USER);
             }
             return pagesResourceBundle.getString(EDIT_USER_PAGE);
         } catch (ApplicationException e) {
+
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             LOGGER.error(e.getMessage());
             return pagesResourceBundle.getString(EDIT_USER_PAGE);

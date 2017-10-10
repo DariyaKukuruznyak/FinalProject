@@ -21,10 +21,10 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     protected static final String UPDATE = "update";
     protected static final String DELETE = "delete";
     protected static final String ID_INDEX_IN_UPDATE = "idIndexInUpdate";
+    protected static final String DELIMITER = ".";
     protected String currentModel;
 
     public AbstractDaoImpl() {
-        System.out.println("AbstractDaoImpl");//TODO
     }
 
     public AbstractDaoImpl(String currentModel) {
@@ -34,19 +34,18 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     public T getById(Long id) throws PersistenceException {
         T model = null;
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + SELECT_BY_ID));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_ID));
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 model = fillModel(resultSet);
             }
         } catch (SQLException e) {
-            LOGGER.error("Database error during selecting " + currentModel +
-                    " with message: " + e.getMessage());
+            LOGGER.error(DB_SELECTING_ERROR + currentModel + MESSAGE + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         if (model == null) {
-            LOGGER.info(currentModel + " with id = " + id + " is not found");
+            LOGGER.info(currentModel + NOT_FOUND);
         }
         return model;
     }
@@ -55,13 +54,12 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         List<T> modelList = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERIES.getString(currentModel + "." + SELECT_ALL));
+            ResultSet resultSet = statement.executeQuery(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL));
             while (resultSet.next()) {
                 modelList.add(fillModel(resultSet));
             }
         } catch (SQLException e) {
-            LOGGER.error("Database error during selecting " + currentModel +
-                    " with message: " + e.getMessage());
+            LOGGER.error(DB_SELECTING_ERROR + currentModel + MESSAGE + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         return modelList;
@@ -79,19 +77,18 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
                 modelList.add(model);
             }
         } catch (SQLException e) {
-            LOGGER.error("Database error during selecting " + currentModel +
-                    " with message: " + e.getMessage());
+            LOGGER.error(DB_SELECTING_ERROR + currentModel + MESSAGE + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         if (model == null) {
-            LOGGER.info(currentModel + " with id = " + 5 + " is not found");
+            LOGGER.info(currentModel + NOT_FOUND);
         }
         return modelList;
     }
 
     public T add(T model) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + INSERT),
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT),
                     Statement.RETURN_GENERATED_KEYS);
             fillPreparedStatement(preparedStatement, model);
             preparedStatement.executeUpdate();
@@ -100,8 +97,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
                 model.setId(generatedKeys.getLong(1));
             }
         } catch (SQLException e) {
-            LOGGER.error("Database error during inserting " + currentModel +
-                    " with message: " + e.getMessage());
+            LOGGER.error(DB_INSERTING_ERROR + currentModel + MESSAGE + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         return model;
@@ -109,26 +105,24 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
 
     public void update(T model) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + UPDATE));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + UPDATE));
             fillPreparedStatement(preparedStatement, model);
-            preparedStatement.setLong(Integer.valueOf(QUERIES.getString(currentModel + "." + ID_INDEX_IN_UPDATE)), model.getId());
+            preparedStatement.setLong(Integer.valueOf(QUERIES.getString(currentModel +DELIMITER+ ID_INDEX_IN_UPDATE)), model.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error("Database error during updating " + currentModel +
-                    " with message: " + e.getMessage());
+            LOGGER.error(DB_UPDATING_ERROR + currentModel + MESSAGE + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
     }
 
     public void delete(Long id) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + "." + DELETE));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + DELETE));
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
-            LOGGER.error("Database error during removing " + currentModel + " with id = " + id +
-                    " with message: " + e.getMessage());
+            LOGGER.error(DB_REMOVING_ERROR + currentModel + MESSAGE + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
     }

@@ -1,11 +1,7 @@
 package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 
-import com.kukuruznyak.bettingcompany.dao.MarketDao;
 import com.kukuruznyak.bettingcompany.dao.OutcomeDao;
-import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
-import com.kukuruznyak.bettingcompany.dao.factory.DaoFactoryType;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
-import com.kukuruznyak.bettingcompany.entity.event.Market;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.OutcomeBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
@@ -18,7 +14,7 @@ import java.util.Collection;
 public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements OutcomeDao {
     private static MySqlOutcomeDaoImpl instance;
 
-    private static final String GET_EVENTS_BY_MARKET_ID="selectAllByMarketId";
+    private static final String GET_EVENTS_BY_MARKET_ID = "selectAllByMarketId";
 
     public static MySqlOutcomeDaoImpl getInstance() {
         if (instance == null) {
@@ -62,7 +58,7 @@ public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements Out
 
     @Override
     public Collection<Outcome> getAllByMarketId(Long marketId) {
-        return super.getAllByConstrain(QUERIES.getString(currentModel + "." + GET_EVENTS_BY_MARKET_ID),
+        return super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + GET_EVENTS_BY_MARKET_ID),
                 String.valueOf(marketId));
     }
 }

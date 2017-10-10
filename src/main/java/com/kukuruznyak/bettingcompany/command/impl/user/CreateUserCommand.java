@@ -18,14 +18,14 @@ public class CreateUserCommand extends Command {
         try {
             UserService userService = serviceFactory.getUserService();
             if (userService.getUserByLogin(request.getParameter(LOGIN)) != null) {
-                throw new ApplicationException("User with login '" + request.getParameter(LOGIN) + "' already exist!");
+                throw new ApplicationException(USER_EXIST + request.getParameter(LOGIN));
             }
             User user = fillUser(request);
             if (!userService.isValidUser(user)) {
-                throw new ApplicationException("Incorrect user!");
+                throw new ApplicationException(INCORRECT_USER);
             }
             userService.add(user);
-            currentSession.setAttribute(SUCCESS_MESSAGE, "New user was added successfully");
+            currentSession.setAttribute(SUCCESS_MESSAGE, USER_CREATED_SUCCESSFULLY);
             return pagesResourceBundle.getString(ADD_USER_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
