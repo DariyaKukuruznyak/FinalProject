@@ -16,7 +16,7 @@ public class ShowBetsCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
-        User currentUser = (User) currentSession.getAttribute("user");
+        User currentUser = (User) currentSession.getAttribute(USER);
         try {
             if (currentUser == null) {
                 throw new ApplicationException("Unexpected request!");
@@ -34,11 +34,11 @@ public class ShowBetsCommand extends Command {
                     throw new ApplicationException("Unexpected request!");
                 }
             }
-            currentSession.setAttribute("bets", bets);
-            return pagesResourceBundle.getString("bets");
+            currentSession.setAttribute(BETS, bets);
+            return pagesResourceBundle.getString(BETS);
         } catch (ApplicationException e) {
             LOGGER.error(e);
-            currentSession.setAttribute("errorMessage", e);
+            currentSession.setAttribute(ERROR_MESSAGE, e);
             return pagesResourceBundle.getString("home");
         }
     }

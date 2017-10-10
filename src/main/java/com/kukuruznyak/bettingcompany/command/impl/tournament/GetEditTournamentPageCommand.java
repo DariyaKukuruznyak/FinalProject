@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl.get;
+package com.kukuruznyak.bettingcompany.command.impl.tournament;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
@@ -14,11 +14,11 @@ public class GetEditTournamentPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         TournamentService tournamentService = serviceFactory.getTournamentService();
-        Tournament tournament = tournamentService.getById(request.getParameter("tournamentId"));
+        Tournament tournament = tournamentService.getById(request.getParameter(TOURNAMENT_ID));
         HttpSession currentSession = request.getSession();
-        currentSession.setAttribute("tournament", tournament);
+        currentSession.setAttribute(TOURNAMENT, tournament);
         ParticipantService participantService = serviceFactory.getParticipantService();
-        currentSession.setAttribute("participants", participantService.getParticipants());
+        currentSession.setAttribute(PARTICIPANTS, participantService.getParticipants());
         return pagesResourceBundle.getString("editTournament");
     }
 }

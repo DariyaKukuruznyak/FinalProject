@@ -1,14 +1,13 @@
-package com.kukuruznyak.bettingcompany.command.impl.get;
+package com.kukuruznyak.bettingcompany.command.impl.user.authorization;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GetAddParticipantPageCommand extends Command {
+public class GetRegisterPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        request.getSession().removeAttribute("participant");
-        return pagesResourceBundle.getString("addParticipant");
+        return pagesResourceBundle.getString("register");
     }
 }

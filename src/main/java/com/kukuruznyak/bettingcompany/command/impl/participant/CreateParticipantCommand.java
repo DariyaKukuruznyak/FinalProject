@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl.patricipant;
+package com.kukuruznyak.bettingcompany.command.impl.participant;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
@@ -6,7 +6,6 @@ import com.kukuruznyak.bettingcompany.entity.tournament.builder.ParticipantBuild
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ParticipantService;
 import com.kukuruznyak.bettingcompany.service.TournamentService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,16 +15,16 @@ public class CreateParticipantCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         Participant participant = fillParticipant(request);
-        ParticipantService participantService =serviceFactory.getParticipantService();
+        ParticipantService participantService = serviceFactory.getParticipantService();
         if (participantService.isValidParticipant(participant)) {
             participant = participantService.add(participant);
             HttpSession currentSession = request.getSession();
-            currentSession.setAttribute("participantId", participant.getId());
-            currentSession.setAttribute("successMessage", "Participant was created successfully");
+            currentSession.setAttribute(PARTICIPANT_ID, participant.getId());
+            currentSession.setAttribute(SUCCESS_MESSAGE, "Participant was created successfully");
             LOGGER.info("Participant was created successfully");
             TournamentService tournamentService = serviceFactory.getTournamentService();
-            currentSession.setAttribute("tournaments", tournamentService.getActiveTournament());
-            currentSession.setAttribute("participant", participant);
+            currentSession.setAttribute(TOURNAMENTS, tournamentService.getActiveTournament());
+            currentSession.setAttribute(PARTICIPANT, participant);
         } else {
             throw new ApplicationException("Invalid participant");
         }
@@ -34,11 +33,11 @@ public class CreateParticipantCommand extends Command {
 
     private Participant fillParticipant(HttpServletRequest request) {
         return new ParticipantBuilder()
-                .buildName(request.getParameter("name"))
-                .buildAge(Integer.valueOf(request.getParameter("age")))
-                .buildWeight(Integer.valueOf(request.getParameter("weight")))
-                .buildTrainer(request.getParameter("trainer"))
-                .buildJockey(request.getParameter("jockey"))
+                .buildName(request.getParameter(NAME))
+                .buildAge(Integer.valueOf(request.getParameter(AGE)))
+                .buildWeight(Integer.valueOf(request.getParameter(WEIGHT)))
+                .buildTrainer(request.getParameter(TRAINER))
+                .buildJockey(request.getParameter(JOCKEY))
                 .build();
     }
 }

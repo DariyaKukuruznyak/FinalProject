@@ -19,12 +19,12 @@ public class CreateEventCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
-        User authorizedUser = (User) currentSession.getAttribute("user");
+        User authorizedUser = (User) currentSession.getAttribute(USER);
         try {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
                 throw new ApplicationException("Access denied");
             }
-            Tournament tournament = (Tournament) currentSession.getAttribute("selectedTournament");
+            Tournament tournament = (Tournament) currentSession.getAttribute(SELECTED_TOURNAMENT);
             if (tournament == null) {
                 throw new ApplicationException("No tournament selected.");
             }
@@ -35,15 +35,15 @@ public class CreateEventCommand extends Command {
             EventService eventService = serviceFactory.getEventService();
             event = eventService.add(event);
             event = eventService.createMarket(event, MarketNames.WINNER);
-            currentSession.setAttribute("event", event);
-            currentSession.setAttribute("successMessage", "Event was created successfully");
-            currentSession.setAttribute("lockedStatus", EventStatus.LOCKED);
-            currentSession.setAttribute("inprogressStatus", EventStatus.INPROGRESS);
-            currentSession.removeAttribute("selectedTournament");
+            currentSession.setAttribute(EVENT, event);
+            currentSession.setAttribute(SUCCESS_MESSAGE, "Event was created successfully");
+            currentSession.setAttribute(LOCKED_STATUS, EventStatus.LOCKED);
+            currentSession.setAttribute(INPROGRESS_STATUS, EventStatus.INPROGRESS);
+            currentSession.removeAttribute(SELECTED_TOURNAMENT);
             LOGGER.info("Event was created successfully");
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
-            currentSession.setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
         }
         return pagesResourceBundle.getString("editEvent");
     }

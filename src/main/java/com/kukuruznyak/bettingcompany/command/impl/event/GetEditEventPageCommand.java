@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl.get;
+package com.kukuruznyak.bettingcompany.command.impl.event;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
@@ -14,11 +14,11 @@ public class GetEditEventPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         EventService eventService = serviceFactory.getEventService();
-        Event event = eventService.getById(request.getParameter("eventId"));
+        Event event = eventService.getById(request.getParameter(EVENT_ID));
         HttpSession currentSession = request.getSession();
-        currentSession.setAttribute("lockedStatus", EventStatus.LOCKED);
-        currentSession.setAttribute("inprogressStatus", EventStatus.INPROGRESS);
-        currentSession.setAttribute("event", event);
+        currentSession.setAttribute(LOCKED_STATUS, EventStatus.LOCKED);
+        currentSession.setAttribute(INPROGRESS_STATUS, EventStatus.INPROGRESS);
+        currentSession.setAttribute(EVENT, event);
         return pagesResourceBundle.getString("editEvent");
     }
 }

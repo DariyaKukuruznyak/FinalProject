@@ -11,7 +11,7 @@ public class DeleteTournamentCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         TournamentService tournamentService = serviceFactory.getTournamentService();
-        tournamentService.delete(request.getParameter("tournamentId"));
+        tournamentService.delete(request.getParameter(TOURNAMENT_ID));
         return new ShowTournamentsCommand().execute(request, response);
     }
 }

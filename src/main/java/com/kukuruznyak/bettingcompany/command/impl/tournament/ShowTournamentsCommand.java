@@ -14,7 +14,7 @@ public class ShowTournamentsCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         TournamentService tournamentService = serviceFactory.getTournamentService();
         Collection<Tournament> tournaments = tournamentService.getActiveTournament();
-        request.getSession().setAttribute("tournaments", tournaments);
+        request.getSession().setAttribute(TOURNAMENTS, tournaments);
         return pagesResourceBundle.getString("tournaments");
     }
 

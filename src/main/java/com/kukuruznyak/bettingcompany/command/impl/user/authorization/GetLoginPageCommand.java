@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl.get;
+package com.kukuruznyak.bettingcompany.command.impl.user.authorization;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 

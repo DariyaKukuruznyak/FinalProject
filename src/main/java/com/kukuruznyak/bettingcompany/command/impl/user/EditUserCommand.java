@@ -4,7 +4,6 @@ import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.UserService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,32 +15,32 @@ public class EditUserCommand extends Command {
         HttpSession currentSession = request.getSession();
         try {
             UserService userService = serviceFactory.getUserService();
-            User editedUser = userService.getUserById(request.getParameter("id"));
+            User editedUser = userService.getUserById(request.getParameter(ID));
             editedUser = editUser(request, editedUser);
             if (userService.isValidUser(editedUser)) {
                 userService.update(editedUser);
-                currentSession.setAttribute("successMessage", "User was updated successfully.");
-                currentSession.setAttribute("editedUser", editedUser);
+                currentSession.setAttribute(SUCCESS_MESSAGE, "User was updated successfully.");
+                currentSession.setAttribute(EDITED_USER, editedUser);
                 LOGGER.info("User with id = " + editedUser.getId() + " updated.");
-                User authorizedUser = (User) currentSession.getAttribute("user");
+                User authorizedUser = (User) currentSession.getAttribute(USER);
                 if (editedUser.getId().equals(authorizedUser.getId())) {
-                    currentSession.setAttribute("user", editedUser);
+                    currentSession.setAttribute(USER, editedUser);
                 }
             } else {
                 throw new ApplicationException("Incorrect user!");
             }
+            return pagesResourceBundle.getString("editUser");
         } catch (ApplicationException e) {
-            currentSession.setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             LOGGER.error(e.getMessage());
-        } finally {
             return pagesResourceBundle.getString("editUser");
         }
     }
 
     private User editUser(HttpServletRequest request, User user) {
-        user.setFirstName(request.getParameter("firstName"));
-        user.setLastName(request.getParameter("lastName"));
-        user.setEmail(request.getParameter("email"));
+        user.setFirstName(request.getParameter(FIRST_NAME));
+        user.setLastName(request.getParameter(LAST_NAME));
+        user.setEmail(request.getParameter(EMAIL));
         return user;
     }
 }

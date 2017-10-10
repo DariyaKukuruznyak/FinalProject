@@ -16,10 +16,10 @@ public class DeleteUserCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserService userService = serviceFactory.getUserService();
-        userService.delete(request.getParameter("id"));
+        userService.delete(request.getParameter(ID));
         Collection<?> users = null;
         HttpSession currentSession = request.getSession();
-        User authorizedUser = (User) currentSession.getAttribute("user");
+        User authorizedUser = (User) currentSession.getAttribute(USER);
         if (authorizedUser.getUserRole().equals(UserRole.ADMINISTRATOR)) {
             users = userService.getStaff();
         }
@@ -27,7 +27,7 @@ public class DeleteUserCommand extends Command {
             ClientService clientService = serviceFactory.getClientService();
             users = clientService.getAllClients();
         }
-        currentSession.setAttribute("users", users);
+        currentSession.setAttribute(USERS, users);
         return pagesResourceBundle.getString("userList");
     }
 }

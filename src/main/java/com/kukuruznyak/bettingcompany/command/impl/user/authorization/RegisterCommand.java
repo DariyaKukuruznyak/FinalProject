@@ -20,10 +20,10 @@ public class RegisterCommand extends Command {
         HttpSession currentSession = request.getSession();
         try {
             UserService userService = serviceFactory.getUserService();
-            if (userService.getUserByLogin(request.getParameter("login")) != null) {
-                throw new ApplicationException("User with login '" + request.getParameter("login") + "' already exist!");
+            if (userService.getUserByLogin(request.getParameter(LOGIN)) != null) {
+                throw new ApplicationException("User with login '" + request.getParameter(LOGIN) + "' already exist!");
             }
-            if (!request.getParameter("password").equals(request.getParameter("confirmPassword"))) {
+            if (!request.getParameter(PASSWORD).equals(request.getParameter(CONFIRM_PASSWORD))) {
                 throw new ApplicationException("Passwords are not equals!");
             }
             Client client = createClient(request);
@@ -32,11 +32,11 @@ public class RegisterCommand extends Command {
             }
             ClientService clientService = serviceFactory.getClientService();
             client = clientService.add(client);
-            currentSession.setAttribute("user", client);
+            currentSession.setAttribute(USER, client);
             LOGGER.info("New authorization " + client.getLogin() + " joined");
             return pagesResourceBundle.getString("home");
         } catch (ApplicationException e) {
-            currentSession.setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             LOGGER.error(e.getMessage());
             return pagesResourceBundle.getString("register");
         }
@@ -45,11 +45,11 @@ public class RegisterCommand extends Command {
 
     private Client createClient(HttpServletRequest request) {
         User user = new UserBuilder()
-                .buildFirstName(request.getParameter("firstName"))
-                .buildLastName(request.getParameter("lastName"))
-                .buildLogin(request.getParameter("login"))
-                .buildEmail(request.getParameter("email"))
-                .buildPassword(request.getParameter("password"))
+                .buildFirstName(request.getParameter(FIRST_NAME))
+                .buildLastName(request.getParameter(LAST_NAME))
+                .buildLogin(request.getParameter(LOGIN))
+                .buildEmail(request.getParameter(EMAIL))
+                .buildPassword(request.getParameter(PASSWORD))
                 .buildUserRole(UserRole.CLIENT)
                 .build();
         return new Client(user);

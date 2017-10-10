@@ -1,9 +1,9 @@
-package com.kukuruznyak.bettingcompany.command.impl.patricipant;
+package com.kukuruznyak.bettingcompany.command.impl.participant;
 
 import com.kukuruznyak.bettingcompany.command.Command;
+import com.kukuruznyak.bettingcompany.command.RequestAttributeConstants;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.service.ParticipantService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,7 @@ public class ShowParticipantsCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         ParticipantService participantService =serviceFactory.getParticipantService();
         Collection<Participant> participants = participantService.getParticipants();
-        request.getSession().setAttribute("participants", participants);
+        request.getSession().setAttribute(PARTICIPANTS, participants);
         return pagesResourceBundle.getString("participants");
     }
 }

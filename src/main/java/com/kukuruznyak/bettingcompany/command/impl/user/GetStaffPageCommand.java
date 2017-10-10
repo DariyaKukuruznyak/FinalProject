@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl.get;
+package com.kukuruznyak.bettingcompany.command.impl.user;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
@@ -16,14 +16,14 @@ public class GetStaffPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
-        User authorizedUser = (User) currentSession.getAttribute("user");
+        User authorizedUser = (User) currentSession.getAttribute(USER);
         if (authorizedUser == null || !authorizedUser.getUserRole().equals(UserRole.ADMINISTRATOR)) {
             LOGGER.error("Unexpected request!");
             throw new ApplicationException("Unexpected request!");
         }
         UserService userService = serviceFactory.getUserService();
         Collection<User> staff = userService.getStaff();
-        currentSession.setAttribute("users", staff);
+        currentSession.setAttribute(USERS, staff);
         return pagesResourceBundle.getString("userList");
     }
 }

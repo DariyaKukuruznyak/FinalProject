@@ -19,26 +19,26 @@ public class ApplyCoefficientCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
         try {
-            User authorizedUser = (User) currentSession.getAttribute("user");
+            User authorizedUser = (User) currentSession.getAttribute(USER);
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
                 throw new ApplicationException("Access denied");
             }
-            double coefficient = new Double(request.getParameter("coefficient"));
+            double coefficient = new Double(request.getParameter(COEFFICIENT));
             if (coefficient < 1) {
                 throw new ApplicationException("Forbidden coefficient");
             }
             OutcomeService outcomeService = serviceFactory.getOutcomeService();
-            Outcome outcome = outcomeService.getById(request.getParameter("outcomeId"));
+            Outcome outcome = outcomeService.getById(request.getParameter(OUTCOME_ID));
             outcome.setCoefficient(coefficient);
             outcomeService.update(outcome);
-            Event event = (Event) currentSession.getAttribute("event");
+            Event event = (Event) currentSession.getAttribute(EVENT);
             EventService eventService = serviceFactory.getEventService();
             event = eventService.getById(event.getId());
-            currentSession.setAttribute("event", event);
-            currentSession.setAttribute("successMessage", "Coefficient for outcome " + outcome.getName() + " has been changed successfully.");
+            currentSession.setAttribute(EVENT, event);
+            currentSession.setAttribute(SUCCESS_MESSAGE, "Coefficient for outcome " + outcome.getName() + " has been changed successfully.");
         } catch (ApplicationException | NumberFormatException e) {
             LOGGER.error(e.getMessage());
-            currentSession.setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
         }
         return pagesResourceBundle.getString("editEvent");
     }

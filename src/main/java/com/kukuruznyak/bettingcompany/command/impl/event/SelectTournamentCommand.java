@@ -12,8 +12,8 @@ public class SelectTournamentCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         TournamentService tournamentService = serviceFactory.getTournamentService();
-        Tournament selectedTournament = tournamentService.getById(request.getParameter("tournamentId"));
-        request.getSession().setAttribute("selectedTournament", selectedTournament);
+        Tournament selectedTournament = tournamentService.getById(request.getParameter(TOURNAMENT_ID));
+        request.getSession().setAttribute(SELECTED_TOURNAMENT, selectedTournament);
         return pagesResourceBundle.getString("addEvent");
     }
 }

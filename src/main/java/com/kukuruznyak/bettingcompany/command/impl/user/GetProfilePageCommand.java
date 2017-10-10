@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl.get;
+package com.kukuruznyak.bettingcompany.command.impl.user;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
@@ -14,17 +14,17 @@ public class GetProfilePageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         UserService userService = serviceFactory.getUserService();
-        User editedUser = userService.getUserById(request.getParameter("id"));
+        User editedUser = userService.getUserById(request.getParameter(ID));
         HttpSession currentSession = request.getSession();
         try {
             if (editedUser == null) {
                 throw new ApplicationException("Unexpected request!");
             }
-            currentSession.setAttribute("editedUser", editedUser);
+            currentSession.setAttribute(EDITED_USER, editedUser);
             return pagesResourceBundle.getString("editUser");
         } catch (ApplicationException e) {
             LOGGER.error(e);
-            currentSession.setAttribute("errorMessage", e);
+            currentSession.setAttribute(ERROR_MESSAGE, e);
             return pagesResourceBundle.getString("home");
         }
     }

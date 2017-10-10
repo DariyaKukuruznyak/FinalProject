@@ -1,4 +1,4 @@
-package com.kukuruznyak.bettingcompany.command.impl.get;
+package com.kukuruznyak.bettingcompany.command.impl.event;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
@@ -17,14 +17,14 @@ public class GetAddEventPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
-        User authorizedUser = (User) currentSession.getAttribute("user");
+        User authorizedUser = (User) currentSession.getAttribute(USER);
         if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
             LOGGER.error("Access denied");
             throw new ApplicationException("Access denied");
         }
         TournamentService tournamentService = serviceFactory.getTournamentService();
         Collection<Tournament> activeTournaments = tournamentService.getActiveTournament();
-        currentSession.setAttribute("tournaments", activeTournaments);
+        currentSession.setAttribute(TOURNAMENTS, activeTournaments);
         return pagesResourceBundle.getString("addEvent");
     }
 }

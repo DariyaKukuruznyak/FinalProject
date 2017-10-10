@@ -1,12 +1,11 @@
 package com.kukuruznyak.bettingcompany.command.impl.bet;
 
 import com.kukuruznyak.bettingcompany.command.Command;
-import com.kukuruznyak.bettingcompany.command.impl.get.GetLoginPageCommand;
+import com.kukuruznyak.bettingcompany.command.impl.user.authorization.GetLoginPageCommand;
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.bet.builder.BetBuilder;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 import com.kukuruznyak.bettingcompany.entity.user.Client;
-import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.BetService;
@@ -23,27 +22,27 @@ public class SetBetCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
         try {
-            Client authorizedUser = (Client) currentSession.getAttribute("user");
+            Client authorizedUser = (Client) currentSession.getAttribute(USER);
             if (authorizedUser == null) {
                 return new GetLoginPageCommand().execute(request, response);
             }
             if (!authorizedUser.getUserRole().equals(UserRole.CLIENT)) {
                 throw new ApplicationException("Access denied");
             }
-            Set<Outcome> collectedOutcomes = (Set<Outcome>) currentSession.getAttribute("collectedOutcomes");
+            Set<Outcome> collectedOutcomes = (Set<Outcome>) currentSession.getAttribute(COLLECTED_OUTCOMES);
             if (collectedOutcomes == null) {
                 throw new ApplicationException("Basket is empty.");
             }
-            BigDecimal sumIn = new BigDecimal(currentSession.getAttribute("sum").toString());
+            BigDecimal sumIn = new BigDecimal(currentSession.getAttribute(SUM).toString());
             Bet bet = new BetBuilder(authorizedUser, sumIn).build();
             BetService betService = serviceFactory.getBetService();
             bet = betService.writeOutcomesIntoBet(bet, collectedOutcomes);
             betService.add(bet);
-            currentSession.removeAttribute("collectedOutcomes");
-            currentSession.setAttribute("successMessage", "Bet has been placed!");
+            currentSession.removeAttribute(COLLECTED_OUTCOMES);
+            currentSession.setAttribute(SUCCESS_MESSAGE, "Bet has been placed!");
             return pagesResourceBundle.getString("home");
         } catch (ApplicationException e) {
-            currentSession.setAttribute("errorMessage", e.getMessage());
+            currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             return pagesResourceBundle.getString("home");
         }
     }

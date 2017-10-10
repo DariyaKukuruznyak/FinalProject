@@ -16,7 +16,7 @@ public class ShowEventsCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
-        User authorizedUser = (User) currentSession.getAttribute("user");
+        User authorizedUser = (User) currentSession.getAttribute(USER);
         Collection<Event> events;
         EventService eventService = serviceFactory.getEventService();
         if (authorizedUser != null && authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
@@ -24,7 +24,7 @@ public class ShowEventsCommand extends Command {
         } else {
             events = eventService.getAll();
         }
-        currentSession.setAttribute("events", events);
+        currentSession.setAttribute(EVENTS, events);
         return pagesResourceBundle.getString("events");
     }
 }

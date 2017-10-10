@@ -17,8 +17,8 @@ public class HomeCommand extends Command {
         HttpSession currentSession = request.getSession();
         EventService eventService = serviceFactory.getEventService();
         Collection<Event> activeEvents = eventService.getActiveEvens(EventStatus.INPROGRESS);
-        currentSession.setAttribute("activeEvents", activeEvents);
-        currentSession.setAttribute("selectedEvents", activeEvents);
+        currentSession.setAttribute(ACTIVE_EVENTS, activeEvents);
+        currentSession.setAttribute(SELECTED_EVENTS, activeEvents);
         return pagesResourceBundle.getString("home");
     }
 }

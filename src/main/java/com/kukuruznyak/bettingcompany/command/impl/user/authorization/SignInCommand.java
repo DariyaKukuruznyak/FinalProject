@@ -1,6 +1,7 @@
 package com.kukuruznyak.bettingcompany.command.impl.user.authorization;
 
 import com.kukuruznyak.bettingcompany.command.Command;
+import com.kukuruznyak.bettingcompany.command.RequestAttributeConstants;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.service.UserService;
@@ -13,20 +14,20 @@ import javax.servlet.http.HttpSession;
 public class SignInCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String login = request.getParameter("login");
+        String login = request.getParameter(LOGIN);
         UserService userService = serviceFactory.getUserService();
         HttpSession currentSession = request.getSession();
-        if (userService.isUserExist(login, request.getParameter("password"))) {
-            User user = userService.getUserByLogin(request.getParameter("login"));
-            currentSession.setAttribute("user", user);
+        if (userService.isUserExist(login, request.getParameter(PASSWORD))) {
+            User user = userService.getUserByLogin(request.getParameter(LOGIN));
+            currentSession.setAttribute(USER, user);
             LOGGER.info("User " + user.getLogin() + " signed in");
-            currentSession.setAttribute("adminRole", UserRole.ADMINISTRATOR);
-            currentSession.setAttribute("bookmakerRole", UserRole.BOOKMAKER);
-            currentSession.setAttribute("riskControllerRole", UserRole.RISK_CONTROLLER);
-            currentSession.setAttribute("clientRole", UserRole.CLIENT);
+            currentSession.setAttribute(RequestAttributeConstants.ADMIN_ROLE, UserRole.ADMINISTRATOR);
+            currentSession.setAttribute(BOOKMAKER_ROLE, UserRole.BOOKMAKER);
+            currentSession.setAttribute(RISK_CONTROLLER_ROLE, UserRole.RISK_CONTROLLER);
+            currentSession.setAttribute(CLIENT_ROLE, UserRole.CLIENT);
             return pagesResourceBundle.getString("home");
         } else {
-            currentSession.setAttribute("errorMessage", "Incorrect input! Try again.");
+            currentSession.setAttribute(ERROR_MESSAGE, "Incorrect input! Try again.");
             return pagesResourceBundle.getString("login");
         }
     }

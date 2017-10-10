@@ -11,19 +11,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MoveOutcomeCommand extends Command {
-    private static final String ADD_ACTION = "add";
-    private static final String REMOVE_ACTION = "remove";
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
-        Set<Outcome> collectedOutcomes = (Set<Outcome>) currentSession.getAttribute("collectedOutcomes");
+        Set<Outcome> collectedOutcomes = (Set<Outcome>) currentSession.getAttribute(COLLECTED_OUTCOMES);
         if (collectedOutcomes == null) {
             collectedOutcomes = new HashSet<>();
         }
         OutcomeService outcomeService = serviceFactory.getOutcomeService();
-        Outcome movedOutcome = outcomeService.getById(request.getParameter("outcomeId"));
-        String action = request.getParameter("action");
+        Outcome movedOutcome = outcomeService.getById(request.getParameter(OUTCOME_ID));
+        String action = request.getParameter(ACTION);
         if (movedOutcome != null) {
             if (action.equals(ADD_ACTION)) {
                 collectedOutcomes.add(movedOutcome);
@@ -37,8 +34,8 @@ public class MoveOutcomeCommand extends Command {
         for (Outcome outcome : collectedOutcomes) {
             totalCoefficient *= outcome.getCoefficient();
         }
-        currentSession.setAttribute("collectedOutcomes", collectedOutcomes);
-        currentSession.setAttribute("totalCoefficient", totalCoefficient);
+        currentSession.setAttribute(COLLECTED_OUTCOMES, collectedOutcomes);
+        currentSession.setAttribute(TOTAL_COEFFICIENT, totalCoefficient);
         return pagesResourceBundle.getString("home");
     }
 }
