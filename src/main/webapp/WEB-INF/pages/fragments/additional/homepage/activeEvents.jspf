@@ -1,6 +1,5 @@
 <ul class="list-group">
     <c:forEach items="${activeEvents}" var="event">
-
         <c:choose>
             <c:when test="${fn:contains(selectedEvents, event)}">
                 <li class="alert alert-info">
@@ -15,23 +14,5 @@
                 </li>
             </c:otherwise>
         </c:choose>
-        <a href=""></a>
-
     </c:forEach>
 </ul>
-
-<%--<ul class="list-group">--%>
-<%--<c:forEach items="${activeEvents}" var="event">--%>
-<%--<li class="list-group-item">--%>
-<%--<c:choose>--%>
-<%--<c:when test="${fn:contains(selectedEvents, event)}">--%>
-<%--<a href="?command=selectEvent&event_id=${event.id}" class="alert alert-info"></a>--%>
-<%--</c:when>--%>
-<%--<c:otherwise>--%>
-<%--<a href="?command=selectEvent&event_id=${event.id}"></a>--%>
-<%--</c:otherwise>--%>
-<%--</c:choose>--%>
-<%--<a href=""><label for="${event.id}">${event.tournament.fullName}</label></a>--%>
-<%--</li>--%>
-<%--</c:forEach>--%>
-<%--</ul>--%>

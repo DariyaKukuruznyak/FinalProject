@@ -1,6 +1,7 @@
 package com.kukuruznyak.bettingcompany.controller;
 
 import com.kukuruznyak.bettingcompany.command.Invoker;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -42,7 +43,7 @@ public class MainServlet extends HttpServlet {
             Invoker commandInvoker = Invoker.getInstance();
             page = commandInvoker.invoke(request, response);
         } catch (RuntimeException e) {
-            LOGGER.error(NO_PAGE_IDENTIFIED + request.getRequestURI());
+            LOGGER.error(StringMessages.getMessage(StringMessages.NO_PAGE_IDENTIFIED) + request.getRequestURI());
             LOGGER.error(e.getMessage());
             request.getSession().setAttribute(ERROR_MESSAGE, e.getMessage());
             page = ResourceBundle.getBundle(PAGE_RESOURCE_BUNDLE).getString(ERROR_PAGE);

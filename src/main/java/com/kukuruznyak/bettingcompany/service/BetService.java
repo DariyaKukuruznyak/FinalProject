@@ -2,14 +2,19 @@ package com.kukuruznyak.bettingcompany.service;
 
 import com.kukuruznyak.bettingcompany.dao.BetDao;
 import com.kukuruznyak.bettingcompany.dao.BetItemDao;
+import com.kukuruznyak.bettingcompany.dao.ClientDao;
+import com.kukuruznyak.bettingcompany.dao.EventDao;
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.bet.BetItem;
 import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
 import com.kukuruznyak.bettingcompany.entity.event.Market;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
+import com.kukuruznyak.bettingcompany.entity.user.Client;
 import com.kukuruznyak.bettingcompany.exception.ServiceException;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -33,11 +38,23 @@ public class BetService extends AbstractService {
     private BetService() {
     }
 
-    public Bet add(Bet bet) {
+    public boolean placeBet(Bet bet) {
         try {
             Connection connection = dataSource.getConnection();
             try {
                 connection.setAutoCommit(false);
+
+                BigDecimal sum = bet.getSumIn();
+
+                ClientDao clientDao = daoFactory.getClientDao(connection);
+                Client client = clientDao.getById(bet.getClientId());
+                if (client.getBalance().compareTo(sum) >= 0) {
+                    client.setBalance(client.getBalance().subtract(sum));
+                    clientDao.update(client);
+                } else {
+                    throw new ServiceException(StringMessages.getMessage(StringMessages.NOT_ENOUGH_MONEY));
+                }
+
                 BetDao betDao = daoFactory.getBetDao(connection);
                 bet = betDao.add(bet);
                 BetItemDao betItemDao = daoFactory.getBetItemDao(connection);
@@ -45,9 +62,22 @@ public class BetService extends AbstractService {
                     betItem.setBetId(bet.getId());
                     betItem.setId(betItemDao.add(betItem).getId());
                 }
+
+                EventDao eventDao = daoFactory.getEventDao(connection);
+                BigDecimal portion = sum.divide(new BigDecimal(bet.getItems().size()));
+                for (BetItem betItem : bet.getItems()) {
+                    Event event = eventDao.getByBetItemId(betItem.getId());
+                    if (event != null) {
+                        event.setTurnover(event.getTurnover().add(portion));
+                        eventDao.update(event);
+                    } else {
+                        throw new ServiceException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
+                    }
+                }
+
                 connection.commit();
-                return bet;
-            } catch (SQLException e) {
+                return true;
+            } catch (SQLException | ServiceException e) {
                 connection.rollback();
                 throw new ServiceException(e);
             } finally {

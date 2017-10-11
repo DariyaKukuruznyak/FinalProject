@@ -17,4 +17,8 @@ public class ServiceException extends RuntimeException {
     public ServiceException(SQLException e) {
 
     }
+
+    public ServiceException(Exception e) {
+
+    }
 }

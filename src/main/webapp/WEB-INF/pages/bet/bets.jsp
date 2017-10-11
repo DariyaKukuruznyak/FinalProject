@@ -15,13 +15,14 @@
             <tr>
                 <th><fmt:message key="date" bundle="${bundle}"/></th>
                 <th><fmt:message key="type" bundle="${bundle}"/></th>
-                <th><fmt:message key="market" bundle="${bundle}"/></th>
                 <th><fmt:message key="outcome" bundle="${bundle}"/></th>
                 <th><fmt:message key="coefficient" bundle="${bundle}"/></th>
+                <th><fmt:message key="result" bundle="${bundle}"/></th>
                 <th><fmt:message key="total_coefficient" bundle="${bundle}"/></th>
                 <th><fmt:message key="sum_in" bundle="${bundle}"/></th>
                 <th><fmt:message key="sum_out" bundle="${bundle}"/></th>
-                <th><fmt:message key="result" bundle="${bundle}"/></th>
+                <th><fmt:message key="bets" bundle="${bundle}"/>
+                    <fmt:message key="result" bundle="${bundle}"/></th>
                 <c:if test="${user.userRole!=clientRole}">
                     <th><fmt:message key="description" bundle="${bundle}"/></th>
                 </c:if>
@@ -35,14 +36,14 @@
                 <tr>
                     <td>${bet.date}</td>
                     <td>${bet.type}</td>
-                    <td><c:forEach items="${bet.outcomes}" var="outcome">
-                        <div>${outcome.market}</div>
+                    <td><c:forEach items="${bet.items}" var="item">
+                        <div>${item.name}</div>
                     </c:forEach></td>
-                    <td><c:forEach items="${bet.outcomes}" var="outcome">
-                        <div>${outcome.name}</div>
+                    <td><c:forEach items="${bet.items}" var="item">
+                        <div>${item.coefficient}</div>
                     </c:forEach></td>
-                    <td><c:forEach items="${bet.outcomes}" var="outcome">
-                        <div>${outcome.coefficient}</div>
+                    <td><c:forEach items="${bet.items}" var="item">
+                        <div>${item.result}</div>
                     </c:forEach></td>
                     <td>${bet.totalCoefficient}</td>
                     <td>${bet.sumIn}</td>
@@ -50,7 +51,9 @@
                     <td>${bet.result}</td>
                     <c:if test="${user.userRole!=clientRole}">
                         <td><textarea name="betDescription" cols="100" rows="3"></textarea>
-                            <a href="?command=editBetDescription&betId=${bet.id}"><fmt:message key="save" bundle="${bundle}"/></a></td>
+                            <a href="?command=editBetDescription&betId=${bet.id}"><fmt:message key="save"
+                                                                                               bundle="${bundle}"/></a>
+                        </td>
                     </c:if>
                     <c:if test="${user.userRole==riskControllerRole}">
                         <td><a class="btn btn-dangerous"

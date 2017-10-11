@@ -30,9 +30,8 @@
         <fieldset class="form-group row">
             <label class="col-sm-2" for="sum"><fmt:message key="sum" bundle="${bundle}"/></label>
             <div class="col-sm-4">
-                <input class="form-control" id="sum" name="sum"
-                       pattern="[0-9]*" title="Expected only integer." placeholder="Sum"
-                       required>
+                <input class="form-control" id="sum" name="sum" value="${sum}"
+                       pattern="[0-9]*" title="Expected only integer." placeholder="Sum" required>
             </div>
             <label class="col-sm-2" for="totalCoefficient"><fmt:message key="total_coefficient" bundle="${bundle}"/></label>
             <div class="col-sm-4">

@@ -17,6 +17,7 @@ public class BetItem extends Model {
         this.name = outcome.getName();
         this.coefficient = outcome.getCoefficient();
         this.outcomeId = outcome.getId();
+        this.result = ResultOfBet.UNKNOWN;
     }
 
     public String getName() {

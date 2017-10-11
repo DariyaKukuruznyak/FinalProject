@@ -10,6 +10,7 @@ public class StringMessages {
     public static final String ACCESS_DENIED = "access_denied";
     public static final String EMPTY_BASKET = "empty_basket";
     public static final String BET_PLACED = "bet_placed";
+    public static final String BET_NOT_PLACED= "bet_not_placed";
     public static final String UNEXPECTED_REQUEST = "unexpected_request";
     public static final String FORBIDDEN_COEFFICIENT = "forbidden_coefficient";
     public static final String COEFFICIENT_CHANGED_SUCCESSFULLY = "coefficient_changed_successfully";
@@ -34,6 +35,7 @@ public class StringMessages {
     public static final String INCORRECT_INPUT = "incorrect_input";
     public static final String NO_PAGE_IDENTIFIED = "no_page_identified";
     public static final String INCORRECT_USER_REQUEST = "incorrect_request";
+    public static final String NOT_ENOUGH_MONEY = "not_enough_money";
     /**
      * DataBase messages
      */

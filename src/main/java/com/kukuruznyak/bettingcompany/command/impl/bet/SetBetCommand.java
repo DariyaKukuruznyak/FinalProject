@@ -25,6 +25,7 @@ public class SetBetCommand extends Command {
         try {
             Client authorizedUser = (Client) currentSession.getAttribute(USER);
             if (authorizedUser == null) {
+                currentSession.setAttribute(SUM, request.getParameter(SUM));
                 return new GetLoginPageCommand().execute(request, response);
             }
             if (!authorizedUser.getUserRole().equals(UserRole.CLIENT)) {
@@ -34,14 +35,23 @@ public class SetBetCommand extends Command {
             if (collectedOutcomes == null) {
                 throw new ApplicationException(StringMessages.getMessage(StringMessages.EMPTY_BASKET));
             }
-            BigDecimal sumIn = new BigDecimal(currentSession.getAttribute(SUM).toString());
-            Bet bet = new BetBuilder(authorizedUser.getId(), sumIn).build();
+            BigDecimal sum;
+            try {
+                sum = new BigDecimal(request.getParameter(SUM));
+            } catch (Exception e) {
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.INCORRECT_INPUT));
+            }
+            Bet bet = new BetBuilder(authorizedUser.getId(), sum).build();
             BetService betService = serviceFactory.getBetService();
             bet = betService.writeOutcomesIntoBet(bet, collectedOutcomes);
-            betService.add(bet);
-            currentSession.removeAttribute(COLLECTED_OUTCOMES);
-            currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.BET_PLACED));
-            return pagesResourceBundle.getString(HOME_PAGE);
+            if (betService.placeBet(bet)) {
+                currentSession.removeAttribute(COLLECTED_OUTCOMES);
+                currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.BET_PLACED));
+                request.setAttribute(USER, serviceFactory.getClientService().getClientById(authorizedUser.getId()));
+                return pagesResourceBundle.getString(HOME_PAGE);
+            } else {
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.BET_NOT_PLACED));
+            }
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             return pagesResourceBundle.getString(HOME_PAGE);

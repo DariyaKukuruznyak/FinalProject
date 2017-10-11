@@ -32,23 +32,8 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     }
 
     public T getById(Long id) throws PersistenceException {
-        T model = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
-                QUERIES.getString(currentModel + DELIMITER + SELECT_BY_ID_QUERY))) {
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                model = fillModel(resultSet);
-            }
-        } catch (SQLException e) {
-            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + currentModel +
-                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
-            throw new PersistenceException(e.getMessage());
-        }
-        if (model == null) {
-            LOGGER.info(currentModel + StringMessages.getMessage(StringMessages.NOT_FOUND));
-        }
-        return model;
+        String query = currentModel + DELIMITER + SELECT_BY_ID_QUERY;
+        return getByConstrain(query, id);
     }
 
     public Collection<T> getAll() throws PersistenceException {
@@ -86,6 +71,25 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
             LOGGER.info(currentModel + StringMessages.getMessage(StringMessages.NOT_FOUND));
         }
         return modelList;
+    }
+
+    protected T getByConstrain(String query, Long constrain) throws PersistenceException {
+        T model = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(  QUERIES.getString(query))) {
+            preparedStatement.setLong(1, constrain);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                model = fillModel(resultSet);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
+            throw new PersistenceException(e.getMessage());
+        }
+        if (model == null) {
+            LOGGER.info(currentModel + StringMessages.getMessage(StringMessages.NOT_FOUND));
+        }
+        return model;
     }
 
     public T add(T model) throws PersistenceException {
