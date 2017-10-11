@@ -1,18 +1,19 @@
 package com.kukuruznyak.bettingcompany.dao.impl;
 
 import com.kukuruznyak.bettingcompany.dao.AbstractDao;
-import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
 import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 import com.kukuruznyak.bettingcompany.util.StringMessages;
 import org.apache.log4j.Logger;
 
-import javax.sql.DataSource;
 import java.sql.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.ResourceBundle;
 
 public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T> {
-    protected DataSource dataSource = ConnectionPool.getInstance().getConnectionPool();
+    protected final Connection connection;
+
     protected static final Logger LOGGER = Logger.getLogger(AbstractDaoImpl.class);
     protected static final ResourceBundle QUERIES = ResourceBundle.getBundle("queries");
 
@@ -25,17 +26,15 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     protected static final String DELIMITER = ".";
     protected String currentModel;
 
-    public AbstractDaoImpl() {
-    }
-
-    public AbstractDaoImpl(String currentModel) {
+    public AbstractDaoImpl(Connection connection, String currentModel) {
+        this.connection = connection;
         this.currentModel = currentModel;
     }
 
     public T getById(Long id) throws PersistenceException {
         T model = null;
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_ID_QUERY));
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                QUERIES.getString(currentModel + DELIMITER + SELECT_BY_ID_QUERY))) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -53,10 +52,10 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     }
 
     public Collection<T> getAll() throws PersistenceException {
-        List<T> modelList = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection()) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_QUERY));
+        Collection<T> modelList = new HashSet<>();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(
+                    QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_QUERY));
             while (resultSet.next()) {
                 modelList.add(fillModel(resultSet));
             }
@@ -69,10 +68,9 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     }
 
     protected Collection<T> getAllByConstrain(String query, String constrain) throws PersistenceException {
-        Set<T> modelList = new HashSet<>();
+        Collection<T> modelList = new HashSet<>();
         T model = null;
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, constrain);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -91,9 +89,9 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     }
 
     public T add(T model) throws PersistenceException {
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + INSERT_QUERY),
-                    Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                QUERIES.getString(currentModel + DELIMITER + INSERT_QUERY),
+                Statement.RETURN_GENERATED_KEYS)) {
             fillPreparedStatement(preparedStatement, model);
             preparedStatement.executeUpdate();
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -109,9 +107,8 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     }
 
     public void update(T model) throws PersistenceException {
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel +
-                    DELIMITER + UPDATE_QUERY));
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                QUERIES.getString(currentModel + DELIMITER + UPDATE_QUERY))) {
             fillPreparedStatement(preparedStatement, model);
             preparedStatement.setLong(Integer.valueOf(QUERIES.getString(currentModel +
                     DELIMITER + ID_INDEX_IN_UPDATE)), model.getId());
@@ -124,9 +121,8 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     }
 
     public void delete(Long id) throws PersistenceException {
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel +
-                    DELIMITER + DELETE_QUERY));
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel +
+                DELIMITER + DELETE_QUERY))) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();

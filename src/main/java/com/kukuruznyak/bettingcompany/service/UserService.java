@@ -5,11 +5,12 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ServiceException;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collection;
 
 public class UserService extends AbstractService {
     private static UserService instance;
-    private UserDao userDao = daoFactory.getUserDao();
 
     public static UserService getInstance() {
         if (instance == null) {
@@ -32,7 +33,14 @@ public class UserService extends AbstractService {
     }
 
     public User getUserByLogin(String login) {
-        return userDao.getByLogin(login);
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                UserDao userDao = daoFactory.getUserDao(connection);
+                return userDao.getByLogin(login);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public Collection<User> getStaff() {
@@ -67,30 +75,79 @@ public class UserService extends AbstractService {
     }
 
     public User add(User user) {
-        return userDao.add(user);
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                UserDao userDao = daoFactory.getUserDao(connection);
+                return userDao.add(user);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public User getUserById(String id) {
-        return userDao.getById(Long.valueOf(id));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                UserDao userDao = daoFactory.getUserDao(connection);
+                return userDao.getById(Long.valueOf(id));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public void update(User user) {
-        userDao.update(user);
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                UserDao userDao = daoFactory.getUserDao(connection);
+                userDao.update(user);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public void delete(String id) {
-        userDao.delete(Long.valueOf(id));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                UserDao userDao = daoFactory.getUserDao(connection);
+                userDao.delete(Long.valueOf(id));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     private Collection<User> getAllAdministrators() {
-        return userDao.getUsersByRole(UserRole.ADMINISTRATOR.toString());
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                UserDao userDao = daoFactory.getUserDao(connection);
+                return userDao.getUsersByRole(UserRole.ADMINISTRATOR.toString());
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     private Collection<User> getAllBookmakers() {
-        return userDao.getUsersByRole(UserRole.BOOKMAKER.toString());
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                UserDao userDao = daoFactory.getUserDao(connection);
+                return userDao.getUsersByRole(UserRole.BOOKMAKER.toString());
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     private Collection<User> getAllRiskControllers() {
-        return userDao.getUsersByRole(UserRole.RISK_CONTROLLER.toString());
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                UserDao userDao = daoFactory.getUserDao(connection);
+                return userDao.getUsersByRole(UserRole.RISK_CONTROLLER.toString());
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 }

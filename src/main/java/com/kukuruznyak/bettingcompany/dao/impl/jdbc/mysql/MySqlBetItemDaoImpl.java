@@ -7,13 +7,13 @@ import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 import com.kukuruznyak.bettingcompany.util.StringMessages;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
 public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements BetItemDao {
-    private static MySqlBetItemDaoImpl instance;
     private static final String SELECT_BY_BET_ID_QUERY = "selectByBetId";
     private static final String SELECT_BY_OUTCOME_ID_QUERY = "selectByOutcomeId";
 
@@ -24,19 +24,8 @@ public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements Bet
     private static final String OUTCOME_ID_COLUMN = "outcome_id";
     private static final String BET_ID_COLUMN = "bet_id";
 
-    public static MySqlBetItemDaoImpl getInstance() {
-        if (instance == null) {
-            synchronized (MySqlBetItemDaoImpl.class) {
-                if (instance == null) {
-                    instance = new MySqlBetItemDaoImpl();
-                }
-            }
-        }
-        return instance;
-    }
-
-    private MySqlBetItemDaoImpl() {
-        super(BetItem.class.getSimpleName());
+    public MySqlBetItemDaoImpl(Connection connection) {
+        super(connection, BetItem.class.getSimpleName());
     }
 
     public Collection<BetItem> getAllByBetId(Long id) throws PersistenceException {

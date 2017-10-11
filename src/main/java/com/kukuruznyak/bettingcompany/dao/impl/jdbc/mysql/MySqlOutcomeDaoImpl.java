@@ -6,13 +6,13 @@ import com.kukuruznyak.bettingcompany.entity.event.Outcome;
 import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.OutcomeBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
 public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements OutcomeDao {
-    private static MySqlOutcomeDaoImpl instance;
 
     private static final String GET_EVENTS_BY_MARKET_ID_QUERY = "selectAllByMarketId";
 
@@ -21,19 +21,8 @@ public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements Out
     private static final String COEFFICIENT_COLUMN = "coefficient";
     private static final String MARKET_COLUMN = "market_id";
 
-    public static MySqlOutcomeDaoImpl getInstance() {
-        if (instance == null) {
-            synchronized (MySqlOutcomeDaoImpl.class) {
-                if (instance == null) {
-                    instance = new MySqlOutcomeDaoImpl();
-                }
-            }
-        }
-        return instance;
-    }
-
-    private MySqlOutcomeDaoImpl() {
-        super(Outcome.class.getSimpleName());
+    public MySqlOutcomeDaoImpl(Connection connection) {
+        super(connection, Outcome.class.getSimpleName());
     }
 
     @Override

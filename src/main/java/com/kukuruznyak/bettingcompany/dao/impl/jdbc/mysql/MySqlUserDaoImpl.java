@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.Date;
 
 public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
-    private static MySqlUserDaoImpl instance;
 
     private static final String SELECT_BY_LOGIN_QUERY = "selectByLogin";
     private static final String SELECT_ALL_BY_ROLE_QUERY = "selectAllByRole";
@@ -31,19 +30,8 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     private static final String REGISTRATION_DATE_COLUMN = "date_of_registration";
     private static final String USER_ROLE_COLUMN = "user_role";
 
-    public static MySqlUserDaoImpl getInstance() {
-        if (instance == null) {
-            synchronized (MySqlUserDaoImpl.class) {
-                if (instance == null) {
-                    instance = new MySqlUserDaoImpl();
-                }
-            }
-        }
-        return instance;
-    }
-
-    private MySqlUserDaoImpl() {
-        super(User.class.getSimpleName());
+    public MySqlUserDaoImpl(Connection connection) {
+        super(connection, User.class.getSimpleName());
     }
 
     @Override
@@ -86,9 +74,8 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
     public User getByLogin(String login) throws PersistenceException {
         User user = null;
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.
-                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_LOGIN_QUERY));
+            try (PreparedStatement preparedStatement = connection.
+                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_LOGIN_QUERY))){
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -107,16 +94,15 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     @Override
     public UserRole getUserRoleByLogin(String login) {
         UserRole userRole = null;
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.
-                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_ROLE_BY_LOGIN_QUERY));
+            try ( PreparedStatement preparedStatement = connection.
+                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_ROLE_BY_LOGIN_QUERY))){
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 userRole = UserRole.valueOf(resultSet.getString(USER_ROLE_COLUMN));
             }
         } catch (SQLException e) {
-            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR )+ e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         return userRole;

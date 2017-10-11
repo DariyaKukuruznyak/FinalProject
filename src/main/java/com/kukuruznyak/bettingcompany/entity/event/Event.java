@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -15,6 +16,8 @@ public class Event extends Model {
     private EventStatus status;
     private User bookmaker;
     private boolean isSuspended;
+    private BigDecimal turnover;
+    private BigDecimal profit;
 
     public Event() {
 
@@ -85,6 +88,22 @@ public class Event extends Model {
         return numberOfBets;
     }
 
+    public BigDecimal getTurnover() {
+        return turnover;
+    }
+
+    public void setTurnover(BigDecimal turnover) {
+        this.turnover = turnover;
+    }
+
+    public BigDecimal getProfit() {
+        return profit;
+    }
+
+    public void setProfit(BigDecimal profit) {
+        this.profit = profit;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,7 +134,7 @@ public class Event extends Model {
                 "id=" + id +
                 ", creationDateAndTime=" + creationDateAndTime +
                 ", status=" + status +
-                ", bookmaker=" + bookmaker.getFullName() +
+                ", bookmakerId=" + bookmaker.getFullName() +
                 ", isSuspended=" + isSuspended +
                 '}';
     }

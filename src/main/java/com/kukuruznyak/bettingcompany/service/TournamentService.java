@@ -2,13 +2,14 @@ package com.kukuruznyak.bettingcompany.service;
 
 import com.kukuruznyak.bettingcompany.dao.TournamentDao;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
+import com.kukuruznyak.bettingcompany.exception.ServiceException;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
 
 public class TournamentService extends AbstractService {
     private static TournamentService instance;
-    private TournamentDao tournamentDao = daoFactory.getTournamentDao();
 
     public static TournamentService getInstance() {
         if (instance == null) {
@@ -25,7 +26,14 @@ public class TournamentService extends AbstractService {
     }
 
     public Collection<Tournament> getActiveTournament() {
-        return tournamentDao.getActiveTournaments();
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                return tournamentDao.getActiveTournaments();
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public boolean isValidParticipant(Tournament tournament) {
@@ -33,26 +41,68 @@ public class TournamentService extends AbstractService {
     }//T
 
     public void add(Tournament tournament) {
-        tournamentDao.add(tournament);
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                tournamentDao.add(tournament);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public Tournament getById(String tournamentId) {
-        return tournamentDao.getById(new Long(tournamentId));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                return tournamentDao.getById(new Long(tournamentId));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public void update(Tournament tournament) {
-        tournamentDao.update(tournament);
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                tournamentDao.update(tournament);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public void delete(String tournamentId) {
-        tournamentDao.delete(new Long(tournamentId));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                tournamentDao.delete(new Long(tournamentId));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public void excludeParticipant(String participantId, String tournamentId) {
-        tournamentDao.deleteParticipant(new Long(participantId), new Long(tournamentId));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                tournamentDao.deleteParticipant(new Long(participantId), new Long(tournamentId));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public void includeParticipant(String participantId, String tournamentId) {
-        tournamentDao.addParticipant(new Long(participantId), new Long(tournamentId));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                tournamentDao.addParticipant(new Long(participantId), new Long(tournamentId));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 }

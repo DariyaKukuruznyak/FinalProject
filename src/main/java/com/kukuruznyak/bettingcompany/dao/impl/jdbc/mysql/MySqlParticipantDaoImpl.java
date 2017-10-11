@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implements ParticipantDao {
-    private static MySqlParticipantDaoImpl instance;
 
     private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
     private static final String ADD_TOURNAMENT_QUERY = "addLink";
@@ -28,19 +27,8 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     private static final String TRAINER_COLUMN = "trainer";
     private static final String JOCKEY_COLUMN = "jockey";
 
-    public static MySqlParticipantDaoImpl getInstance() {
-        if (instance == null) {
-            synchronized (MySqlParticipantDaoImpl.class) {
-                if (instance == null) {
-                    instance = new MySqlParticipantDaoImpl();
-                }
-            }
-        }
-        return instance;
-    }
-
-    private MySqlParticipantDaoImpl() {
-        super(Participant.class.getSimpleName());
+    public MySqlParticipantDaoImpl(Connection connection) {
+        super(connection, Participant.class.getSimpleName());
     }
 
     @Override
@@ -92,13 +80,12 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     private void updateLinkedTable(Long participantId, Long tournamentId, String query) {
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, participantId);
             preparedStatement.setLong(2, tournamentId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(StringMessages.getMessage(StringMessages.LINKED_TABLE_DB_ERROR )+ e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.LINKED_TABLE_DB_ERROR) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
     }

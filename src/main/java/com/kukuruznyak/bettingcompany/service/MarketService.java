@@ -1,10 +1,9 @@
 package com.kukuruznyak.bettingcompany.service;
 
-import com.kukuruznyak.bettingcompany.dao.MarketDao;
+import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 
 public class MarketService extends AbstractService {
     private static MarketService instance;
-    private MarketDao marketDao = daoFactory.getMarketDao();
 
     public static MarketService getInstance() {
         if (instance == null) {
@@ -18,5 +17,9 @@ public class MarketService extends AbstractService {
     }
 
     private MarketService() {
+    }
+
+    public  boolean makeBet(Bet bet) {
+        return true;
     }
 }

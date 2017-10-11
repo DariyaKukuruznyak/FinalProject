@@ -2,13 +2,14 @@ package com.kukuruznyak.bettingcompany.service;
 
 import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
+import com.kukuruznyak.bettingcompany.exception.ServiceException;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
 
 public class ParticipantService extends AbstractService {
     private static ParticipantService instance;
-    private ParticipantDao participantDao = daoFactory.getParticipantDao();
 
     public static ParticipantService getInstance() {
         if (instance == null) {
@@ -25,19 +26,27 @@ public class ParticipantService extends AbstractService {
     }
 
     public Collection<Participant> getParticipants() {
-        return participantDao.getAll();
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                return participantDao.getAll();
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public boolean isValidParticipant(Participant participant) {
-        if (!participant.getName().matches(validationBundle.getString("name"))) {
+        String pattern = "([A-Za-zА-Яа-я'ЇїІі ]{1,20})";
+        if (!participant.getName().matches(pattern)) {
             participant.setName("");
             return false;
         }
-        if (!participant.getTrainer().matches(validationBundle.getString("name"))) {
+        if (!participant.getTrainer().matches(pattern)) {
             participant.setTrainer("");
             return false;
         }
-        if (!participant.getJockey().matches(validationBundle.getString("name"))) {
+        if (!participant.getJockey().matches(pattern)) {
             participant.setJockey("");
             return false;
         }
@@ -45,22 +54,57 @@ public class ParticipantService extends AbstractService {
     }
 
     public Participant add(Participant participant) {
-       return participantDao.add(participant);
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                return participantDao.add(participant);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public void delete(String participantId) {
-        participantDao.delete(new Long(participantId));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                participantDao.delete(new Long(participantId));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public Participant getParticipantById(String participantId) {
-        return participantDao.getById(new Long(participantId));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                return participantDao.getById(new Long(participantId));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public void update(Participant participant) {
-        participantDao.update(participant);
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                participantDao.update(participant);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public Participant getById(String participantId) {
-        return participantDao.getById(new Long(participantId));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                return participantDao.getById(new Long(participantId));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 }

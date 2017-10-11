@@ -2,10 +2,13 @@ package com.kukuruznyak.bettingcompany.service;
 
 import com.kukuruznyak.bettingcompany.dao.OutcomeDao;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
+import com.kukuruznyak.bettingcompany.exception.ServiceException;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class OutcomeService extends AbstractService {
     private static OutcomeService instance;
-    private OutcomeDao outcomeDao = daoFactory.getOutcomeDao();
 
     public static OutcomeService getInstance() {
         if (instance == null) {
@@ -22,10 +25,24 @@ public class OutcomeService extends AbstractService {
     }
 
     public void update(Outcome outcome) {
-        outcomeDao.update(outcome);
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                OutcomeDao outcomeDao = daoFactory.getOutcomeDao(connection);
+                outcomeDao.update(outcome);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public Outcome getById(String outcomeId) {
-        return outcomeDao.getById(new Long(outcomeId));
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                OutcomeDao outcomeDao = daoFactory.getOutcomeDao(connection);
+                return outcomeDao.getById(new Long(outcomeId));
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 }

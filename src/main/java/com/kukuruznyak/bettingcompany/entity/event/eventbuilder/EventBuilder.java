@@ -5,6 +5,7 @@ import com.kukuruznyak.bettingcompany.entity.event.EventStatus;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class EventBuilder {
@@ -14,6 +15,8 @@ public class EventBuilder {
     private User bookmaker;
     private EventStatus eventStatus = EventStatus.LOCKED;
     private boolean isSuspended = true;
+    private BigDecimal turnover = new BigDecimal(0);
+    private BigDecimal profit = new BigDecimal(0);
 
     public EventBuilder buildId(Long id) {
         this.id = id;
@@ -45,6 +48,16 @@ public class EventBuilder {
         return this;
     }
 
+    public EventBuilder buildTurnover(BigDecimal turnover) {
+        this.turnover = turnover;
+        return this;
+    }
+
+    public EventBuilder buildProfit(BigDecimal profit) {
+        this.profit = profit;
+        return this;
+    }
+
     public Event build() {
         Event event = new Event();
         event.setId(this.id);
@@ -53,6 +66,8 @@ public class EventBuilder {
         event.setBookmaker(this.bookmaker);
         event.setStatus(this.eventStatus);
         event.setSuspended(this.isSuspended);
+        event.setTurnover(this.turnover);
+        event.setProfit(this.profit);
         return event;
     }
 }

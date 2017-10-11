@@ -1,19 +1,23 @@
 package com.kukuruznyak.bettingcompany.service;
 
 import com.kukuruznyak.bettingcompany.dao.BetDao;
+import com.kukuruznyak.bettingcompany.dao.BetItemDao;
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.bet.BetItem;
 import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
+import com.kukuruznyak.bettingcompany.entity.event.Market;
 import com.kukuruznyak.bettingcompany.entity.event.Outcome;
+import com.kukuruznyak.bettingcompany.exception.ServiceException;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 public class BetService extends AbstractService {
     private static BetService instance;
-    private BetDao betDao = daoFactory.getBetDao();
 
     public static BetService getInstance() {
         if (instance == null) {
@@ -29,19 +33,88 @@ public class BetService extends AbstractService {
     private BetService() {
     }
 
-    public Collection<Bet> getBetByUser(Long clientId) {
-        return betDao.getByUserId(clientId);
+    public Bet add(Bet bet) {
+        try {
+            Connection connection = dataSource.getConnection();
+            try {
+                connection.setAutoCommit(false);
+                BetDao betDao = daoFactory.getBetDao(connection);
+                bet = betDao.add(bet);
+                BetItemDao betItemDao = daoFactory.getBetItemDao(connection);
+                for (BetItem betItem : bet.getItems()) {
+                    betItem.setBetId(bet.getId());
+                    betItem.setId(betItemDao.add(betItem).getId());
+                }
+                connection.commit();
+                return bet;
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new ServiceException(e);
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public void update(Bet bet) {
+        try {
+            Connection connection = dataSource.getConnection();
+            try {
+                connection.setAutoCommit(false);
+                BetDao betDao = daoFactory.getBetDao(connection);
+                betDao.update(bet);
+                BetItemDao betItemDao = daoFactory.getBetItemDao(connection);
+                for (BetItem betItem : bet.getItems()) {
+                    betItem.setBetId(bet.getId());
+                    betItemDao.update(betItem);
+                }
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public Collection<Bet> getBetsByClientId(Long clientId) {
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                BetDao betDao = daoFactory.getBetDao(connection);
+                Collection<Bet> bets = betDao.getByClientId(clientId);
+                BetItemDao betItemDao = daoFactory.getBetItemDao(connection);
+                for (Bet bet : bets) {
+                    bet.setItems(betItemDao.getAllByBetId(bet.getId()));
+                }
+                return bets;
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public Collection<Bet> getBetsByEvent(Event event) {
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                Collection<Bet> betsByEvent = new HashSet<>();
+                BetDao betDao = daoFactory.getBetDao(connection);
+                for (Market market : event.getMarkets()) {
+                    for (Outcome outcome : market.getOutcomes()) {
+                        betsByEvent.addAll(betDao.getByOutcomeId(outcome.getId()));
+                    }
+                }
+                return betsByEvent;
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public void calculateBets(Event event) {//TODO
-    }
-
-    public Collection<Bet> getAll() {
-        return betDao.getAll();
-    }
-
-    public void add(Bet bet) {
-        betDao.add(bet);
     }
 
     public Bet writeOutcomesIntoBet(Bet bet, Set<Outcome> collectedOutcomes) {

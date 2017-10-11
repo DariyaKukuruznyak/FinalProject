@@ -21,14 +21,14 @@ public class ShowBetsCommand extends Command {
             if (currentUser == null) {
                 throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
             }
-            Collection<Bet> bets;
+            Collection<Bet> bets=null;
             BetService betService = serviceFactory.getBetService();
             switch (currentUser.getUserRole()) {
                 case CLIENT:
-                    bets = betService.getBetByUser(currentUser.getId());
+                    bets = betService.getBetsByClientId(currentUser.getId());
                     break;
                 case RISK_CONTROLLER:
-                    bets = betService.getAll();
+//                    bets = betService.getAll();
                     break;
                 default: {
                     throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));

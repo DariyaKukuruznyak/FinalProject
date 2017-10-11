@@ -4,7 +4,6 @@ import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.bet.BetItem;
 import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
-import com.kukuruznyak.bettingcompany.entity.user.Client;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -12,7 +11,7 @@ import java.util.Date;
 
 public class BetBuilder {
     private Long id = null;
-    private Client client;
+    private Long clientId;
     private Date date = new Date();
     private BigDecimal sumIn;
     private BigDecimal sumOut = new BigDecimal(0);
@@ -25,8 +24,8 @@ public class BetBuilder {
     public BetBuilder() {
     }
 
-    public BetBuilder(Client client, BigDecimal sumIn) {
-        this.client = client;
+    public BetBuilder(Long clientId, BigDecimal sumIn) {
+        this.clientId = clientId;
         this.sumIn = sumIn;
     }
 
@@ -35,8 +34,8 @@ public class BetBuilder {
         return this;
     }
 
-    public BetBuilder buildClient(Client client) {
-        this.client = client;
+    public BetBuilder buildClientId(Long clientId) {
+        this.clientId = clientId;
         return this;
     }
 
@@ -75,15 +74,10 @@ public class BetBuilder {
         return this;
     }
 
-    public BetBuilder buildItems(Collection<BetItem> items) {
-        this.items = items;
-        return this;
-    }
-
     public Bet build() {
         Bet bet = new Bet();
         bet.setId(this.id);
-        bet.setClient(this.client);
+        bet.setClientId(this.clientId);
         bet.setDate(this.date);
         bet.setSumIn(this.sumIn);
         bet.setSumOut(this.sumOut);

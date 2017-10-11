@@ -3,6 +3,8 @@ package com.kukuruznyak.bettingcompany.dao.impl.jdbc.postgresql;
 import com.kukuruznyak.bettingcompany.dao.*;
 import com.kukuruznyak.bettingcompany.dao.factory.DaoFactory;
 
+import java.sql.Connection;
+
 public class PostgreSqlDAOFactory extends DaoFactory {
     private static PostgreSqlDAOFactory instance;
 
@@ -20,49 +22,48 @@ public class PostgreSqlDAOFactory extends DaoFactory {
     private PostgreSqlDAOFactory() {
     }
 
-
     @Override
-    public BetDao getBetDao() {
+    public BetDao getBetDao(Connection connection) {
         return null;
     }
 
     @Override
-    public BetItemDao getBetItemDao() {
+    public BetItemDao getBetItemDao(Connection connection) {
         return null;
     }
 
     @Override
-    public TournamentDao getTournamentDao() {
+    public TournamentDao getTournamentDao(Connection connection) {
         return null;
     }
 
     @Override
-    public ClientDao getClientDao() {
+    public ClientDao getClientDao(Connection connection) {
         return null;
     }
 
     @Override
-    public UserDao getUserDao() {
+    public UserDao getUserDao(Connection connection) {
         return null;
     }
 
     @Override
-    public EventDao getEventDao() {
+    public EventDao getEventDao(Connection connection) {
         return null;
     }
 
     @Override
-    public MarketDao getMarketDao() {
+    public MarketDao getMarketDao(Connection connection) {
         return null;
     }
 
     @Override
-    public OutcomeDao getOutcomeDao() {
+    public OutcomeDao getOutcomeDao(Connection connection) {
         return null;
     }
 
     @Override
-    public ParticipantDao getParticipantDao() {
+    public ParticipantDao getParticipantDao(Connection connection) {
         return null;
     }
 }

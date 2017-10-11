@@ -35,7 +35,7 @@ public class SetBetCommand extends Command {
                 throw new ApplicationException(StringMessages.getMessage(StringMessages.EMPTY_BASKET));
             }
             BigDecimal sumIn = new BigDecimal(currentSession.getAttribute(SUM).toString());
-            Bet bet = new BetBuilder(authorizedUser, sumIn).build();
+            Bet bet = new BetBuilder(authorizedUser.getId(), sumIn).build();
             BetService betService = serviceFactory.getBetService();
             bet = betService.writeOutcomesIntoBet(bet, collectedOutcomes);
             betService.add(bet);
