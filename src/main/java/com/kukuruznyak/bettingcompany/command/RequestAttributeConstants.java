@@ -49,6 +49,8 @@ public interface RequestAttributeConstants {
     String FIRST_NAME = "firstName";
     String LAST_NAME = "lastName";
     String EMAIL = "email";
+    String MAX_BET = "maxBet";
+    String DESCRIPTION = "description";
     String SUM = "sum";
     String ADMIN_ROLE = "adminRole";
     String RISK_CONTROLLER_ROLE = "riskControllerRole";

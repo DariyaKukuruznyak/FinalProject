@@ -1,4 +1,4 @@
+<li><a href="?command=profile"><span class="glyphicon glyphicon-wrench"></span> ${user.fullName} </a></li>
 <li><a href="?command=betsHistory&clientId=${user.id}"><span class="glyphicon glyphicon-list-alt"></span>
     <fmt:message key="history" bundle="${bundle}"/></a></li>
-
 

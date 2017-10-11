@@ -4,7 +4,7 @@
 <body>
 <%@include file="fragments/header.jspf" %>
 <div class="container">
-${errorMessage}
+<fmt:message key="error" bundle="${bundle}"/>
 </div>
 <%@include file="fragments/footer.jspf" %>
 </body>

@@ -16,6 +16,7 @@ public interface PageNameConstants {
     String REGISTER_PAGE = "registerPage";
     String ADD_USER_PAGE = "addUserPage";
     String EDIT_USER_PAGE = "editUserPage";
+    String EDIT_PROFILE_PAGE = "editProfilePage";
     String USER_LIST_PAGE = "userListPage";
     String ERROR_PAGE = "errorPage";
 }

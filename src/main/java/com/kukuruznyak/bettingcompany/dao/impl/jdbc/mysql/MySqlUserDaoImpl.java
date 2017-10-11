@@ -105,7 +105,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public UserRole getUSerRoleByLogin(String login) {
+    public UserRole getUserRoleByLogin(String login) {
         UserRole userRole = null;
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.

@@ -43,11 +43,11 @@ public class UserService extends AbstractService {
     }
 
     public boolean isValidUser(User user) {
-        if (!user.getFirstName().matches("([A-Za-zА-Яа-я'ЇїІі ]+)")) {
+        if (!user.getFirstName().matches("([A-Za-zА-Яа-я'ЇїІі ]{1,20})")) {
             user.setFirstName("");
             return false;
         }
-        if (!user.getLastName().matches("([A-Za-z' ]+)|([А-Яа-я'iї ]+)")) {
+        if (!user.getLastName().matches("([A-Za-zА-Яа-я'ЇїІі ]{1,20})")) {
             user.setLastName("");
             return false;
         }

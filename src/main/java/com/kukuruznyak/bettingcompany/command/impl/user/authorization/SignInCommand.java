@@ -2,9 +2,11 @@ package com.kukuruznyak.bettingcompany.command.impl.user.authorization;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.command.RequestAttributeConstants;
+import com.kukuruznyak.bettingcompany.entity.user.Client;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.service.UserService;
+import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +20,14 @@ public class SignInCommand extends Command {
         UserService userService = serviceFactory.getUserService();
         HttpSession currentSession = request.getSession();
         if (userService.isUserExist(login, request.getParameter(PASSWORD))) {
-            User user = userService.getUserByLogin(request.getParameter(LOGIN));
-            currentSession.setAttribute(USER, user);
-            LOGGER.info(StringMessages.getMessage(StringMessages.getMessage(StringMessages.USER_SIGNED_IN)) + user.getLogin());
+            User user = userService.getUserByLogin(login);
+            if (user.getUserRole().equals(UserRole.CLIENT)) {
+                Client client = ServiceFactory.getInstance().getClientService().getClientById(user.getId());
+                currentSession.setAttribute(USER, client);
+            } else {
+                currentSession.setAttribute(USER, user);
+            }
+            LOGGER.info(StringMessages.getMessage(StringMessages.USER_SIGNED_IN) + login);
             currentSession.setAttribute(RequestAttributeConstants.ADMIN_ROLE, UserRole.ADMINISTRATOR);
             currentSession.setAttribute(BOOKMAKER_ROLE, UserRole.BOOKMAKER);
             currentSession.setAttribute(RISK_CONTROLLER_ROLE, UserRole.RISK_CONTROLLER);

@@ -12,5 +12,5 @@ public interface UserDao extends AbstractDao<User> {
 
     User getByLogin(String login)throws PersistenceException;
 
-    UserRole getUSerRoleByLogin(String login);
+    UserRole getUserRoleByLogin(String login);
 }

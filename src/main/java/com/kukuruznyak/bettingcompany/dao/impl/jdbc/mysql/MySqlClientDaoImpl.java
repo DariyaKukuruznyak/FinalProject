@@ -55,7 +55,7 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
         try (Connection connection = dataSource.getConnection()) {
             updateClient(connection, client);
         } catch (SQLException e) {
-            LOGGER.error(StringMessages.getMessage(StringMessages.DB_UPDATING_ERROR )+ currentModel +
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_UPDATING_ERROR) + currentModel +
                     StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }

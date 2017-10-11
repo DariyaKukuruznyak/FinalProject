@@ -43,8 +43,10 @@ public class Invoker {
         commandMap.put("register", new GetRegisterPageCommand());
         commandMap.put("join", new RegisterCommand());
         commandMap.put("logout", new LogoutCommand());
+        commandMap.put("userProfile", new GetEditUserPageCommand());
         commandMap.put("profile", new GetProfilePageCommand());
         commandMap.put("editUser", new EditUserCommand());
+        commandMap.put("editProfile", new EditProfileCommand());
         commandMap.put("users", new GetStaffPageCommand());
         commandMap.put("deleteUser", new DeleteUserCommand());
         commandMap.put("addUser", new GetAddUserPageCommand());

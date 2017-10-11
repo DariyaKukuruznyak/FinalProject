@@ -5,7 +5,7 @@ import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 
 import java.util.Date;
 
-public class UserBuilder {
+public class UserBuilder{
     private Long id = null;
     private String firstName;
     private String lastName;

@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Client extends User {
+public class Client extends User implements RegistrationBonus {
     private int maxBet;
-    private BigDecimal balance;
+    private BigDecimal balance = REGISTRATION_BONUS;
     private Set<Bet> bets;
     private String description;
 
@@ -17,8 +17,6 @@ public class Client extends User {
 
     public Client(User user) {
         super(user);
-        this.maxBet = 500;//TODO extract ot interface
-        this.balance = new BigDecimal(100);
     }
 
     public int getMaxBet() {

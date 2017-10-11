@@ -10,7 +10,8 @@
         <ul class="nav navbar-nav navbar-right">
             <c:choose>
                 <c:when test="${not empty user}">
-                    <li><a><span class="glyphicon glyphicon-user"></span> <fmt:message key="signed_in_as" bundle="${bundle}"/> ${user.stringUserRole} </a>
+                    <li><a><span class="glyphicon glyphicon-user"></span>
+                        <fmt:message key="signed_in_as" bundle="${bundle}"/> ${user.stringUserRole} </a>
                     </li>
                     <c:choose>
                         <c:when test="${user.userRole==adminRole}">
@@ -26,9 +27,7 @@
                             <%@include file="additional/menu/clientMenu.jspf" %>
                         </c:when>
                     </c:choose>
-                    <li><a href="?command=profile&id=${user.id}"><span
-                            class="glyphicon glyphicon-wrench"></span> ${user.fullName} </a></li>
-                    <li><a href="?command=logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="?command=logout"><span class="glyphicon glyphicon-log-out"></span> <fmt:message key="logout" bundle="${bundle}"/> </a></li>
                 </c:when>
                 <c:otherwise>
                     <li><a href="?command=login"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="sign_in" bundle="${bundle}"/></a></li>

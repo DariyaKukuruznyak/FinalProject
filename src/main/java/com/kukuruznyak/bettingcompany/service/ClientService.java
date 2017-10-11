@@ -33,8 +33,8 @@ public class ClientService extends AbstractService {
         return clientDao.add(client);
     }
 
-    public Client getClientById(String id) {
-        return clientDao.getById(Long.valueOf(id));
+    public Client getClientById(Long id) {
+        return clientDao.getById(id);
     }
 
     public void update(Client client) {
