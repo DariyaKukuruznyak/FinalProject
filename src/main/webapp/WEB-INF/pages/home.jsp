@@ -11,8 +11,10 @@
                     <div class="panel-heading"><h3><fmt:message key="events" bundle="${bundle}"/>
                         <span class="badge">${fn:length(activeEvents)}</span></h3></div>
                     <div class="panel-body">
-                        <div><a><fmt:message key="select_all" bundle="${bundle}"/></a></div>
-                        <div><a><fmt:message key="clear_selection" bundle="${bundle}"/></a></div>
+                        <div><a href="?command=moveAllEvents&action=include">
+                            <fmt:message key="select_all" bundle="${bundle}"/></a></div>
+                        <div><a href="?command=moveAllEvents&action=exclude">
+                            <fmt:message key="clear_selection" bundle="${bundle}"/></a></div>
                         <%@include file="fragments/additional/homepage/activeEvents.jspf" %>
                     </div>
                 </div>

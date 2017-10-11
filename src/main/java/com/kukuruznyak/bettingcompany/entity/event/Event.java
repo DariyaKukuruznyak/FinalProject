@@ -15,6 +15,7 @@ public class Event extends Model {
     private EventStatus status;
     private User bookmaker;
     private boolean isSuspended;
+
     public Event() {
 
     }
@@ -75,14 +76,13 @@ public class Event extends Model {
     }
 
     public int getNumberOfBets() {
-//        int numberOfBets = 0;
-//        for (Market market : this.markets) {
-//            for (Outcome outcome : market.getOutcomes()) {
-//                numberOfBets += outcome.getBets().size();
-//            }
-//        }
-//        return numberOfBets;
-        return 50;//TODO
+        int numberOfBets = 0;
+        for (Market market : this.markets) {
+            for (Outcome outcome : market.getOutcomes()) {
+                numberOfBets += outcome.getBets().size();
+            }
+        }
+        return numberOfBets;
     }
 
     @Override

@@ -46,6 +46,8 @@ public class Invoker {
         commandMap.put("addEvent", new GetAddEventPageCommand());
         commandMap.put("createEvent", new CreateEventCommand());
         commandMap.put("editEvent", new GetEditEventPageCommand());
+        commandMap.put("moveEvent", new MoveEventCommand());
+        commandMap.put("moveAllEvents", new MoveAllEventsCommand());
         commandMap.put("changeStatus", new ChangeEventStatusCommand());
         commandMap.put("applyCoefficient", new ApplyCoefficientCommand());
 

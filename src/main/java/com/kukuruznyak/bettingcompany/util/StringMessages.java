@@ -30,6 +30,7 @@ public interface StringMessages {
     String CLIENT_JOINED = "client_joined";
     String INCORRECT_INPUT = "incorrect_input";
     String NO_PAGE_IDENTIFIED = "no_page_identified";
+    String INCORRECT_USER_REQUEST = "incorrect_request";
     /**
      * DataBase messages
      */

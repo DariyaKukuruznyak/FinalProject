@@ -95,7 +95,7 @@ public class EventService extends AbstractService {
         betService.calculateBets(event);
     }
 
-    public Collection<Event> getActiveEvens(EventStatus status) {
+    public Collection<Event> getEvensByStatus(EventStatus status) {
         return eventDao.getAllByStatus(status);
     }
 }
