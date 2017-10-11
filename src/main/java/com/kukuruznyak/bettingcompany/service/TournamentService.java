@@ -25,12 +25,12 @@ public class TournamentService extends AbstractService {
     }
 
     public Collection<Tournament> getActiveTournament() {
-        return tournamentDao.getAll(); //TODO
+        return tournamentDao.getActiveTournaments();
     }
 
     public boolean isValidParticipant(Tournament tournament) {
         return true;
-    }
+    }//T
 
     public void add(Tournament tournament) {
         tournamentDao.add(tournament);

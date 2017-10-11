@@ -15,7 +15,7 @@ import java.util.Collection;
 
 public class GetAddEventPageCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response)throws ApplicationException {
         HttpSession currentSession = request.getSession();
         User authorizedUser = (User) currentSession.getAttribute(USER);
         if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {

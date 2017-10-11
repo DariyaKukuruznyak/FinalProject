@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Date;
 
 public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implements TournamentDao {
     private static MySqlTournamentDaoImpl instance;
@@ -21,6 +22,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
 
     private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
     private static final String ALL_TOURNAMENT_BY_PARTICIPANTS_QUERY = "getTournaments";
+    private static final String ALL_ACTIVE_TOURNAMENTS_QUERY = "selectActiveTournaments";
 
     private static final String ID_COLUMN = "id";
     private static final String NAME_COLUMN = "name";
@@ -100,7 +102,14 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     @Override
     public Collection<Tournament> getTournamentsByParticipant(Long id) throws PersistenceException {
         return super.getAllByConstrain(
-                QUERIES.getString(LINKED_TABLE_QUERY +DELIMITER + ALL_TOURNAMENT_BY_PARTICIPANTS_QUERY),
+                QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ALL_TOURNAMENT_BY_PARTICIPANTS_QUERY),
                 String.valueOf(id));
+    }
+
+    @Override
+    public Collection<Tournament> getActiveTournaments() throws PersistenceException {
+        return super.getAllByConstrain(
+                QUERIES.getString(currentModel + DELIMITER + ALL_ACTIVE_TOURNAMENTS_QUERY),
+                String.valueOf(new java.sql.Date(new Date().getTime())));
     }
 }

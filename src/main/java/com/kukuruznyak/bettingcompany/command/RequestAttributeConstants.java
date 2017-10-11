@@ -18,11 +18,11 @@ public interface RequestAttributeConstants {
     String BETS = "bets";
     String OUTCOME_ID = "outcomeId";
     String EVENT = "event";
-    String INPROGRESS_STATUS = "inprogress";
-    String FINISHED_STATUS = "finished";
-    String SUSPEND_STATUS = "suspend";
-    String ACTIVATE_STATUS = "activate";
-    String LOCKED_STATUS = "locked";
+    String INPROGRESS_STATUS = "inprogressStatus";
+    String FINISHED_STATUS = "finishedStatus";
+    String SUSPEND_STATUS = "suspendStatus";
+    String ACTIVATE_STATUS = "activateStatus";
+    String LOCKED_STATUS = "lockedStatus";
     String STATUS = "status";
     String SELECTED_TOURNAMENT = "selectedTournament";
     String ACTIVE_TOURNAMENTS = "activeTournaments";
