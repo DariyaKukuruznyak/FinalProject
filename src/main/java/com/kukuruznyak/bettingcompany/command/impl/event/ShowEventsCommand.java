@@ -5,7 +5,6 @@ import com.kukuruznyak.bettingcompany.entity.event.Event;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.service.EventService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,14 +16,11 @@ public class ShowEventsCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
         User authorizedUser = (User) currentSession.getAttribute(USER);
-        Collection<Event> events;
         EventService eventService = serviceFactory.getEventService();
         if (authorizedUser != null && authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
-            events = eventService.getEventsByBookmakerId(authorizedUser.getId());
-        } else {
-            events = eventService.getAll();
+            Collection<Event> events = eventService.getEventsByBookmakerId(authorizedUser.getId());
+            currentSession.setAttribute(EVENTS, events);
         }
-        currentSession.setAttribute(EVENTS, events);
         return pagesResourceBundle.getString(EVENTS_PAGE);
     }
 }

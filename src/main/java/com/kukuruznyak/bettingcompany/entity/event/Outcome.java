@@ -10,7 +10,7 @@ public class Outcome extends Model implements Comparable<Object> {
     private String name;
     private double coefficient;
     private Long marketId;
-    private List<Bet> bets;
+    private List<Bet> bets = new LinkedList<>();
 
     public Outcome() {
     }
@@ -57,9 +57,6 @@ public class Outcome extends Model implements Comparable<Object> {
     }
 
     public void addBet(Bet bet) {
-        if (this.bets == null) {
-            this.bets = new LinkedList<>();
-        }
         this.bets.add(bet);
     }
 
