@@ -6,7 +6,6 @@ import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ServiceException;
 
 import java.util.Collection;
-import java.util.List;
 
 public class UserService extends AbstractService {
     private static UserService instance;
@@ -44,23 +43,23 @@ public class UserService extends AbstractService {
     }
 
     public boolean isValidUser(User user) {
-        if (!user.getFirstName().matches(validationBundle.getString("name"))) {
+        if (!user.getFirstName().matches("([A-Za-zА-Яа-я'ЇїІі ]+)")) {
             user.setFirstName("");
             return false;
         }
-        if (!user.getLastName().matches(validationBundle.getString("name"))) {
+        if (!user.getLastName().matches("([A-Za-z' ]+)|([А-Яа-я'iї ]+)")) {
             user.setLastName("");
             return false;
         }
-        if (!user.getLogin().matches(validationBundle.getString("login"))) {
+        if (!user.getLogin().matches(".{4,20}")) {
             user.setLogin("");
             return false;
         }
-        if (!user.getEmail().matches(validationBundle.getString("email"))) {
+        if (!user.getEmail().matches(".+@.+")) {
             user.setEmail("");
             return false;
         }
-        if (!user.getPassword().matches(validationBundle.getString("password"))) {
+        if (!user.getPassword().matches(".{4,20}")) {
             user.setPassword("");
             return false;
         }

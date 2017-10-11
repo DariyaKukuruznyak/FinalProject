@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.dao.AbstractDao;
 import com.kukuruznyak.bettingcompany.dao.connection.ConnectionPool;
 import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
@@ -41,11 +42,12 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
                 model = fillModel(resultSet);
             }
         } catch (SQLException e) {
-            LOGGER.error(DB_SELECTING_ERROR + currentModel + MESSAGE + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         if (model == null) {
-            LOGGER.info(currentModel + NOT_FOUND);
+            LOGGER.info(currentModel + StringMessages.getMessage(StringMessages.NOT_FOUND));
         }
         return model;
     }
@@ -59,7 +61,8 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
                 modelList.add(fillModel(resultSet));
             }
         } catch (SQLException e) {
-            LOGGER.error(DB_SELECTING_ERROR + currentModel + MESSAGE + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         return modelList;
@@ -77,11 +80,12 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
                 modelList.add(model);
             }
         } catch (SQLException e) {
-            LOGGER.error(DB_SELECTING_ERROR + currentModel + MESSAGE + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         if (model == null) {
-            LOGGER.info(currentModel + NOT_FOUND);
+            LOGGER.info(currentModel + StringMessages.getMessage(StringMessages.NOT_FOUND));
         }
         return modelList;
     }
@@ -97,7 +101,8 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
                 model.setId(generatedKeys.getLong(1));
             }
         } catch (SQLException e) {
-            LOGGER.error(DB_INSERTING_ERROR + currentModel + MESSAGE + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_INSERTING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         return model;
@@ -105,24 +110,29 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
 
     public void update(T model) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + UPDATE_QUERY));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel +
+                    DELIMITER + UPDATE_QUERY));
             fillPreparedStatement(preparedStatement, model);
-            preparedStatement.setLong(Integer.valueOf(QUERIES.getString(currentModel +DELIMITER+ ID_INDEX_IN_UPDATE)), model.getId());
+            preparedStatement.setLong(Integer.valueOf(QUERIES.getString(currentModel +
+                    DELIMITER + ID_INDEX_IN_UPDATE)), model.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(DB_UPDATING_ERROR + currentModel + MESSAGE + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_UPDATING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
     }
 
     public void delete(Long id) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel + DELIMITER + DELETE_QUERY));
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel +
+                    DELIMITER + DELETE_QUERY));
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
-            LOGGER.error(DB_REMOVING_ERROR + currentModel + MESSAGE + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_REMOVING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
     }

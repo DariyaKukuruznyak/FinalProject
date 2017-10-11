@@ -7,6 +7,7 @@ import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ParticipantService;
 import com.kukuruznyak.bettingcompany.service.TournamentService;
 import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,13 +23,13 @@ public class EditParticipantCommand extends Command {
             participant = editParticipant(request, participant);
             if (participantService.isValidParticipant(participant)) {
                 participantService.update(participant);
-                LOGGER.info(PARTICIPANT_UPDATED_SUCCESSFULLY + participant.getId());
-                currentSession.setAttribute(SUCCESS_MESSAGE, PARTICIPANT_UPDATED_SUCCESSFULLY);
+                LOGGER.info(StringMessages.getMessage(StringMessages.PARTICIPANT_UPDATED_SUCCESSFULLY) + participant.getId());
+                currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.PARTICIPANT_UPDATED_SUCCESSFULLY));
                 currentSession.setAttribute(RequestAttributeConstants.PARTICIPANT, participant);
                 TournamentService tournamentService = ServiceFactory.getInstance().getTournamentService();
                 currentSession.setAttribute(ACTIVE_TOURNAMENTS, tournamentService.getActiveTournament());
             } else {
-                throw new ApplicationException(INCORRECT_PARTICIPANT);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.INCORRECT_PARTICIPANT));
             }
             return pagesResourceBundle.getString(EDIT_PARTICIPANT_PAGE);
         } catch (ApplicationException e) {

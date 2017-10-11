@@ -1,12 +1,11 @@
 package com.kukuruznyak.bettingcompany.command.impl.tournament;
 
 import com.kukuruznyak.bettingcompany.command.Command;
-import com.kukuruznyak.bettingcompany.command.RequestAttributeConstants;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ParticipantService;
 import com.kukuruznyak.bettingcompany.service.TournamentService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,18 +21,18 @@ public class EditTournamentCommand extends Command {
             editTournament(request, tournament);
             if (tournamentService.isValidParticipant(tournament)) {
                 tournamentService.update(tournament);
-                LOGGER.info(TOURNAMENT_UPDATED_SUCCESSFULLY);
-                currentSession.setAttribute(SUCCESS_MESSAGE, TOURNAMENT_UPDATED_SUCCESSFULLY);
+                LOGGER.info(StringMessages.getMessage(StringMessages.TOURNAMENT_UPDATED_SUCCESSFULLY));
+                currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.TOURNAMENT_UPDATED_SUCCESSFULLY));
                 currentSession.setAttribute(TOURNAMENT, tournament);
                 ParticipantService participantService = serviceFactory.getParticipantService();
                 currentSession.setAttribute(PARTICIPANT, participantService.getParticipants());
             } else {
-                throw new ApplicationException(INCORRECT_TOURNAMENT);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.INCORRECT_TOURNAMENT));
             }
+            return pagesResourceBundle.getString(EDIT_TOURNAMENT_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
             LOGGER.error(e.getMessage());
-        } finally {
             return pagesResourceBundle.getString(EDIT_TOURNAMENT_PAGE);
         }
     }

@@ -36,7 +36,7 @@
                 </div>
             </div>
             <button class="btn btn-lg btn-primary btn-block"><fmt:message key="sign_in" bundle="${bundle}"/></button>
-            <c:if test="${not empty errorMessage}"><a href="?command=register"><fmt:message key="join_now"
+            <c:if test="${not empty errorMessage}"><a href="?command=register"><fmt:message key="join"
                                                                                             bundle="${bundle}"/></a></c:if>
 
         </form>

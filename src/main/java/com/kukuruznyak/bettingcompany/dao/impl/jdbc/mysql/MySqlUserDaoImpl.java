@@ -6,6 +6,7 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.entity.user.builder.UserBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -94,11 +95,11 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
                 user = fillModel(resultSet);
             }
         } catch (SQLException e) {
-            LOGGER.error(DB_SELECTING_ERROR + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         if (user == null) {
-            LOGGER.info(currentModel + NOT_FOUND);
+            LOGGER.info(currentModel + StringMessages.getMessage(StringMessages.NOT_FOUND));
         }
         return user;
     }
@@ -115,7 +116,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
                 userRole = UserRole.valueOf(resultSet.getString(USER_ROLE_COLUMN));
             }
         } catch (SQLException e) {
-            LOGGER.error(DB_SELECTING_ERROR + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR )+ e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         return userRole;

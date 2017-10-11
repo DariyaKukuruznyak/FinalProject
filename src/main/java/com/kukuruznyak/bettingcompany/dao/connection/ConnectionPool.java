@@ -1,5 +1,6 @@
 package com.kukuruznyak.bettingcompany.dao.connection;
 
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.Logger;
 
@@ -7,9 +8,6 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import static com.kukuruznyak.bettingcompany.util.StringMessages.CONNECTION_POOL_INITIALIZED;
-import static com.kukuruznyak.bettingcompany.util.StringMessages.DB_INITIALIZATION_ERROR;
 
 public class ConnectionPool {
     private static ConnectionPool instance;
@@ -27,10 +25,10 @@ public class ConnectionPool {
     private ConnectionPool() {
         try {
             connectionPool = initializeDataSource();
-            LOGGER.info(CONNECTION_POOL_INITIALIZED);
+            LOGGER.info(StringMessages.getMessage(StringMessages.CONNECTION_POOL_INITIALIZED));
         } catch (Exception e) {
-            LOGGER.error(DB_INITIALIZATION_ERROR + e.getMessage());
-            throw new RuntimeException(DB_INITIALIZATION_ERROR + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_INITIALIZATION_ERROR) + e.getMessage());
+            throw new RuntimeException(StringMessages.getMessage(StringMessages.DB_INITIALIZATION_ERROR) + e.getMessage());
         }
     }
 

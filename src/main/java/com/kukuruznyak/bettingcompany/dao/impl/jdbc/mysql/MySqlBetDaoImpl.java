@@ -12,6 +12,7 @@ import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.builder.BetBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import java.sql.*;
 import java.util.Collection;
@@ -64,7 +65,8 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
             }
             connection.commit();
         } catch (SQLException e) {
-            LOGGER.error(DB_INSERTING_ERROR + currentModel + MESSAGE + e.getMessage());
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_INSERTING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
         return bet;

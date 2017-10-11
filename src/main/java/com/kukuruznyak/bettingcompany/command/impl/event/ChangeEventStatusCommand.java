@@ -7,6 +7,7 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.EventService;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ public class ChangeEventStatusCommand extends Command {
         String status = request.getParameter(STATUS);
         try {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
-                throw new ApplicationException(ACCESS_DENIED);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.ACCESS_DENIED));
             }
             EventService eventService = serviceFactory.getEventService();
             switch (status) {
@@ -33,7 +34,7 @@ public class ChangeEventStatusCommand extends Command {
                     break;
                 case FINISHED_STATUS:
                     if (event.getTournament().getWinner() == null) {
-                        throw new ApplicationException(TOURNAMENT_RESULT_UNKNOWN);
+                        throw new ApplicationException(StringMessages.getMessage(StringMessages.TOURNAMENT_RESULT_UNKNOWN));
                     }
                     event.setStatus(EventStatus.FINISHED);
                     eventService.finishEvent(event);
@@ -45,11 +46,11 @@ public class ChangeEventStatusCommand extends Command {
                     event.setSuspended(false);
                     break;
                 default:
-                    throw new ApplicationException(UNEXPECTED_REQUEST);
+                    throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
             }
             eventService.update(event);
             currentSession.setAttribute(EVENT, event);
-            currentSession.setAttribute(SUCCESS_MESSAGE, EVENT_STATUS_CHANGED + status);
+            currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.EVENT_STATUS_CHANGED) + status);
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());

@@ -8,6 +8,7 @@ import com.kukuruznyak.bettingcompany.entity.user.builder.UserBuilder;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ClientService;
 import com.kukuruznyak.bettingcompany.service.UserService;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,19 +21,19 @@ public class RegisterCommand extends Command {
         try {
             UserService userService = serviceFactory.getUserService();
             if (userService.getUserByLogin(request.getParameter(LOGIN)) != null) {
-                throw new ApplicationException(USER_EXIST + request.getParameter(LOGIN));
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.USER_EXIST) + request.getParameter(LOGIN));
             }
             if (!request.getParameter(PASSWORD).equals(request.getParameter(CONFIRM_PASSWORD))) {
-                throw new ApplicationException(PASSWORDS_NOT_EXIST);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.PASSWORDS_NOT_EXIST));
             }
             Client client = createClient(request);
             if (!userService.isValidUser(client)) {
-                throw new ApplicationException(INCORRECT_USER);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.INCORRECT_USER));
             }
             ClientService clientService = serviceFactory.getClientService();
             client = clientService.add(client);
             currentSession.setAttribute(USER, client);
-            LOGGER.info(CLIENT_JOINED + client.getLogin());
+            LOGGER.info(StringMessages.getMessage(StringMessages.CLIENT_JOINED) + client.getLogin());
             return pagesResourceBundle.getString(HOME_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());

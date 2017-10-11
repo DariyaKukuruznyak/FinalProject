@@ -6,7 +6,7 @@ import com.kukuruznyak.bettingcompany.entity.tournament.builder.TournamentBuilde
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ParticipantService;
 import com.kukuruznyak.bettingcompany.service.TournamentService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,13 +21,13 @@ public class CreateTournamentCommand extends Command {
             TournamentService tournamentService = serviceFactory.getTournamentService();
             if (tournamentService.isValidParticipant(tournament)) {
                 tournamentService.add(tournament);
-                currentSession.setAttribute(SUCCESS_MESSAGE, TOURNAMENT_CREATED_SUCCESSFULLY);
-                LOGGER.error(TOURNAMENT_CREATED_SUCCESSFULLY);
+                currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.TOURNAMENT_CREATED_SUCCESSFULLY));
+                LOGGER.error(StringMessages.getMessage(StringMessages.TOURNAMENT_CREATED_SUCCESSFULLY));
                 request.getSession().setAttribute(TOURNAMENT, tournament);
                 ParticipantService participantService = serviceFactory.getParticipantService();
                 currentSession.setAttribute(PARTICIPANTS, participantService.getParticipants());
             } else {
-                throw new ApplicationException(INCORRECT_TOURNAMENT);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.INCORRECT_TOURNAMENT));
             }
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());

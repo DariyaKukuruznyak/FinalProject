@@ -6,6 +6,7 @@ import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.entity.user.builder.UserBuilder;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.UserService;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,14 +19,14 @@ public class CreateUserCommand extends Command {
         try {
             UserService userService = serviceFactory.getUserService();
             if (userService.getUserByLogin(request.getParameter(LOGIN)) != null) {
-                throw new ApplicationException(USER_EXIST + request.getParameter(LOGIN));
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.USER_EXIST )+ request.getParameter(LOGIN));
             }
             User user = fillUser(request);
             if (!userService.isValidUser(user)) {
-                throw new ApplicationException(INCORRECT_USER);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.INCORRECT_USER));
             }
             userService.add(user);
-            currentSession.setAttribute(SUCCESS_MESSAGE, USER_CREATED_SUCCESSFULLY);
+            currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.USER_CREATED_SUCCESSFULLY));
             return pagesResourceBundle.getString(ADD_USER_PAGE);
         } catch (ApplicationException e) {
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());

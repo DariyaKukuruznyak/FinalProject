@@ -42,12 +42,14 @@
                                     <option selected></option>
                                 </c:when>
                                 <c:otherwise>
-                                    <option selected>${participant.name}</option>
+                                    <c:if test="${not empty tournament.winner}">
+                                        <option selected>${tournament.winner}</option>
+                                    </c:if>
+                                    <c:forEach items="${tournament.participants}" var="participant">
+                                        <option>${participant.name}</option>
+                                    </c:forEach>
                                 </c:otherwise>
                             </c:choose>
-                            <c:forEach items="${tournament.participants}" var="participant">
-                                <option>${participant.name}</option>
-                            </c:forEach>
                         </select>
                     </fieldset>
                     <c:if test="${not empty tournament.participants}">

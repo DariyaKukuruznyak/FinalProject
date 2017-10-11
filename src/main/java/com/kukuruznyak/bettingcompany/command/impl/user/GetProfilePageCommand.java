@@ -4,7 +4,7 @@ import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.UserService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +18,7 @@ public class GetProfilePageCommand extends Command {
         HttpSession currentSession = request.getSession();
         try {
             if (editedUser == null) {
-                throw new ApplicationException(UNEXPECTED_REQUEST);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
             }
             currentSession.setAttribute(EDITED_USER, editedUser);
             return pagesResourceBundle.getString(EDIT_USER_PAGE);

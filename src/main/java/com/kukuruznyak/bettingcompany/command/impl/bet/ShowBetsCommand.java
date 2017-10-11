@@ -5,6 +5,7 @@ import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.BetService;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,7 @@ public class ShowBetsCommand extends Command {
         User currentUser = (User) currentSession.getAttribute(USER);
         try {
             if (currentUser == null) {
-                throw new ApplicationException(UNEXPECTED_REQUEST);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
             }
             Collection<Bet> bets;
             BetService betService = serviceFactory.getBetService();
@@ -30,7 +31,7 @@ public class ShowBetsCommand extends Command {
                     bets = betService.getAll();
                     break;
                 default: {
-                    throw new ApplicationException(UNEXPECTED_REQUEST);
+                    throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
                 }
             }
             currentSession.setAttribute(BETS, bets);

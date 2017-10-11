@@ -23,6 +23,17 @@ public class Invoker {
     private static Invoker instance;
     private Map<String, Command> commandMap = new HashMap<>();
 
+    public static Invoker getInstance() {
+        if (instance == null) {
+            synchronized (Invoker.class) {
+                if (instance == null) {
+                    instance = new Invoker();
+                }
+            }
+        }
+        return instance;
+    }
+
     private Invoker() {
         commandMap.put("home", new HomeCommand());
         commandMap.put("setLanguage", new SetLanguageCommand());
@@ -67,17 +78,6 @@ public class Invoker {
         commandMap.put("editTournament", new GetEditTournamentPageCommand());
         commandMap.put("updateTournament", new EditTournamentCommand());
         commandMap.put("deleteTournament", new DeleteTournamentCommand());
-    }
-
-    public static Invoker getInstance() {
-        if (instance == null) {
-            synchronized (Invoker.class) {
-                if (instance == null) {
-                    instance = new Invoker();
-                }
-            }
-        }
-        return instance;
     }
 
     public String invoke(HttpServletRequest request, HttpServletResponse response) {

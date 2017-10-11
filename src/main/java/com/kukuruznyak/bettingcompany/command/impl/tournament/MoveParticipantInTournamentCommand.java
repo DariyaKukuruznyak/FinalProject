@@ -1,11 +1,10 @@
 package com.kukuruznyak.bettingcompany.command.impl.tournament;
 
 import com.kukuruznyak.bettingcompany.command.Command;
-import com.kukuruznyak.bettingcompany.command.RequestAttributeConstants;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.ParticipantService;
 import com.kukuruznyak.bettingcompany.service.TournamentService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +36,7 @@ public class MoveParticipantInTournamentCommand extends Command {
                 currentSession.setAttribute(PARTICIPANTS, participantService.getParticipants());
                 return pagesResourceBundle.getString(EDIT_TOURNAMENT_PAGE);
             default:
-                throw new ApplicationException(UNEXPECTED_REQUEST);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
         }
     }
 }

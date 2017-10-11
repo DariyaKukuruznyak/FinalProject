@@ -1,12 +1,11 @@
 package com.kukuruznyak.bettingcompany.command.impl.user;
 
 import com.kukuruznyak.bettingcompany.command.Command;
-import com.kukuruznyak.bettingcompany.command.PageNameConstants;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.UserService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +18,8 @@ public class GetStaffPageCommand extends Command {
         HttpSession currentSession = request.getSession();
         User authorizedUser = (User) currentSession.getAttribute(USER);
         if (authorizedUser == null || !authorizedUser.getUserRole().equals(UserRole.ADMINISTRATOR)) {
-            LOGGER.error(UNEXPECTED_REQUEST);
-            throw new ApplicationException(UNEXPECTED_REQUEST);
+            LOGGER.error(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
+            throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
         }
         UserService userService = serviceFactory.getUserService();
         Collection<User> staff = userService.getStaff();

@@ -5,6 +5,7 @@ import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.bet.BetItem;
 import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,12 +53,12 @@ public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements Bet
 
     @Override
     public BetItem getById(Long id) throws PersistenceException {
-        throw new PersistenceException(UNEXPECTED_REQUEST);
+        throw new PersistenceException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
     }
 
     @Override
     public Collection<BetItem> getAll() throws PersistenceException {
-        throw new PersistenceException(UNEXPECTED_REQUEST);
+        throw new PersistenceException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
     }
 
     @Override

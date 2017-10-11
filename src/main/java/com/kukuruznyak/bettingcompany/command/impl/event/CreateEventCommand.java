@@ -10,6 +10,7 @@ import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.entity.user.UserRole;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.EventService;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,11 +23,11 @@ public class CreateEventCommand extends Command {
         User authorizedUser = (User) currentSession.getAttribute(USER);
         try {
             if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {
-                throw new ApplicationException(ACCESS_DENIED);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.ACCESS_DENIED));
             }
             Tournament tournament = (Tournament) currentSession.getAttribute(SELECTED_TOURNAMENT);
             if (tournament == null) {
-                throw new ApplicationException(NO_TOURNAMENT_SELECTED);
+                throw new ApplicationException(StringMessages.getMessage(StringMessages.NO_TOURNAMENT_SELECTED));
             }
             Event event = new EventBuilder()
                     .buildBookmaker(authorizedUser)
@@ -36,11 +37,11 @@ public class CreateEventCommand extends Command {
             event = eventService.add(event);
             event = eventService.createMarket(event, MarketNames.WINNER);
             currentSession.setAttribute(EVENT, event);
-            currentSession.setAttribute(SUCCESS_MESSAGE, EVENT_CREATED_SUCCESSFULLY);
+            currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.EVENT_CREATED_SUCCESSFULLY));
             currentSession.setAttribute(LOCKED_STATUS, EventStatus.LOCKED);
             currentSession.setAttribute(INPROGRESS_STATUS, EventStatus.INPROGRESS);
             currentSession.removeAttribute(SELECTED_TOURNAMENT);
-            LOGGER.info(EVENT_CREATED_SUCCESSFULLY);
+            LOGGER.info(StringMessages.getMessage(StringMessages.EVENT_CREATED_SUCCESSFULLY));
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());
