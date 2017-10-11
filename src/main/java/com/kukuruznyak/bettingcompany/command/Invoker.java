@@ -1,5 +1,6 @@
 package com.kukuruznyak.bettingcompany.command;
 
+import com.kukuruznyak.bettingcompany.command.impl.DefaultCommand;
 import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
 import com.kukuruznyak.bettingcompany.command.impl.SetLanguageCommand;
 import com.kukuruznyak.bettingcompany.command.impl.bet.MoveOutcomeCommand;
@@ -81,9 +82,10 @@ public class Invoker {
 
     public String invoke(HttpServletRequest request, HttpServletResponse response) {
         String command = request.getParameter(COMMAND);
-        if (command == null) {
-            command = "home";
+        Command executor = commandMap.get(command);
+        if (executor == null) {
+            executor = new DefaultCommand();
         }
-        return commandMap.get(command).execute(request, response);
+        return executor.execute(request, response);
     }
 }
