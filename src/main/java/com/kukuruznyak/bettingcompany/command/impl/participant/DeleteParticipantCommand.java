@@ -10,7 +10,7 @@ public class DeleteParticipantCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         ParticipantService participantService = serviceFactory.getParticipantService();
-        participantService.delete(request.getParameter(PARTICIPANT_ID));
+        participantService.delete(new Long(request.getParameter(PARTICIPANT_ID)));
         return new ShowParticipantsCommand().execute(request, response);
     }
 }

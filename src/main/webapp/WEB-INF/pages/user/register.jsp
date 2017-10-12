@@ -7,7 +7,7 @@
     <a class="btn btn-info" href="?command=home"><span
             class="glyphicon glyphicon-home"></span> <fmt:message key="back_home" bundle="${bundle}"/></a>
     <c:if test="${not empty errorMessage}">
-        <div class="alert alert-danger">${errorMessage}</div>
+        <div class="alert alert-danger"><c:out value='${errorMessage}'/></div>
     </c:if>
     <form class="form-signin" action="?command=join" method="post">
         <h2 class="form-signin-heading"><fmt:message key="registration" bundle="${bundle}"/></h2>

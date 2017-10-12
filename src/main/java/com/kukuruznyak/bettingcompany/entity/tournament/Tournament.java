@@ -8,7 +8,6 @@ import java.util.HashSet;
 
 public class Tournament extends Model {
     private String name;
-    private String country;
     private String winner;
     private Date beginningDateAndTime;
     private Collection<Participant> participants;
@@ -16,24 +15,12 @@ public class Tournament extends Model {
     public Tournament() {
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getFullName() {
-        return country + ". " + name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+    public String getName() {
+        return name;
     }
 
     public Collection<Participant> getParticipants() {
@@ -81,15 +68,13 @@ public class Tournament extends Model {
         Tournament that = (Tournament) o;
 
         if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
-        if (getCountry() != null ? !getCountry().equals(that.getCountry()) : that.getCountry() != null) return false;
-        if (getWinner() != null ? !getWinner().equals(that.getWinner()) : that.getWinner() != null) return false;
+             if (getWinner() != null ? !getWinner().equals(that.getWinner()) : that.getWinner() != null) return false;
         return getBeginningDateAndTime() != null ? getBeginningDateAndTime().equals(that.getBeginningDateAndTime()) : that.getBeginningDateAndTime() == null;
     }
 
     @Override
     public int hashCode() {
         int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getCountry() != null ? getCountry().hashCode() : 0);
         result = 31 * result + (getWinner() != null ? getWinner().hashCode() : 0);
         result = 31 * result + (getBeginningDateAndTime() != null ? getBeginningDateAndTime().hashCode() : 0);
         return result;
@@ -100,7 +85,6 @@ public class Tournament extends Model {
         return "Tournament{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
                 ", winner='" + winner + '\'' +
                 ", beginningDateAndTime=" + beginningDateAndTime +
                 ", participants=" + participants +

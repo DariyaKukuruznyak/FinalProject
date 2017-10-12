@@ -39,7 +39,6 @@ public class CreateTournamentCommand extends Command {
     private Tournament fillTournament(HttpServletRequest request) {
         return new TournamentBuilder()
                 .buildName(request.getParameter(NAME))
-                .buildCountry(request.getParameter(COUNTRY))
                 .build();
     }
 }

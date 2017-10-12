@@ -12,7 +12,7 @@ public class SelectTournamentCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         TournamentService tournamentService = serviceFactory.getTournamentService();
-        Tournament selectedTournament = tournamentService.getById(request.getParameter(TOURNAMENT_ID));
+        Tournament selectedTournament = tournamentService.getById(new Long(request.getParameter(TOURNAMENT_ID)));
         request.getSession().setAttribute(SELECTED_TOURNAMENT, selectedTournament);
         return pagesResourceBundle.getString(ADD_EVENT_PAGE);
     }

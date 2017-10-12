@@ -17,11 +17,11 @@
         <div class="form-group row">
             <label for="outcome" class="col-sm-8 col-form-label">
                 <a href="?command=moveOutcome&outcomeId=${outcome.id}&action=remove"
-                   class="glyphicon glyphicon-remove"></a> ${outcome.name}
+                   class="glyphicon glyphicon-remove"></a> <c:out value="${outcome.name}"/>
             </label>
             <div class="col-sm-4">
                 <input name="outcome" id="outcome" class="form-control"
-                       value="${outcome.coefficient}" disabled>
+                       value="<c:out value='${outcome.coefficient}'/>" disabled>
             </div>
         </div>
         </c:forEach>
@@ -30,7 +30,7 @@
         <fieldset class="form-group row">
             <label class="col-sm-2" for="sum"><fmt:message key="sum" bundle="${bundle}"/></label>
             <div class="col-sm-4">
-                <input class="form-control" id="sum" name="sum" value="${sum}"
+                <input class="form-control" id="sum" name="sum" value="<c:out value='${sum}'/>"
                        pattern="[0-9]*" title="Expected only integer." placeholder="Sum" required>
             </div>
             <label class="col-sm-2" for="totalCoefficient"><fmt:message key="total_coefficient" bundle="${bundle}"/></label>

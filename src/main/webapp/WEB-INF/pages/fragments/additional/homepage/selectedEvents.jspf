@@ -1,17 +1,17 @@
 <c:forEach items="${selectedEvents}" var="event">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <div>${event.tournament.fullName}</div>
-            <div>${event.tournament.beginningDateAndTime}</div>
+            <div><c:out value="${event.tournament.name}"/></div>
+            <div><c:out value="${event.tournament.beginningDateAndTime}"/></div>
         </div>
         <div class="panel-body">
             <c:forEach items="${event.markets}" var="market">
                 <div class="panel panel-info">
-                    <div class="panel-heading"> ${market.name}</div>
+                    <div class="panel-heading"> <c:out value="${market.name}"/></div>
                     <fmt:message key="outcome_description" bundle="${bundle}"/>
                     <c:forEach items="${market.outcomes}" var="outcome">
                         <div class="form-group row">
-                            <label class="col-sm-8 col-form-label">${outcome.name}</label>
+                            <label class="col-sm-8 col-form-label"><c:out value="${outcome.name}"/></label>
                             <div class="col-sm-4">
                                 <c:choose>
                                     <c:when test="${event.suspended}">

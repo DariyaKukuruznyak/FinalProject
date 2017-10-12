@@ -8,7 +8,7 @@
             class="glyphicon glyphicon-home"></span> <fmt:message key="back_home" bundle="${bundle}"/></a>
     <div class="form-signin">
         <c:if test="${not empty errorMessage}">
-            <div class="alert alert-danger">${errorMessage}</div>
+            <div class="alert alert-danger"><c:out value='${errorMessage}'/></div>
         </c:if>
         <form class="form-horizontal" action="?command=signIn" method="post">
             <h2 class="form-signin-heading"><fmt:message key="sign_in" bundle="${bundle}"/></h2>

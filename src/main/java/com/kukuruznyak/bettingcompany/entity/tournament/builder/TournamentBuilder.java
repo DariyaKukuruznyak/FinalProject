@@ -9,10 +9,10 @@ import java.util.Date;
 public class TournamentBuilder {
     private Long id = null;
     private String name;
-    private String country;
     private String winner = "";
     private Date beginningDateAndTime = new Date();
     private Collection<Participant> participants;
+
     public TournamentBuilder buildId(Long id) {
         this.id = id;
         return this;
@@ -20,11 +20,6 @@ public class TournamentBuilder {
 
     public TournamentBuilder buildName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public TournamentBuilder buildCountry(String country) {
-        this.country = country;
         return this;
     }
 
@@ -47,7 +42,6 @@ public class TournamentBuilder {
         Tournament tournament = new Tournament();
         tournament.setId(this.id);
         tournament.setName(this.name);
-        tournament.setCountry(this.country);
         tournament.setWinner(this.winner);
         tournament.setBeginningDateAndTime(this.beginningDateAndTime);
         tournament.setParticipants(this.participants);

@@ -8,48 +8,50 @@
             class="glyphicon glyphicon-home"></span> <fmt:message key="back_home" bundle="${bundle}"/></a>
     <div class="panel-body">
         <c:if test="${not empty errorMessage}">
-            <div class="alert alert-danger">${errorMessage}</div>
+            <div class="alert alert-danger"><c:out value="${errorMessage}"/></div>
         </c:if>
         <c:if test="${not empty successMessage}">
-            <div class="alert alert-success">${successMessage}</div>
+            <div class="alert alert-success"><c:out value="${successMessage}"/></div>
         </c:if>
-        <h2 class="form-signin-heading"><fmt:message key="event" bundle="${bundle}"/> #${event.id}</h2>
+        <h2 class="form-signin-heading"><fmt:message key="event" bundle="${bundle}"/> #<c:out value="${event.id}"/></h2>
         <div class="row">
             <div class="col-sm-6">
                 <fieldset class="form-group">
                     <label for="creationDateAndTime"><fmt:message key="date_of_creation" bundle="${bundle}"/></label>
-                    <div class="form-control" id="creationDateAndTime">${event.creationDateAndTime}</div>
+                    <div class="form-control" id="creationDateAndTime"><c:out
+                            value="${event.creationDateAndTime}"/></div>
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="beginningDateAndTime"><fmt:message key="date_of_beginning" bundle="${bundle}"/></label>
-                    <div class="form-control" id="beginningDateAndTime">${event.tournament.beginningDateAndTime}</div>
+                    <div class="form-control" id="beginningDateAndTime"><c:out
+                            value="${event.tournament.beginningDateAndTime}"/></div>
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="tournament"><fmt:message key="tournament" bundle="${bundle}"/></label>
-                    <div class="form-control" id="tournament">${event.tournament.fullName}</div>
+                    <div class="form-control" id="tournament"><c:out value="${event.tournament.name}"/></div>
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="winner"><fmt:message key="winner" bundle="${bundle}"/></label>
-                    <div class="form-control" id="winner">${event.tournament.winner}</div>
+                    <div class="form-control" id="winner"><c:out value="${event.tournament.winner}"/></div>
                 </fieldset>
                 <fieldset>
                     <label for="status"><fmt:message key="status" bundle="${bundle}"/></label>
-                    <div class="form-control" id="status">${event.status}</div>
+                    <div class="form-control" id="status"><c:out value="${event.status}"/></div>
                 </fieldset>
                 <fieldset>
                     <c:choose>
                         <c:when test="${event.status==lockedStatus}">
                             <a class="btn btn-lg btn-success btn-block"
-                               href="?command=changeStatus&status=inprogress&eventId=${event.id}">
+                               href="?command=changeStatus&status=inprogressStatus&eventId=${event.id}">
                                 <fmt:message key="run_to_inprogress" bundle="${bundle}"/></a>
                         </c:when>
                         <c:when test="${event.status==inprogressStatus}">
                             <a class="btn btn-lg btn-danger btn-block"
-                               href="?command=changeStatus&status=locked&eventId=${event.id}">
+                               href="?command=changeStatus&status=lockedStatus&eventId=${event.id}">
                                 <fmt:message key="locked" bundle="${bundle}"/></a>
                             <c:if test="not empty event.tournament.winner">
                                 <a class="btn btn-lg btn-success btn-block"
-                                   href="?command=changeStatus&status=finished&eventId=${event.id}"><fmt:message
+                                   href="?command=changeStatus&status=finishedStatus&eventId=${event.id}"><fmt:message
                                         key="finished" bundle="${bundle}"/></a>
                             </c:if>
                         </c:when>
@@ -61,12 +63,12 @@
                     <c:choose>
                         <c:when test="${event.suspended}">
                             <a class="btn btn-lg btn-danger btn-block"
-                               href="?command=changeStatus&status=activate&eventId=${event.id}">
+                               href="?command=changeStatus&status=activateStatus&eventId=${event.id}">
                                 <fmt:message key="suspended" bundle="${bundle}"/></a>
                         </c:when>
                         <c:otherwise>
                             <a class="btn btn-lg btn-success btn-block"
-                               href="?command=changeStatus&status=suspend&eventId=${event.id}"><fmt:message
+                               href="?command=changeStatus&status=suspendStatus&eventId=${event.id}"><fmt:message
                                     key="activate" bundle="${bundle}"/></a>
                         </c:otherwise>
                     </c:choose>
@@ -75,7 +77,7 @@
                 <c:forEach items="${event.markets}" var="market">
                 <fieldset class="panel panel-primary">
                     <div class="panel-heading">
-                        <div>${market.name}</div>
+                        <div><c:out value="${market.name}"/></div>
                     </div>
                     <div><fmt:message key="margin" bundle="${bundle}"/>: <fmt:formatNumber value="${market.margin}"
                                                                                            maxFractionDigits="2"/>%
@@ -86,12 +88,12 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                    <td>${outcome.name}</td>
+                                    <td><c:out value="${outcome.name}"/></td>
                                     <td><input name="coefficient" id="coefficient" class="form-control"
                                                placeholder="Coefficient" required
                                                pattern="[1-9][0-9]*(\.[0-9]{1,2}?" maxlength="6"
                                                title="Expected integer or double. Max length = 6"
-                                               value="${outcome.coefficient}">
+                                               value="<c:out value='${outcome.coefficient}'/>">
                                     </td>
                                     <td>
                                         <button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>

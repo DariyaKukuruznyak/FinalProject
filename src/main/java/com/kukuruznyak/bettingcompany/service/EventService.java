@@ -141,7 +141,7 @@ public class EventService extends AbstractService {
                 OutcomeDao outcomeDao = daoFactory.getOutcomeDao(connection);
                 for (Participant participant : event.getTournament().getParticipants()) {
                     Outcome outcome = new OutcomeBuilder()
-                            .buildName(participant.getFullName())
+                            .buildName(participant.getName())
                             .buildMarketId(market.getId())
                             .build();
                     market.addOutcome(outcomeDao.add(outcome));

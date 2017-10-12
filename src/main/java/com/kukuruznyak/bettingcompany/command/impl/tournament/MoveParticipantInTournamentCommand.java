@@ -28,11 +28,11 @@ public class MoveParticipantInTournamentCommand extends Command {
         HttpSession currentSession = request.getSession();
         switch (editedModel) {
             case PARTICIPANT:
-                currentSession.setAttribute(PARTICIPANT, participantService.getById(participantId));
+                currentSession.setAttribute(PARTICIPANT, participantService.getById(new Long(participantId)));
                 currentSession.setAttribute(TOURNAMENTS, tournamentService.getActiveTournament());
                 return pagesResourceBundle.getString(EDIT_PARTICIPANT_PAGE);
             case TOURNAMENT:
-                currentSession.setAttribute(TOURNAMENT, tournamentService.getById(tournamentId));
+                currentSession.setAttribute(TOURNAMENT, tournamentService.getById(new Long(tournamentId)));
                 currentSession.setAttribute(PARTICIPANTS, participantService.getParticipants());
                 return pagesResourceBundle.getString(EDIT_TOURNAMENT_PAGE);
             default:

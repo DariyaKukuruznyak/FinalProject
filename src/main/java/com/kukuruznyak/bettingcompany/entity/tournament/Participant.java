@@ -95,12 +95,6 @@ public class Participant extends Model {
         return result;
     }
 
-    public String getFullName() {
-        return name +
-                " (" + age + "/" + weight +
-                ", " + trainer + "/" + jockey + ")";
-    }
-
     @Override
     public String toString() {
         return "Participant{" +

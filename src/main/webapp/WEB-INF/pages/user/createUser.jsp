@@ -5,10 +5,10 @@
 <%@include file="../fragments/header.jspf" %>
 <div class="container">
     <c:if test="${not empty errorMessage}">
-        <div class="alert alert-danger">${errorMessage}</div>
+        <div class="alert alert-danger"><c:out value='${errorMessage}'/></div>
     </c:if>
     <c:if test="${not empty successMessage}">
-        <div class="alert alert-success">${successMessage}</div>
+        <div class="alert alert-success"><c:out value='${successMessage}'/></div>
     </c:if>
     <form class="form-signin" action="?command=createUser" method="post">
         <h2 class="form-signin-heading"><fmt:message key="create_user" bundle="${bundle}"/></h2>
@@ -16,9 +16,9 @@
             <label for="userRole" class="col-sm-4 col-form-label"><fmt:message key="role" bundle="${bundle}"/></label>
             <div class="col-sm-8">
                 <select class="form-control" id="userRole" name="userRole" size="1">
-                    <option>${adminRole}</option>
-                    <option>${riskControllerRole}</option>
-                    <option selected>${bookmakerRole}</option>
+                    <option><c:out value='${adminRole}'/></option>
+                    <option><c:out value='${riskControllerRole}'/></option>
+                    <option selected><c:out value='${bookmakerRole}'/></option>
                 </select>
             </div>
         </div>

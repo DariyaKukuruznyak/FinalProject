@@ -14,7 +14,7 @@ public class GetEditTournamentPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         TournamentService tournamentService = serviceFactory.getTournamentService();
-        Tournament tournament = tournamentService.getById(request.getParameter(TOURNAMENT_ID));
+        Tournament tournament = tournamentService.getById(new Long(request.getParameter(TOURNAMENT_ID)));
         HttpSession currentSession = request.getSession();
         currentSession.setAttribute(TOURNAMENT, tournament);
         ParticipantService participantService = serviceFactory.getParticipantService();

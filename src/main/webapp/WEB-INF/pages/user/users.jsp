@@ -27,13 +27,13 @@
             <c:forEach items="${users}" var="userItem">
                 <c:if test="${userItem.id!=user.id}">
                     <tr>
-                        <td>${userItem.firstName}</td>
-                        <td>${userItem.lastName}</td>
-                        <td>${userItem.email}</td>
-                        <td>${userItem.login}</td>
-                        <td>${userItem.dateOfRegistration}</td>
-                        <td>${userItem.stringUserRole}</td>
-                        <td><a href="?command=profile&id=${userItem.id}"><span class="glyphicon glyphicon-pencil"></span>
+                        <td><c:out value="${userItem.firstName}"/></td>
+                        <td><c:out value="${userItem.lastName}"/></td>
+                        <td><c:out value="${userItem.email}"/></td>
+                        <td><c:out value="${userItem.login}"/></td>
+                        <td><c:out value="${userItem.dateOfRegistration}"/></td>
+                        <td><c:out value="${userItem.stringUserRole}"/></td>
+                        <td><a href="?command=userProfile&id=${userItem.id}"><span class="glyphicon glyphicon-pencil"></span>
                             <fmt:message key="edit" bundle="${bundle}"/>
                         </a></td>
                         <td><a href="?command=deleteUser&id=${userItem.id}"><span class="glyphicon glyphicon-trash"></span>

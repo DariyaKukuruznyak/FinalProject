@@ -17,7 +17,6 @@
             <thead>
             <tr>
                 <th><fmt:message key="name" bundle="${bundle}"/></th>
-                <th><fmt:message key="country" bundle="${bundle}"/></th>
                 <th><fmt:message key="date_of_beginning" bundle="${bundle}"/></th>
                 <th><fmt:message key="participants" bundle="${bundle}"/></th>
                 <th><fmt:message key="winner" bundle="${bundle}"/></th>
@@ -28,13 +27,12 @@
             <tbody>
             <c:forEach items="${tournaments}" var="tournament">
                 <tr>
-                    <td>${tournament.name}</td>
-                    <td>${tournament.country}</td>
-                    <td>${tournament.beginningDateAndTime}</td>
-                    <td><c:forEach items="${tournament.participants}" var="participant">
-                        <div>${participant.name}</div>
+                    <td><c:out value='${tournament.name}'/></td>
+                    <td><c:out value='${tournament.beginningDateAndTime}'/></td>
+                    <td><c:forEach items="${tournament.participants}'/" var="participant">
+                        <div><c:out value='${participant.name}'/></div>
                     </c:forEach></td>
-                    <td>${tournament.winner}</td>
+                    <td><c:out value='${tournament.winner}'/></td>
                     <td><a href="?command=editTournament&tournamentId=${tournament.id}"><span
                             class="glyphicon glyphicon-pencil"></span>
                         <fmt:message key="edit" bundle="${bundle}"/></a></td>

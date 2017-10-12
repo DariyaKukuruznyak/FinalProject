@@ -1,5 +1,6 @@
 package com.kukuruznyak.bettingcompany.service;
 
+import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
 import com.kukuruznyak.bettingcompany.dao.TournamentDao;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.exception.ServiceException;
@@ -29,16 +30,17 @@ public class TournamentService extends AbstractService {
         try {
             try (Connection connection = dataSource.getConnection()) {
                 TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
-                return tournamentDao.getActiveTournaments();
+                Collection<Tournament> tournaments = tournamentDao.getActiveTournaments();
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                for (Tournament tournament : tournaments) {
+                    tournament.setParticipants(participantDao.getParticipantsByTournament(tournament.getId()));
+                }
+                return tournaments;
             }
         } catch (SQLException e) {
             throw new ServiceException(e);
         }
     }
-
-    public boolean isValidParticipant(Tournament tournament) {
-        return true;
-    }//T
 
     public void add(Tournament tournament) {
         try {
@@ -51,11 +53,14 @@ public class TournamentService extends AbstractService {
         }
     }
 
-    public Tournament getById(String tournamentId) {
+    public Tournament getById(Long tournamentId) {
         try {
             try (Connection connection = dataSource.getConnection()) {
                 TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
-                return tournamentDao.getById(new Long(tournamentId));
+                Tournament tournament = tournamentDao.getById(new Long(tournamentId));
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                tournament.setParticipants(participantDao.getParticipantsByTournament(tournament.getId()));
+                return tournament;
             }
         } catch (SQLException e) {
             throw new ServiceException(e);
@@ -104,5 +109,14 @@ public class TournamentService extends AbstractService {
         } catch (SQLException e) {
             throw new ServiceException(e);
         }
+    }
+
+    public boolean isValidParticipant(Tournament tournament) {
+        String pattern = "([A-Za-zА-Яа-я'ЇїІі ]{1,20})";
+        if (!tournament.getName().matches(pattern)) {
+            tournament.setName("");
+            return false;
+        }
+        return true;
     }
 }

@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implements ParticipantDao {
-
     private static final String LINKED_TABLE_QUERY = "ParticipantLinkTournament";
     private static final String ADD_TOURNAMENT_QUERY = "addLink";
     private static final String DELETE_TOURNAMENT_QUERY = "deleteLink";
@@ -45,9 +44,21 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
 
     @Override
     public Collection<Participant> getParticipantsByTournament(Long id) throws PersistenceException {
-        return super.getAllByConstrain(
+        Collection<Participant> participants = super.getAllByConstrain(
                 QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ALL_PARTICIPANTS_BY_TOURNAMENT_QUERY),
                 String.valueOf(id));
+        return participants;
+    }
+
+    private void updateLinkedTable(Long participantId, Long tournamentId, String query) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, participantId);
+            preparedStatement.setLong(2, tournamentId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(StringMessages.getMessage(StringMessages.LINKED_TABLE_DB_ERROR) + e.getMessage());
+            throw new PersistenceException(e.getMessage());
+        }
     }
 
     @Override
@@ -75,17 +86,6 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
             preparedStatement.setString(4, participant.getTrainer());
             preparedStatement.setString(5, participant.getJockey());
         } catch (SQLException e) {
-            throw new PersistenceException(e.getMessage());
-        }
-    }
-
-    private void updateLinkedTable(Long participantId, Long tournamentId, String query) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, participantId);
-            preparedStatement.setLong(2, tournamentId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(StringMessages.getMessage(StringMessages.LINKED_TABLE_DB_ERROR) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
     }

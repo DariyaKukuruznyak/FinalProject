@@ -8,10 +8,10 @@
             class="glyphicon glyphicon-home"></span> <fmt:message key="back_home" bundle="${bundle}"/></a>
     <div class="panel-body">
         <c:if test="${not empty errorMessage}">
-            <div class="alert alert-danger">${errorMessage}</div>
+            <div class="alert alert-danger"><c:out value="${errorMessage}"/></div>
         </c:if>
         <c:if test="${not empty successMessage}">
-            <div class="alert alert-success">${successMessage}</div>
+            <div class="alert alert-success"><c:out value="${successMessage}"/></div>
         </c:if>
         <h2 class="form-signin-heading"><fmt:message key="create_participant" bundle="${bundle}"/></h2>
         <form class="form-horizontal" action="?command=createParticipant" method="POST">
@@ -21,7 +21,7 @@
                        pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
                        title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
                        placeholder="<fmt:message key="name" bundle="${bundle}"/>" required
-                       value="${participant.name}">
+                       value="<c:out value='${participant.name}'/>">
             </fieldset>
             <fieldset class="form-group">
                 <label for="age"><fmt:message key="age" bundle="${bundle}"/></label>
@@ -29,7 +29,7 @@
                        pattern="[0-9]{1,3}" maxlength="3"
                        title="<fmt:message key="expected_digits" bundle="${bundle}"/> 3"
                        placeholder="<fmt:message key="age" bundle="${bundle}"/>" required
-                       value="${participant.age}">
+                       value="<c:out value='${participant.age}'/>">
             </fieldset>
             <fieldset class="form-group">
                 <label for="age"><fmt:message key="weight" bundle="${bundle}"/></label>
@@ -37,7 +37,7 @@
                        pattern="[0-9]{1,3}" maxlength="3"
                        title="<fmt:message key="expected_digits" bundle="${bundle}"/> 3"
                        placeholder="<fmt:message key="weight" bundle="${bundle}"/>" required
-                       value="${participant.weight}">
+                       value="<c:out value='${participant.weight}'/>">
             </fieldset>
             <fieldset class="form-group">
                 <label for="trainer"><fmt:message key="trainer" bundle="${bundle}"/></label>
@@ -45,7 +45,7 @@
                        pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
                        title="<fmt:message key="expected_letters" bundle="${bundle}"/> = 20"
                        placeholder="<fmt:message key="trainer" bundle="${bundle}"/>" required
-                       value="${participant.trainer}">
+                       value="<c:out value='${participant.trainer}'/>">
             </fieldset>
             <fieldset class="form-group">
                 <label for="jockey"><fmt:message key="jockey" bundle="${bundle}"/></label>
@@ -53,7 +53,7 @@
                        pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
                        title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
                        placeholder="<fmt:message key="jockey" bundle="${bundle}"/>" required
-                       value="${participant.jockey}">
+                       value="<c:out value='${participant.jockey}'/>">
             </fieldset>
             <fieldset class="form-group">
                 <button class="btn btn-lg btn-primary btn-block"><fmt:message key="save" bundle="${bundle}"/></button>

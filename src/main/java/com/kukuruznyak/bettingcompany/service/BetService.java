@@ -127,6 +127,21 @@ public class BetService extends AbstractService {
         }
     }
 
+    public Bet getById(Long id) {
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                BetDao betDao = daoFactory.getBetDao(connection);
+                Bet bet = betDao.getById(id);
+                BetItemDao betItemDao = daoFactory.getBetItemDao(connection);
+                bet.setItems(betItemDao.getAllByBetId(bet.getId()));
+                return bet;
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
+
+    }
+
     public Collection<Bet> getBetsByEvent(Event event) {
         try {
             try (Connection connection = dataSource.getConnection()) {

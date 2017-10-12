@@ -17,7 +17,7 @@ public class EditTournamentCommand extends Command {
         HttpSession currentSession = request.getSession();
         try {
             TournamentService tournamentService = serviceFactory.getTournamentService();
-            Tournament tournament = tournamentService.getById(request.getParameter(TOURNAMENT_ID));
+            Tournament tournament = tournamentService.getById(new Long(request.getParameter(TOURNAMENT_ID)));
             editTournament(request, tournament);
             if (tournamentService.isValidParticipant(tournament)) {
                 tournamentService.update(tournament);
@@ -39,7 +39,6 @@ public class EditTournamentCommand extends Command {
 
     private void editTournament(HttpServletRequest request, Tournament tournament) {
         tournament.setName(request.getParameter(NAME));
-        tournament.setCountry(request.getParameter(COUNTRY));
         tournament.setWinner(request.getParameter(WINNER));
     }
 }

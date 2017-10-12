@@ -20,7 +20,8 @@
                 <th><fmt:message key="date_of_creation" bundle="${bundle}"/></th>
                 <th><fmt:message key="date_of_beginning" bundle="${bundle}"/></th>
                 <th><fmt:message key="tournament" bundle="${bundle}"/></th>
-                <th><fmt:message key="bets" bundle="${bundle}"/></th>
+                <th><fmt:message key="turnover" bundle="${bundle}"/></th>
+                <th><fmt:message key="profit" bundle="${bundle}"/></th>
             </thead>
             <tbody>
             <c:forEach items="${events}" var="event">
@@ -50,14 +51,11 @@
                                 class="glyphicon glyphicon-pencil"></span>
                             <fmt:message key="edit" bundle="${bundle}"/></a>
                     </td>
-                    <td>${event.creationDateAndTime}</td>
-                    <td>${event.tournament.beginningDateAndTime}</td>
-                    <td>${event.tournament.fullName}</td>
-                    <td>
-                        <a href="?command=showBetsOfEvent&eventId=${event.id}"><fmt:message key="bets"
-                                                                                            bundle="${bundle}"/>
-                            <span class="badge">${event.numberOfBets}</span></a>
-                    </td>
+                    <td><c:out value="${event.creationDateAndTime}"/></td>
+                    <td><c:out value="${event.tournament.beginningDateAndTime}"/></td>
+                    <td><c:out value="${event.tournament.name}"/></td>
+                    <td><c:out value="${event.turnover}"/></td>
+                    <td><c:out value="${event.profit}"/></td>
                 </tr>
             </c:forEach>
             </tbody>

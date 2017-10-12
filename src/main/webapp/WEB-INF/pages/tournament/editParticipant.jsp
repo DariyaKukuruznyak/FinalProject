@@ -15,7 +15,7 @@
         </c:if>
         <div class="row">
             <div class="col-sm-6">
-                <h2 class="form-signin-heading"><fmt:message key="editParticipant" bundle="${bundle}"/></h2>
+                <h2 class="form-signin-heading"><fmt:message key="edit_participant" bundle="${bundle}"/></h2>
                 <form class="form-horizontal" action="?command=updateParticipant&participantId=${participant.id}"
                       method="POST">
                     <fieldset class="form-group">
@@ -24,7 +24,7 @@
                                pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
                                title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
                                placeholder="<fmt:message key="name" bundle="${bundle}"/>" required
-                               value="${participant.name}">
+                               value="<c:out value='${participant.name}'/>">
                     </fieldset>
                     <fieldset class="form-group">
                         <label for="age"><fmt:message key="age" bundle="${bundle}"/></label>
@@ -32,7 +32,7 @@
                                pattern="[0-9]{1,3}" maxlength="3"
                                title="<fmt:message key="expected_digits" bundle="${bundle}"/> 3"
                                placeholder="<fmt:message key="age" bundle="${bundle}"/>" required
-                               value="${participant.age}">
+                               value="<c:out value='${participant.age}'/>">
                     </fieldset>
                     <fieldset class="form-group">
                         <label for="age"><fmt:message key="weight" bundle="${bundle}"/></label>
@@ -40,7 +40,7 @@
                                pattern="[0-9]{1,3}" maxlength="3"
                                title="<fmt:message key="expected_digits" bundle="${bundle}"/> 3"
                                placeholder="<fmt:message key="weight" bundle="${bundle}"/>" required
-                               value="${participant.weight}">
+                               value="<c:out value='${participant.weight}'/>">
                     </fieldset>
                     <fieldset class="form-group">
                         <label for="trainer"><fmt:message key="trainer" bundle="${bundle}"/></label>
@@ -48,7 +48,7 @@
                                pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
                                title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
                                placeholder="<fmt:message key="trainer" bundle="${bundle}"/>" required
-                               value="${participant.trainer}">
+                               value="<c:out value='${participant.trainer}'/>">
                     </fieldset>
                     <fieldset class="form-group">
                         <label for="jockey"><fmt:message key="jockey" bundle="${bundle}"/></label>
@@ -56,7 +56,7 @@
                                pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
                                title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
                                placeholder="<fmt:message key="jockey" bundle="${bundle}"/>" required
-                               value="${participant.jockey}">
+                               value="<c:out value='${participant.jockey}'/>">
                     </fieldset>
                     <c:if test="${not empty participant.tournaments}">
                         <fieldset class="form-group">
@@ -65,15 +65,13 @@
                                 <thead>
                                 <tr>
                                     <th><fmt:message key="name" bundle="${bundle}"/></th>
-                                    <th><fmt:message key="country" bundle="${bundle}"/></th>
                                     <th><fmt:message key="exclude" bundle="${bundle}"/></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${participant.tournaments}" var="tournament">
                                     <tr>
-                                        <td>${tournament.name}</td>
-                                        <td>${tournament.country}</td>
+                                        <td><c:out value='${tournament.name}'/></td>
                                         <td><a class="btn btn-info"
                                                href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=participant&action=exclude">
                                             <span class="glyphicon glyphicon-minus"></span></a>
@@ -99,15 +97,13 @@
                             <thead>
                             <tr>
                                 <th><fmt:message key="name" bundle="${bundle}"/></th>
-                                <th><fmt:message key="country" bundle="${bundle}"/></th>
                                 <th><fmt:message key="include" bundle="${bundle}"/></th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="${activeTournaments}" var="tournament">
                                 <tr>
-                                    <td>${tournament.name}</td>
-                                    <td>${tournament.country}</td>
+                                    <td><c:out value='${tournament.name}'/></td>
                                     <td>
                                         <a class="btn btn-info"
                                            href="?command=moveParticipant&participantId=${participant.id}

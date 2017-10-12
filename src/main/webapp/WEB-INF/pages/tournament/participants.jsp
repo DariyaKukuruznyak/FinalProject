@@ -29,20 +29,20 @@
             <tbody>
             <c:forEach items="${participants}" var="participant">
                 <tr>
-                    <td>${participant.name}</td>
-                    <td>${participant.age}</td>
-                    <td>${participant.weight}</td>
-                    <td>${participant.trainer}</td>
-                    <td>${participant.jockey}</td>
+                    <td<c:out value='>${participant.name}'/></td>
+                    <td><c:out value='${participant.age}'/></td>
+                    <td><c:out value='${participant.weight}'/></td>
+                    <td><c:out value='${participant.trainer}'/></td>
+                    <td><c:out value='${participant.jockey}'/></td>
                     <td>
                         <c:forEach items="${participant.tournaments}" var="tournament">
-                            <div>${tournament.name}</div>
+                            <div><c:out value='${tournament.name}'/></div>
                         </c:forEach>
                     </td>
                     <td>
                         <a href="?command=editParticipant&participantId=${participant.id}"><span
-                                class="glyphicon glyphicon-pencil"></span> <
-                            fmt:message key="edit" bundle="${bundle}"/></a>
+                                class="glyphicon glyphicon-pencil"></span>
+                            <fmt:message key="edit" bundle="${bundle}"/></a>
                     </td>
                     <td>
                         <a href="?command=deleteParticipant&participantId=${participant.id}"><span

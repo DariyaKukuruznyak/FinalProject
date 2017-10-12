@@ -8,7 +8,7 @@
             class="glyphicon glyphicon-home"></span> <fmt:message key="back_home" bundle="${bundle}"/></a>
     <div class="panel-body">
         <c:if test="${not empty errorMessage}">
-            <div class="alert alert-danger">${errorMessage}</div>
+            <div class="alert alert-danger"><c:out value="${errorMessage}"/></div>
         </c:if>
         <c:if test="${not empty selectedTournament}">
             <a href="?command=createEvent" class="btn btn-success"><h2>
@@ -24,21 +24,19 @@
                                 <thead>
                                 <tr>
                                     <th><fmt:message key="name" bundle="${bundle}"/></th>
-                                    <th><fmt:message key="country" bundle="${bundle}"/></th>
                                     <th><fmt:message key="date_of_beginning" bundle="${bundle}"/></th>
-                                    <th>Select</th>
+                                    <th><fmt:message key="select" bundle="${bundle}"/></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${tournaments}" var="tournament">
                                     <tr>
-                                        <td>${tournament.name}</td>
-                                        <td>${tournament.country}</td>
-                                        <td>${tournament.beginningDateAndTime}</td>
+                                        <td><c:out value="${tournament.name}"/></td>
+                                        <td><c:out value="${tournament.beginningDateAndTime}"/></td>
                                         <td>
-                                            <a href="?command=selectTournament&tournamentId=${tournament.id}"><span
-                                                    class="glyphicon glyphicon-ok"></span> <fmt:message key="select"
-                                                                                                        bundle="${bundle}"/></a>
+                                            <a href="?command=selectTournament&tournamentId=${tournament.id}">
+                                                <span class="glyphicon glyphicon-ok"></span> <fmt:message key="select"
+                                                                                                          bundle="${bundle}"/></a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -53,21 +51,15 @@
                             <div class="form-group row">
                                 <label for="name" class="col-sm-4 col-form-label">Name</label>
                                 <div class="col-sm-8">
-                                    <div id="name">${selectedTournament.name}</div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="country" class="col-sm-4 col-form-label"><fmt:message key="country"
-                                                                                                  bundle="${bundle}"/></label>
-                                <div class="col-sm-8">
-                                    <div id="country">${selectedTournament.country}</div>
+                                    <div id="name"><c:out value="${selectedTournament.name}"/></div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="beginningDateAndTime" class="col-sm-4 col-form-label"><fmt:message
                                         key="date_of_beginning" bundle="${bundle}"/></label>
                                 <div class="col-sm-8">
-                                    <div id="beginningDateAndTime">${selectedTournament.beginningDateAndTime}</div>
+                                    <div id="beginningDateAndTime"><c:out
+                                            value="${selectedTournament.beginningDateAndTime}"/></div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -91,11 +83,11 @@
                                 <tbody>
                                 <c:forEach items="${selectedTournament.participants}" var="participant">
                                     <tr>
-                                        <td>${participant.name}</td>
-                                        <td>${participant.age}</td>
-                                        <td>${participant.weight}</td>
-                                        <td>${participant.trainer}</td>
-                                        <td>${participant.jockey}</td>
+                                        <td><c:out value="${participant.name}"/></td>
+                                        <td><c:out value="${participant.age}"/></td>
+                                        <td><c:out value="${participant.weight}"/></td>
+                                        <td><c:out value="${participant.trainer}"/></td>
+                                        <td><c:out value="${participant.jockey}"/></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -105,7 +97,7 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <div class="alert alert-danger"> <fmt:message key="no_active_tournaments" bundle="${bundle}"/></div>
+                <div class="alert alert-danger"><fmt:message key="no_active_tournaments" bundle="${bundle}"/></div>
             </c:otherwise>
         </c:choose>
     </div>

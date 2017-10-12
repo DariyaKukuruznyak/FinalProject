@@ -21,15 +21,12 @@
                        pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
                        title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
                        placeholder="<fmt:message key="name" bundle="${bundle}"/>" required
-                       value="${tournament.name}">
+                       value="<c:out value='${tournament.name}'/>">
             </fieldset>
             <fieldset class="form-group">
-                <label for="country"><fmt:message key="country" bundle="${bundle}"/></label>
-                <input class="form-control" id="country" name="country"
-                       pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
-                       title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
-                       placeholder="<fmt:message key="country" bundle="${bundle}"/>" required
-                       value="${tournament.country}">
+                <label for="beginningDate"><fmt:message key="date_of_beginning" bundle="${bundle}"/></label>
+                <input type="date" class="form-control" id="beginningDate" name="beginningDate"
+                       required value="<c:out value='${tournament.beginningDateAndTime}'/>">
             </fieldset>
             <fieldset class="form-group">
                 <button class="btn btn-lg btn-primary btn-block"><fmt:message key="save" bundle="${bundle}"/></button>

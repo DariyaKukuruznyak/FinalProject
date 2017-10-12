@@ -32,8 +32,23 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
     }
 
     public T getById(Long id) throws PersistenceException {
-        String query = currentModel + DELIMITER + SELECT_BY_ID_QUERY;
-        return getByConstrain(query, id);
+        T model = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel +
+                DELIMITER + SELECT_BY_ID_QUERY))) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                model = fillModel(resultSet);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
+            throw new PersistenceException(e.getMessage());
+        }
+        if (model == null) {
+            LOGGER.info(currentModel + StringMessages.getMessage(StringMessages.NOT_FOUND));
+        }
+        return model;
     }
 
     public Collection<T> getAll() throws PersistenceException {
@@ -75,7 +90,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
 
     protected T getByConstrain(String query, Long constrain) throws PersistenceException {
         T model = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(  QUERIES.getString(query))) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(query))) {
             preparedStatement.setLong(1, constrain);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -97,7 +112,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
                 QUERIES.getString(currentModel + DELIMITER + INSERT_QUERY),
                 Statement.RETURN_GENERATED_KEYS)) {
             fillPreparedStatement(preparedStatement, model);
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 generatedKeys.next();
                 model.setId(generatedKeys.getLong(1));

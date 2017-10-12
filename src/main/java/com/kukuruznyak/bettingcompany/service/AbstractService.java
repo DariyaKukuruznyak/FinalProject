@@ -14,5 +14,4 @@ public abstract class AbstractService {
     protected static final Logger LOGGER = Logger.getLogger(AbstractService.class);
     protected static DaoFactory daoFactory = DaoFactory.getDaoFactory(DaoFactoryType.MYSQL);
     protected DataSource dataSource = ConnectionPool.getInstance().getConnectionPool();
-//    protected static ResourceBundle validationBundle = ResourceBundle.getBundle("validationPatterns");
 }

@@ -34,30 +34,23 @@
             <tbody>
             <c:forEach items="${bets}" var="bet">
                 <tr>
-                    <td>${bet.date}</td>
-                    <td>${bet.type}</td>
-                    <td><c:forEach items="${bet.items}" var="item">
-                        <div>${item.name}</div>
-                    </c:forEach></td>
-                    <td><c:forEach items="${bet.items}" var="item">
-                        <div>${item.coefficient}</div>
-                    </c:forEach></td>
-                    <td><c:forEach items="${bet.items}" var="item">
-                        <div>${item.result}</div>
-                    </c:forEach></td>
-                    <td>${bet.totalCoefficient}</td>
-                    <td>${bet.sumIn}</td>
-                    <td>${bet.sumOut}</td>
-                    <td>${bet.result}</td>
+                    <td><c:out value="${bet.date}"/></td>
+                    <td><c:out value="${bet.type}"/></td>
+                    <td><c:forEach items="${bet.items}" var="item"><div><c:out value="${item.name}"/></div></c:forEach></td>
+                    <td><c:forEach items="${bet.items}" var="item"><div><c:out value="${item.coefficient}"/></div></c:forEach></td>
+                    <td><c:forEach items="${bet.items}" var="item"><div><c:out value="${item.result}"/></div></c:forEach></td>
+                    <td><c:out value="${bet.totalCoefficient}"/></td>
+                    <td><c:out value="${bet.sumIn}"/></td>
+                    <td><c:out value="${bet.sumOut}"/></td>
+                    <td><c:out value="${bet.result}"/></td>
                     <c:if test="${user.userRole!=clientRole}">
-                        <td><textarea name="betDescription" cols="100" rows="3"></textarea>
-                            <a href="?command=editBetDescription&betId=${bet.id}"><fmt:message key="save"
+                        <td><textarea name="description" cols="100" rows="3"></textarea>
+                            <a href="?command=editBetDescription&id=${bet.id}"><fmt:message key="save"
                                                                                                bundle="${bundle}"/></a>
                         </td>
                     </c:if>
                     <c:if test="${user.userRole==riskControllerRole}">
-                        <td><a class="btn btn-dangerous"
-                               href="?command=cancelBet&betId=${bet.id}">
+                        <td><a class="btn btn-dangerous" href="?command=cancelBet&betId=${bet.id}">
                             <fmt:message key="cancel" bundle="${bundle}"/>
                         </a></td>
                     </c:if>

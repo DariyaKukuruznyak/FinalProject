@@ -19,7 +19,7 @@ public class EditParticipantCommand extends Command {
         HttpSession currentSession = request.getSession();
         try {
             ParticipantService participantService = serviceFactory.getParticipantService();
-            Participant participant = participantService.getParticipantById(request.getParameter(PARTICIPANT_ID));
+            Participant participant = participantService.getById(new Long(request.getParameter(PARTICIPANT_ID)));
             participant = editParticipant(request, participant);
             if (participantService.isValidParticipant(participant)) {
                 participantService.update(participant);

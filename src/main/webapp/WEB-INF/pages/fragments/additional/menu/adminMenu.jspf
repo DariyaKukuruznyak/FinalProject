@@ -1,4 +1,4 @@
-<li><a><span class="glyphicon glyphicon-wrench"></span> ${user.fullName} </a></li>
+<li><a><c:out value="${user.fullName}"/> </a></li>
 <li><a href="?command=addUser"><span class="glyphicon glyphicon-plus"></span>
     <fmt:message key="create_user" bundle="${bundle}"/></a></li>
 <li><a href="?command=users"><span class="glyphicon glyphicon-list-alt"></span>

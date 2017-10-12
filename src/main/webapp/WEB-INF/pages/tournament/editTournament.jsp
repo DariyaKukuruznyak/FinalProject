@@ -24,17 +24,9 @@
                                pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
                                title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
                                placeholder="<fmt:message key="name" bundle="${bundle}"/>" required
-                               value="${tournament.name}">
+                               value="<c:out value='${tournament.name}'/>">
                     </fieldset>
-                    <fieldset class="form-group">
-                        <label for="country"><fmt:message key="country" bundle="${bundle}"/></label>
-                        <input class="form-control" id="country" name="country"
-                               pattern="[A-Z]?[a-z ]+)|([А-Я]?[а-я ]+" maxlength="20"
-                               title="<fmt:message key="expected_letters" bundle="${bundle}"/> 20"
-                               placeholder="<fmt:message key="country" bundle="${bundle}"/>" required
-                               value="${tournament.country}">
-                    </fieldset>
-                    <fieldset class="form-group">
+                     <fieldset class="form-group">
                         <label for="winner"><fmt:message key="winner" bundle="${bundle}"/></label>
                         <select class="form-control" id="winner" name="winner" size="1">
                             <c:choose>
@@ -43,10 +35,10 @@
                                 </c:when>
                                 <c:otherwise>
                                     <c:if test="${not empty tournament.winner}">
-                                        <option selected>${tournament.winner}</option>
+                                        <option selected><c:out value='${tournament.winner}'/></option>
                                     </c:if>
                                     <c:forEach items="${tournament.participants}" var="participant">
-                                        <option>${participant.name}</option>
+                                        <option><c:out value='${participant.name}'/></option>
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
@@ -66,9 +58,9 @@
                                 <tbody>
                                 <c:forEach items="${tournament.participants}" var="participant">
                                     <tr>
-                                        <td>${participant.name}</td>
-                                        <td>${participant.trainer}</td>
-                                        <td>${participant.jockey}</td>
+                                        <td><c:out value='${participant.name}'/></td>
+                                        <td><c:out value='${participant.trainer}'/></td>
+                                        <td><c:out value='${participant.jockey}'/></td>
                                         <td>
                                             <a class="btn btn-info"
                                                href="?command=moveParticipant&participantId=${participant.id}
@@ -105,9 +97,9 @@
                             <c:forEach items="${participants}" var="participant">
                                 <tr>
                                 <tr>
-                                    <td>${participant.name}</td>
-                                    <td>${participant.trainer}</td>
-                                    <td>${participant.jockey}</td>
+                                    <td><c:out value='${participant.name}'/></td>
+                                    <td><c:out value='${participant.trainer}'/></td>
+                                    <td><c:out value='${participant.jockey}'/></td>
                                     <td><a class="btn btn-info"
                                            href="?command=moveParticipant&participantId=${participant.id}
                                            &tournamentId=${tournament.id}&editedModel=tournament&action=include">

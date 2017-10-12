@@ -1,1 +1,1 @@
-<li><a><span class="glyphicon glyphicon-wrench"></span> ${user.fullName} </a></li>
+<li><a><c:out value="${user.fullName}"/> </a></li>

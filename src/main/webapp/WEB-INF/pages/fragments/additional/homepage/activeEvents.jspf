@@ -4,13 +4,13 @@
             <c:when test="${fn:contains(selectedEvents, event)}">
                 <li class="alert alert-info">
                     <a href="?command=moveEvent&action=exclude&eventId=${event.id}">
-                        <label for="${event.id}">${event.tournament.fullName}</label></a>
+                        <label for="${event.id}"><c:out value="$${event.tournament.name}"/></label></a>
                 </li>
             </c:when>
             <c:otherwise>
                 <li class="alert alert-default">
                     <a href="?command=moveEvent&action=include&eventId=${event.id}">
-                        <label for="${event.id}">${event.tournament.fullName}</label></a>
+                        <label for="${event.id}"><c:out value="$${event.tournament.name}"/></label></a>
                 </li>
             </c:otherwise>
         </c:choose>

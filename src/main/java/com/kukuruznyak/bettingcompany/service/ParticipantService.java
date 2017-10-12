@@ -1,6 +1,7 @@
 package com.kukuruznyak.bettingcompany.service;
 
 import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
+import com.kukuruznyak.bettingcompany.dao.TournamentDao;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
 import com.kukuruznyak.bettingcompany.exception.ServiceException;
 
@@ -29,28 +30,16 @@ public class ParticipantService extends AbstractService {
         try {
             try (Connection connection = dataSource.getConnection()) {
                 ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
-                return participantDao.getAll();
+                Collection<Participant> participants = participantDao.getAll();
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                for (Participant participant : participants) {
+                    participant.setTournaments(tournamentDao.getTournamentsByParticipant(participant.getId()));
+                }
+                return participants;
             }
         } catch (SQLException e) {
             throw new ServiceException(e);
         }
-    }
-
-    public boolean isValidParticipant(Participant participant) {
-        String pattern = "([A-Za-zА-Яа-я'ЇїІі ]{1,20})";
-        if (!participant.getName().matches(pattern)) {
-            participant.setName("");
-            return false;
-        }
-        if (!participant.getTrainer().matches(pattern)) {
-            participant.setTrainer("");
-            return false;
-        }
-        if (!participant.getJockey().matches(pattern)) {
-            participant.setJockey("");
-            return false;
-        }
-        return true;
     }
 
     public Participant add(Participant participant) {
@@ -64,22 +53,11 @@ public class ParticipantService extends AbstractService {
         }
     }
 
-    public void delete(String participantId) {
+    public void delete(Long participantId) {
         try {
             try (Connection connection = dataSource.getConnection()) {
                 ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
-                participantDao.delete(new Long(participantId));
-            }
-        } catch (SQLException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    public Participant getParticipantById(String participantId) {
-        try {
-            try (Connection connection = dataSource.getConnection()) {
-                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
-                return participantDao.getById(new Long(participantId));
+                participantDao.delete(participantId);
             }
         } catch (SQLException e) {
             throw new ServiceException(e);
@@ -97,14 +75,49 @@ public class ParticipantService extends AbstractService {
         }
     }
 
-    public Participant getById(String participantId) {
+    public Participant getById(Long participantId) {
         try {
             try (Connection connection = dataSource.getConnection()) {
                 ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
-                return participantDao.getById(new Long(participantId));
+                Participant participant = participantDao.getById(participantId);
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                participant.setTournaments(tournamentDao.getTournamentsByParticipant(participant.getId()));
+                return participant;
             }
         } catch (SQLException e) {
             throw new ServiceException(e);
         }
+    }
+    public Collection<Participant> getByTournamentId(Long tournamentId) {
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                Collection<Participant> participants = participantDao.getParticipantsByTournament(tournamentId);
+                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+                for (Participant participant : participants) {
+                    participant.setTournaments(tournamentDao.getTournamentsByParticipant(participant.getId()));
+                }
+                return participants;
+
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+    public boolean isValidParticipant(Participant participant) {
+        String pattern = "([A-Za-zА-Яа-я'ЇїІі ]{1,20})";
+        if (!participant.getName().matches(pattern)) {
+            participant.setName("");
+            return false;
+        }
+        if (!participant.getTrainer().matches(pattern)) {
+            participant.setTrainer("");
+            return false;
+        }
+        if (!participant.getJockey().matches(pattern)) {
+            participant.setJockey("");
+            return false;
+        }
+        return true;
     }
 }
