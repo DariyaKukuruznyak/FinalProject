@@ -28,7 +28,7 @@
             <c:forEach items="${tournaments}" var="tournament">
                 <tr>
                     <td><c:out value='${tournament.name}'/></td>
-                    <td><c:out value='${tournament.beginningDateAndTime}'/></td>
+                    <td><c:out value='${tournament.beginningDate}'/></td>
                     <td><c:forEach items="${tournament.participants}" var="participant">
                        <div><c:out value='${participant.name}'/></div>
                     </c:forEach></td>

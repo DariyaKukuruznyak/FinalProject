@@ -29,7 +29,7 @@ public interface RequestAttributeConstants {
     String TOURNAMENT = "tournament";
     String TOURNAMENTS = "tournaments";
     String TOURNAMENT_ID = "tournamentId";
-    String COUNTRY = "country";
+    String BEGINNING_DATE = "beginningDate";
     String WINNER = "winner";
     String PARTICIPANT_ID = "participantId";
     String PARTICIPANT = "participant";

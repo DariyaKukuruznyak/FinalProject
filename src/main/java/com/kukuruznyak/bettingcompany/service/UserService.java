@@ -74,7 +74,7 @@ public class UserService extends AbstractService {
         return true;
     }
 
-    public User add(User user) {
+    public synchronized User add(User user) {
         try {
             try (Connection connection = dataSource.getConnection()) {
                 UserDao userDao = daoFactory.getUserDao(connection);

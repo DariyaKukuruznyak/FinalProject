@@ -2,7 +2,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <div><c:out value="${event.tournament.name}"/></div>
-            <div><c:out value="${event.tournament.beginningDateAndTime}"/></div>
+            <div><c:out value="${event.tournament.beginningDate}"/></div>
         </div>
         <div class="panel-body">
             <c:forEach items="${event.markets}" var="market">

@@ -21,7 +21,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
 
     private static final String ID_COLUMN = "id";
     private static final String NAME_COLUMN = "name";
-    private static final String START_DATE_COLUMN = "start_date_and_time";
+    private static final String START_DATE_COLUMN = "start_date";
     private static final String WINNER_COLUMN = "winner";
 
     public MySqlTournamentDaoImpl(Connection connection) {
@@ -58,7 +58,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
             return new TournamentBuilder()
                     .buildId(resultSet.getLong(ID_COLUMN))
                     .buildName(resultSet.getString(NAME_COLUMN))
-                    .buildBeginningDateAndTime(resultSet.getDate(START_DATE_COLUMN))
+                    .buildBeginningDate(resultSet.getDate(START_DATE_COLUMN))
                     .buildWinner(resultSet.getString(WINNER_COLUMN))
                     .build();
         } catch (SQLException e) {
@@ -70,7 +70,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     protected void fillPreparedStatement(PreparedStatement preparedStatement, Tournament tournament){
         try {
             preparedStatement.setString(1, tournament.getName());
-            preparedStatement.setDate(2, new java.sql.Date(tournament.getBeginningDateAndTime().getTime()));
+            preparedStatement.setDate(2, new java.sql.Date(tournament.getBeginningDate().getTime()));
             preparedStatement.setString(3, tournament.getWinner());
         } catch (SQLException e) {
             throw new PersistenceException(e.getMessage());

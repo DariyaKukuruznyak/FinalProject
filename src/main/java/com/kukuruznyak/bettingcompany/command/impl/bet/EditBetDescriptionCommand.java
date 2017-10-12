@@ -6,7 +6,6 @@ import com.kukuruznyak.bettingcompany.service.BetService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class EditBetDescriptionCommand extends Command {
 
@@ -16,7 +15,7 @@ public class EditBetDescriptionCommand extends Command {
         BetService betService = serviceFactory.getBetService();
         Bet bet = betService.getById(new Long(request.getParameter(ID)));
         bet.setDescription(description);
-        betService.updateDescription(bet);
+        betService.update(bet);
         return pagesResourceBundle.getString(BETS_PAGE);
     }
 }

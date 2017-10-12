@@ -2,7 +2,6 @@ package com.kukuruznyak.bettingcompany.service;
 
 import com.kukuruznyak.bettingcompany.dao.EventDao;
 import com.kukuruznyak.bettingcompany.dao.MarketDao;
-import com.kukuruznyak.bettingcompany.dao.OutcomeDao;
 import com.kukuruznyak.bettingcompany.entity.event.*;
 import com.kukuruznyak.bettingcompany.entity.event.eventbuilder.OutcomeBuilder;
 import com.kukuruznyak.bettingcompany.entity.tournament.Participant;
@@ -32,24 +31,15 @@ public class EventService extends AbstractService {
     }
 
     public Event add(Event event) {
-        try {
-            Connection connection = dataSource.getConnection();
-            try {
-                connection.setAutoCommit(false);
-                EventDao eventDao = daoFactory.getEventDao(connection);
-                event = eventDao.add(event);
-                MarketDao marketDao = daoFactory.getMarketDao(connection);
-                for (Market market : event.getMarkets()) {
-                    market.setId(marketDao.add(market).getId());
-                }
-                connection.commit();
-                return event;
-            } catch (SQLException e) {
-                connection.rollback();
-                throw new ServiceException(e);
-            } finally {
-                connection.close();
+        try (Connection connection = dataSource.getConnection()) {
+            EventDao eventDao = daoFactory.getEventDao(connection);
+            MarketService marketService = ServiceFactory.getInstance().getMarketService();
+            event = eventDao.add(event);
+            for (Market market : event.getMarkets()) {
+                market.setEventId(event.getId());
+                marketService.add(market);
             }
+            return getById(event.getId());
         } catch (SQLException e) {
             throw new ServiceException(e);
         }
@@ -131,33 +121,15 @@ public class EventService extends AbstractService {
         betService.calculateBets(event);
     }
 
-    public Event createMarket(Event event, MarketNames marketNames) {
-        try {
-            Connection connection = dataSource.getConnection();
-            try {
-                connection.setAutoCommit(false);
-                MarketDao marketDao = daoFactory.getMarketDao(connection);
-                Market market = marketDao.add(new Market(marketNames, event.getId()));
-                OutcomeDao outcomeDao = daoFactory.getOutcomeDao(connection);
-                for (Participant participant : event.getTournament().getParticipants()) {
-                    Outcome outcome = new OutcomeBuilder()
-                            .buildName(participant.getName())
-                            .buildMarketId(market.getId())
-                            .build();
-                    market.addOutcome(outcomeDao.add(outcome));
-                }
-                event.addMarket(market);
-                connection.commit();
-                return event;
-            } catch (SQLException e) {
-                connection.rollback();
-                throw new ServiceException(e);
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            throw new ServiceException(e);
+    public Market createMarket(Event event, MarketNames marketNames) {
+        Market market = new Market(marketNames);
+        for (Participant participant : event.getTournament().getParticipants()) {
+            Outcome outcome = new OutcomeBuilder()
+                    .buildName(participant.getName())
+                    .build();
+            market.addOutcome(outcome);
         }
+        return market;
     }
 
     private Collection<Event> insertMarketsToEvent(Connection connection, Collection<Event> events) {

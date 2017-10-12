@@ -9,7 +9,7 @@ import java.util.HashSet;
 public class Tournament extends Model {
     private String name;
     private String winner;
-    private Date beginningDateAndTime;
+    private Date beginningDate;
     private Collection<Participant> participants;
 
     public Tournament() {
@@ -38,12 +38,12 @@ public class Tournament extends Model {
         this.participants.add(participant);
     }
 
-    public Date getBeginningDateAndTime() {
-        return beginningDateAndTime;
+    public Date getBeginningDate() {
+        return beginningDate;
     }
 
-    public void setBeginningDateAndTime(Date beginningDateAndTime) {
-        this.beginningDateAndTime = beginningDateAndTime;
+    public void setBeginningDate(Date beginningDate) {
+        this.beginningDate = beginningDate;
     }
 
     public String getWinner() {
@@ -69,14 +69,14 @@ public class Tournament extends Model {
 
         if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
              if (getWinner() != null ? !getWinner().equals(that.getWinner()) : that.getWinner() != null) return false;
-        return getBeginningDateAndTime() != null ? getBeginningDateAndTime().equals(that.getBeginningDateAndTime()) : that.getBeginningDateAndTime() == null;
+        return getBeginningDate() != null ? getBeginningDate().equals(that.getBeginningDate()) : that.getBeginningDate() == null;
     }
 
     @Override
     public int hashCode() {
         int result = getName() != null ? getName().hashCode() : 0;
         result = 31 * result + (getWinner() != null ? getWinner().hashCode() : 0);
-        result = 31 * result + (getBeginningDateAndTime() != null ? getBeginningDateAndTime().hashCode() : 0);
+        result = 31 * result + (getBeginningDate() != null ? getBeginningDate().hashCode() : 0);
         return result;
     }
 
@@ -86,7 +86,7 @@ public class Tournament extends Model {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", winner='" + winner + '\'' +
-                ", beginningDateAndTime=" + beginningDateAndTime +
+                ", beginningDate=" + beginningDate +
                 ", participants=" + participants +
                 '}';
     }

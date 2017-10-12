@@ -54,11 +54,11 @@ public class Market extends Model {
         return outcomes;
     }
 
-    public void addOutcome(Outcome outcomes) {
+    public void addOutcome(Outcome outcome) {
         if (this.outcomes == null) {
             this.outcomes = new HashSet<>();
         }
-        this.outcomes.add(outcomes);
+        this.outcomes.add(outcome);
     }
 
     @Override

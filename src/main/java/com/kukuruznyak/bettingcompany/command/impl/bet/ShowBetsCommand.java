@@ -38,7 +38,7 @@ public class ShowBetsCommand extends Command {
                     }
                     break;
                 case RISK_CONTROLLER:
-//                    bets = betService.getAll();
+                    bets = betService.getAll();
                     break;
                 default: {
                     throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));

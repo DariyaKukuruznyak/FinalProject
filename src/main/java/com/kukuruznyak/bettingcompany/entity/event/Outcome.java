@@ -67,15 +67,17 @@ public class Outcome extends Model implements Comparable<Object> {
 
         Outcome outcome = (Outcome) o;
 
-        if (!getName().equals(outcome.getName())) return false;
-        return getMarketId().equals(outcome.getMarketId());
+        if (Double.compare(outcome.getCoefficient(), getCoefficient()) != 0) return false;
+        if (getName() != null ? !getName().equals(outcome.getName()) : outcome.getName() != null) return false;
+        if (getMarketId() != null ? !getMarketId().equals(outcome.getMarketId()) : outcome.getMarketId() != null)
+            return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = getName().hashCode();
-        result = 31 * result + getMarketId().hashCode();
-        return result;
+        return getName() != null ? getName().hashCode() : 0;
     }
 
     @Override

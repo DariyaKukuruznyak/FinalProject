@@ -35,6 +35,7 @@ public class StringMessages {
     public static final String INCORRECT_INPUT = "incorrect_input";
     public static final String NO_PAGE_IDENTIFIED = "no_page_identified";
     public static final String NOT_ENOUGH_MONEY = "not_enough_money";
+    public static final String INITIALIZED = "initialized";
     /**
      * DataBase messages
      */

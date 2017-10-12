@@ -18,9 +18,13 @@ public class RegisterCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
+        String login = request.getParameter(LOGIN);
+        if (login == null) {
+            throw new ApplicationException(StringMessages.getMessage(StringMessages.INCORRECT_INPUT));
+        }
         try {
             UserService userService = serviceFactory.getUserService();
-            if (userService.getUserByLogin(request.getParameter(LOGIN)) != null) {
+            if (userService.getUserByLogin(login) != null) {
                 throw new ApplicationException(StringMessages.getMessage(StringMessages.USER_EXIST) + request.getParameter(LOGIN));
             }
             if (!request.getParameter(PASSWORD).equals(request.getParameter(CONFIRM_PASSWORD))) {

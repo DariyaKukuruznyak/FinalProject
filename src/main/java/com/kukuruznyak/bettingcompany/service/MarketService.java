@@ -1,6 +1,13 @@
 package com.kukuruznyak.bettingcompany.service;
 
-import com.kukuruznyak.bettingcompany.entity.bet.Bet;
+import com.kukuruznyak.bettingcompany.dao.MarketDao;
+import com.kukuruznyak.bettingcompany.entity.event.Market;
+import com.kukuruznyak.bettingcompany.entity.event.Outcome;
+import com.kukuruznyak.bettingcompany.exception.ServiceException;
+import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class MarketService extends AbstractService {
     private static MarketService instance;
@@ -19,7 +26,20 @@ public class MarketService extends AbstractService {
     private MarketService() {
     }
 
-    public  boolean makeBet(Bet bet) {
-        return true;
+    public Market add(Market market) {
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                MarketDao marketDao = daoFactory.getMarketDao(connection);
+                market = marketDao.add(market);
+                OutcomeService outcomeService = ServiceFactory.getInstance().getOutcomeService();
+                for (Outcome outcome : market.getOutcomes()) {
+                    outcome.setMarketId(market.getId());
+                    outcomeService.add(outcome);
+                }
+                return market;
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 }

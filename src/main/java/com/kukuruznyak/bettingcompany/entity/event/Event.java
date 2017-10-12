@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 
 public class Event extends Model {
-    private Date creationDateAndTime;
+    private Date creationDate;
     private Tournament tournament;
     private Collection<Market> markets;
     private EventStatus status;
@@ -19,16 +19,14 @@ public class Event extends Model {
     private BigDecimal turnover;
     private BigDecimal profit;
 
-    public Event() {
+    public Event() {    }
 
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public Date getCreationDateAndTime() {
-        return creationDateAndTime;
-    }
-
-    public void setCreationDateAndTime(Date creationDateAndTime) {
-        this.creationDateAndTime = creationDateAndTime;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public Tournament getTournament() {
@@ -112,7 +110,7 @@ public class Event extends Model {
         Event event = (Event) o;
 
         if (isSuspended() != event.isSuspended()) return false;
-        if (!getCreationDateAndTime().equals(event.getCreationDateAndTime())) return false;
+        if (!getCreationDate().equals(event.getCreationDate())) return false;
         if (!getTournament().equals(event.getTournament())) return false;
         if (getStatus() != event.getStatus()) return false;
         return getBookmaker().equals(event.getBookmaker());
@@ -120,7 +118,7 @@ public class Event extends Model {
 
     @Override
     public int hashCode() {
-        int result = getCreationDateAndTime().hashCode();
+        int result = getCreationDate().hashCode();
         result = 31 * result + getTournament().hashCode();
         result = 31 * result + getStatus().hashCode();
         result = 31 * result + getBookmaker().hashCode();
@@ -132,7 +130,7 @@ public class Event extends Model {
     public String toString() {
         return "Event{" +
                 "id=" + id +
-                ", creationDateAndTime=" + creationDateAndTime +
+                ", creationDate=" + creationDate +
                 ", status=" + status +
                 ", bookmakerId=" + bookmaker.getFullName() +
                 ", isSuspended=" + isSuspended +

@@ -51,8 +51,8 @@
                                 class="glyphicon glyphicon-pencil"></span>
                             <fmt:message key="edit" bundle="${bundle}"/></a>
                     </td>
-                    <td><c:out value="${event.creationDateAndTime}"/></td>
-                    <td><c:out value="${event.tournament.beginningDateAndTime}"/></td>
+                    <td><c:out value="${event.creationDate}"/></td>
+                    <td><c:out value="${event.tournament.beginningDate}"/></td>
                     <td><c:out value="${event.tournament.name}"/></td>
                     <td><c:out value="${event.turnover}"/></td>
                     <td><c:out value="${event.profit}"/></td>

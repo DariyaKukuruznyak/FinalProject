@@ -19,7 +19,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     private static final String GET_EVENT_BY_BET_ITEM_ID_QUERY = "selectByBetItemId";
 
     private static final String ID_COLUMN = "id";
-    private static final String OPEN_DATE_COLUMN = "open_date_and_time";
+    private static final String OPEN_DATE_COLUMN = "open_date";
     private static final String BOOKMAKER_ID_COLUMN = "bookmaker_id";
     private static final String TOURNAMENT_ID_COLUMN = "tournament_id";
     private static final String STATUS_COLUMN = "status";
@@ -36,9 +36,6 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
         Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER +
                         GET_EVENTS_BY_BOOKMAKER_ID_QUERY),
                 String.valueOf(bookmakerId));
-        for (Event event : events) {
-//            event.setMarkets(marketDao.getAllByEventId(event.getId()));
-        }
         return events;
     }
 
@@ -75,7 +72,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     @Override
     protected void fillPreparedStatement(PreparedStatement preparedStatement, Event event){
         try {
-            preparedStatement.setDate(1, new java.sql.Date(event.getCreationDateAndTime().getTime()));
+            preparedStatement.setDate(1, new java.sql.Date(event.getCreationDate().getTime()));
             preparedStatement.setLong(2, event.getTournament().getId());
             preparedStatement.setString(3, event.getStatus().toString());
             preparedStatement.setBoolean(4, event.isSuspended());

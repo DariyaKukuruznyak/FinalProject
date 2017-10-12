@@ -26,7 +26,7 @@
             <fieldset class="form-group">
                 <label for="beginningDate"><fmt:message key="date_of_beginning" bundle="${bundle}"/></label>
                 <input type="date" class="form-control" id="beginningDate" name="beginningDate"
-                       required value="<c:out value='${tournament.beginningDateAndTime}'/>">
+                       required value="<c:out value='${tournament.beginningDate}'/>">
             </fieldset>
             <fieldset class="form-group">
                 <button class="btn btn-lg btn-primary btn-block"><fmt:message key="save" bundle="${bundle}"/></button>

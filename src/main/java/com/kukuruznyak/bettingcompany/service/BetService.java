@@ -74,7 +74,6 @@ public class BetService extends AbstractService {
                         throw new ServiceException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
                     }
                 }
-
                 connection.commit();
                 return true;
             } catch (SQLException | ServiceException e) {
@@ -88,35 +87,10 @@ public class BetService extends AbstractService {
         }
     }
 
-    public void updateDescription(Bet bet) {
-        try {
-            try (Connection connection = dataSource.getConnection()) {
-                BetDao betDao = daoFactory.getBetDao(connection);
-                betDao.update(bet);
-            }
-        } catch (SQLException e) {
-            throw new ServiceException(e);
-        }
-    }
-
     public void update(Bet bet) {
-        try {
-            Connection connection = dataSource.getConnection();
-            try {
-                connection.setAutoCommit(false);
-                BetDao betDao = daoFactory.getBetDao(connection);
-                betDao.update(bet);
-                BetItemDao betItemDao = daoFactory.getBetItemDao(connection);
-                for (BetItem betItem : bet.getItems()) {
-                    betItem.setBetId(bet.getId());
-                    betItemDao.update(betItem);
-                }
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-            } finally {
-                connection.close();
-            }
+        try (Connection connection = dataSource.getConnection()) {
+            BetDao betDao = daoFactory.getBetDao(connection);
+            betDao.update(bet);
         } catch (SQLException e) {
             throw new ServiceException(e);
         }
@@ -127,6 +101,22 @@ public class BetService extends AbstractService {
             try (Connection connection = dataSource.getConnection()) {
                 BetDao betDao = daoFactory.getBetDao(connection);
                 Collection<Bet> bets = betDao.getByClientId(clientId);
+                BetItemDao betItemDao = daoFactory.getBetItemDao(connection);
+                for (Bet bet : bets) {
+                    bet.setItems(betItemDao.getAllByBetId(bet.getId()));
+                }
+                return bets;
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public Collection<Bet> getAll() {
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                BetDao betDao = daoFactory.getBetDao(connection);
+                Collection<Bet> bets = betDao.getAll();
                 BetItemDao betItemDao = daoFactory.getBetItemDao(connection);
                 for (Bet bet : bets) {
                     bet.setItems(betItemDao.getAllByBetId(bet.getId()));
@@ -162,6 +152,10 @@ public class BetService extends AbstractService {
                     for (Outcome outcome : market.getOutcomes()) {
                         betsByEvent.addAll(betDao.getByOutcomeId(outcome.getId()));
                     }
+                }
+                BetItemDao betItemDao = daoFactory.getBetItemDao(connection);
+                for (Bet bet : betsByEvent) {
+                    bet.setItems(betItemDao.getAllByBetId(bet.getId()));
                 }
                 return betsByEvent;
             }

@@ -26,7 +26,7 @@ public class ClientService extends AbstractService {
     private ClientService() {
     }
 
-    public Client add(Client client) {
+    public synchronized Client add(Client client) {
         try {
             Connection connection = dataSource.getConnection();
             try {

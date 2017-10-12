@@ -79,17 +79,17 @@
                 </form>
             </div>
             <div class="col-sm-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading"><fmt:message key="include_participant_to_tournament"
-                                                            bundle="${bundle}"/></div>
-                    <c:if test="${not empty participants}">
+                <c:if test="${not empty participants}">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><fmt:message key="include_participant_to_tournament"
+                                                                bundle="${bundle}"/></div>
                         <table class="table">
                             <thead>
                             <tr>
                                 <th><fmt:message key="name" bundle="${bundle}"/></th>
                                 <th><fmt:message key="trainer" bundle="${bundle}"/>/<fmt:message key="jockey"
                                                                                                  bundle="${bundle}"/></th>
-                                <th><fmt:message key="exclude" bundle="${bundle}"/></th>
+                                <th><fmt:message key="include" bundle="${bundle}"/></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -107,8 +107,8 @@
                             </c:forEach>
                             </tbody>
                         </table>
-                    </c:if>
-                </div>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>

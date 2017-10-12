@@ -35,6 +35,17 @@ public class OutcomeService extends AbstractService {
         }
     }
 
+    public Outcome add(Outcome outcome) {
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                OutcomeDao outcomeDao = daoFactory.getOutcomeDao(connection);
+                return outcomeDao.add(outcome);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
     public Outcome getById(String outcomeId) {
         try {
             try (Connection connection = dataSource.getConnection()) {

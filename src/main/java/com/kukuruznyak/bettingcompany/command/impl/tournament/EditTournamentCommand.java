@@ -18,7 +18,7 @@ public class EditTournamentCommand extends Command {
         try {
             TournamentService tournamentService = serviceFactory.getTournamentService();
             Tournament tournament = tournamentService.getById(new Long(request.getParameter(TOURNAMENT_ID)));
-            editTournament(request, tournament);
+            tournamentService.fillTournament(request, tournament);
             if (tournamentService.isValidParticipant(tournament)) {
                 tournamentService.update(tournament);
                 LOGGER.info(StringMessages.getMessage(StringMessages.TOURNAMENT_UPDATED_SUCCESSFULLY));
@@ -35,10 +35,5 @@ public class EditTournamentCommand extends Command {
             LOGGER.error(e.getMessage());
             return pagesResourceBundle.getString(EDIT_TOURNAMENT_PAGE);
         }
-    }
-
-    private void editTournament(HttpServletRequest request, Tournament tournament) {
-        tournament.setName(request.getParameter(NAME));
-        tournament.setWinner(request.getParameter(WINNER));
     }
 }

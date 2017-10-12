@@ -24,7 +24,7 @@ public class CreateParticipantCommand extends Command {
             currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.PARTICIPANT_CREATED_SUCCESSFULLY));
             LOGGER.info(StringMessages.getMessage(StringMessages.PARTICIPANT_CREATED_SUCCESSFULLY));
             TournamentService tournamentService = serviceFactory.getTournamentService();
-            currentSession.setAttribute(TOURNAMENTS, tournamentService.getActiveTournament());
+            currentSession.setAttribute(ACTIVE_TOURNAMENTS, tournamentService.getActiveTournament());
             currentSession.setAttribute(PARTICIPANT, participant);
         } else {
             throw new ApplicationException(StringMessages.getMessage(StringMessages.INCORRECT_PARTICIPANT));

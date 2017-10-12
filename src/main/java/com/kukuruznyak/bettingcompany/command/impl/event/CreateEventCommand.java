@@ -34,8 +34,8 @@ public class CreateEventCommand extends Command {
                     .buildTournament(tournament)
                     .build();
             EventService eventService = serviceFactory.getEventService();
+            event.addMarket(eventService.createMarket(event, MarketNames.WINNER));
             event = eventService.add(event);
-            event = eventService.createMarket(event, MarketNames.WINNER);
             currentSession.setAttribute(EVENT, event);
             currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.EVENT_CREATED_SUCCESSFULLY));
             currentSession.setAttribute(LOCKED_STATUS, EventStatus.LOCKED);

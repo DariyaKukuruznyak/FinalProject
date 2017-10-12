@@ -17,14 +17,14 @@
         <div class="row">
             <div class="col-sm-6">
                 <fieldset class="form-group">
-                    <label for="creationDateAndTime"><fmt:message key="date_of_creation" bundle="${bundle}"/></label>
-                    <div class="form-control" id="creationDateAndTime"><c:out
-                            value="${event.creationDateAndTime}"/></div>
+                    <label for="creationDate"><fmt:message key="date_of_creation" bundle="${bundle}"/></label>
+                    <div class="form-control" id="creationDate"><c:out
+                            value="${event.creationDate}"/></div>
                 </fieldset>
                 <fieldset class="form-group">
-                    <label for="beginningDateAndTime"><fmt:message key="date_of_beginning" bundle="${bundle}"/></label>
-                    <div class="form-control" id="beginningDateAndTime"><c:out
-                            value="${event.tournament.beginningDateAndTime}"/></div>
+                    <label for="beginningDate"><fmt:message key="date_of_beginning" bundle="${bundle}"/></label>
+                    <div class="form-control" id="beginningDate"><c:out
+                            value="${event.tournament.beginningDate}"/></div>
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="tournament"><fmt:message key="tournament" bundle="${bundle}"/></label>

@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class EventBuilder {
     private Long id = null;
-    private Date creationDateAndTime = new Date();
+    private Date creationDate = new Date();
     private Tournament tournament;
     private User bookmaker;
     private EventStatus eventStatus = EventStatus.LOCKED;
@@ -24,7 +24,7 @@ public class EventBuilder {
     }
 
     public EventBuilder buildDate(Date date) {
-        this.creationDateAndTime = date;
+        this.creationDate = date;
         return this;
     }
 
@@ -61,7 +61,7 @@ public class EventBuilder {
     public Event build() {
         Event event = new Event();
         event.setId(this.id);
-        event.setCreationDateAndTime(this.creationDateAndTime);
+        event.setCreationDate(this.creationDate);
         event.setTournament(this.tournament);
         event.setBookmaker(this.bookmaker);
         event.setStatus(this.eventStatus);

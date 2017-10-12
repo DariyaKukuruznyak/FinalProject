@@ -10,7 +10,7 @@ public class TournamentBuilder {
     private Long id = null;
     private String name;
     private String winner = "";
-    private Date beginningDateAndTime = new Date();
+    private Date beginningDate = new Date();
     private Collection<Participant> participants;
 
     public TournamentBuilder buildId(Long id) {
@@ -28,8 +28,8 @@ public class TournamentBuilder {
         return this;
     }
 
-    public TournamentBuilder buildBeginningDateAndTime(Date beginningDateAndTime) {
-        this.beginningDateAndTime = beginningDateAndTime;
+    public TournamentBuilder buildBeginningDate(Date beginningDate) {
+        this.beginningDate = beginningDate;
         return this;
     }
 
@@ -43,7 +43,7 @@ public class TournamentBuilder {
         tournament.setId(this.id);
         tournament.setName(this.name);
         tournament.setWinner(this.winner);
-        tournament.setBeginningDateAndTime(this.beginningDateAndTime);
+        tournament.setBeginningDate(this.beginningDate);
         tournament.setParticipants(this.participants);
         return tournament;
     }

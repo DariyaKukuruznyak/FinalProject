@@ -32,7 +32,7 @@
                                 <c:forEach items="${tournaments}" var="tournament">
                                     <tr>
                                         <td><c:out value="${tournament.name}"/></td>
-                                        <td><c:out value="${tournament.beginningDateAndTime}"/></td>
+                                        <td><c:out value="${tournament.beginningDate}"/></td>
                                         <td>
                                             <a href="?command=selectTournament&tournamentId=${tournament.id}">
                                                 <span class="glyphicon glyphicon-ok"></span> <fmt:message key="select"
@@ -59,7 +59,7 @@
                                         key="date_of_beginning" bundle="${bundle}"/></label>
                                 <div class="col-sm-8">
                                     <div id="beginningDateAndTime"><c:out
-                                            value="${selectedTournament.beginningDateAndTime}"/></div>
+                                            value="${selectedTournament.beginningDate}"/></div>
                                 </div>
                             </div>
                             <div class="form-group row">
