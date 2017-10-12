@@ -2,7 +2,6 @@ package com.kukuruznyak.bettingcompany.entity.event;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -44,9 +43,7 @@ public class Market extends Model {
         for (Outcome outcome : this.outcomes) {
             totalChance += 1 / outcome.getCoefficient();
         }
-        double margin = (totalChance - 1) * 100;
-        System.out.println(margin);
-        return margin;
+        return (totalChance - 1) * 100;
     }
 
     public void setOutcomes(Collection<Outcome> outcomes) {

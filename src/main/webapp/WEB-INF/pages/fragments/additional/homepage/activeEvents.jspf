@@ -3,12 +3,12 @@
         <c:choose>
             <c:when test="${fn:contains(selectedEvents, event)}">
                 <li class="alert alert-info">
-                    <a href=""><label for="${event.id}"><c:out value="${event.tournament.name}"/></label></a>
+                    <a><label for="${event.id}"><c:out value="${event.tournament.name}"/></label></a>
                 </li>
             </c:when>
             <c:otherwise>
                 <li class="alert alert-default">
-                    <a href=""><label for="${event.id}"><c:out value="${event.tournament.name}"/></label></a>
+                    <a><label for="${event.id}"><c:out value="${event.tournament.name}"/></label></a>
                 </li>
             </c:otherwise>
         </c:choose>

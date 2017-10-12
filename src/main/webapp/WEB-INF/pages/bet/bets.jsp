@@ -44,7 +44,7 @@
                     <td><c:out value="${bet.sumOut}"/></td>
                     <td><c:out value="${bet.result}"/></td>
                     <c:if test="${user.userRole!=clientRole}">
-                        <td><textarea name="description" cols="100" rows="3"></textarea>
+                        <td><textarea name="description" cols="50" rows="2"></textarea>
                             <a href="?command=editBetDescription&id=${bet.id}"><fmt:message key="save"
                                                                                                bundle="${bundle}"/></a>
                         </td>

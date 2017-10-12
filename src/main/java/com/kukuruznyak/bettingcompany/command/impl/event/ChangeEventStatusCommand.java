@@ -50,7 +50,6 @@ public class ChangeEventStatusCommand extends Command {
             }
             eventService.update(event);
             currentSession.setAttribute(EVENT, event);
-            currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.EVENT_STATUS_CHANGED) + status);
         } catch (ApplicationException e) {
             LOGGER.error(e.getMessage());
             currentSession.setAttribute(ERROR_MESSAGE, e.getMessage());

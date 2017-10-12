@@ -16,9 +16,8 @@ public class EditBetDescriptionCommand extends Command {
         BetService betService = serviceFactory.getBetService();
         Bet bet = betService.getById(new Long(request.getParameter(ID)));
         bet.setDescription(description);
-        betService.update(bet);
-        return pagesResourceBundle.getString(BETS);
-
+        betService.updateDescription(bet);
+        return pagesResourceBundle.getString(BETS_PAGE);
     }
 }
 

@@ -1,6 +1,5 @@
 package com.kukuruznyak.bettingcompany.command;
 
-import com.kukuruznyak.bettingcompany.command.impl.DefaultCommand;
 import com.kukuruznyak.bettingcompany.command.impl.HomeCommand;
 import com.kukuruznyak.bettingcompany.command.impl.SetLanguageCommand;
 import com.kukuruznyak.bettingcompany.command.impl.bet.EditBetDescriptionCommand;
@@ -48,12 +47,12 @@ public class Invoker {
         commandMap.put("profile", new GetProfilePageCommand());
         commandMap.put("editUser", new EditUserCommand());
         commandMap.put("editProfile", new EditProfileCommand());
-        commandMap.put("users", new GetStaffPageCommand());
+        commandMap.put("users", new GetUsersPageCommand());
         commandMap.put("deleteUser", new DeleteUserCommand());
         commandMap.put("addUser", new GetAddUserPageCommand());
         commandMap.put("createUser", new CreateUserCommand());
 
-        commandMap.put("betsHistory", new ShowBetsCommand());
+        commandMap.put("bets", new ShowBetsCommand());
         commandMap.put("moveOutcome", new MoveOutcomeCommand());
         commandMap.put("setBet", new SetBetCommand());
         commandMap.put("editBetDescription", new EditBetDescriptionCommand());

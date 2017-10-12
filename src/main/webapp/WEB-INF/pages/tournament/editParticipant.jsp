@@ -58,6 +58,10 @@
                                placeholder="<fmt:message key="jockey" bundle="${bundle}"/>" required
                                value="<c:out value='${participant.jockey}'/>">
                     </fieldset>
+                    <fieldset class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block"><fmt:message key="save"
+                                                                                      bundle="${bundle}"/></button>
+                    </fieldset>
                     <c:if test="${not empty participant.tournaments}">
                         <fieldset class="form-group">
                             <h2 class="form-signin-heading"><fmt:message key="tournaments" bundle="${bundle}"/></h2>
@@ -82,10 +86,7 @@
                             </table>
                         </fieldset>
                     </c:if>
-                    <fieldset class="form-group">
-                        <button class="btn btn-lg btn-primary btn-block"><fmt:message key="save"
-                                                                                      bundle="${bundle}"/></button>
-                    </fieldset>
+
                 </form>
             </div>
             <div class="col-sm-6">
@@ -106,8 +107,7 @@
                                     <td><c:out value='${tournament.name}'/></td>
                                     <td>
                                         <a class="btn btn-info"
-                                           href="?command=moveParticipant&participantId=${participant.id}
-                                           &tournamentId=${tournament.id}&editedModel=participant&action=include">
+                                           href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=participant&action=include">
                                             <span class="glyphicon glyphicon-plus"></span></a>
                                     </td>
                                 </tr>

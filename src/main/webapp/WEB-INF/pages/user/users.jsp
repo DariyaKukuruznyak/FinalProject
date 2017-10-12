@@ -18,7 +18,14 @@
                 <th><fmt:message key="user_email" bundle="${bundle}"/></th>
                 <th><fmt:message key="user_login" bundle="${bundle}"/></th>
                 <th><fmt:message key="date_of_registration" bundle="${bundle}"/></th>
+                <c:choose>
+                <c:when test="${user.userRole == adminRole}">
                 <th><fmt:message key="role" bundle="${bundle}"/></th>
+                </c:when>
+                <c:when test="${user.userRole == riskControllerRole}">
+                <th><fmt:message key="balance" bundle="${bundle}"/></th>
+                </c:when>
+                </c:choose>
                 <th><fmt:message key="edit" bundle="${bundle}"/></th>
                 <th><fmt:message key="delete" bundle="${bundle}"/></th>
             <tr>
@@ -32,11 +39,20 @@
                         <td><c:out value="${userItem.email}"/></td>
                         <td><c:out value="${userItem.login}"/></td>
                         <td><c:out value="${userItem.dateOfRegistration}"/></td>
-                        <td><c:out value="${userItem.stringUserRole}"/></td>
-                        <td><a href="?command=userProfile&id=${userItem.id}"><span class="glyphicon glyphicon-pencil"></span>
+                        <c:choose>
+                            <c:when test="${user.userRole == adminRole}">
+                                <td><c:out value="${userItem.stringUserRole}"/></td>
+                            </c:when>
+                            <c:when test="${user.userRole == riskControllerRole}">
+                                <td><c:out value="${userItem.balance}"/></td>
+                            </c:when>
+                        </c:choose>
+                        <td><a href="?command=userProfile&id=${userItem.id}"><span
+                                class="glyphicon glyphicon-pencil"></span>
                             <fmt:message key="edit" bundle="${bundle}"/>
                         </a></td>
-                        <td><a href="?command=deleteUser&id=${userItem.id}"><span class="glyphicon glyphicon-trash"></span>
+                        <td><a href="?command=deleteUser&id=${userItem.id}"><span
+                                class="glyphicon glyphicon-trash"></span>
                             <fmt:message key="delete" bundle="${bundle}"/></a></td>
                     </tr>
                 </c:if>

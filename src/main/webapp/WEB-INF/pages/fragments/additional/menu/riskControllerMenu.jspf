@@ -1,1 +1,5 @@
-<li><a><c:out value="${user.fullName}"/> </a></li>
+<li><a><c:out value="${user.fullName}"/></a></li>
+<li><a href="?command=bets"><span class="glyphicon glyphicon-list-alt"></span>
+    <fmt:message key="bets" bundle="${bundle}"/></a></li>
+<li><a href="?command=users"><span class="glyphicon glyphicon-list-alt"></span>
+    <fmt:message key="users" bundle="${bundle}"/></a></li>

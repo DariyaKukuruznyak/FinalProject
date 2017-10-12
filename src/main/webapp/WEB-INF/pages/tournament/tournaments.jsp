@@ -30,7 +30,7 @@
                     <td><c:out value='${tournament.name}'/></td>
                     <td><c:out value='${tournament.beginningDateAndTime}'/></td>
                     <td><c:forEach items="${tournament.participants}" var="participant">
-                        <c:out value='${participant.name}'/>
+                       <div><c:out value='${participant.name}'/></div>
                     </c:forEach></td>
                     <td><c:out value='${tournament.winner}'/></td>
                     <td><a href="?command=editTournament&tournamentId=${tournament.id}"><span

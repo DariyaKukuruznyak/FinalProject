@@ -26,7 +26,7 @@
                                placeholder="<fmt:message key="name" bundle="${bundle}"/>" required
                                value="<c:out value='${tournament.name}'/>">
                     </fieldset>
-                     <fieldset class="form-group">
+                    <fieldset class="form-group">
                         <label for="winner"><fmt:message key="winner" bundle="${bundle}"/></label>
                         <select class="form-control" id="winner" name="winner" size="1">
                             <c:choose>
@@ -44,14 +44,18 @@
                             </c:choose>
                         </select>
                     </fieldset>
+                    <fieldset class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block"><fmt:message key="save"
+                                                                                      bundle="${bundle}"/></button>
+                    </fieldset>
                     <c:if test="${not empty tournament.participants}">
                         <fieldset class="form-group">
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th><fmt:message key="name" bundle="${bundle}"/></th>
-                                    <th><fmt:message key="trainer" bundle="${bundle}"/></th>
-                                    <th><fmt:message key="jockey" bundle="${bundle}"/></th>
+                                    <th><fmt:message key="trainer" bundle="${bundle}"/>/<fmt:message key="jockey"
+                                                                                                     bundle="${bundle}"/></th>
                                     <th><fmt:message key="exclude" bundle="${bundle}"/></th>
                                 </tr>
                                 </thead>
@@ -59,12 +63,11 @@
                                 <c:forEach items="${tournament.participants}" var="participant">
                                     <tr>
                                         <td><c:out value='${participant.name}'/></td>
-                                        <td><c:out value='${participant.trainer}'/></td>
-                                        <td><c:out value='${participant.jockey}'/></td>
+                                        <td><c:out value='${participant.trainer}'/>/<c:out
+                                                value='${participant.jockey}'/></td>
                                         <td>
                                             <a class="btn btn-info"
-                                               href="?command=moveParticipant&participantId=${participant.id}
-                                               &tournamentId=${tournament.id}&editedModel=tournament&action=exclude">
+                                               href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament&action=exclude">
                                                 <span class="glyphicon glyphicon-minus"></span></a>
                                         </td>
                                     </tr>
@@ -73,10 +76,6 @@
                             </table>
                         </fieldset>
                     </c:if>
-                    <fieldset class="form-group">
-                        <button class="btn btn-lg btn-primary btn-block"><fmt:message key="save"
-                                                                                      bundle="${bundle}"/></button>
-                    </fieldset>
                 </form>
             </div>
             <div class="col-sm-4">
@@ -88,8 +87,8 @@
                             <thead>
                             <tr>
                                 <th><fmt:message key="name" bundle="${bundle}"/></th>
-                                <th><fmt:message key="trainer" bundle="${bundle}"/></th>
-                                <th><fmt:message key="jockey" bundle="${bundle}"/></th>
+                                <th><fmt:message key="trainer" bundle="${bundle}"/>/<fmt:message key="jockey"
+                                                                                                 bundle="${bundle}"/></th>
                                 <th><fmt:message key="exclude" bundle="${bundle}"/></th>
                             </tr>
                             </thead>
@@ -98,11 +97,10 @@
                                 <tr>
                                 <tr>
                                     <td><c:out value='${participant.name}'/></td>
-                                    <td><c:out value='${participant.trainer}'/></td>
-                                    <td><c:out value='${participant.jockey}'/></td>
+                                    <td><c:out value='${participant.trainer}'/>/<c:out
+                                            value='${participant.jockey}'/></td>
                                     <td><a class="btn btn-info"
-                                           href="?command=moveParticipant&participantId=${participant.id}
-                                           &tournamentId=${tournament.id}&editedModel=tournament&action=include">
+                                           href="?command=moveParticipant&participantId=${participant.id}&tournamentId=${tournament.id}&editedModel=tournament&action=include">
                                         <span class="glyphicon glyphicon-plus"></span></a>
                                     </td>
                                 </tr>

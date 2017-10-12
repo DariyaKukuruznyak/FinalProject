@@ -7,23 +7,32 @@
         <div class="panel-body">
             <c:forEach items="${event.markets}" var="market">
                 <div class="panel panel-info">
-                    <div class="panel-heading"> <c:out value="${market.name}"/></div>
+                    <div class="panel-heading"><c:out value="${market.name}"/></div>
                     <fmt:message key="outcome_description" bundle="${bundle}"/>
                     <c:forEach items="${market.outcomes}" var="outcome">
                         <div class="form-group row">
                             <label class="col-sm-8 col-form-label"><c:out value="${outcome.name}"/></label>
                             <div class="col-sm-4">
                                 <c:choose>
-                                    <c:when test="${event.suspended}">
-                                        <div class="btn btn-danger">
-                                            <fmt:formatNumber value="${outcome.coefficient}"
-                                                              maxFractionDigits="2"/></div>
+                                    <c:when test="${user.userRole == clientRole}">
+                                        <c:choose>
+                                            <c:when test="${event.suspended}">
+                                                <div class="btn btn-danger">
+                                                    <fmt:formatNumber value="${outcome.coefficient}"
+                                                                      maxFractionDigits="2"/></div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="?command=moveOutcome&outcomeId=${outcome.id}&action=add"
+                                                   class="btn btn-info">
+                                                    <fmt:formatNumber value="${outcome.coefficient}"
+                                                                      maxFractionDigits="2"/></a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="?command=moveOutcome&outcomeId=${outcome.id}&action=add"
-                                           class="btn btn-info">
+                                        <div class="btn btn-default">
                                             <fmt:formatNumber value="${outcome.coefficient}"
-                                                              maxFractionDigits="2"/></a>
+                                                              maxFractionDigits="2"/></div>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

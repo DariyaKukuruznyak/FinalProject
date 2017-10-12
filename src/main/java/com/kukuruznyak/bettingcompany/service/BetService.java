@@ -88,6 +88,17 @@ public class BetService extends AbstractService {
         }
     }
 
+    public void updateDescription(Bet bet) {
+        try {
+            try (Connection connection = dataSource.getConnection()) {
+                BetDao betDao = daoFactory.getBetDao(connection);
+                betDao.update(bet);
+            }
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
     public void update(Bet bet) {
         try {
             Connection connection = dataSource.getConnection();

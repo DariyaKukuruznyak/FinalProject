@@ -47,7 +47,7 @@ public class SetBetCommand extends Command {
             if (betService.placeBet(bet)) {
                 currentSession.removeAttribute(COLLECTED_OUTCOMES);
                 currentSession.setAttribute(SUCCESS_MESSAGE, StringMessages.getMessage(StringMessages.BET_PLACED));
-                request.setAttribute(USER, serviceFactory.getClientService().getClientById(authorizedUser.getId()));
+                currentSession.setAttribute(USER, serviceFactory.getClientService().getClientById(authorizedUser.getId()));
                 return pagesResourceBundle.getString(HOME_PAGE);
             } else {
                 throw new ApplicationException(StringMessages.getMessage(StringMessages.BET_NOT_PLACED));

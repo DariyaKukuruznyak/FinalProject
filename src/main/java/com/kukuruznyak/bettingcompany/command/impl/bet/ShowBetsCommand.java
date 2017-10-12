@@ -2,30 +2,40 @@ package com.kukuruznyak.bettingcompany.command.impl.bet;
 
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
+import com.kukuruznyak.bettingcompany.entity.event.Event;
 import com.kukuruznyak.bettingcompany.entity.user.User;
 import com.kukuruznyak.bettingcompany.exception.ApplicationException;
 import com.kukuruznyak.bettingcompany.service.BetService;
+import com.kukuruznyak.bettingcompany.service.EventService;
 import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class ShowBetsCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession currentSession = request.getSession();
-        User currentUser = (User) currentSession.getAttribute(USER);
+        User authorizedUser = (User) currentSession.getAttribute(USER);
         try {
-            if (currentUser == null) {
+            if (authorizedUser == null) {
                 throw new ApplicationException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
             }
-            Collection<Bet> bets=null;
+            Collection<Bet> bets = new LinkedList<>();
             BetService betService = serviceFactory.getBetService();
-            switch (currentUser.getUserRole()) {
+            switch (authorizedUser.getUserRole()) {
                 case CLIENT:
-                    bets = betService.getBetsByClientId(currentUser.getId());
+                    bets = betService.getBetsByClientId(authorizedUser.getId());
+                    break;
+                case BOOKMAKER:
+                    EventService eventService = serviceFactory.getEventService();
+                    Collection<Event> events = eventService.getEventsByBookmakerId(authorizedUser.getId());
+                    for (Event event : events) {
+                        bets.addAll(betService.getBetsByEvent(event));
+                    }
                     break;
                 case RISK_CONTROLLER:
 //                    bets = betService.getAll();

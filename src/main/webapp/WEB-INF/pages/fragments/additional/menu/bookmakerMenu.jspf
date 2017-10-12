@@ -1,7 +1,7 @@
 <li><a><c:out value="${user.fullName}"/> </a></li>
 <li><a href="?command=events"><span class="glyphicon glyphicon-list-alt"></span>
     <fmt:message key="events" bundle="${bundle}"/></a></li>
-<li><a href="?command=betsByBookmaker&bookmakerId=${user.id}"><span class="glyphicon glyphicon-list-alt"></span>
+<li><a href="?command=bets"><span class="glyphicon glyphicon-list-alt"></span>
     <fmt:message key="bets" bundle="${bundle}"/></a></li>
 <li><a href="?command=participants"><span class="glyphicon glyphicon-book"></span>
     <fmt:message key="participants" bundle="${bundle}"/></a></li>
