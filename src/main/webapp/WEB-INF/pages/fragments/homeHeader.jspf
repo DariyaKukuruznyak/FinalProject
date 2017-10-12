@@ -1,0 +1,14 @@
+<%@include file="i18n.jspf" %>
+<header>
+    <div class="container">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a
+                    <c:if test="${empty lang or lang == 'en_US'}">class="alert alert-info"</c:if>
+                    href="?command=setLanguage&lang=en_US"><fmt:message key="en" bundle="${bundle}"/></a></li>
+            <li><a
+                    <c:if test="${ not empty lang and lang == 'ru_RU'}">class="alert alert-info"</c:if>
+                    href="?command=setLanguage&lang=ru_RU"><fmt:message key="ru" bundle="${bundle}"/></a></li>
+        </ul>
+        <%@include file="additional/menu/rightMenu.jspf" %>
+    </div>
+</header>

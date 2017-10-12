@@ -34,7 +34,6 @@ public class StringMessages {
     public static final String CLIENT_JOINED = "client_joined";
     public static final String INCORRECT_INPUT = "incorrect_input";
     public static final String NO_PAGE_IDENTIFIED = "no_page_identified";
-    public static final String INCORRECT_USER_REQUEST = "incorrect_request";
     public static final String NOT_ENOUGH_MONEY = "not_enough_money";
     /**
      * DataBase messages

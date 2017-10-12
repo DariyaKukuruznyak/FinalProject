@@ -7,9 +7,9 @@ import java.util.Collection;
 import java.util.List;
 
 public interface ParticipantDao extends AbstractDao<Participant> {
-    void addTournament(Long participantId, Long tournamentId) throws PersistenceException;
+    void addTournament(Long participantId, Long tournamentId);
 
-    void deleteTournament(Long participantId, Long tournamentId) throws PersistenceException;
+    void deleteTournament(Long participantId, Long tournamentId) ;
 
-    Collection<Participant> getParticipantsByTournament(Long id) throws PersistenceException;
+    Collection<Participant> getParticipantsByTournament(Long id);
 }

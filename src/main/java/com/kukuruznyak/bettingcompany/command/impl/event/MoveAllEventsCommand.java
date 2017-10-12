@@ -1,6 +1,7 @@
 package com.kukuruznyak.bettingcompany.command.impl.event;
 
 import com.kukuruznyak.bettingcompany.command.Command;
+import com.kukuruznyak.bettingcompany.command.impl.DefaultCommand;
 import com.kukuruznyak.bettingcompany.entity.event.EventStatus;
 import com.kukuruznyak.bettingcompany.service.EventService;
 
@@ -19,6 +20,7 @@ public class MoveAllEventsCommand extends Command {
             EventService eventService = serviceFactory.getEventService();
             currentSession.setAttribute(SELECTED_EVENTS, eventService.getEvensByStatus(EventStatus.INPROGRESS));
         }
-        return pagesResourceBundle.getString(HOME_PAGE);
+       return new DefaultCommand().execute(request, response);
+//        return pagesResourceBundle.getString(HOME_PAGE);
     }
 }

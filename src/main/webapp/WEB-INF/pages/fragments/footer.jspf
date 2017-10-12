@@ -1,4 +1,0 @@
-<footer class="navbar-fixed-bottom row-fluid">
-    <hr>
-    <p><fmt:message key="footer_label" bundle="${bundle}"/></p>
-</footer>

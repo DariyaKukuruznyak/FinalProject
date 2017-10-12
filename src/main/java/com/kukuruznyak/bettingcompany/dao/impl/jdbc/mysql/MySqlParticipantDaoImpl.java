@@ -43,11 +43,10 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
-    public Collection<Participant> getParticipantsByTournament(Long id) throws PersistenceException {
-        Collection<Participant> participants = super.getAllByConstrain(
+    public Collection<Participant> getParticipantsByTournament(Long id){
+        return super.getAllByConstrain(
                 QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ALL_PARTICIPANTS_BY_TOURNAMENT_QUERY),
                 String.valueOf(id));
-        return participants;
     }
 
     private void updateLinkedTable(Long participantId, Long tournamentId, String query) {
@@ -62,7 +61,7 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
-    protected Participant fillModel(ResultSet resultSet) throws PersistenceException {
+    protected Participant fillModel(ResultSet resultSet){
         try {
             return new ParticipantBuilder()
                     .buildId(resultSet.getLong(ID_COLUMN))
@@ -78,7 +77,7 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Participant participant) throws PersistenceException {
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Participant participant) {
         try {
             preparedStatement.setString(1, participant.getName());
             preparedStatement.setString(2, String.valueOf(participant.getAge()));

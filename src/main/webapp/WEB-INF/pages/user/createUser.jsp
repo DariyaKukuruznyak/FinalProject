@@ -73,6 +73,5 @@
                                                                                                 bundle="${bundle}"/></button>
     </form>
 </div>
-<%@include file="../fragments/footer.jspf" %>
 </body>
 </html>

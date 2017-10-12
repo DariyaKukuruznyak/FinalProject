@@ -2,7 +2,7 @@
 <html>
 <%@include file="fragments/head.jspf" %>
 <body>
-<%@include file="fragments/header.jspf" %>
+<%@include file="fragments/homeHeader.jspf" %>
 <div id="container" class="container">
     <div class="row">
         <c:if test="${not empty activeEvents}">
@@ -68,6 +68,7 @@
                 </c:if>
             </div>
         </div>
-        <%@include file="fragments/footer.jspf" %>
+    </div>
+</div>
 </body>
 </html>

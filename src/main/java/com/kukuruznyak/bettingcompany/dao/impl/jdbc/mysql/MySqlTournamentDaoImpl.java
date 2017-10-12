@@ -29,36 +29,31 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     }
 
     @Override
-    public void addParticipant(Long participantId, Long tournamentId) throws PersistenceException {
+    public void addParticipant(Long participantId, Long tournamentId) {
         new MySqlParticipantDaoImpl(connection).addTournament(participantId, tournamentId);
     }
 
     @Override
-    public void deleteParticipant(Long participantId, Long tournamentId) throws PersistenceException {
+    public void deleteParticipant(Long participantId, Long tournamentId) {
         new MySqlParticipantDaoImpl(connection).deleteTournament(participantId, tournamentId);
     }
 
     @Override
-    public Collection<Tournament> getTournamentsByParticipant(Long id) throws PersistenceException {
+    public Collection<Tournament> getTournamentsByParticipant(Long id){
         return super.getAllByConstrain(
                 QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ALL_TOURNAMENT_BY_PARTICIPANTS_QUERY),
                 String.valueOf(id));
     }
 
     @Override
-    public Collection<Tournament> getActiveTournaments() throws PersistenceException {
-        Collection<Tournament> tournaments = super.getAllByConstrain(
+    public Collection<Tournament> getActiveTournaments(){
+        return super.getAllByConstrain(
                 QUERIES.getString(currentModel + DELIMITER + ALL_ACTIVE_TOURNAMENTS_QUERY),
                 String.valueOf(new java.sql.Date(new Date().getTime())));
-        ParticipantDao participantDao = new MySqlParticipantDaoImpl(connection);
-        for (Tournament tournament : tournaments) {
-            tournament.setParticipants(participantDao.getParticipantsByTournament(tournament.getId()));
-        }
-        return tournaments;
     }
 
     @Override
-    protected Tournament fillModel(ResultSet resultSet) throws PersistenceException {
+    protected Tournament fillModel(ResultSet resultSet) {
         try {
             return new TournamentBuilder()
                     .buildId(resultSet.getLong(ID_COLUMN))
@@ -72,7 +67,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Tournament tournament) throws PersistenceException {
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Tournament tournament){
         try {
             preparedStatement.setString(1, tournament.getName());
             preparedStatement.setDate(2, new java.sql.Date(tournament.getBeginningDateAndTime().getTime()));

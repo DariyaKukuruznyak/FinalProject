@@ -1,39 +1,6 @@
 <%@include file="i18n.jspf" %>
 <header>
     <div class="container">
-        <ul class="nav navbar-nav navbar-left">
-            <li><a <c:if test="${empty lang or lang == 'en_US'}">class="alert alert-info"</c:if>
-                   href="?command=setLanguage&lang=en_US"><fmt:message key="en" bundle="${bundle}"/></a></li>
-            <li><a <c:if test="${ not empty lang and lang == 'ru_RU'}">class="alert alert-info"</c:if>
-                    href="?command=setLanguage&lang=ru_RU"><fmt:message key="ru" bundle="${bundle}"/></a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <c:choose>
-                <c:when test="${not empty user}">
-                    <li><a><span class="glyphicon glyphicon-user"></span>
-                        <fmt:message key="signed_in_as" bundle="${bundle}"/> ${user.stringUserRole} </a>
-                    </li>
-                    <c:choose>
-                        <c:when test="${user.userRole==adminRole}">
-                            <%@include file="additional/menu/adminMenu.jspf" %>
-                        </c:when>
-                        <c:when test="${user.userRole==bookmakerRole}">
-                            <%@include file="additional/menu/bookmakerMenu.jspf" %>
-                        </c:when>
-                        <c:when test="${user.userRole==riskControllerRole}">
-                            <%@include file="additional/menu/riskControllerMenu.jspf" %>
-                        </c:when>
-                        <c:when test="${user.userRole==clientRole}">
-                            <%@include file="additional/menu/clientMenu.jspf" %>
-                        </c:when>
-                    </c:choose>
-                    <li><a href="?command=logout"><span class="glyphicon glyphicon-log-out"></span> <fmt:message key="logout" bundle="${bundle}"/> </a></li>
-                </c:when>
-                <c:otherwise>
-                    <li><a href="?command=login"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="sign_in" bundle="${bundle}"/></a></li>
-                    <li><a href="?command=register"><span class="glyphicon glyphicon-user"></span> <fmt:message key="join" bundle="${bundle}"/></a></li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
+        <%@include file="additional/menu/rightMenu.jspf" %>
     </div>
 </header>

@@ -29,7 +29,7 @@
             <tbody>
             <c:forEach items="${participants}" var="participant">
                 <tr>
-                    <td<c:out value='>${participant.name}'/></td>
+                    <td><c:out value='${participant.name}'/></td>
                     <td><c:out value='${participant.age}'/></td>
                     <td><c:out value='${participant.weight}'/></td>
                     <td><c:out value='${participant.trainer}'/></td>
@@ -54,6 +54,5 @@
             </tbody>
         </table>
     </div>
-    <%@include file="../fragments/footer.jspf" %>
 </body>
 </html>

@@ -8,9 +8,9 @@ import java.util.Collection;
 import java.util.List;
 
 public interface UserDao extends AbstractDao<User> {
-    Collection<User> getUsersByRole(String role)throws PersistenceException;
+    Collection<User> getUsersByRole(String role);
 
-    User getByLogin(String login)throws PersistenceException;
+    User getByLogin(String login);
 
     UserRole getUserRoleByLogin(String login);
 }

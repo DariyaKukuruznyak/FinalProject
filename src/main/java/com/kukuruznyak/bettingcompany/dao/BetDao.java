@@ -6,4 +6,8 @@ import java.util.Collection;
 
 public interface BetDao extends AbstractDao<Bet> {
     Collection<Bet> getByClientId(Long clientId);
-    Collection<Bet> getByOutcomeId(Long outcomeId);}
+
+    Collection<Bet> getByOutcomeId(Long outcomeId);
+
+    Long getRowNumber();
+}

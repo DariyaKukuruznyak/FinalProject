@@ -68,6 +68,5 @@
         <button id="register-form-submit" class="btn btn-lg btn-primary btn-block"><fmt:message key="join" bundle="${bundle}"/></button>
     </form>
 </div>
-<%@include file="../fragments/footer.jspf" %>
 </body>
 </html>

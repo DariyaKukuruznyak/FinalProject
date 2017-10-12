@@ -31,7 +31,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         this.currentModel = currentModel;
     }
 
-    public T getById(Long id) throws PersistenceException {
+    public T getById(Long id) {
         T model = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel +
                 DELIMITER + SELECT_BY_ID_QUERY))) {
@@ -51,7 +51,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         return model;
     }
 
-    public Collection<T> getAll() throws PersistenceException {
+    public Collection<T> getAll() {
         Collection<T> modelList = new HashSet<>();
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(
@@ -67,28 +67,23 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         return modelList;
     }
 
-    protected Collection<T> getAllByConstrain(String query, String constrain) throws PersistenceException {
+    protected Collection<T> getAllByConstrain(String query, String constrain) {
         Collection<T> modelList = new HashSet<>();
-        T model = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, constrain);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                model = fillModel(resultSet);
-                modelList.add(model);
+                modelList.add(fillModel(resultSet));
             }
         } catch (SQLException e) {
             LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + currentModel +
                     StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
             throw new PersistenceException(e.getMessage());
         }
-        if (model == null) {
-            LOGGER.info(currentModel + StringMessages.getMessage(StringMessages.NOT_FOUND));
-        }
         return modelList;
     }
 
-    protected T getByConstrain(String query, Long constrain) throws PersistenceException {
+    protected T getByConstrain(String query, Long constrain) {
         T model = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(query))) {
             preparedStatement.setLong(1, constrain);
@@ -107,7 +102,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         return model;
     }
 
-    public T add(T model) throws PersistenceException {
+    public T add(T model) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 QUERIES.getString(currentModel + DELIMITER + INSERT_QUERY),
                 Statement.RETURN_GENERATED_KEYS)) {
@@ -125,7 +120,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         return model;
     }
 
-    public void update(T model) throws PersistenceException {
+    public void update(T model) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 QUERIES.getString(currentModel + DELIMITER + UPDATE_QUERY))) {
             fillPreparedStatement(preparedStatement, model);
@@ -139,7 +134,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         }
     }
 
-    public void delete(Long id) throws PersistenceException {
+    public void delete(Long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(QUERIES.getString(currentModel +
                 DELIMITER + DELETE_QUERY))) {
             preparedStatement.setLong(1, id);
@@ -152,7 +147,7 @@ public abstract class AbstractDaoImpl<T extends Model> implements AbstractDao<T>
         }
     }
 
-    protected abstract T fillModel(ResultSet resultSet) throws PersistenceException;
+    protected abstract T fillModel(ResultSet resultSet);
 
-    protected abstract void fillPreparedStatement(PreparedStatement preparedStatement, T model) throws PersistenceException;
+    protected abstract void fillPreparedStatement(PreparedStatement preparedStatement, T model);
 }

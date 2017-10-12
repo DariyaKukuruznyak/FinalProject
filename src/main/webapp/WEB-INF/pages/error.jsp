@@ -6,6 +6,5 @@
 <div class="container">
 <fmt:message key="error" bundle="${bundle}"/>
 </div>
-<%@include file="fragments/footer.jspf" %>
 </body>
 </html>

@@ -62,7 +62,6 @@ public class Invoker {
         commandMap.put("addEvent", new GetAddEventPageCommand());
         commandMap.put("createEvent", new CreateEventCommand());
         commandMap.put("editEvent", new GetEditEventPageCommand());
-        commandMap.put("moveEvent", new MoveEventCommand());
         commandMap.put("moveAllEvents", new MoveAllEventsCommand());
         commandMap.put("changeStatus", new ChangeEventStatusCommand());
         commandMap.put("applyCoefficient", new ApplyCoefficientCommand());
@@ -88,7 +87,7 @@ public class Invoker {
         String command = request.getParameter(COMMAND);
         Command executor = commandMap.get(command);
         if (executor == null) {
-            executor = new DefaultCommand();
+            executor = new HomeCommand();
         }
         return executor.execute(request, response);
     }

@@ -29,8 +29,8 @@
                 <tr>
                     <td><c:out value='${tournament.name}'/></td>
                     <td><c:out value='${tournament.beginningDateAndTime}'/></td>
-                    <td><c:forEach items="${tournament.participants}'/" var="participant">
-                        <div><c:out value='${participant.name}'/></div>
+                    <td><c:forEach items="${tournament.participants}" var="participant">
+                        <c:out value='${participant.name}'/>
                     </c:forEach></td>
                     <td><c:out value='${tournament.winner}'/></td>
                     <td><a href="?command=editTournament&tournamentId=${tournament.id}"><span
@@ -44,6 +44,5 @@
             </tbody>
         </table>
     </div>
-    <%@include file="../fragments/footer.jspf" %>
 </body>
 </html>

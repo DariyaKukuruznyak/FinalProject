@@ -12,14 +12,14 @@ import java.util.Collection;
 import java.util.List;
 
 public interface AbstractDao<T extends Model>{
-    T getById(Long id) throws PersistenceException;
+    T getById(Long id);
 
-    Collection<T> getAll() throws PersistenceException;
+    Collection<T> getAll() ;
 
-    T add(T model) throws PersistenceException;
+    T add(T model);
 
-    void update(T model) throws PersistenceException;
+    void update(T model);
 
-    void delete(Long id) throws PersistenceException;
+    void delete(Long id);
 
 }

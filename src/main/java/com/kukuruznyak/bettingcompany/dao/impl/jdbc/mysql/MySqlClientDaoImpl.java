@@ -20,7 +20,7 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
     }
 
     @Override
-    protected Client fillModel(ResultSet resultSet) throws PersistenceException {
+    protected Client fillModel(ResultSet resultSet){
         Client client = new Client(new MySqlUserDaoImpl(connection).fillModel(resultSet));
         try {
             client.setBalance(resultSet.getBigDecimal(BALANCE_COLUMN));
@@ -33,7 +33,7 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Client client) throws PersistenceException {
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Client client) {
         try {
             preparedStatement.setLong(1, client.getId());
             preparedStatement.setBigDecimal(2, client.getBalance());

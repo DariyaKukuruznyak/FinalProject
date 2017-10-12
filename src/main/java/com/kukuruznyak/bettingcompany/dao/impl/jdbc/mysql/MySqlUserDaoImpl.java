@@ -35,7 +35,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    protected User fillModel(ResultSet resultSet) throws PersistenceException {
+    protected User fillModel(ResultSet resultSet){
         try {
             return new UserBuilder()
                     .buildId(resultSet.getLong(ID_COLUMN))
@@ -53,7 +53,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, User user) throws PersistenceException {
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, User user) {
         try {
             preparedStatement.setString(1, user.getFirstName());
             preparedStatement.setString(2, user.getLastName());
@@ -68,11 +68,11 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public Collection<User> getUsersByRole(String role) throws PersistenceException {
+    public Collection<User> getUsersByRole(String role){
         return getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_BY_ROLE_QUERY), role);
     }
 
-    public User getByLogin(String login) throws PersistenceException {
+    public User getByLogin(String login) {
         User user = null;
             try (PreparedStatement preparedStatement = connection.
                     prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_LOGIN_QUERY))){

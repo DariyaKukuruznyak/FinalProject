@@ -7,12 +7,14 @@ import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.builder.BetBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
+import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
     private static final String ID_COLUMN = "id";
@@ -27,9 +29,54 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
 
     private static final String SELECT_ALL_BY_CLIENT_ID_QUERY = "selectByClientId";
     private static final String SELECT_ALL_BY_OUTCOME_ID_QUERY = "selectByOutcomeId";
+    private static final String SELECT_ALL_BY_LIMIT_QUERY = "selectAll";
+    private static final String ROWS_NUMBER_QUERY = "count";
+
+    private static final int ROW_ON_PAGE = 10;
 
     public MySqlBetDaoImpl(Connection connection) {
         super(connection, Bet.class.getSimpleName());
+    }
+
+    @Override
+    public Collection<Bet> getAll() {
+        String query = QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_BY_LIMIT_QUERY);
+        Collection<Bet> bets = new HashSet<>();
+/*
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, 0);
+            preparedStatement.setInt(2, ROW_ON_PAGE);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                bets.add(fillModel(resultSet));
+            }
+        } catch (SQLException e) {
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
+            throw new PersistenceException(e.getMessage());
+        }
+*/
+        return bets;
+    }
+
+
+    @Override
+    public Long getRowNumber() {
+        String query = QUERIES.getString(currentModel + DELIMITER + ROWS_NUMBER_QUERY);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setString(1, ID_COLUMN);
+            while (resultSet.next()) {
+                resultSet.last();
+                System.out.println(resultSet.getRow());
+
+            }
+        } catch (SQLException e) {
+            LOGGER.error(StringMessages.getMessage(StringMessages.DB_SELECTING_ERROR) + currentModel +
+                    StringMessages.getMessage(StringMessages.MESSAGE) + e.getMessage());
+            throw new PersistenceException(e.getMessage());
+        }
+        return 5l;
     }
 
     @Override
@@ -37,11 +84,13 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
         return getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_BY_CLIENT_ID_QUERY),
                 clientId.toString());
     }
+
     @Override
     public Collection<Bet> getByOutcomeId(Long outcomeId) {
         return getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_BY_OUTCOME_ID_QUERY),
                 outcomeId.toString());
     }
+
     @Override
     protected Bet fillModel(ResultSet resultSet) throws PersistenceException {
         try {

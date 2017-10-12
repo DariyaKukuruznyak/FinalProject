@@ -103,8 +103,10 @@ public class TournamentService extends AbstractService {
     public void includeParticipant(String participantId, String tournamentId) {
         try {
             try (Connection connection = dataSource.getConnection()) {
-                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
-                tournamentDao.addParticipant(new Long(participantId), new Long(tournamentId));
+//                TournamentDao tournamentDao = daoFactory.getTournamentDao(connection);
+//                tournamentDao.addParticipant(new Long(participantId), new Long(tournamentId));
+                ParticipantDao participantDao = daoFactory.getParticipantDao(connection);
+                participantDao.addTournament(new Long(participantId), new Long(tournamentId));
             }
         } catch (SQLException e) {
             throw new ServiceException(e);
