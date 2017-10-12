@@ -123,11 +123,14 @@ public class EventService extends AbstractService {
 
     public Market createMarket(Event event, MarketNames marketNames) {
         Market market = new Market(marketNames);
-        for (Participant participant : event.getTournament().getParticipants()) {
-            Outcome outcome = new OutcomeBuilder()
-                    .buildName(participant.getName())
-                    .build();
-            market.addOutcome(outcome);
+        Collection<Participant> participants = event.getTournament().getParticipants();
+        if (participants.size() > 0) {
+            for (Participant participant : participants) {
+                Outcome outcome = new OutcomeBuilder()
+                        .buildName(participant.getName())
+                        .build();
+                market.addOutcome(outcome);
+            }
         }
         return market;
     }

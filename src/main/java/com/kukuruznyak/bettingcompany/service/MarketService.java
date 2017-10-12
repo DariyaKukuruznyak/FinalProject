@@ -8,6 +8,7 @@ import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collection;
 
 public class MarketService extends AbstractService {
     private static MarketService instance;
@@ -31,10 +32,13 @@ public class MarketService extends AbstractService {
             try (Connection connection = dataSource.getConnection()) {
                 MarketDao marketDao = daoFactory.getMarketDao(connection);
                 market = marketDao.add(market);
-                OutcomeService outcomeService = ServiceFactory.getInstance().getOutcomeService();
-                for (Outcome outcome : market.getOutcomes()) {
-                    outcome.setMarketId(market.getId());
-                    outcomeService.add(outcome);
+                Collection<Outcome> outcomes = market.getOutcomes();
+                if (outcomes != null && outcomes.size() > 0) {
+                    OutcomeService outcomeService = ServiceFactory.getInstance().getOutcomeService();
+                    for (Outcome outcome : market.getOutcomes()) {
+                        outcome.setMarketId(market.getId());
+                        outcomeService.add(outcome);
+                    }
                 }
                 return market;
             }

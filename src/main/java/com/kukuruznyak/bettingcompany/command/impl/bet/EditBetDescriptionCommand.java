@@ -12,11 +12,14 @@ public class EditBetDescriptionCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String description = request.getParameter(DESCRIPTION);
-        BetService betService = serviceFactory.getBetService();
-        Bet bet = betService.getById(new Long(request.getParameter(ID)));
-        bet.setDescription(description);
-        betService.update(bet);
-        return pagesResourceBundle.getString(BETS_PAGE);
+        String betId = request.getParameter(ID);
+        if (description != null && betId != null) {
+            BetService betService = serviceFactory.getBetService();
+            Bet bet = betService.getById(new Long(betId));
+            bet.setDescription(description);
+            betService.update(bet);
+        }
+        return new ShowBetsCommand().execute(request, response);
     }
 }
 

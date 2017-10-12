@@ -36,17 +36,27 @@
                 <tr>
                     <td><c:out value="${bet.date}"/></td>
                     <td><c:out value="${bet.type}"/></td>
-                    <td><c:forEach items="${bet.items}" var="item"><div><c:out value="${item.name}"/></div></c:forEach></td>
-                    <td><c:forEach items="${bet.items}" var="item"><div><c:out value="${item.coefficient}"/></div></c:forEach></td>
-                    <td><c:forEach items="${bet.items}" var="item"><div><c:out value="${item.result}"/></div></c:forEach></td>
+                    <td><c:forEach items="${bet.items}" var="item">
+                        <div><c:out value="${item.name}"/></div>
+                    </c:forEach></td>
+                    <td><c:forEach items="${bet.items}" var="item">
+                        <div><c:out value="${item.coefficient}"/></div>
+                    </c:forEach></td>
+                    <td><c:forEach items="${bet.items}" var="item">
+                        <div><c:out value="${item.result}"/></div>
+                    </c:forEach></td>
                     <td><c:out value="${bet.totalCoefficient}"/></td>
                     <td><c:out value="${bet.sumIn}"/></td>
                     <td><c:out value="${bet.sumOut}"/></td>
                     <td><c:out value="${bet.result}"/></td>
                     <c:if test="${user.userRole!=clientRole}">
-                        <td><textarea name="description" cols="50" rows="2"></textarea>
-                            <a href="?command=editBetDescription&id=${bet.id}"><fmt:message key="save"
-                                                                                               bundle="${bundle}"/></a>
+                        <td>
+                            <form action="?command=editBetDescription&id=${bet.id}" method="POST">
+                                <textarea name="description" id="description" cols="50" rows="2"><c:out
+                                        value="${bet.description}"/></textarea>
+                                <button class="btn btn-info"><fmt:message key="save" bundle="${bundle}"/></button>
+
+                            </form>
                         </td>
                     </c:if>
                     <c:if test="${user.userRole==riskControllerRole}">

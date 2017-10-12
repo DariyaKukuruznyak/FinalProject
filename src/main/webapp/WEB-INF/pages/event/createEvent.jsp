@@ -30,15 +30,18 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${tournaments}" var="tournament">
-                                    <tr>
-                                        <td><c:out value="${tournament.name}"/></td>
-                                        <td><c:out value="${tournament.beginningDate}"/></td>
-                                        <td>
-                                            <a href="?command=selectTournament&tournamentId=${tournament.id}">
-                                                <span class="glyphicon glyphicon-ok"></span> <fmt:message key="select"
-                                                                                                          bundle="${bundle}"/></a>
-                                        </td>
-                                    </tr>
+                                    <c:if test="${not empty tournament.participants}">
+                                        <tr>
+                                            <td><c:out value="${tournament.name}"/></td>
+                                            <td><c:out value="${tournament.beginningDate}"/></td>
+                                            <td>
+                                                <a href="?command=selectTournament&tournamentId=${tournament.id}">
+                                                    <span class="glyphicon glyphicon-ok"></span> <fmt:message
+                                                        key="select"
+                                                        bundle="${bundle}"/></a>
+                                            </td>
+                                        </tr>
+                                    </c:if>
                                 </c:forEach>
                                 </tbody>
                             </table>
