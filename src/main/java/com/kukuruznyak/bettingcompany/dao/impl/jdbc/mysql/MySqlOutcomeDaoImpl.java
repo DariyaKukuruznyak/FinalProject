@@ -26,7 +26,7 @@ public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements Out
     }
 
     @Override
-    protected Outcome fillModel(ResultSet resultSet){
+    protected Outcome fillModel(ResultSet resultSet) {
         try {
             return new OutcomeBuilder()
                     .buildId(resultSet.getLong(ID_COLUMN))
@@ -40,7 +40,7 @@ public class MySqlOutcomeDaoImpl extends AbstractDaoImpl<Outcome> implements Out
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Outcome outcome){
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Outcome outcome) {
         try {
             preparedStatement.setString(1, outcome.getName());
             preparedStatement.setDouble(2, outcome.getCoefficient());

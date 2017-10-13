@@ -19,8 +19,11 @@ import java.util.Map;
 
 import static com.kukuruznyak.bettingcompany.command.RequestAttributeConstants.COMMAND;
 
+/**
+ * Invoker runs the concrete commands
+ */
 public class Invoker {
-    private static Invoker instance;
+    private static volatile Invoker instance;
     private Map<String, Command> commandMap = new HashMap<>();
 
     public static Invoker getInstance() {

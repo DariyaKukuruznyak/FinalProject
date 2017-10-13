@@ -28,7 +28,7 @@ public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements Bet
         super(connection, BetItem.class.getSimpleName());
     }
 
-    public Collection<BetItem> getAllByBetId(Long id){
+    public Collection<BetItem> getAllByBetId(Long id) {
         return super.getAllByConstrain(
                 QUERIES.getString(currentModel + DELIMITER + SELECT_BY_BET_ID_QUERY),
                 String.valueOf(id));
@@ -41,17 +41,17 @@ public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements Bet
     }
 
     @Override
-    public BetItem getById(Long id){
+    public BetItem getById(Long id) {
         throw new PersistenceException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
     }
 
     @Override
-    public Collection<BetItem> getAll(){
+    public Collection<BetItem> getAll() {
         throw new PersistenceException(StringMessages.getMessage(StringMessages.UNEXPECTED_REQUEST));
     }
 
     @Override
-    protected BetItem fillModel(ResultSet resultSet){
+    protected BetItem fillModel(ResultSet resultSet) {
         BetItem betItem = new BetItem();
         try {
             betItem.setId(resultSet.getLong(ID_COLUMN));
@@ -67,7 +67,7 @@ public class MySqlBetItemDaoImpl extends AbstractDaoImpl<BetItem> implements Bet
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, BetItem betItem){
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, BetItem betItem) {
         try {
             preparedStatement.setString(1, betItem.getName());
             preparedStatement.setDouble(2, betItem.getCoefficient());

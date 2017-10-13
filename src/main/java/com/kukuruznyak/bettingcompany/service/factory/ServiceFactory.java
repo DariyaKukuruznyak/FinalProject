@@ -3,7 +3,7 @@ package com.kukuruznyak.bettingcompany.service.factory;
 import com.kukuruznyak.bettingcompany.service.*;
 
 public class ServiceFactory {
-    private static ServiceFactory instance;
+    private static volatile ServiceFactory instance;
 
     public static ServiceFactory getInstance() {
         if (instance == null) {
@@ -46,6 +46,7 @@ public class ServiceFactory {
     public MarketService getMarketService() {
         return MarketService.getInstance();
     }
+
     public OutcomeService getOutcomeService() {
         return OutcomeService.getInstance();
     }

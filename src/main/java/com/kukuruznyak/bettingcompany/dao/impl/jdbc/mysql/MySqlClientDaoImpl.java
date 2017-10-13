@@ -20,7 +20,7 @@ public class MySqlClientDaoImpl extends AbstractDaoImpl<Client> implements Clien
     }
 
     @Override
-    protected Client fillModel(ResultSet resultSet){
+    protected Client fillModel(ResultSet resultSet) {
         Client client = new Client(new MySqlUserDaoImpl(connection).fillModel(resultSet));
         try {
             client.setBalance(resultSet.getBigDecimal(BALANCE_COLUMN));

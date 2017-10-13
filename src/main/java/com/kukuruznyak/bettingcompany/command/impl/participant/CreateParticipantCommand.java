@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Command creates a new participant
+ */
 public class CreateParticipantCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {

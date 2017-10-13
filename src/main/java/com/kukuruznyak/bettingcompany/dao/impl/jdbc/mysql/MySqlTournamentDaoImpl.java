@@ -1,6 +1,5 @@
 package com.kukuruznyak.bettingcompany.dao.impl.jdbc.mysql;
 
-import com.kukuruznyak.bettingcompany.dao.ParticipantDao;
 import com.kukuruznyak.bettingcompany.dao.TournamentDao;
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
@@ -39,14 +38,14 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     }
 
     @Override
-    public Collection<Tournament> getTournamentsByParticipant(Long id){
+    public Collection<Tournament> getTournamentsByParticipant(Long id) {
         return super.getAllByConstrain(
                 QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ALL_TOURNAMENT_BY_PARTICIPANTS_QUERY),
                 String.valueOf(id));
     }
 
     @Override
-    public Collection<Tournament> getActiveTournaments(){
+    public Collection<Tournament> getActiveTournaments() {
         return super.getAllByConstrain(
                 QUERIES.getString(currentModel + DELIMITER + ALL_ACTIVE_TOURNAMENTS_QUERY),
                 String.valueOf(new java.sql.Date(new Date().getTime())));
@@ -67,7 +66,7 @@ public class MySqlTournamentDaoImpl extends AbstractDaoImpl<Tournament> implemen
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Tournament tournament){
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Tournament tournament) {
         try {
             preparedStatement.setString(1, tournament.getName());
             preparedStatement.setDate(2, new java.sql.Date(tournament.getBeginningDate().getTime()));

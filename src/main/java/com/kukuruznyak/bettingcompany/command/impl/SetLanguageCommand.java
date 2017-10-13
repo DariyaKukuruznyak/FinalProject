@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import static com.kukuruznyak.bettingcompany.util.StringMessages.ENGLISH_LOCALE;
 import static com.kukuruznyak.bettingcompany.util.StringMessages.RUSSIAN_LOCALE;
 
+/**
+ * Command for setting a language (Russian or English)
+ */
 public class SetLanguageCommand extends Command {
 
     @Override

@@ -1,12 +1,14 @@
 package com.kukuruznyak.bettingcompany.filter;
 
 import com.kukuruznyak.bettingcompany.dao.impl.AbstractDaoImpl;
-import com.kukuruznyak.bettingcompany.util.StringMessages;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Filter for encoding of request
+ */
 public class CharsetFilter implements Filter {
     protected static final Logger LOGGER = Logger.getLogger(AbstractDaoImpl.class);
     private String encoding;

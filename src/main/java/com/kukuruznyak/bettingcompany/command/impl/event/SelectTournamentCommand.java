@@ -3,11 +3,13 @@ package com.kukuruznyak.bettingcompany.command.impl.event;
 import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.tournament.Tournament;
 import com.kukuruznyak.bettingcompany.service.TournamentService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command for selecting tournament during creation of event
+ */
 public class SelectTournamentCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

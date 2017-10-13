@@ -2,6 +2,7 @@ package com.kukuruznyak.bettingcompany.entity.event;
 
 import com.kukuruznyak.bettingcompany.entity.Model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -56,7 +57,7 @@ public class Market extends Model {
 
     public void addOutcome(Outcome outcome) {
         if (this.outcomes == null) {
-            this.outcomes = new HashSet<>();
+            this.outcomes = new ArrayList<>();
         }
         this.outcomes.add(outcome);
     }

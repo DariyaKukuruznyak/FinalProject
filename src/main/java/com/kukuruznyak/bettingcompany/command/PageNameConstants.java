@@ -1,5 +1,8 @@
 package com.kukuruznyak.bettingcompany.command;
 
+/**
+ * Constants for name of  jsp pages
+ */
 public interface PageNameConstants {
     String HOME_PAGE = "homePage";
     String BETS_PAGE = "betsPage";

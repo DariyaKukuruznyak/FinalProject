@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 
+/**
+ * Command removes a current session
+ */
 public class LogoutCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

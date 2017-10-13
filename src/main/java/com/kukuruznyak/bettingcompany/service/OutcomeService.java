@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class OutcomeService extends AbstractService {
-    private static OutcomeService instance;
+    private static volatile OutcomeService instance;
 
     public static OutcomeService getInstance() {
         if (instance == null) {

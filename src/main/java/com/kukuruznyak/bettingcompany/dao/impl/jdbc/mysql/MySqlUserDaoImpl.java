@@ -35,7 +35,7 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    protected User fillModel(ResultSet resultSet){
+    protected User fillModel(ResultSet resultSet) {
         try {
             return new UserBuilder()
                     .buildId(resultSet.getLong(ID_COLUMN))
@@ -68,14 +68,14 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public Collection<User> getUsersByRole(String role){
+    public Collection<User> getUsersByRole(String role) {
         return getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_BY_ROLE_QUERY), role);
     }
 
     public User getByLogin(String login) {
         User user = null;
-            try (PreparedStatement preparedStatement = connection.
-                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_LOGIN_QUERY))){
+        try (PreparedStatement preparedStatement = connection.
+                prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_BY_LOGIN_QUERY))) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -94,8 +94,8 @@ public class MySqlUserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
     @Override
     public UserRole getUserRoleByLogin(String login) {
         UserRole userRole = null;
-            try ( PreparedStatement preparedStatement = connection.
-                    prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_ROLE_BY_LOGIN_QUERY))){
+        try (PreparedStatement preparedStatement = connection.
+                prepareStatement(QUERIES.getString(currentModel + DELIMITER + SELECT_ROLE_BY_LOGIN_QUERY))) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

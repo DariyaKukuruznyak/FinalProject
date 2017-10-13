@@ -3,13 +3,15 @@ package com.kukuruznyak.bettingcompany.entity.user;
 import com.kukuruznyak.bettingcompany.entity.bet.Bet;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 public class Client extends User implements RegistrationBonus {
     private int maxBet;
     private BigDecimal balance = REGISTRATION_BONUS;
-    private Set<Bet> bets;
+    private Collection<Bet> bets;
     private String description;
 
     public Client() {
@@ -35,13 +37,13 @@ public class Client extends User implements RegistrationBonus {
         this.balance = balance;
     }
 
-    public Set<Bet> getBets() {
+    public Collection<Bet> getBets() {
         return bets;
     }
 
     public void addBet(Bet bet) {
         if (this.bets == null) {
-            this.bets = new HashSet<Bet>();
+            this.bets = new LinkedList<>();
         }
         this.bets.add(bet);
     }

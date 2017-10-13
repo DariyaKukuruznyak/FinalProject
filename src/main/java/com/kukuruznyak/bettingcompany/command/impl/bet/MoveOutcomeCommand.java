@@ -10,6 +10,9 @@ import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Command for collecting outcomes during a combination of bets
+ */
 public class MoveOutcomeCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

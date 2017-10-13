@@ -52,9 +52,9 @@
             </fieldset>
             <c:if test="${editedUser.userRole==clientRole}">
                 <fieldset class="form-group">
-                    <label for="wallet"><fmt:message key="wallet" bundle="${bundle}"/></label>
-                    <input class="form-control" id="wallet" name="wallet"
-                           value="<c:out value='${editedUser.wallet}'/>" disabled>
+                    <label for="balance"><fmt:message key="balance" bundle="${bundle}"/></label>
+                    <input class="form-control" id="balance" name="balance"
+                           value="<c:out value='${editedUser.balance}'/>" disabled>
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="maxBet"><fmt:message key="max_bet" bundle="${bundle}"/></label>

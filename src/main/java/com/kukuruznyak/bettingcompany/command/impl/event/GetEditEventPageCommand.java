@@ -4,12 +4,14 @@ import com.kukuruznyak.bettingcompany.command.Command;
 import com.kukuruznyak.bettingcompany.entity.event.Event;
 import com.kukuruznyak.bettingcompany.entity.event.EventStatus;
 import com.kukuruznyak.bettingcompany.service.EventService;
-import com.kukuruznyak.bettingcompany.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Command returns a page for editing a event
+ */
 public class GetEditEventPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Command for changing coefficient of outcome by bookmaker (during running a event)
+ */
 public class ApplyCoefficientCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

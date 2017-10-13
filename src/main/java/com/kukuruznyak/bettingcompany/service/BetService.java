@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BetService extends AbstractService {
-    private static BetService instance;
+    private static volatile BetService instance;
 
     public static BetService getInstance() {
         if (instance == null) {

@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Command checks user in
+ */
 public class SignInCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -32,11 +35,11 @@ public class SignInCommand extends Command {
             } else {
                 currentSession.setAttribute(USER, user);
             }
-            LOGGER.info(StringMessages.getMessage(StringMessages.USER_SIGNED_IN) + login);
             currentSession.setAttribute(RequestAttributeConstants.ADMIN_ROLE, UserRole.ADMINISTRATOR);
             currentSession.setAttribute(BOOKMAKER_ROLE, UserRole.BOOKMAKER);
             currentSession.setAttribute(RISK_CONTROLLER_ROLE, UserRole.RISK_CONTROLLER);
             currentSession.setAttribute(CLIENT_ROLE, UserRole.CLIENT);
+            LOGGER.info(StringMessages.getMessage(StringMessages.USER_SIGNED_IN) + user.getFullName());
             return pagesResourceBundle.getString(HOME_PAGE);
         } else {
             currentSession.setAttribute(ERROR_MESSAGE, StringMessages.getMessage(StringMessages.INCORRECT_INPUT));

@@ -6,6 +6,9 @@ import com.kukuruznyak.bettingcompany.service.ParticipantService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command removes a selected participant
+ */
 public class DeleteParticipantCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

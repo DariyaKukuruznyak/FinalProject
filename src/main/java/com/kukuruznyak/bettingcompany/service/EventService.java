@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class EventService extends AbstractService {
-    private static EventService instance;
+    private static volatile EventService instance;
     private BetService betService = ServiceFactory.getInstance().getBetService();
 
     public static EventService getInstance() {

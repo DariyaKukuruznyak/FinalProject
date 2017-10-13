@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 
+/**
+ * Command for creation a new tournament
+ */
 public class CreateTournamentCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

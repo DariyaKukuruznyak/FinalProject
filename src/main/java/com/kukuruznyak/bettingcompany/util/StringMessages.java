@@ -10,7 +10,7 @@ public class StringMessages {
     public static final String ACCESS_DENIED = "access_denied";
     public static final String EMPTY_BASKET = "empty_basket";
     public static final String BET_PLACED = "bet_placed";
-    public static final String BET_NOT_PLACED= "bet_not_placed";
+    public static final String BET_NOT_PLACED = "bet_not_placed";
     public static final String UNEXPECTED_REQUEST = "unexpected_request";
     public static final String FORBIDDEN_COEFFICIENT = "forbidden_coefficient";
     public static final String COEFFICIENT_CHANGED_SUCCESSFULLY = "coefficient_changed_successfully";

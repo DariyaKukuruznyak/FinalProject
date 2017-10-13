@@ -6,9 +6,6 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class Participant extends Model {
-    /**
-     * unique
-     */
     private String name;
     private int age;
     private int weight;

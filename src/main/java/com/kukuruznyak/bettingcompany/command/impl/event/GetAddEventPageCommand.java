@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 
+/**
+ * Command returns a page for creating a event
+ */
 public class GetAddEventPageCommand extends Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response)throws ApplicationException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ApplicationException {
         HttpSession currentSession = request.getSession();
         User authorizedUser = (User) currentSession.getAttribute(USER);
         if (!authorizedUser.getUserRole().equals(UserRole.BOOKMAKER)) {

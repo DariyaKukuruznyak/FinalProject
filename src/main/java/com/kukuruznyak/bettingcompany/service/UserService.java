@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class UserService extends AbstractService {
-    private static UserService instance;
+    private static volatile UserService instance;
 
     public static UserService getInstance() {
         if (instance == null) {

@@ -7,6 +7,9 @@ import com.kukuruznyak.bettingcompany.service.BetService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command for editing a description of bet
+ */
 public class EditBetDescriptionCommand extends Command {
 
     @Override

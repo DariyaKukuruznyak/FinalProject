@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class ParticipantService extends AbstractService {
-    private static ParticipantService instance;
+    private static volatile ParticipantService instance;
 
     public static ParticipantService getInstance() {
         if (instance == null) {
@@ -88,6 +88,7 @@ public class ParticipantService extends AbstractService {
             throw new ServiceException(e);
         }
     }
+
     public Collection<Participant> getByTournamentId(Long tournamentId) {
         try {
             try (Connection connection = dataSource.getConnection()) {
@@ -104,6 +105,7 @@ public class ParticipantService extends AbstractService {
             throw new ServiceException(e);
         }
     }
+
     public boolean isValidParticipant(Participant participant) {
         String pattern = "([A-Za-zА-Яа-я'ЇїІі ]{1,20})";
         if (!participant.getName().matches(pattern)) {

@@ -1,5 +1,8 @@
 package com.kukuruznyak.bettingcompany.command;
 
+/**
+ * Constants for parameters and attributes of request
+ */
 public interface RequestAttributeConstants {
     String ACTIVE_EVENTS = "activeEvents";
     String SELECTED_EVENTS = "selectedEvents";

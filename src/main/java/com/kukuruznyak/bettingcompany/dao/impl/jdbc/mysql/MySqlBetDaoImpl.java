@@ -7,7 +7,6 @@ import com.kukuruznyak.bettingcompany.entity.bet.ResultOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.TypeOfBet;
 import com.kukuruznyak.bettingcompany.entity.bet.builder.BetBuilder;
 import com.kukuruznyak.bettingcompany.exception.PersistenceException;
-import com.kukuruznyak.bettingcompany.util.StringMessages;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,11 +27,11 @@ public class MySqlBetDaoImpl extends AbstractDaoImpl<Bet> implements BetDao {
 
     private static final String SELECT_ALL_BY_CLIENT_ID_QUERY = "selectByClientId";
     private static final String SELECT_ALL_BY_OUTCOME_ID_QUERY = "selectByOutcomeId";
-    private static final String ROWS_NUMBER_QUERY = "count";
 
     public MySqlBetDaoImpl(Connection connection) {
         super(connection, Bet.class.getSimpleName());
     }
+
     @Override
     public Collection<Bet> getByClientId(Long clientId) {
         return getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + SELECT_ALL_BY_CLIENT_ID_QUERY),

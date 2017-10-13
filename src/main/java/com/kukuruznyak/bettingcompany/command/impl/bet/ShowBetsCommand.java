@@ -15,6 +15,9 @@ import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ * Command returns a page of bets-list by given the user role
+ */
 public class ShowBetsCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

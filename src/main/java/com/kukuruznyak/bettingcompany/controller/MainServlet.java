@@ -15,8 +15,10 @@ import java.util.ResourceBundle;
 import static com.kukuruznyak.bettingcompany.command.PageNameConstants.ERROR_PAGE;
 import static com.kukuruznyak.bettingcompany.command.RequestAttributeConstants.ERROR_MESSAGE;
 import static com.kukuruznyak.bettingcompany.command.RequestAttributeConstants.SUCCESS_MESSAGE;
-import static com.kukuruznyak.bettingcompany.util.StringMessages.NO_PAGE_IDENTIFIED;
 
+/**
+ * Main servlet
+ */
 public class MainServlet extends HttpServlet {
     private static Logger LOGGER = Logger.getLogger(MainServlet.class);
     private static final String PAGE_RESOURCE_BUNDLE = "pages";

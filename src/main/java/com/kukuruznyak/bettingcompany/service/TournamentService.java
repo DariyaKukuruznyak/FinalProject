@@ -18,7 +18,7 @@ import java.util.Collection;
 import static com.kukuruznyak.bettingcompany.command.RequestAttributeConstants.*;
 
 public class TournamentService extends AbstractService {
-    private static TournamentService instance;
+    private static volatile TournamentService instance;
 
     public static TournamentService getInstance() {
         if (instance == null) {

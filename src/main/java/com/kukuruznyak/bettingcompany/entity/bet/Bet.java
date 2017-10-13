@@ -4,6 +4,7 @@ import com.kukuruznyak.bettingcompany.entity.Model;
 import com.kukuruznyak.bettingcompany.entity.user.Client;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -80,7 +81,7 @@ public class Bet extends Model {
 
     public void addItems(BetItem item) {
         if (this.items == null) {
-            this.items = new HashSet<>();
+            this.items = new ArrayList<>();
         }
         this.items.add(item);
     }

@@ -32,7 +32,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     }
 
     @Override
-    public Collection<Event> getAllByBookmakerId(Long bookmakerId){
+    public Collection<Event> getAllByBookmakerId(Long bookmakerId) {
         Collection<Event> events = super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER +
                         GET_EVENTS_BY_BOOKMAKER_ID_QUERY),
                 String.valueOf(bookmakerId));
@@ -52,7 +52,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     }
 
     @Override
-    protected Event fillModel(ResultSet resultSet){
+    protected Event fillModel(ResultSet resultSet) {
         try {
             return new EventBuilder()
                     .buildId(resultSet.getLong(ID_COLUMN))
@@ -70,7 +70,7 @@ public class MySqlEventDaoImpl extends AbstractDaoImpl<Event> implements EventDa
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Event event){
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Event event) {
         try {
             preparedStatement.setDate(1, new java.sql.Date(event.getCreationDate().getTime()));
             preparedStatement.setLong(2, event.getTournament().getId());

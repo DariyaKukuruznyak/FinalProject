@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class ClientService extends AbstractService {
-    private static ClientService instance;
+    private static volatile ClientService instance;
 
     public static ClientService getInstance() {
         if (instance == null) {

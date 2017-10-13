@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Command creates a new event
+ */
 public class CreateEventCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

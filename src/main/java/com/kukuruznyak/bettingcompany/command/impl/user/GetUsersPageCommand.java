@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
-
+/**
+ * Command returns a page of users list
+ */
 public class GetUsersPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

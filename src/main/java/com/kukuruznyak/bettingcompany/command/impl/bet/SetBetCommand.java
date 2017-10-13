@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.Set;
 
+/**
+ * Command for placing a bet
+ */
 public class SetBetCommand extends Command {
 
     @Override

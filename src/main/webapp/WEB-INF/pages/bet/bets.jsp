@@ -60,7 +60,7 @@
                         </td>
                     </c:if>
                     <c:if test="${user.userRole==riskControllerRole}">
-                        <td><a class="btn btn-dangerous" href="?command=cancelBet&betId=${bet.id}">
+                        <td><a class="btn btn-dangerous">
                             <fmt:message key="cancel" bundle="${bundle}"/>
                         </a></td>
                     </c:if>

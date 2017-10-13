@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Command for creation a new user
+ */
 public class CreateUserCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

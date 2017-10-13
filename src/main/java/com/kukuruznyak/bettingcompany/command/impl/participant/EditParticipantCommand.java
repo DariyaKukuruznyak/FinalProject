@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Command for editing a participant
+ */
 public class EditParticipantCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

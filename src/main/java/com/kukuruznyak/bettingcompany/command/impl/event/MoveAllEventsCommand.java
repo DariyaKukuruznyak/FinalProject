@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Command for selecting or clearing select of events on home page
+ */
 public class MoveAllEventsCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -21,6 +24,6 @@ public class MoveAllEventsCommand extends Command {
             currentSession.setAttribute(SELECTED_EVENTS, eventService.getEvensByStatus(EventStatus.INPROGRESS));
         }
        return new DefaultCommand().execute(request, response);
-//        return pagesResourceBundle.getString(HOME_PAGE);
+
     }
 }

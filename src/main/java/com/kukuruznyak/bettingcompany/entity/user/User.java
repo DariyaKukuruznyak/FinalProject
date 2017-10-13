@@ -3,6 +3,7 @@ package com.kukuruznyak.bettingcompany.entity.user;
 import com.kukuruznyak.bettingcompany.entity.Model;
 
 import java.util.Date;
+import java.util.LinkedList;
 
 public class User extends Model {
     protected String firstName;
@@ -94,6 +95,34 @@ public class User extends Model {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (!getFirstName().equals(user.getFirstName())) return false;
+        if (!getLastName().equals(user.getLastName())) return false;
+        if (!getEmail().equals(user.getEmail())) return false;
+        if (!getLogin().equals(user.getLogin())) return false;
+        if (!getPassword().equals(user.getPassword())) return false;
+        if (!getDateOfRegistration().equals(user.getDateOfRegistration())) return false;
+        return getUserRole() == user.getUserRole();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getFirstName().hashCode();
+        result = 31 * result + getLastName().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getLogin().hashCode();
+        result = 31 * result + getPassword().hashCode();
+        result = 31 * result + getDateOfRegistration().hashCode();
+        result = 31 * result + getUserRole().hashCode();
+        return result;
     }
 
     @Override

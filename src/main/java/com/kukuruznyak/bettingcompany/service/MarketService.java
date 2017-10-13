@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class MarketService extends AbstractService {
-    private static MarketService instance;
+    private static volatile MarketService instance;
 
     public static MarketService getInstance() {
         if (instance == null) {

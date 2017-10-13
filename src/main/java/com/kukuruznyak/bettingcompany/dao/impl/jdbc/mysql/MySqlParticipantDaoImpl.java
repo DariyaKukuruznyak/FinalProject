@@ -43,7 +43,7 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
-    public Collection<Participant> getParticipantsByTournament(Long id){
+    public Collection<Participant> getParticipantsByTournament(Long id) {
         return super.getAllByConstrain(
                 QUERIES.getString(LINKED_TABLE_QUERY + DELIMITER + ALL_PARTICIPANTS_BY_TOURNAMENT_QUERY),
                 String.valueOf(id));
@@ -61,7 +61,7 @@ public class MySqlParticipantDaoImpl extends AbstractDaoImpl<Participant> implem
     }
 
     @Override
-    protected Participant fillModel(ResultSet resultSet){
+    protected Participant fillModel(ResultSet resultSet) {
         try {
             return new ParticipantBuilder()
                     .buildId(resultSet.getLong(ID_COLUMN))

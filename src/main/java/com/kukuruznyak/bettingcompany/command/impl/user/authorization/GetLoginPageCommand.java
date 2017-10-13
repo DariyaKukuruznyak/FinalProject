@@ -5,6 +5,9 @@ import com.kukuruznyak.bettingcompany.command.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command returns a login page
+ */
 public class GetLoginPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

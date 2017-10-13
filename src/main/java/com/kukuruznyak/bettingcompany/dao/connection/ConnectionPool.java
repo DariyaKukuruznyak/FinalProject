@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Pool of connection to Data base
+ */
 public class ConnectionPool {
-    private static ConnectionPool instance;
+    private static volatile ConnectionPool instance;
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
     private static final String JDBC_PROPERTIES = "jdbc.properties";

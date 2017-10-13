@@ -25,7 +25,7 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
     }
 
     @Override
-    protected Market fillModel(ResultSet resultSet){
+    protected Market fillModel(ResultSet resultSet) {
         Market market = new Market();
         try {
             market.setId(resultSet.getLong(ID_COLUMN));
@@ -39,7 +39,7 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
     }
 
     @Override
-    protected void fillPreparedStatement(PreparedStatement preparedStatement, Market market){
+    protected void fillPreparedStatement(PreparedStatement preparedStatement, Market market) {
         try {
             preparedStatement.setString(1, market.getName().toString());
             preparedStatement.setLong(2, market.getEventId());
@@ -49,14 +49,14 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
     }
 
     @Override
-    public Market getById(Long id){
+    public Market getById(Long id) {
         Market market = super.getById(id);
         market.setOutcomes(new MySqlOutcomeDaoImpl(connection).getAllByMarketId(market.getId()));
         return market;
     }
 
     @Override
-    public Collection<Market> getAll(){
+    public Collection<Market> getAll() {
         Collection<Market> markets = super.getAll();
         OutcomeDao outcomeDao = new MySqlOutcomeDaoImpl(connection);
         for (Market market : markets) {
@@ -65,7 +65,7 @@ public class MySqlMarketDaoImpl extends AbstractDaoImpl<Market> implements Marke
         return markets;
     }
 
-    public Collection<Market> getAllByEventId(Long eventId){
+    public Collection<Market> getAllByEventId(Long eventId) {
         return super.getAllByConstrain(QUERIES.getString(currentModel + DELIMITER + GET_MARKETS_BY_EVENT_ID_QUERY),
                 String.valueOf(eventId));
     }
